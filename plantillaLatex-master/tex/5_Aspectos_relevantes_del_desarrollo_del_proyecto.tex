@@ -1,7 +1,22 @@
 \capitulo{5}{Aspectos relevantes del desarrollo del proyecto}
 
-Este apartado pretende recoger los aspectos más interesantes del desarrollo del proyecto, comentados por los autores del mismo.
-Debe incluir desde la exposición del ciclo de vida utilizado, hasta los detalles de mayor relevancia de las fases de análisis, diseño e implementación.
-Se busca que no sea una mera operación de copiar y pegar diagramas y extractos del código fuente, sino que realmente se justifiquen los caminos de solución que se han tomado, especialmente aquellos que no sean triviales.
-Puede ser el lugar más adecuado para documentar los aspectos más interesantes del diseño y de la implementación, con un mayor hincapié en aspectos tales como el tipo de arquitectura elegido, los índices de las tablas de la base de datos, normalización y desnormalización, distribución en ficheros3, reglas de negocio dentro de las bases de datos (EDVHV GH GDWRV DFWLYDV), aspectos de desarrollo relacionados con el WWW...
-Este apartado, debe convertirse en el resumen de la experiencia práctica del proyecto, y por sí mismo justifica que la memoria se convierta en un documento útil, fuente de referencia para los autores, los tutores y futuros alumnos.
+En esta sección trataré de explicar aspectos más técnicos sobre el proyecto con el fin de entenderlo y poder continuar con su desarrollo en un posible futuro.
+
+Las herramientas que utilizaré requieren de una instalación y configuración 
+previa. Para ello voy a  tratar de ilustrar el cómo hacerlo.
+
+\section{Instalación y configuración de GWT:}
+
+Para poder trabajar con GWT debo descargar el SDK de GWT proporcionado en la página web oficial. Los requisitos previos para crear un aplicación web con Google Web Toolkit son básicamente dos: tener intalada la SDK de Java en su versión 1.6 o cualquiera superior a esta y tener instalado tambien Apache Ant o en su defecto Apache Maven.
+
+Es fácil saber si cumplo ambos requisitos. Una vez descargado el SDK desde la página oficial,(poner página oficial??) accedo a la carpeta desde la consola de comandos, y ahí intento ejecutar el comando "webAppCreator". En caso de que la consola me devuelva un error en el que indica que Java no ha podido reconocerlo como un comando interno, quiere decir que no cumplo eso requisitos previos.
+
+(Explicar como descargar e intalar el SDK de JAVA? y Apache Ant?? Confirurar el path del sistema, añadir una nueva variable etc.)
+
+Posteriormente puedo proceder de varias formas y con diferentes plataformas. En mi caso he elegido la plataforma Eclipse sobre la que trabajaré en  su versión denominada Luna. 
+
+GWT se instala en Eclipse como un "Plug-in" y para ello debo ir, dentro de Eclipse a añadir un nuevo software. (sigo? explico mas detalladamente?)
+
+Para añadir un nuevo proyecto a Eclipse tengo que importarlo desde Maven, puedo hacerlo añadiendo un proyecto de Maven existente. Una vez seleccionado el proyecto, hay configurar la ejecución del proyecto. Debemos ir a "Run Configuration" y seleccionar el constructor de Maven. Una vez ahí, puedo añadirle un nombre específico y seleccionando el directorio base el proyecto a ejecutar y por último el "Goal", o meta debe ser "gwt:run", ya que en caso contrario no se producirá una ejecución correcta.
+
+Antes de la ejecución se debe instalar el constructor de Maven desde el debuguer, sino puede dar algunos errores. Una vez finalizada la instalación, podremos ejecutar un proyecto con GWT apareciendo así el modo desarrollador y ahí se podrá lanzar la aplicación en el buscador por defecto.
