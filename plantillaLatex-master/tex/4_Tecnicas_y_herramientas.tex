@@ -1,13 +1,32 @@
 \capitulo{4}{Técnicas y herramientas}
 
-Dentro de las diferentes herramientas que utilizaré para la realización de este trabajo, la más esencial es aquella con la cual, realizaré la conversión a JavaScript.
-
-Es por ello esencial hacer una buena elección comparando y analizando la diferentes posibilidades a elegir.
+Dentro de las diferentes herramientas que utilizaré para la realización de este trabajo, la más esencial es aquella con la cual, realizaré la conversión a JavaScript. Es por ello esencial hacer una buena elección comparando y analizando la diferentes posibilidades a elegir.
 
 Como principales herramientas para la conversión de Java a JavaScript he podido encontrar GWT (Google Web Toolkit), JSweet y DukeScript aunque también hay otras de las que hablaré más adelante. Comenzaré por GWT.
 
-Google Web Toolkit es ampliamente conocido por los desarrolladores web entre otras cosas gracias a ser de código abierto y completamente gratuito. 
+\section{GWT:}
+
+Google Web Toolkit es un framework ampliamente conocido por los desarrolladores web, entre otras cosas, gracias a ser de código abierto, de su gran utilidad y calidad además de ser completamente gratuito \footnote{http://www.gwtproject.org/}.
 Contiene una SDK que proporciona un conjunto de APIs de Java que permiten el desarrollo de aplicaciones AJAX escritas en Java. Posteriormente compila el código en JavaScript ya optimizado dando robustez a la aplicación web.
 
-Dentro de las ventajas con las que cuenta esta herramienta reparo en que no hace falta compilar el código JavaScript para poder verlo en el buscador y puedo editar y refrescar la página para ver los cambios. (Faltan cosas)
+Básicamente, permite a los desarrolladores compilar código JAVA en archivos JavaScript ya optimizados de forma autónoma, proporcionando así todas las ventajas de las aplicaciones escritas en este último lenguaje. 
 
+GWT permite compartir código escrito en Java en la parte del servidor con código JavaScript en la parte del cliente lo que nos lleva pensar que la aplicación resultante será fiel a la idea inicial del Thoth. 
+
+
+\section{JSweet:}
+
+JSweet\footnote{http://http://www.jsweet.org/} es básicamente un <<transpiler>> es decir un compilador que traduce un código en un lenguaje a otro lenguaje. Al igual que GWT esta orientado a objetos, que proporciona una programación segura gracias a que usa un sistema de <<tipado>> Java.
+
+La diferencia fundamental con GWT es que al ser un <<transpiler>> hace una traducción directa entre Java y JavaScript posicionando el código a un lado o al otro del Cliente y el servidor. Esto, claramente, tiene sus ventajas y sus inconvenientes dependiendo del uso que se le quiera dar.
+
+\section{DukeScript:}
+
+Se define así mismo como una tecnología para la creación de aplicaciones Java <<multiplataforma>> que internamente hacen uso de tecnologías HTML5 y JavaScript para el renderizado.\footnote{https://dukescript.com/} 
+Al igual que en los casos anteriores <<sólo>> se necesita desarrollar la aplicación en Java para después transformarla. Y digo <<sólo>> porque eso es en la teoría ya que como hemos podido ver, y en parte es lógico, la traducción no suele requerir, por lo menos, realizar ajustes del lenguaje para un buen funcionamiento.
+
+DukeScript se centra sobre todo en el desarrollo de aplicaciones <<multiplataforma>> llevadas a cabo en Java, más que en el paso de Java a JavaScript. Da la posibilidad de que alguien con conocimientos, digamoslo así, en Java pueda llevar a cabo un proyecto en lenguajes pensados para aplicaciones móviles o web. Esto no quita que se puedan realizar aplicaciones de escritorio con JavaScript.
+
+\section{Vaadin:}
+
+Vaadin en un <<framework>> de Java de código abierto, para crear aplicaciones web \footnote{https://vaadin.com/home}. Se programa en Java o cualquier otro lenguaje de JVM.

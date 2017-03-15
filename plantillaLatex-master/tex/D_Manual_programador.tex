@@ -2,9 +2,42 @@
 
 \section{Introducción}
 
+
 \section{Estructura de directorios}
 
 \section{Manual del programador}
+
+
+\subsection{Manual para GWT:}
+
+Para poder trabajar con GWT debo descargar el SDK de GWT proporcionado en la página web oficial. Los requisitos previos para crear un aplicación web con Google Web Toolkit son básicamente dos: tener instalada la SDK de Java en su versión 1.6 o cualquiera superior a esta y tener instalado también Apache Ant o en su defecto Apache Maven.
+
+Es fácil saber si cumplo ambos requisitos. Una vez descargado el SDK de GWT desde la página oficial \footnote{http://www.oracle.com/technetwork/java/javase/downloads/index.html}, accedo a la carpeta desde la consola de comandos, y ahí intento ejecutar el comando <<webAppCreator>>. En caso de que la consola me devuelva un error en el que indica que Java no ha podido reconocerlo como un comando interno, quiere decir que no cumplo esos requisitos previos.
+
+Posteriormente puedo proceder de varias formas y con diferentes plataformas.
+En mi caso he elegido la plataforma Eclipse sobre la que trabajaré en su
+versión 4.4 que es también denominada  con el nombre de Luna.
+
+GWT se instala en Eclipse como un <<plugin>> y para ello debo ir, dentro de Eclipse a <<añadir un nuevo software>> donde encontraremos una ventana donde escribir la dirección del software a instalar. Para mi versión (llamada Luna) la URL es <<https://developers.google.com/eclipse/docs/install-eclipse-4.4>> que una vez añadida mostrará los paquetes a instalar. Estos deben ser Google Plugin for Eclipse y GWT Designed for GPE, y una vez seleccionados se procederá a su instalación normal. Después de reiniciar procedo a referenciar el SDK de GWT yendo a <<preferencias>>, <<Google>> y dentro de <<Web Toolkit>> añadir el SDK que descargué anteriormente. 
+
+Para añadir un nuevo proyecto a Eclipse tengo que importarlo desde Maven, puedo hacerlo añadiendo un proyecto de Maven existente. Una vez seleccionado el proyecto, hay que configurar su ejecución. Debemos ir a <<Run Configuration>> y seleccionar el constructor de Maven. Una vez ahí, puedo añadirle un nombre específico y seleccionando el directorio base el proyecto a ejecutar y por último el <<Goal>>, o meta debe ser <<gwt:run>>, ya que en caso contrario no se producirá una ejecución correcta.
+
+Antes de la ejecución se debe instalar el constructor de Maven desde el debuguer, sino puede dar algunos errores. Una vez finalizada la instalación, podremos ejecutar un proyecto con GWT apareciendo así el modo desarrollador y ahí se podrá lanzar la aplicación en el buscador por defecto.
+
+El <<plugin>> de GWT es sencillo de utilizar y solo con hacer click en <<New Web Application Project>> aparecerá un <<wizard>> en el cual hay que introducir el nombre del proyecto y el paquete principal. Se recomienda desmarcar <<Use Google App Engine>> ya que además de que no nos interesa, puede que nos dé algún error. Hecho esto se creará un proyecto automáticamente en forma de ejemplo, con un paquete cliente, otro servidor y uno compartido.
+
+
+(05/03/2017)
+Los proyectos en GWT se componen de una parte cliente y otra servidor. He creado un proyecto con sólo la parte del cliente, la cual es la más importante. En el paquete <<src/client>> he incluido la clase principal que llamará a las otras. En realidad no se si esto es correcto al cien por cien.
+Solución del error del  <<prefuse>> es descargando de la página oficial \footnote{http://prefuse.org/} el proyecto, incluyo el paquete prefuse y añado, desde <<Java Build Path>> la librería  <<lucene>> porque es necesaria para algunas clases del paquete. Inicialmente muestra unos errores del tipo <<did you forget to inherit a required module?>> referente a que dentro del proyecto, la clase con extensión .gwt.xml no incluye algunas de las rutas de los recursos que utilizo. No estiendo muy bien el error. (continuar con la explicación)
+
+\subsection{Pruebas realizadas en la semana 5:}
+
+Una vez nos dimos cuenta de que el fallo de tratar de hacer la aplicación en la parte del servidor era que GWT no reconocía algunas de las librerías claves, tanto en la parte visual como en el núcleo de la aplicación, decidimos buscar otros caminos alternativos. 
+
+El funcionamiento de GWT consiste en traducir a <<JavaScript>> la parte del cliente y la compartida. En consecuencia decidimos hacer pruebas en las que las partes mas fundamentales del núcleo se encontrasen en el lado del servidor. De esta forma cuando el cliente necesitase hacer algún uso de métodos con librerías no reconocidas por GWT, simplemente llamase al servidor ya que este podría soportar dichos métodos. 
+
+En los primeros intentos nos dimos cuenta de que estas llamadas no se podían hacer de una forma simple, ya que la comunicación entre cliente y servidor no funcionaba y no obteníamos los resultados que esperábamos. Aún así seguimos haciendo pruebas para asegurarnos, metiendo dentro del paquete <<compartido>> las partes del núcleo mas cercanas a lo que nosotros consideramos la vista. El problema seguía siendo esa comunicación. Interpretaba como del lado del cliente lo que nosotros queríamos que formara parte del servidor, dando errores debido a que GWT no trabaja con esas librerías.
 
 \section{Compilación, instalación y ejecución del proyecto}
 
