@@ -54,7 +54,53 @@ Por lo tanto como tareas para este sprint:
 Muy a mi pesar, en el <<milestone>> de esta semana, aunque he pasado cada tarea al estado de realizada o <<done>> no las he cerrado hasta darnos cuenta al final del sprint, es por ello que el <<burndown>> queda de esta manera.
 
 
-\subsection{Sprint 2 (22/2/2017 - 1/3/2017)}
+\subsection{Sprint 3 (22/2/2017 - 1/3/2017)}
+
+Ya en la cuarta semana se hace un intento más completo para traducir la aplicación. Como pudimos comprobar en la semana pasada, GWT no traducía las librerías de la parte visual de Thoth. Es por ello decidimos hacer un ejemplo de forma manual que consiste en programar parte de la vista que esta asociada a las partes más relevantes del núcleo
+
+Por ejemplo, nos centramos en hacer una prueba con la gramática, que esta dentro del núcleo, creando una pantalla con un <<text label>> para comprobar si funcionaba la traducción de esa parte del núcleo. De esta forma podríamos ver como hacía la traducción de todo el núcleo, ya que las otras partes de las que se compone son similares en el uso de librerías y bibliotecas.
+
+Quedan así asignadas las tareas para del sprint número tres:
+
+\begin{itemize}
+\item Transformar la Gramática del núcleo de Thoth.
+\item Transformar el Autómata del núcleo.
+\item Transformar la simulación del núcleo de Thoth.
+\item Documentar toda esta parte.
+\end{itemize}
+
+Al final solo se pudo llevar a cabo la tares de la Gramática y la documentación porque no se pudo avanzar a las demás. Nuestra idea era probar a tratar de traducir todo, núcleo incluido, ejecutando esas partes en el cliente de GWT  pero vimos que esto no es posible. Intentamos hacerlo de varias formas eliminando partes no esenciales de la aplicación para reducir errores de compilación hasta darnos por vencidos y ver que esa no era la solución.
+
+\subsection{Sprint 4 (1/3/2017 - 8/3/2017)}
+La cuarta es la semana en la cual, hemos intentado pasar la aplicación en la parte del servidor y probar por nuestra cuenta. Sólo hemos metido el núcleo en el paquete servidor para ver que surgía. Como vimos que no había una comunicación entre el cliente y el servidor hicimos varios intentos, probando con el paquete de <<shared>> o compartido, pero GWT también traduce ese paquete a JavaScript por lo que seguía dando los mismo errores que en el cliente.
+
+Por lo tanto en este sprint tenemos esta tareas:
+
+\begin{itemize}
+\item Solucionar un error en la traducción.
+\item Realizar pruebas cliente-servidor con el núcleo de la aplicación.
+\item Cambios y mejoras en la documentación.
+\end{itemize}
+
+Una vez nos dimos cuenta de que el fallo de tratar de hacer la aplicación en la parte del servidor era que GWT no reconocía algunas de las librerías claves, tanto en la parte visual como en el núcleo de la aplicación, decidimos buscar otros caminos alternativos. 
+
+El funcionamiento de GWT consiste en traducir a <<JavaScript>> la parte del cliente y la compartida. En consecuencia decidimos hacer pruebas en las que las partes mas fundamentales del núcleo se encontrasen en el lado del servidor. De esta forma cuando el cliente necesitase hacer algún uso de métodos con librerías no reconocidas por GWT, simplemente llamase al servidor ya que este podría soportar dichos métodos. 
+
+En los primeros intentos nos dimos cuenta de que estas llamadas no se podían hacer de una forma simple, ya que la comunicación entre cliente y servidor no funcionaba y no obteníamos los resultados que esperábamos. Aún así seguimos haciendo pruebas para asegurarnos, metiendo dentro del paquete <<compartido>> las partes del núcleo mas cercanas a lo que nosotros consideramos la vista. El problema seguía siendo esa comunicación. Interpretaba como del lado del cliente lo que nosotros queríamos que formara parte del servidor, dando errores debido a que GWT no trabaja con esas librerías.
+
+\subsection{Sprint 5 (8/3/2017 - 15/3/2017)}
+
+Principalmente, en este quinto sprint, se llevan a cabo las pruebas para entender y poder evaluar la comunicación cliente-servidor, por medio de unos ejemplos. Además de eso, planteamos la idea de realizar un <<login>> y validación de usuarios, pero solo como idea, ya que no es de gran importancia.
+
+
+Así que en este sprint tenemos esta tareas:
+
+\begin{itemize}
+\item Ejemplo cliente-servidor con GWT.
+\item Login y validación en GWT.
+\end{itemize}
+
+La comunicación entre el cliente y el servidor se lleva a cabo mediante la comunicación RPC (Remote Procedure Call). Es por ello que se hace necesario entender y practicar el funcionamiento de esta práctica. Los ejemplos realizados han sido dos: el primero es un ejemplo o tutorial ofrecido por la página oficial de GWT, que consiste en hacer un visor del <<stock>> que cambia de forma aleatoria sus valores. Y el segundo ejemplo consistió en hacer un pequeño ejemplo de llamada de funciones con más clases que en el anterior.
 
 \section{Estudio de viabilidad}
 
