@@ -102,6 +102,34 @@ Así que en este sprint tenemos esta tareas:
 
 La comunicación entre el cliente y el servidor se lleva a cabo mediante la comunicación RPC (Remote Procedure Call). Es por ello que se hace necesario entender y practicar el funcionamiento de esta práctica. Los ejemplos realizados han sido dos: el primero es un ejemplo o tutorial ofrecido por la página oficial de GWT, que consiste en hacer un visor del <<stock>> que cambia de forma aleatoria sus valores. Y el segundo ejemplo consistió en hacer un pequeño ejemplo de llamada de funciones con más clases que en el anterior.
 
+
+\subsection{Sprint 6 (15/3/2017 - 22/3/2017)}
+
+En esta semana nos metemos ya en serio con la aplicación propiamente dicha. Lo primero que hacemos es conseguir que la comunicación entre en núcleo (ya hecho) y su uso sea fluido. Para ello lo que hacemos es incluir algunas partes en el cliente y otras en el servidor. En el cliente sólo podemos incluir las clases más simples, más primitivas de la aplicación porque su contenido es entendido por GWT y puede hacer la traducción a JavaScript sin problemas de librerías.
+
+Por lo tanto las tareas son básicamente dos:
+
+\begin{itemize}
+\item Llevar a cabo el primer prototipo o sección de la aplicación.
+\item Documentar y corregir errores anteriores en la documentación.
+\end{itemize}
+
+La realización del prototipo nos lleva tiempo ya que se necesita comprender muy bien el funcionamiento interno de Thoth y así poder definir un diseño del software adecuado según ese funcionamiento. Una vez hecho eso parece simplificarse los problemas que al principio se tenían.
+
+\subsection{Sprint 7 (2/3/2017 - 29/3/2017)}
+
+Parece ser que en esta octava semana ya podemos empezar a trabajar más en la programación del diseño e implementar funcionalidades. Lo primero que tenemos que hacer es que esa comunicación entre métodos de resultados <<más>> visibles e integrarlos en una <<GUI>> denominada en español como interfaz gráfica de usuario. 
+
+Así es que definimos como tareas las siguientes:
+
+\begin{itemize}
+\item Reestructurar la aplicación y limpiar el código.
+\item Mejorar la GUI con Vaadin, ya que la anterior es muy básica.
+\item Implementar el algoritmo "Eliminar símbolos no terminales"
+\end{itemize}
+
+Primeramente hay que organizar el código haciéndolo más legible y limpiarlo de comentarios, y pruebas para ver su funcionamiento. Queremos que los resultados queden de una forma similar al Thoth original, para conservar su esencia, usabilidad, y buen diseño. Para ello hacemos uso de Vaadin, una herramienta que se puede utilizar como un <<plugin>> en eclipse y que se integra perfectamente con GWT.
+
 \section{Estudio de viabilidad}
 
 \subsection{Viabilidad económica}
