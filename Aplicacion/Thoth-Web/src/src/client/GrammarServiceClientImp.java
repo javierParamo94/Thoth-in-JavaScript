@@ -1,12 +1,13 @@
 package src.client;
 
 import src.client.core.grammar.Grammar;
+import src.client.gui.mainGui;
 
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.rpc.ServiceDefTarget;
 
-public class GrammarServiceClientImp implements GrammarServicetInt{
+public class GrammarServiceClientImp {
 
 	
 	
@@ -38,16 +39,11 @@ public class GrammarServiceClientImp implements GrammarServicetInt{
 		public void onSuccess(Object result) {
 			if (result instanceof String){
 				String saludo = (String) result;
-				mangui.updateLabel(saludo);
+				//mangui.updateLabel(saludo);
 			}	
 		}
 	}
 
-
-	@Override
-	public void diHola(String name) {
-		this.service.diHola(name, new DefaultCallback());
-	}
 	
 	public void checkContent(String grammar){
 		this.service.checkContent(grammar, new AsyncCallback(){
@@ -62,12 +58,12 @@ public class GrammarServiceClientImp implements GrammarServicetInt{
 			public void onSuccess(Object result) {
 				System.out.println ("La llamada fue exitosa y devolvió: " + result);
 				if (result instanceof Grammar){
-					String grammar = ((Grammar)result).toString();
+					Grammar grammar = ((Grammar)result);
 					mangui.updateLabel(grammar);
 				}
 				
 				if (result instanceof Exception) {
-					mangui.updateLabel(((Exception)result).getMessage());
+					//mangui.updateLabel(((Exception)result).getMessage());
 				}
 			}
 			

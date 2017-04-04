@@ -1,34 +1,24 @@
 package src.server;
 
+import java.io.File;
 import java.io.StringReader;
 
+
 import src.client.GrammarService;
-
-
-
-
-
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
-
 import src.client.core.grammar.Grammar;
 import src.server.parserjavacc.ParseException;
 import src.server.parserjavacc.ParserGrammar;
 import src.server.parserjavacc.TokenMgrError;
 
 public class GrammarServiceImp extends RemoteServiceServlet implements GrammarService{
+    
 		
-		@Override
-		public String diHola(String name) {
-			String saludo;
-			saludo = "Hola " + name;
-			return saludo;
-		}
-		
-		public Grammar checkContent(String name) {
+		public Grammar checkContent(String gram) {
 			System.out.println ("checkContent en el lado del servidor!!");
 			Grammar grammar;
 	        //String gram = mTextInput.getText();
-	        ParserGrammar parser = ParserGrammar.getInstance(new StringReader(name));
+	        ParserGrammar parser = ParserGrammar.getInstance(new StringReader(gram));
 	        
 	        try{
 	            grammar = parser.buildGrammar();
@@ -45,4 +35,6 @@ public class GrammarServiceImp extends RemoteServiceServlet implements GrammarSe
 	        }
 	        
 		}//checkContent
+		
+
 }

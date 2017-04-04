@@ -15,6 +15,15 @@ h1 {
   font-size: 16pt;
 }
 
+/* stock list flex table */
+.header {
+	font: 200% ;
+	background-color: #2062B8;
+	color: white;
+	font-style: italic;
+}
+
+
 /** Most GWT widgets already have a style name defined */
 .gwt-DialogBox {
   width: 400px;
