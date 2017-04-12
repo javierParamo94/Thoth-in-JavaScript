@@ -14,7 +14,7 @@ import src.client.core.Terminal;
 import src.client.core.TerminalEpsilon;
 import src.client.core.Transition;
 import src.client.core.finiteautomaton.FiniteAutomaton;
-import src.client.gui.VisualElimNonDeterministic;
+import src.client.gui.VisualSNT;
 
 
 /**
@@ -40,7 +40,7 @@ public class MediatorElimNonDeterministic implements MediatorAlgorithm{
     /**
      * Algoritmo visual. Pantalla donde se muestra la ejecución del algoritmo.
      */
-    private VisualElimNonDeterministic mVisual;
+    private VisualSNT mVisual;
     
     /**
      * Algoritmo de eliminación de no determinismo.
@@ -62,7 +62,7 @@ public class MediatorElimNonDeterministic implements MediatorAlgorithm{
      * @param visual Algoritmo visual. Pantalla donde se va a mostrar el algoritmo.
      * @param automaton Autómata visual sobre el que se va a ejecutar el algoritmo.
      */
-    public MediatorElimNonDeterministic (VisualElimNonDeterministic visual, FiniteAutomaton automaton) {
+    public MediatorElimNonDeterministic (VisualSNT visual, FiniteAutomaton automaton) {
         mVisual = visual;
         aut = (FiniteAutomaton) automaton.clone();
         try{

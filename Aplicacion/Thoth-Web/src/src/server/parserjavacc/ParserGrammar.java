@@ -6,10 +6,10 @@ import java.util.Vector;
 
 import src.client.*;
 import src.client.core.NonTerminal;
+import src.client.core.Symbol;
 import src.client.core.Terminal;
 import src.client.core.TerminalEpsilon;
 import src.client.core.grammar.Grammar;
-import src.client.core.grammar.Symbol;
 
 /**
  * <b>Descripción</b><br>

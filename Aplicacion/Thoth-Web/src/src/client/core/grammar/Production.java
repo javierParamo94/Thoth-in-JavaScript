@@ -2,6 +2,7 @@ package src.client.core.grammar;
 
 import java.util.Vector;
 
+import src.client.core.Symbol;
 import src.client.core.TerminalEpsilon;
 
 import com.google.gwt.user.client.rpc.IsSerializable;

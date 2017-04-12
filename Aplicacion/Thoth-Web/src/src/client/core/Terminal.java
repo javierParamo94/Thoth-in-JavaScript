@@ -1,6 +1,5 @@
 package src.client.core;
 
-import src.client.core.grammar.Symbol;
 
 /**
  * <b>Descripción</b><br>

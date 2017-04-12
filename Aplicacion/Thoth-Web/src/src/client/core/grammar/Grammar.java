@@ -5,9 +5,9 @@ import java.util.Vector;
 import com.google.gwt.user.client.rpc.IsSerializable;
 
 import src.client.core.NonTerminal;
+import src.client.core.Symbol;
 import src.client.core.Terminal;
 import src.client.core.TerminalEpsilon;
-import src.client.core.grammar.Symbol;
 
 /**
  * <b>Descripción</b><br>
