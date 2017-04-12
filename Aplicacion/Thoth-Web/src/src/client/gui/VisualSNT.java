@@ -41,8 +41,8 @@ import com.google.gwt.user.client.ui.VerticalPanel;
  */
 public class VisualSNT extends Composite {
 
-	private TextArea mNew;
-	private TextArea mOld;
+	public TextArea mNew = new TextArea();
+	public TextArea mOld = new TextArea();
 	private HorizontalPanel hPanel = new HorizontalPanel();
 
 	public VerticalPanel vPanel = new VerticalPanel();
@@ -68,22 +68,16 @@ public class VisualSNT extends Composite {
 	public PushButton btnAcept = new PushButton(new Image(
 			"images/acceptAlgorithm.png"));
 
-	public VisualSNT(/*Frame frame,*/Grammar grammar /*,FiniteAutomaton aut /*,GraphLayoutCache gCache*/) {
+	public VisualSNT(Grammar grammar ) {
 
-		//add(getCentralComponent(), BorderLayout.CENTER);
-		
-		buildPanels();
 		//setLocationRelativeTo(frame);
 		//setVisible(mVisible);
 
-	    
-        mOld = new TextArea();
-        mOld.setCharacterWidth(80);
+	    mOld.setCharacterWidth(80);
         mOld.setVisibleLines(20);
         mOld.setEnabled(false);
 		mOld.setText(grammar.completeToString());
 
-        mNew = new TextArea();
         mNew.setCharacterWidth(80);
         mNew.setVisibleLines(20);
         mNew.setEnabled(false);
@@ -130,18 +124,15 @@ public class VisualSNT extends Composite {
 		RootPanel.get().add(vPanel);
 	}
 
-	/*@Override
-	public void handleError(String error) {
-		// TODO Auto-generated method stub
 
-	}*/
+
 
 	private void buildCommonListeners() {
 		// Pulsar sobre Cancelar
 		btnCancel.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
-				//mMediator.exit();
+				mMediator.exit();
 				/*this.vPanel.clear();
 
 				this.currentPage = new VisualElimNonDeterministic(mGrammar);
@@ -150,10 +141,10 @@ public class VisualSNT extends Composite {
 				mainGui currentPage = new mainGui(serviceImp);
 				vPanel.add(currentPage);*/
                 //mMediator.exit();
-                vPanel.clear();
+                /*vPanel.clear();
                 vPanel = null;
                 currentPage = new mainGui(serviceImp);
-                vPanel.add(currentPage);
+                vPanel.add(currentPage);*/
 			}
 		});
 

@@ -69,17 +69,17 @@ public class MediatorSNT {
         mGrammar = grammar;
         mFlagFirst = true;
         mVisual = snt;
-       /* mVisual.mOld.setText(mGrammar.completeToString());
+        mVisual.mOld.setText(mGrammar.completeToString());
         mVisual.mNew.setText(mCleanAlgorithm.getSolution().completeToString());
         
         if(!mCleanAlgorithm.firstStep()){
-            ShowDialog.nonTerminalSymbols();
+           // ShowDialog.nonTerminalSymbols();
             mVisual.mVisible = false;
             mVisual.mMediator = null;
         }
         else
             mCleanAlgorithm = new EliminateSNT(grammar);
-        */
+        
     }//MediatorSNT
     
     /**
@@ -87,10 +87,10 @@ public class MediatorSNT {
      */
     public void next () {
            //Primer paso 
-       /* if(mFlagFirst){
+        if(mFlagFirst){
             if(!mCleanAlgorithm.firstStep()){
                 finish();
-                ShowDialog.nonTerminalSymbols();
+               // ShowDialog.nonTerminalSymbols();
                 mVisual.mVisible = false;
                 exit();
                 return;
@@ -108,9 +108,9 @@ public class MediatorSNT {
             else{
                 mVisual.mNew.setText(mCleanAlgorithm.getSolution().completeToString());
                 removeAllLighter();
-                highLight(mVisual.mOld, mCleanAlgorithm.getSolution().getProductions().lastElement().toString());
-                highLight(mVisual.mNew, mCleanAlgorithm.getSolution().getProductions().lastElement().toString());
-            }*/
+                //highLight(mVisual.mOld, mCleanAlgorithm.getSolution().getProductions().lastElement().toString());
+               // highLight(mVisual.mNew, mCleanAlgorithm.getSolution().getProductions().lastElement().toString());
+            }
         
     }//next
     

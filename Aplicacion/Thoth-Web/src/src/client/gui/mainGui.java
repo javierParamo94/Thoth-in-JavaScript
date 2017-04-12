@@ -40,6 +40,7 @@ public class mainGui extends Composite {
     public Grammar mGrammar;
 	
 	private GrammarServiceClientImp serviceImp;
+	private VisualSNT currentPage;
 
 	
 
@@ -169,9 +170,8 @@ public class mainGui extends Composite {
 		public void openElimNonDeterministic() {
 			this.vPanel.clear();
 			hPanel.clear();
-			//this.currentPage = new VisualSNT(mGrammar);
-			new VisualSNT(/*Application.getInstance(),*/ mGrammar);
-			//this.vPanel.add(this.currentPage);
+	 		this.currentPage = new VisualSNT(mGrammar);
+	 		this.vPanel.add(this.currentPage);
 
 		}
 		
