@@ -40,7 +40,7 @@ public class mainGui extends Composite {
     public Grammar mGrammar;
 	
 	private GrammarServiceClientImp serviceImp;
-	private VisualSNT currentPage;
+	private Composite currentPage;
 
 	
 
@@ -94,6 +94,7 @@ public class mainGui extends Composite {
 			txt3.setReadOnly(true);
 			txt4.setReadOnly(true);
 			txt5.setReadOnly(true);
+			txt1.setSize("250px", "20px");
 
 			this.vPanel1.add(ta);
 			this.vPanel3.add(txt1);
@@ -167,10 +168,25 @@ public class mainGui extends Composite {
 
 		}
 
-		public void openElimNonDeterministic() {
+		public void openSNT() {
 			this.vPanel.clear();
 			hPanel.clear();
 	 		this.currentPage = new VisualSNT(mGrammar);
+	 		this.vPanel.add(this.currentPage);
+
+		}
+		
+		public void openSNA() {
+			this.vPanel.clear();
+			hPanel.clear();
+	 		this.currentPage = new VisualSNA(mGrammar);
+	 		this.vPanel.add(this.currentPage);
+
+		}
+		public void openSA() {
+			this.vPanel.clear();
+			hPanel.clear();
+	 		this.currentPage = new VisualSA(mGrammar);
 	 		this.vPanel.add(this.currentPage);
 
 		}
@@ -183,11 +199,24 @@ public class mainGui extends Composite {
 				}
 			};
 
-			Command elimnarSimbolosNoTerminable = new Command() {
+			Command elimnate_SNT = new Command() {
 				public void execute() {
-					openElimNonDeterministic();
+					openSNT();
 				}
 			};
+			
+			Command eliminate_SNA = new Command() {
+				public void execute() {
+					openSNA();
+				}
+			};
+			
+			Command eliminate_SA = new Command() {
+				public void execute() {
+					openSA();
+				}
+			};
+			
 			MenuBar fooMenu = new MenuBar(true);
 			fooMenu.addItem("ejemplo1", cmd);
 			fooMenu.addItem("ejemplo2", cmd);
@@ -201,10 +230,10 @@ public class mainGui extends Composite {
 
 			MenuBar algorithmMenu = new MenuBar(true);
 			algorithmMenu.addItem("Eliminar símbolos no terminables.",
-					elimnarSimbolosNoTerminable);
-			algorithmMenu.addItem("Eliminar símbolos no alcanzables.",cmd);// eliminate_sna);
-			algorithmMenu.addItem("Eliminar simbolos anulables.", cmd);
-			algorithmMenu.addItem("Eliminar simbolos anulables.", cmd);
+					elimnate_SNT);
+			algorithmMenu.addItem("Eliminar símbolos no alcanzables.",eliminate_SNA);
+			algorithmMenu.addItem("Eliminar simbolos anulables.", eliminate_SA);
+			algorithmMenu.addItem("Eliminar preduciones no generativas.", cmd);
 
 			MenuBar toolsMenu = new MenuBar(true);
 			toolsMenu.addItem("Idioma.", cmd);

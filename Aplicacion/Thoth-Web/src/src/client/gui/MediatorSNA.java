@@ -1,21 +1,13 @@
 package src.client.gui;
 
-
-import src.client.core.grammar.Grammar;
-import src.client.core.grammar.Production;
+import src.client.core.grammar.*;
 import src.client.core.grammar.cleaner.Cleaning;
-import src.client.core.grammar.cleaner.EliminateSNT;
-/*import view.utils.Colors;
-import view.utils.Messages;
-import view.utils.ShowDialog;
-import view.application.Application;
-import view.application.Actions;
-import view.grammar.PanelGrammar;*/
-import src.client.gui.VisualSNT;
+import src.client.core.grammar.cleaner.EliminateSNA;
+import src.client.gui.VisualSNA;
 
 /**
  * <b>Descripción</b><br>
- * Clase que hace de mediador entre el algoritmo de eliminación de símbolos no terminables
+ * Clase que hace de mediador entre el algoritmo de eliminación de símbolos no alcanzables
  * y la pantalla que muestra dicho algoritmo.
  * <p>
  * <b>Detalles</b><br>
@@ -31,7 +23,7 @@ import src.client.gui.VisualSNT;
  * @author Álvar Arnáiz González, Andrés Arnáiz Moreno
  * @version 1.0
  */
-public class MediatorSNT {
+public class MediatorSNA {
     
     // Attributes --------------------------------------------------------------------
     
@@ -53,44 +45,43 @@ public class MediatorSNT {
     /**
      * Algoritmo visual al que está asociado.
      */
-    private VisualSNT mVisual;
+    private VisualSNA mVisual;
     
     // Methods -----------------------------------------------------------------------
     
     /**
      * Constructor completo del mediador del algoritmo de limpieza de símbolos no
-     * terminables.
+     * alcanzables.
      * 
-     * @param snt Pantalla del algoritmo.
+     * @param sna Pantalla del algoritmo.
      * @param grammar Gramática a limpiar.
      */
-    public MediatorSNT (VisualSNT snt, Grammar grammar) {
-        mCleanAlgorithm = new EliminateSNT(grammar);
+    public MediatorSNA (VisualSNA sna, Grammar grammar) {
+        mCleanAlgorithm = new EliminateSNA(grammar);
         mGrammar = grammar;
         mFlagFirst = true;
-        mVisual = snt;
+        mVisual = sna;
         mVisual.mOld.setText(mGrammar.completeToString());
         mVisual.mNew.setText(mCleanAlgorithm.getSolution().completeToString());
         
         if(!mCleanAlgorithm.firstStep()){
-           // ShowDialog.nonTerminalSymbols();
+            //ShowDialog.nonReachableSymbols();
             mVisual.mVisible = false;
             mVisual.mMediator = null;
         }
         else
-            mCleanAlgorithm = new EliminateSNT(grammar);
-        
-    }//MediatorSNT
+            mCleanAlgorithm = new EliminateSNA(grammar);
+    }//MediatorSNA
     
     /**
-     * Cada paso del algoritmo.
+     * Siguiente paso del algoritmo.
      */
     public void next () {
-           //Primer paso 
+            //Primer paso del algoritmo
         if(mFlagFirst){
             if(!mCleanAlgorithm.firstStep()){
                 finish();
-               // ShowDialog.nonTerminalSymbols();
+                //ShowDialog.nonReachableSymbols();
                 mVisual.mVisible = false;
                 exit();
                 return;
@@ -107,9 +98,9 @@ public class MediatorSNT {
                 finish();
             else{
                 mVisual.mNew.setText(mCleanAlgorithm.getSolution().completeToString());
-                removeAllLighter();
+                removeAllHighLight();
                 //highLight(mVisual.mOld, mCleanAlgorithm.getSolution().getProductions().lastElement().toString());
-               // highLight(mVisual.mNew, mCleanAlgorithm.getSolution().getProductions().lastElement().toString());
+                //highLight(mVisual.mNew, mCleanAlgorithm.getSolution().getProductions().lastElement().toString());
             }
         
     }//next
@@ -118,10 +109,10 @@ public class MediatorSNT {
      * Todos los pasos del algoritmo.
      */
     public void all () {
-        mCleanAlgorithm = new EliminateSNT(mGrammar);
+        mCleanAlgorithm = new EliminateSNA(mGrammar);
         
         if(!mCleanAlgorithm.allSteps()){
-            //ShowDialog.nonTerminalSymbols();
+            //ShowDialog.nonReachableSymbols();
             mVisual.mVisible = false;
         }
         else
@@ -155,7 +146,7 @@ public class MediatorSNT {
      * 
      * @param pattern Patrón de texto a iluminar.
      */
-    /*private void highLight (JTextPane pane, String pattern) {
+  /*  private void highLight (JTextPane pane, String pattern) {
         String text;
         int pos = 0;
         
@@ -171,16 +162,16 @@ public class MediatorSNT {
             }
         }catch(BadLocationException e){}
 
-    }//highLight
+    }//highLight*/
     
     /**
      * Clase privada de apoyo para asignar el color a la zona resaltada.
      */
-   /* private class MyHighLight extends DefaultHighlighter.DefaultHighlightPainter {
+    /*private class MyHighLight extends DefaultHighlighter.DefaultHighlightPainter {
         public MyHighLight () {
             super(Colors.green());
         }//MyHighLight
-    }//MyHighLight
+    }//MyHighLight*/
     
     /**
      * Deshabilita los botones de Siguiente y Todos los pasos y habilita el de aceptar.
@@ -189,19 +180,20 @@ public class MediatorSNT {
         mVisual.btnOneStep.setEnabled(false);
         mVisual.btnAllSteps.setEnabled(false);
         mVisual.btnAcept.setEnabled(true);
-        removeAllLighter();
+        removeAllHighLight();
         
     }//finish
     
     /**
      * Quita todos los marcadores de los paneles de las gramáticas.
      */
-    public void removeAllLighter() {
-       /* mVisual.mOld.getHighlighter().removeAllHighlights();
-        mVisual.mNew.getHighlighter().removeAllHighlights();
-        */
+    public void removeAllHighLight() {
+        /*mVisual.mOld.getHighlighter().removeAllHighlights();
+        mVisual.mNew.getHighlighter().removeAllHighlights();*/
+        
     }//removeAllLighter
     
+
     /**
      * Cierra la ventana visual y elimina las referencias.
      */
@@ -209,11 +201,7 @@ public class MediatorSNT {
         mVisual.setVisible(false);
         mVisual.mMediator = null;
         mVisual = null;
-        mVisual.vPanel.clear();
-        mVisual.vPanel = null;
-        //currentPage = new mainGui(serviceImp);
-        //vPanel.add(currentPage);
         
     }//exit
     
-}//MediatorSNT
+}//MediatorSNA

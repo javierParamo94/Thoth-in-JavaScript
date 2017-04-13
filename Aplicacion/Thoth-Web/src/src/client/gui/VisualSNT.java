@@ -1,14 +1,7 @@
 package src.client.gui;
 
-
-
-
 import src.client.GrammarServiceClientImp;
-
-//import algorithms.VisualAlgorithm;
-
 import src.client.core.grammar.Grammar;
-
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -172,13 +165,4 @@ public class VisualSNT extends Composite {
 		});
 
 	}// buildListeners
-	/*public void openMainGui() {
-		this.vPanel.clear();
-		hPanel.clear();
-		this.currentPage = new mainGui(serviceImp);
-		this.vPanel.add(this.currentPage);
-		//p.addEast(this.currentPage, 100);
-		//this.vPanel.setCellHorizontalAlignment(this.currentPage, HasHorizontalAlignment.ALIGN_CENTER);
-	}*/
-
 }// VisualElimNonDeterministic
