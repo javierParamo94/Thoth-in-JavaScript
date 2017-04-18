@@ -10,6 +10,10 @@ h1 {
   text-align: center;
 }
 
+.MyText {
+  color: blue;
+}
+
 .sendButton {
   display: block;
   font-size: 16pt;

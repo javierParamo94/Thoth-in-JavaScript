@@ -57,8 +57,6 @@ public class Application  {
      */
     private static Application instance;
     
-    
-    
     /**
      * Idioma seleccionado.
      */

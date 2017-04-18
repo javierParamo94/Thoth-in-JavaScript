@@ -7,6 +7,7 @@ import java.util.Vector;
 //import org.jgraph.graph.DefaultGraphModel;
 
 
+
 import src.client.algorithms.InitializeException;
 import src.client.algorithms.MediatorAlgorithm;
 import src.client.core.State;
@@ -14,7 +15,7 @@ import src.client.core.Terminal;
 import src.client.core.TerminalEpsilon;
 import src.client.core.Transition;
 import src.client.core.finiteautomaton.FiniteAutomaton;
-import src.client.gui.VisualSNT;
+import src.client.gui.visual.VisualSNT;
 
 
 /**
