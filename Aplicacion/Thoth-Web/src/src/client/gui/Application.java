@@ -151,7 +151,7 @@ public class Application  {
     private Application() {
         //super("THOTH v2.0");
         //setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-        first();
+        //first();
         //readConfig();
         buildPanels();
         buildMenuBar();

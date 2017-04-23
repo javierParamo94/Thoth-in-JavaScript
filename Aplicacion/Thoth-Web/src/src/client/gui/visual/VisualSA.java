@@ -8,6 +8,7 @@ import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.PushButton;
+import com.google.gwt.user.client.ui.RichTextArea;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
@@ -40,15 +41,13 @@ public class VisualSA extends Composite {
 
 	// Attributes
 	// --------------------------------------------------------------------
-	public TextArea mNew = new TextArea();
-	public TextArea mOld = new TextArea();
-	public TextArea mAux = new TextArea();
-	public TextBox maux = new TextBox();
+	public RichTextArea mNew = new RichTextArea();
+	public RichTextArea mOld = new RichTextArea();
+	public RichTextArea mAux = new RichTextArea();
 	private HorizontalPanel hPanel = new HorizontalPanel();
 
-	public VerticalPanel vPanel = new VerticalPanel();
+	public VerticalPanel vPanel = new VerticalPanel(), vPanel2 = new VerticalPanel();
 	public GrammarServiceClientImp serviceImp;
-	private Composite currentPage;
 
 	/**
 	 * Mediador asociado al panel
@@ -83,17 +82,12 @@ public class VisualSA extends Composite {
 	 */
 	public VisualSA(Grammar grammar) {
 
-		mOld.setCharacterWidth(80);
-		mOld.setVisibleLines(20);
-		mOld.setEnabled(false);
+		mOld.setPixelSize(500, 400);
 		mOld.setText(grammar.completeToString());
 
-		mNew.setCharacterWidth(80);
-		mNew.setVisibleLines(20);
-		mNew.setEnabled(false);
+		mNew.setPixelSize(500, 400);
 
-		mAux.setReadOnly(true);
-		mAux.setSize("250px", "20px");
+		mAux.setSize("200px", "30px");
 
 		mVisible = true;
 		mMediator = new MediatorSA(this, grammar);
@@ -117,15 +111,15 @@ public class VisualSA extends Composite {
 		hPanel.add(btnAcept);
 		buildListeners();
 
+		vPanel2.add(mOld);
+		vPanel2.add(new HTML("Símbolos anulables"));
+		vPanel2.add(mAux);
 		// Add text all around
-		dockPanel.add(new HTML("This is the first north component."),
+		dockPanel.add(new HTML("Eliminar símbolos anulables"),
 				DockPanel.NORTH);
 		dockPanel.add(hPanel, DockPanel.SOUTH);
 		dockPanel.add(mNew, DockPanel.EAST);
-		dockPanel.add(mOld, DockPanel.WEST);
-		dockPanel.add(new HTML("This is the second north component."),
-				DockPanel.NORTH);
-		dockPanel.add(mAux, DockPanel.SOUTH);
+		dockPanel.add(vPanel2, DockPanel.WEST);
 
 		vPanel.add(dockPanel);
 

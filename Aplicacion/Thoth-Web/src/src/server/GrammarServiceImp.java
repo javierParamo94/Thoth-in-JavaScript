@@ -15,15 +15,12 @@ public class GrammarServiceImp extends RemoteServiceServlet implements GrammarSe
     
 		
 		public Grammar checkContent(String gram) {
-			System.out.println ("checkContent en el lado del servidor!!");
+
 			Grammar grammar;
-	        //String gram = mTextInput.getText();
 	        ParserGrammar parser = ParserGrammar.getInstance(new StringReader(gram));
 	        
 	        try{
 	            grammar = parser.buildGrammar();
-		        System.out.println ("Ha parseado la gramática: " + grammar.toString());
-	            //update(grammar);
 	            return grammar;
 	        }catch (ParseException parExcep){
 	        	System.err.println(parExcep);

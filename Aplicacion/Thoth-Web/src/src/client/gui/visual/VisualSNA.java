@@ -9,6 +9,7 @@ import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.PushButton;
+import com.google.gwt.user.client.ui.RichTextArea;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -39,13 +40,12 @@ public class VisualSNA extends Composite {
     
     // Attributes --------------------------------------------------------------------
     
-	public TextArea mNew = new TextArea();
-	public TextArea mOld = new TextArea();
+	public RichTextArea mNew = new RichTextArea();
+	public RichTextArea mOld = new RichTextArea();
 	private HorizontalPanel hPanel = new HorizontalPanel();
 
 	public VerticalPanel vPanel = new VerticalPanel();
 	public GrammarServiceClientImp  serviceImp;
-	private Composite currentPage;
 	
     /**
      * Mediador asociado al panel
@@ -78,24 +78,20 @@ public class VisualSNA extends Composite {
     	//setLocationRelativeTo(frame);
     			//setVisible(mVisible);
 
-    		    mOld.setCharacterWidth(80);
-    	        mOld.setVisibleLines(20);
-    	        mOld.setEnabled(false);
-    			mOld.setText(grammar.completeToString());
+		mOld.setPixelSize(500, 400);
+		mOld.setEnabled(false);
+		mOld.setText(grammar.completeToString());
 
-    	        mNew.setCharacterWidth(80);
-    	        mNew.setVisibleLines(20);
-    	        mNew.setEnabled(false);
+		mNew.setPixelSize(500, 400);
+		mNew.setEnabled(false);
+		
+		mVisible = true;
+		mMediator = new MediatorSNA(this, grammar);
 
-    	        mVisible = true;
-    	        mMediator = new MediatorSNA(this, grammar);
-
-    	        buildPanels();
-//    	        setLocationRelativeTo(frame);
-//    	        setResizable(false);
-    	        setVisible(mVisible);
-    	        
-    		}// VisualElimNonDeterministic
+		buildPanels();
+		setVisible(mVisible);
+		
+		}// VisualElimNonDeterministic
 
     		public void buildPanels() {
     			

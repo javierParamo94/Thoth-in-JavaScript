@@ -1,12 +1,14 @@
 package src.client.gui.mediator;
 
 import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.ui.RichTextArea;
 
 import src.client.core.grammar.*;
 import src.client.core.grammar.cleaner.Cleaning;
 import src.client.core.grammar.cleaner.EliminateSNA;
 import src.client.gui.Application;
 import src.client.gui.utils.ShowDialog;
+import src.client.gui.utils.ToHTML;
 import src.client.gui.visual.VisualSNA;
 
 /**
@@ -65,8 +67,8 @@ public class MediatorSNA {
         mGrammar = grammar;
         mFlagFirst = true;
         mVisual = sna;
-        mVisual.mOld.setText(mGrammar.completeToString());
-        mVisual.mNew.setText(mCleanAlgorithm.getSolution().completeToString());
+        mVisual.mOld.setHTML(ToHTML.toHTML(mGrammar.completeToString()));
+        mVisual.mNew.setHTML(ToHTML.toHTML(mCleanAlgorithm.getSolution().completeToString()));
         
         if(!mCleanAlgorithm.firstStep()){
             ShowDialog.nonReachableSymbols();
@@ -76,6 +78,8 @@ public class MediatorSNA {
         else
             mCleanAlgorithm = new EliminateSNA(grammar);
     }//MediatorSNA
+    
+    
     
     /**
      * Siguiente paso del algoritmo.
@@ -90,10 +94,10 @@ public class MediatorSNA {
                 exit();
                 return;
             }
-            mVisual.mNew.setText(mCleanAlgorithm.getSolution().completeToString());
+            mVisual.mNew.setHTML(ToHTML.toHTML(mCleanAlgorithm.getSolution().completeToString()));
             for(Production prod : mCleanAlgorithm.getSolution().getProductions()){
-                //highLight(mVisual.mOld, prod.toString());
-                //highLight(mVisual.mNew, prod.toString());
+                highLight(mVisual.mOld, prod.toString());
+                highLight(mVisual.mNew, prod.toString());
             }
             mFlagFirst = false;
         }   //Siguiente paso
@@ -101,10 +105,10 @@ public class MediatorSNA {
             if(!mCleanAlgorithm.nextStep())
                 finish();
             else{
-                mVisual.mNew.setText(mCleanAlgorithm.getSolution().completeToString());
+            	mVisual.mNew.setHTML(ToHTML.toHTML(mCleanAlgorithm.getSolution().completeToString()));
                 removeAllHighLight();
-                //highLight(mVisual.mOld, mCleanAlgorithm.getSolution().getProductions().lastElement().toString());
-                //highLight(mVisual.mNew, mCleanAlgorithm.getSolution().getProductions().lastElement().toString());
+                highLight(mVisual.mOld, mCleanAlgorithm.getSolution().getProductions().lastElement().toString());
+                highLight(mVisual.mNew, mCleanAlgorithm.getSolution().getProductions().lastElement().toString());
             }
         
     }//next
@@ -120,7 +124,7 @@ public class MediatorSNA {
             mVisual.mVisible = false;
         }
         else
-            mVisual.mNew.setText(mCleanAlgorithm.getSolution().completeToString());
+        	mVisual.mNew.setHTML(ToHTML.toHTML(mCleanAlgorithm.getSolution().completeToString()));
         
         finish();
     }//all
@@ -150,21 +154,25 @@ public class MediatorSNA {
      * 
      * @param pattern Patrón de texto a iluminar.
      */
-  /*  private void highLight (JTextPane pane, String pattern) {
-        String text;
-        int pos = 0;
+    private void highLight (RichTextArea pane, String pattern) {
+        String text, text1 = "";
+        int posEnd = 0, posStart = 0;
+        String greenCol = "<mark>";
         
         if(pattern.equals(""))
             return;
         
-        try{
-            Highlighter hilite = pane.getHighlighter();
-            text = pane.getText();
-            while((pos = text.indexOf(pattern, pos)) >= 0 ){
-                hilite.addHighlight(pos, pos + pattern.length(), new MyHighLight());
-                pos += pattern.toString().length();
+        pattern = pattern.toString().substring(0, pattern.toString().length() - 1);
+        text = pane.getHTML();
+        while((posEnd = text.indexOf(pattern, posEnd)) >= 0 ){
+        	
+        	text1 += text.substring(posStart,posEnd) + greenCol + pattern + "</mark>" ;
+
+            posEnd += pattern.toString().length();
+            posStart = posEnd;
             }
-        }catch(BadLocationException e){}
+        text1 += text.substring(posStart, pane.getHTML().length());
+        pane.setHTML(text1);
 
     }//highLight*/
     
@@ -192,8 +200,14 @@ public class MediatorSNA {
      * Quita todos los marcadores de los paneles de las gramáticas.
      */
     public void removeAllHighLight() {
-        /*mVisual.mOld.getHighlighter().removeAllHighlights();
-        mVisual.mNew.getHighlighter().removeAllHighlights();*/
+    	String str, str1, str2, str3;
+    	str = mVisual.mNew.getHTML().replaceAll("<mark>", "");
+    	str1 = str.replaceAll("</mark>", "");
+    	str2 = mVisual.mOld.getHTML().replaceAll("<mark>", "") ;
+    	str3 = str2.replaceAll("</mark>", "");
+    	
+    	mVisual.mNew.setHTML(str1);
+    	mVisual.mOld.setHTML(str3);
         
     }//removeAllLighter
     

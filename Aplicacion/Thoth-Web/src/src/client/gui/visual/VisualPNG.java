@@ -8,6 +8,7 @@ import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.PushButton;
+import com.google.gwt.user.client.ui.RichTextArea;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
@@ -42,9 +43,9 @@ public class VisualPNG extends Composite {
     // Attributes --------------------------------------------------------------------
     
 	
-	public TextArea mNew = new TextArea();
-	public TextArea mOld = new TextArea();
-	public TextArea mAux = new TextArea();
+	public RichTextArea mNew = new RichTextArea();
+	public RichTextArea mOld = new RichTextArea();
+	public RichTextArea mAux = new RichTextArea();
 	private HorizontalPanel hPanel = new HorizontalPanel();
 
 	public VerticalPanel vPanel = new VerticalPanel();
@@ -80,17 +81,12 @@ public class VisualPNG extends Composite {
      */
     public VisualPNG(Grammar grammar) {
     	
-		mOld.setCharacterWidth(80);
-		mOld.setVisibleLines(20);
-		mOld.setEnabled(false);
+		mOld.setPixelSize(500, 400);
 		mOld.setText(grammar.completeToString());
 
-		mNew.setCharacterWidth(80);
-		mNew.setVisibleLines(20);
-		mNew.setEnabled(false);
+		mNew.setPixelSize(500, 400);
 
-		mAux.setReadOnly(true);
-		mAux.setSize("250px", "20px");
+		mAux.setSize("200px", "30px");
 
 		mVisible = true;
 		mMediator = new MediatorPNG(this, grammar);

@@ -12,8 +12,8 @@ import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.PushButton;
+import com.google.gwt.user.client.ui.RichTextArea;
 import com.google.gwt.user.client.ui.RootPanel;
-import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 /**
@@ -38,12 +38,12 @@ public class VisualSNT extends Composite {
 	/**
 	 * Área de texto donde se muetra la gramática original.
 	 */
-	public TextArea mNew = new TextArea();
+	public RichTextArea mNew = new RichTextArea();
 
 	/**
 	 * Área de texto donde aparecerá la gramática final.
 	 */
-	public TextArea mOld = new TextArea();
+	public RichTextArea mOld = new RichTextArea();
 
 	/**
 	 * 
@@ -84,14 +84,10 @@ public class VisualSNT extends Composite {
 
 	public VisualSNT(Grammar grammar) {
 
-		mOld.setCharacterWidth(80);
-		mOld.setVisibleLines(20);
-		mOld.setEnabled(false);
+		mOld.setPixelSize(500, 400);
 		mOld.setText(grammar.completeToString());
 
-		mNew.setCharacterWidth(80);
-		mNew.setVisibleLines(20);
-		mNew.setEnabled(false);
+		mNew.setPixelSize(500, 400);
 
 		mVisible = true;
 		mMediator = new MediatorSNT(this, grammar);

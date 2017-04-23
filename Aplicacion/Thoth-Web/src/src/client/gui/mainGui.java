@@ -1,5 +1,7 @@
 package src.client.gui;
 
+
+
 import src.client.GrammarServiceClientImp;
 import src.client.core.grammar.Grammar;
 import src.client.core.grammar.TypeHandler;
@@ -14,12 +16,21 @@ import src.client.gui.visual.VisualSA;
 import src.client.gui.visual.VisualSNA;
 import src.client.gui.visual.VisualSNT;
 
+
+
+
+
+
+
+
+
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.logical.shared.BeforeSelectionEvent;
 import com.google.gwt.event.logical.shared.BeforeSelectionHandler;
 import com.google.gwt.event.logical.shared.SelectionEvent;
 import com.google.gwt.event.logical.shared.SelectionHandler;
+import com.google.gwt.layout.client.Layout;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DockPanel;
 import com.google.gwt.user.client.ui.FlexTable;
@@ -41,6 +52,7 @@ import com.google.gwt.user.client.Window;
 
 public class mainGui extends Composite {
 
+
 	private VerticalPanel vPanel = new VerticalPanel();
 	private VerticalPanel vPanel1 = new VerticalPanel();
 	private VerticalPanel vPanel2 = new VerticalPanel();
@@ -52,56 +64,36 @@ public class mainGui extends Composite {
 	private FlexTable stocksFlexTable = new FlexTable();
 	
 	private TabBar bar = new TabBar();
+	public int con = 1;
 	
-	TabPanel tabPanel = new TabPanel();
+	//public TabPanel tabPanel = new TabPanel();
 	
 	DockPanel dockPanel = new DockPanel();
 
 	private TextArea ta;
 	public Grammar mGrammar;
 
-	private GrammarServiceClientImp serviceImp;
+	private static GrammarServiceClientImp serviceImp;
 	private Composite currentPage;
-
+	
+	private static mainGui instance;
+    public static mainGui getInstance () {
+        if(instance == null)
+            instance = new mainGui(serviceImp);
+        
+        return instance;
+    }//getInstance
+    
 	public mainGui(GrammarServiceClientImp serviceImp) {
-
-		  Label label1 = new Label("This is contents of TAB 1");
-	      label1.setHeight("200");
-	      Label label2 = new Label("This is contents of TAB 2");
-	      label2.setHeight("200");
-	      Label label3 = new Label("This is contents of TAB 3");
-	      label3.setHeight("200");
-	      
-	      //create titles for tabs
-	      String tab1Title = "TAB 1";
-	      String tab2Title = "TAB 2";
-	      String tab3Title = "TAB 3";
-
-	      //create tabs 
-	      tabPanel.add(vPanel4, tab1Title);
-	      tabPanel.add(label2, tab2Title);
-	      tabPanel.add(label3, tab3Title);
-	      //tabPanel.add(vPanel4,);
-
-	      //select first tab
-	      tabPanel.selectTab(0);
-
-	      //set width if tabpanel
-	      tabPanel.setWidth("400");
-
-	      // Add the widgets to the root panel.
-	     
-	      
+	    
 		buildMenuBar();
-		buildBar();
+		buildBar(); 
 		buildPanel(serviceImp);
 		
-
-		// Add the widgets to the root panel.
-		vPanel4.add(hPanel);
+	        
 		vPanel4.add(vPanel);
-		RootPanel.get().add(tabPanel);
-		//RootPanel.get().add(hPanel);
+		RootPanel.get().add(hPanel);
+		RootPanel.get().add(bar);
 		//RootPanel.get().add(bar);
 		//RootPanel.get().add(vPanel);
 	}
@@ -118,7 +110,7 @@ public class mainGui extends Composite {
 
 
 		ta = new TextArea();
-		ta.setCharacterWidth(80);
+		ta.setCharacterWidth(150);
 		ta.setVisibleLines(20);
 		ta.setReadOnly(false);
 
@@ -159,6 +151,7 @@ public class mainGui extends Composite {
 		PushButton btn2 = new PushButton(new Image("images/renameSymbol.png"));
 
 		btn1.addClickHandler(new Btn1ClickHandler());
+		btn2.addClickHandler(new Btn2ClickHandler());
 		this.vPanel2.add(btn1);
 		this.vPanel2.add(btn2);
 
@@ -190,6 +183,17 @@ public class mainGui extends Composite {
 
 	}
 
+	private class Btn2ClickHandler implements ClickHandler {
+
+		@Override
+		public void onClick(ClickEvent event) {
+			//bar.addTab( "Tab "+con);
+			bar.insertTab("Tab "+con, con);
+			
+			con ++;
+		}
+
+	}
 	public void updateLabel(Grammar grammar) {
 		String term = grammar.getTerminals().toString(), noTerm = grammar
 				.getNonTerminals().toString();
@@ -219,35 +223,29 @@ public class mainGui extends Composite {
 
 	}
 	private void buildBar() {
-		bar.addTab("1");
-	    bar.addTab("bar");
-	    bar.addTab("baz");
-
- 	    bar.addTab("+");
-
+		    
+		bar.addTab("Tab 0");
+	    // Hook up a tab listener to do something when the user selects a tab.
+		bar.selectTab(0);
 	    bar.addSelectionHandler(new SelectionHandler<Integer>() {
-	    	public void onSelection(SelectionEvent<Integer> event) {
-	    		if (event.getSelectedItem() == 1) {                 
-	    			bar.addTab("Nueva");
-
-	    			}
-	    		
-	    		}
-	    	});
-
-
-	    // Just for fun, let's disallow selection of 'bar'.
-	    bar.addBeforeSelectionHandler(new BeforeSelectionHandler<Integer>() {
-	      public void onBeforeSelection(BeforeSelectionEvent<Integer> event) {
-	        if (event.getItem().intValue() == 1) {
-	          event.cancel();
-	        }
+	      public void onSelection(SelectionEvent<Integer> event) {
+	        // Let the user know what they just did.
+	        //Window.alert("You clicked tab " + event.getSelectedItem());
+	        RootPanel.get().add(vPanel);
 	      }
 	    });
-
-	}
-	    // Add it to the root panel.
 	    
+	    //create titles for tabs
+	   /* String tab1Title = "TAB 1";
+	    String tab2Title = "TAB 2";
+	    
+	    tabPanel.add(vPanel4, tab1Title);
+	    tabPanel.add(new HTML("Baz"), tab2Title);
+	    tabPanel.selectTab(0);
+*/
+	    //tabPanel.setWidth("4000");
+	}
+	 
 
 	private void buildMenuBar() {
 
@@ -369,14 +367,18 @@ public class mainGui extends Composite {
 
 		MenuBar toolsMenu = new MenuBar(true);
 		toolsMenu.addItem("Idioma.", cmd);
-		toolsMenu.addItem("Preferencias..", cmd);
 
 		MenuBar menu = new MenuBar();
 		menu.addItem("Archivo", fooMenu);
+		menu.addSeparator();
 		menu.addItem("Editar", fooMenu);
+		menu.addSeparator();
 		menu.addItem("Gramática", grammarMenu);
+		menu.addSeparator();
 		menu.addItem("Algoritmos", algorithmMenu);
+		menu.addSeparator();
 		menu.addItem("Herramientas", toolsMenu);
+		menu.addSeparator();
 		menu.addItem("Ayuda", fooMenu);
 
 		hPanel.add(menu);
@@ -388,6 +390,7 @@ public class mainGui extends Composite {
 	public void openSNT() {
 		this.vPanel.clear();
 		hPanel.clear();
+		//tabPanel.clear();
 		this.currentPage = new VisualSNT(mGrammar);
 		this.vPanel.add(this.currentPage);
 	}

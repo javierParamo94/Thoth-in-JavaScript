@@ -3,17 +3,20 @@ package src.client.gui.mediator;
 
 
 import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.ui.RichTextArea;
 
 import src.client.core.grammar.*;
 import src.client.core.grammar.cleaner.Cleaning;
 import src.client.core.grammar.cleaner.EliminateSA;
 import src.client.gui.Application;
+import src.client.gui.mainGui;
 /*import view.utils.Colors;
 import view.utils.Messages;
 import view.application.Application;
 import view.application.Actions;
 import view.grammar.PanelGrammar;*/
 import src.client.gui.utils.ShowDialog;
+import src.client.gui.utils.ToHTML;
 import src.client.gui.visual.VisualSA;
 
 /**
@@ -36,7 +39,7 @@ import src.client.gui.visual.VisualSA;
 public class MediatorSA {
     
     // Attributes --------------------------------------------------------------------
-    
+    private mainGui mangui;
     /**
      * Algoritmo de limpieza asociado al mediador.
      */
@@ -77,13 +80,14 @@ public class MediatorSA {
         mGrammar = grammar;
         mFlagFirst = true;
         mVisual = sa;
-        mVisual.mOld.setText(mGrammar.completeToString());
+        mVisual.mOld.setHTML(ToHTML.toHTML(mGrammar.completeToString()));
+        //mVisual.mNew.setHTML(ToHTML.toHTML(mCleanAlgorithm.getSolution().completeToString()));
         
         if(!mCleanAlgorithm.firstStep()){
             ShowDialog.nonCancelSymbols();
             exit();
-            //mVisual.mVisible = false;
-            //mVisual = null;
+            mVisual.mVisible = false;
+            mVisual = null;
         }
         else
             mCleanAlgorithm = new EliminateSA(grammar);
@@ -98,28 +102,28 @@ public class MediatorSA {
             //FirstStep
         if(mFlagFirst){
             mCleanAlgorithm.firstStep();
-            mVisual.mNew.setText(mCleanAlgorithm.getSolution().completeToString());
+            mVisual.mNew.setHTML(ToHTML.toHTML(mCleanAlgorithm.getSolution().completeToString()));
                 //Iluminamos mOld y mNew
             for(Production prod : mGrammar.getProductions())
-                //if(mCleanAlgorithm.getSolution().getProductions().contains(prod))
-                    //highLight(mVisual.mNew, prod.toString(), new MyGreenHighLight());
-                //else
-                    //highLight(mVisual.mOld, prod.toString(), new MyRedHighLight());
+                if(mCleanAlgorithm.getSolution().getProductions().contains(prod))
+                    highLight(mVisual.mNew, prod.toString(), 1);
+                else
+                    highLight(mVisual.mOld, prod.toString(), 0);
             mTempSize = mCleanAlgorithm.getSolution().completeToString().length()-3;
             setAux();
             mFlagFirst = false;
         }
         else{   //NextStep
-            //removeAllHighLight();
+            removeAllHighLight();
             setAux();
             //highLightAux();
                 //Última iteración
             if(!mCleanAlgorithm.nextStep())
                 finish();
                 //En cada iteración
-            mVisual.mNew.setText(mCleanAlgorithm.getSolution().completeToString());
+            mVisual.mNew.setHTML(ToHTML.toHTML(mCleanAlgorithm.getSolution().completeToString()));
             temp = mCleanAlgorithm.getSolution().completeToString();
-            //highLight(mVisual.mNew, temp.substring(mTempSize, temp.length()-3), new MyGreenHighLight());
+            highLight(mVisual.mNew, temp.substring(mTempSize, temp.length()-3), 1);
             mTempSize = mCleanAlgorithm.getSolution().completeToString().length()-3;
         }
         
@@ -136,9 +140,9 @@ public class MediatorSA {
             mVisual.mVisible = false;
         }
         else
-            mVisual.mNew.setText(mCleanAlgorithm.getSolution().completeToString());
+        	mVisual.mNew.setHTML(ToHTML.toHTML(mCleanAlgorithm.getSolution().completeToString()));
         
-        //removeAllHighLight();
+        removeAllHighLight();
         finish();
         
     }//all
@@ -151,14 +155,13 @@ public class MediatorSA {
         
         Application app = Application.getInstance();
         
-       /* if(mVisual.mNew.getText().length()>0){
-            app.createTab(Messages.GRAMMAR + " " + Actions.mCountGram,
-                    new PanelGrammar(mCleanAlgorithm.getSolution()));
-            Actions.mCountGram++;
-            app.getCurrentTab().setChanges(true);
+        if(mVisual.mNew.getText().length()>0){
+
+            //Actions.mCountGram++;
+            //app.getCurrentTab().setChanges(true);
         }
         
-        ((PanelGrammar)app.getCurrentTab()).checkContent();*/
+        //((PanelGrammar)app.getCurrentTab()).checkContent();*/
         exit();
         
     }//accept
@@ -170,7 +173,7 @@ public class MediatorSA {
         String temp;
         
         temp = ((EliminateSA)mCleanAlgorithm).getCancel().toString();
-        mVisual.mAux.setText(temp.substring(1, temp.length()-1));
+        mVisual.mAux.setHTML(ToHTML.toHTML(temp.substring(1, temp.length()-1)));
         mTempSize = mCleanAlgorithm.getSolution().completeToString().length()-3;
         
     }//setAux
@@ -179,8 +182,7 @@ public class MediatorSA {
      * Ilumina/Resalta el no terminal anulable en cada momento.
      */
    /* private void highLightAux () {
-        highLight(mVisual.mAux, ((EliminateSA)mCleanAlgorithm).currentCancel().toString(),
-                new MyRedHighLight());
+        highLight(mVisual.mAux, ((EliminateSA)mCleanAlgorithm).currentCancel().toString(),0);
         
     }//highLightAux*/
     
@@ -190,23 +192,36 @@ public class MediatorSA {
      * 
      * @param pattern Patrón de texto a iluminar.
      */
-    /*private void highLight (JTextPane pane, String pattern, 
-                            DefaultHighlighter.DefaultHighlightPainter light) {
-        String text;
-        int pos = 0;
-        
-        if(pattern.equals(""))
-            return;
-        
-        try{
-            Highlighter hilite = pane.getHighlighter();
-            text = pane.getText();
-            while((pos = text.indexOf(pattern, pos)) >= 0 ){
-                hilite.addHighlight(pos, pos + pattern.length(), light);
-                pos += pattern.toString().length();
+    private void highLight (RichTextArea pane, String pattern, int flag){
+            String text, text1 = "";
+            int posEnd = 0, posStart = 0;
+            String colour = "", colour2 = "";
+            
+            if (flag == 1){
+            	colour = "<mark>";
+            	colour2 = "</mark>";
+            }else{
+            	colour = "<mark2>";
+            	colour2 = "</mark2>";
             }
-        }catch(BadLocationException e){}
+            if(pattern.equals(""))
+                return;
+            try{
+            pattern = pattern.toString().substring(0, pattern.toString().length() - 1);
+            text = pane.getHTML();
+            while((posEnd = text.indexOf(pattern, posEnd)) >= 0 ){
+            	
+            	text1 += text.substring(posStart,posEnd) + "<mark>"+ pattern + "</mark>";
 
+                posEnd += pattern.toString().length();
+                posStart = posEnd;
+                }
+            text1 += text.substring(posStart, pane.getHTML().length());
+            pane.setHTML(text1);
+            
+            }catch(Exception e){
+            	System.err.println();
+            }
     }//highLight*/
     
     /**
@@ -240,10 +255,23 @@ public class MediatorSA {
     /**
      * Deselecciona la zona resaltada.
      */
-   /* private void removeAllHighLight() {
-        mVisual.mOld.getHighlighter().removeAllHighlights();
+    private void removeAllHighLight() {
+    	
+    	String str, str1, str2, str3, str4, str5;
+    	str = mVisual.mNew.getHTML().replaceAll("<mark>", "").replaceAll("<mark2>", "");
+    	str1 = str.replaceAll("</mark>", "").replaceAll("</mark2>", "");
+    	str2 = mVisual.mOld.getHTML().replaceAll("<mark>", "").replaceAll("<mark2>", "");
+    	str3 = str2.replaceAll("<mark2>", "").replaceAll("</mark2>", "");
+    	//str4 = mVisual.mAux.getHTML().replaceAll("<mark>", "").replaceAll("<mark2>", "");
+    	//str5 = str4.replaceAll("</mark>", "");
+    	
+    	mVisual.mNew.setHTML(str1);
+    	mVisual.mOld.setHTML(str3);
+    	//mVisual.mAux.setHTML(str5);
+    	
+       /* mVisual.mOld.getHighlighter().removeAllHighlights();
         mVisual.mNew.getHighlighter().removeAllHighlights();
-        mVisual.mAux.getHighlighter().removeAllHighlights();
+        mVisual.mAux.getHighlighter().removeAllHighlights();*/
         
     }//removeAllHighLight()*/
     

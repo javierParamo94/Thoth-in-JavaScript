@@ -191,7 +191,11 @@ public class MediatorChomsky {
             //hilite.addHighlight(pos, pos + pattern.length(), light);
             //for (int i = pos; i < pos + pattern.length(); i++){
             	//sb.append("<span style='font-weight:bold;'>" + text.charAt(pos) + "</span>");
+        		//pane.setSelectionRange(pos, pos + pattern.length());
+        	//pane.getSelectedText();
+        	pane.getCursorPos();
             	pane.getElement().getStyle().setColor("red");
+            	
            // }
             pos += pattern.toString().length();
         }

@@ -1,21 +1,19 @@
 package src.client.gui.mediator;
 
 
-import com.google.gwt.dom.client.Style;
-import com.google.gwt.user.client.Window;
 
+import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.ui.RichTextArea;
+
+import src.client.GrammarServiceClientImp;
 import src.client.core.grammar.Grammar;
 import src.client.core.grammar.Production;
 import src.client.core.grammar.cleaner.Cleaning;
 import src.client.core.grammar.cleaner.EliminateSNT;
 import src.client.gui.Application;
-/*import view.utils.Colors;
-import view.utils.Messages;
-import view.utils.ShowDialog;
-import view.application.Application;
-import view.application.Actions;
-import view.grammar.PanelGrammar;*/
+import src.client.gui.mainGui;
 import src.client.gui.utils.ShowDialog;
+import src.client.gui.utils.ToHTML;
 import src.client.gui.visual.VisualSNT;
 
 /**
@@ -59,6 +57,8 @@ public class MediatorSNT {
      * Algoritmo visual al que está asociado.
      */
     private VisualSNT mVisual;
+    private mainGui gui;
+    private GrammarServiceClientImp serviceImp;
     
     // Methods -----------------------------------------------------------------------
     
@@ -74,8 +74,8 @@ public class MediatorSNT {
         mGrammar = grammar;
         mFlagFirst = true;
         mVisual = snt;
-        mVisual.mOld.setText(mGrammar.completeToString());
-        mVisual.mNew.setText(mCleanAlgorithm.getSolution().completeToString());
+        mVisual.mOld.setHTML(ToHTML.toHTML(mGrammar.completeToString()));
+        mVisual.mNew.setHTML(ToHTML.toHTML(mCleanAlgorithm.getSolution().completeToString()));
         
         if(!mCleanAlgorithm.firstStep()){
         	ShowDialog.nonTerminalSymbols();
@@ -86,6 +86,7 @@ public class MediatorSNT {
             mCleanAlgorithm = new EliminateSNT(grammar);
         
     }//MediatorSNT
+    
     
     /**
      * Cada paso del algoritmo.
@@ -100,10 +101,10 @@ public class MediatorSNT {
                 exit();
                 return;
             }
-            mVisual.mNew.setText(mCleanAlgorithm.getSolution().completeToString());
+            mVisual.mNew.setHTML(ToHTML.toHTML(mCleanAlgorithm.getSolution().completeToString()));
             for(Production prod : mCleanAlgorithm.getSolution().getProductions()){
-                //highLight(mVisual.mOld, prod.toString());
-                //highLight(mVisual.mNew, prod.toString());
+                highLight(mVisual.mOld, prod.toString());
+                highLight(mVisual.mNew, prod.toString());
             }
             mFlagFirst = false;
         }   //Siguiente paso
@@ -111,10 +112,10 @@ public class MediatorSNT {
             if(!mCleanAlgorithm.nextStep())
                 finish();
             else{
-                mVisual.mNew.setText(mCleanAlgorithm.getSolution().completeToString());
+                mVisual.mNew.setHTML(ToHTML.toHTML(mCleanAlgorithm.getSolution().completeToString()));
                 removeAllLighter();
-                //highLight(mVisual.mOld, mCleanAlgorithm.getSolution().getProductions().lastElement().toString());
-               // highLight(mVisual.mNew, mCleanAlgorithm.getSolution().getProductions().lastElement().toString());
+                highLight(mVisual.mOld, mCleanAlgorithm.getSolution().getProductions().lastElement().toString());
+                highLight(mVisual.mNew, mCleanAlgorithm.getSolution().getProductions().lastElement().toString());
             }
         
     }//next
@@ -130,7 +131,7 @@ public class MediatorSNT {
             mVisual.mVisible = false;
         }
         else
-            mVisual.mNew.setText(mCleanAlgorithm.getSolution().completeToString());
+            mVisual.mNew.setHTML(ToHTML.toHTML(mCleanAlgorithm.getSolution().completeToString()));
         
         finish();
     }//all
@@ -143,7 +144,11 @@ public class MediatorSNT {
         Application app = Application.getInstance();
         
         if(mVisual.mNew.getText().length()>0){
-        	 //mVisual.mNew.setText
+        	//serviceImp.getManGUI(); 
+        	//new mainGui(serviceImp);
+        	//gui.tabPanel.add(mVisual.mNew,"nuevo");
+        	//Window.Location.reload();
+        	//mVisual.mNew.setText
             /*app.createTab(Messages.GRAMMAR + " " + Actions.mCountGram,
                     new PanelGrammar(mCleanAlgorithm.getSolution()));
             Actions.mCountGram++;
@@ -152,7 +157,7 @@ public class MediatorSNT {
         
         //((PanelGrammar)app.getCurrentTab()).checkContent();
         exit();
-        
+        //gui.tabPanel.add(mVisual.mNew,"nuevo");
     }//accept
     
     /**
@@ -161,25 +166,31 @@ public class MediatorSNT {
      * 
      * @param pattern Patrón de texto a iluminar.
      */
-   /* private void highLight (JTextPane pane, String pattern) {
-        String text;
-        int pos = 0;
+    private void highLight (RichTextArea pane, String pattern) {
+        String text, text1 = "";
+        int posEnd = 0, posStart = 0;
+        String greenCol = "<mark>";
         
         if(pattern.equals(""))
             return;
         
-        try{
-            Highlighter hilite = pane.getHighlighter();
-            text = pane.getText();
-            while((pos = text.indexOf(pattern, pos)) >= 0 ){
-                hilite.addHighlight(pos, pos + pattern.length(), new MyHighLight());
-                pos += pattern.toString().length();
+        pattern = pattern.toString().substring(0, pattern.toString().length() - 1);
+        text = pane.getHTML();
+        while((posEnd = text.indexOf(pattern, posEnd)) >= 0 ){
+        	
+        	text1 += text.substring(posStart,posEnd) + greenCol + pattern + "</mark>" ;
+
+            posEnd += pattern.toString().length();
+            posStart = posEnd;
             }
-        }catch(BadLocationException e){}
+        text1 += text.substring(posStart, pane.getHTML().length());
+        pane.setHTML(text1);
+    
 
     }//highLight
     
-    /**
+
+	/**
      * Clase privada de apoyo para asignar el color a la zona resaltada.
      */
    /* private class MyHighLight extends DefaultHighlighter.DefaultHighlightPainter {
@@ -203,9 +214,16 @@ public class MediatorSNT {
      * Quita todos los marcadores de los paneles de las gramáticas.
      */
     public void removeAllLighter() {
-       /* mVisual.mOld.getHighlighter().removeAllHighlights();
-        mVisual.mNew.getHighlighter().removeAllHighlights();
-        */
+    	
+    	String str, str1, str2, str3;
+    	str = mVisual.mNew.getHTML().replaceAll("<mark>", "");
+    	str1 = str.replaceAll("</mark>", "");
+    	str2 = mVisual.mOld.getHTML().replaceAll("<mark>", "");
+    	str3 = str2.replaceAll("</mark>", "");
+    	
+    	mVisual.mNew.setHTML(str1);
+    	mVisual.mOld.setHTML(str3);
+    	
     }//removeAllLighter
     
     /**
