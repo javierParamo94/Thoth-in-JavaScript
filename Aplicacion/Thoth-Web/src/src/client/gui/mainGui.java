@@ -1,7 +1,5 @@
 package src.client.gui;
 
-
-
 import src.client.GrammarServiceClientImp;
 import src.client.core.grammar.Grammar;
 import src.client.core.grammar.TypeHandler;
@@ -18,18 +16,12 @@ import src.client.gui.visual.VisualSNT;
 
 
 
-
-
-
-
-
-
+import com.google.gwt.core.shared.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.logical.shared.BeforeSelectionEvent;
-import com.google.gwt.event.logical.shared.BeforeSelectionHandler;
 import com.google.gwt.event.logical.shared.SelectionEvent;
 import com.google.gwt.event.logical.shared.SelectionHandler;
+import com.google.gwt.http.client.UrlBuilder;
 import com.google.gwt.layout.client.Layout;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DockPanel;
@@ -77,6 +69,9 @@ public class mainGui extends Composite {
 	private Composite currentPage;
 	
 	private static mainGui instance;
+	
+	private MessageMessages sms = GWT.create(MessageMessages.class);
+	
     public static mainGui getInstance () {
         if(instance == null)
             instance = new mainGui(serviceImp);
@@ -85,7 +80,6 @@ public class mainGui extends Composite {
     }//getInstance
     
 	public mainGui(GrammarServiceClientImp serviceImp) {
-	    
 		buildMenuBar();
 		buildBar(); 
 		buildPanel(serviceImp);
@@ -114,11 +108,11 @@ public class mainGui extends Composite {
 		ta.setVisibleLines(20);
 		ta.setReadOnly(false);
 
-		stocksFlexTable.setText(0, 0, "Tipo de Gramática");
-		stocksFlexTable.setText(1, 0, "Número de producciones");
-		stocksFlexTable.setText(2, 0, "Axiomas");
-		stocksFlexTable.setText(3, 0, "Terminales");
-		stocksFlexTable.setText(4, 0, "No terminales");
+		stocksFlexTable.setText(0, 0, sms.grammartype());
+		stocksFlexTable.setText(1, 0, sms.productionnumber());
+		stocksFlexTable.setText(2, 0, sms.axiom());
+		stocksFlexTable.setText(3, 0, sms.tokens());
+		stocksFlexTable.setText(4, 0, sms.nonterminals());
 
 		stocksFlexTable.getRowFormatter().addStyleName(0, "header");
 		stocksFlexTable.getRowFormatter().addStyleName(1, "header");
@@ -155,16 +149,16 @@ public class mainGui extends Composite {
 		this.vPanel2.add(btn1);
 		this.vPanel2.add(btn2);
 
-		txt1.setText("Tipo de Gramática");
-		txt2.setText("Número de producciones");
-		txt3.setText("Axiomas");
-		txt4.setText("Terminales");
-		txt5.setText("No terminales");
+		txt1.setText(sms.grammartype());
+		txt2.setText(sms.productionnumber());
+		txt3.setText(sms.axiom());
+		txt4.setText(sms.tokens());
+		txt5.setText(sms.nonterminals());
 
 		this.hPanel3.add(stocksFlexTable);
 		hPanel3.add(vPanel3);
 
-		dockPanel.add(new HTML("Definición de Gramática."), DockPanel.NORTH);
+		dockPanel.add(new HTML(sms.grammardef()), DockPanel.NORTH);
 		dockPanel.add(hPanel3, DockPanel.SOUTH);
 		dockPanel.add(vPanel1, DockPanel.EAST);
 		dockPanel.add(vPanel2, DockPanel.WEST);
@@ -211,13 +205,13 @@ public class mainGui extends Composite {
 			txt1.setText("Chomsky");
 			break;
 		case TypeHandler.DEPENDENT:
-			txt1.setText("dependent");
+			txt1.setText(sms.dependent());
 			break;
 		case TypeHandler.INDEPENDENT:
-			txt1.setText("Independiente del contexto");
+			txt1.setText(sms.independent());
 			break;
 		case TypeHandler.REGULAR:
-			txt1.setText("Regular");
+			txt1.setText(sms.regular());
 			break;
 		}
 
@@ -225,12 +219,11 @@ public class mainGui extends Composite {
 	private void buildBar() {
 		    
 		bar.addTab("Tab 0");
-	    // Hook up a tab listener to do something when the user selects a tab.
+
 		bar.selectTab(0);
 	    bar.addSelectionHandler(new SelectionHandler<Integer>() {
 	      public void onSelection(SelectionEvent<Integer> event) {
-	        // Let the user know what they just did.
-	        //Window.alert("You clicked tab " + event.getSelectedItem());
+
 	        RootPanel.get().add(vPanel);
 	      }
 	    });
@@ -248,24 +241,59 @@ public class mainGui extends Composite {
 	 
 
 	private void buildMenuBar() {
-
+		
 		Command cmd = new Command() {
 			public void execute() {
 				Window.alert("You selected a menu item!");
+				
+			}
+		};
+
+		Command spanish = new Command() {
+			public void execute() {
+				UrlBuilder newUrl = Window.Location.createUrlBuilder();
+				newUrl.setParameter("locale", "es");
+				Window.Location.assign(newUrl.buildString());
+			}
+		};
+		Command deutschland = new Command() {
+			public void execute() {
+				UrlBuilder newUrl = Window.Location.createUrlBuilder();
+				newUrl.setParameter("locale", "de");
+				Window.Location.assign(newUrl.buildString());
+			}
+		};
+		Command french = new Command() {
+			public void execute() {
+				UrlBuilder newUrl = Window.Location.createUrlBuilder();
+				newUrl.setParameter("locale", "fr");
+				Window.Location.assign(newUrl.buildString());
+			}
+		};
+		Command english = new Command() {
+			public void execute() {
+				UrlBuilder newUrl = Window.Location.createUrlBuilder();
+				newUrl.setParameter("locale", "en");
+				Window.Location.assign(newUrl.buildString());
 			}
 		};
 
 		Command eliminate_SNT = new Command() {
 			public void execute() {
+				serviceImp.checkContent(ta.getText());
 				if (mGrammar.getType() == TypeHandler.CHOMSKY
 						|| mGrammar.getType() == TypeHandler.DEPENDENT)
 					ShowDialog.incorrectTypeGrammar();
-				openSNT();
+				else {
+
+					openSNT();
+				}
 			}
 		};
 
 		Command eliminate_SNA = new Command() {
 			public void execute() {
+				serviceImp.checkContent(ta.getText());
 				if (mGrammar.getType() == TypeHandler.CHOMSKY
 						|| mGrammar.getType() == TypeHandler.DEPENDENT)
 					ShowDialog.incorrectTypeGrammar();
@@ -276,6 +304,7 @@ public class mainGui extends Composite {
 
 		Command eliminate_SA = new Command() {
 			public void execute() {
+				serviceImp.checkContent(ta.getText());
 				if (mGrammar.getType() == TypeHandler.CHOMSKY
 						|| mGrammar.getType() == TypeHandler.DEPENDENT)
 					ShowDialog.incorrectTypeGrammar();
@@ -286,6 +315,7 @@ public class mainGui extends Composite {
 
 		Command eliminate_PNG = new Command() {
 			public void execute() {
+				serviceImp.checkContent(ta.getText());
 				if (mGrammar.getType() == TypeHandler.CHOMSKY
 						|| mGrammar.getType() == TypeHandler.DEPENDENT)
 					ShowDialog.incorrectTypeGrammar();
@@ -296,6 +326,7 @@ public class mainGui extends Composite {
 
 		Command direct_recursion = new Command() {
 			public void execute() {
+				serviceImp.checkContent(ta.getText());
 				if (mGrammar.getType() == TypeHandler.CHOMSKY
 						|| mGrammar.getType() == TypeHandler.DEPENDENT)
 					ShowDialog.incorrectTypeGrammar();
@@ -306,6 +337,7 @@ public class mainGui extends Composite {
 
 		Command indirect_recursion = new Command() {
 			public void execute() {
+				serviceImp.checkContent(ta.getText());
 				if (mGrammar.getType() == TypeHandler.CHOMSKY
 						|| mGrammar.getType() == TypeHandler.DEPENDENT)
 					ShowDialog.incorrectTypeGrammar();
@@ -316,6 +348,7 @@ public class mainGui extends Composite {
 
 		Command recursion = new Command() {
 			public void execute() {
+				serviceImp.checkContent(ta.getText());
 				if (mGrammar.getType() == TypeHandler.CHOMSKY
 						|| mGrammar.getType() == TypeHandler.DEPENDENT)
 					ShowDialog.incorrectTypeGrammar();
@@ -326,6 +359,7 @@ public class mainGui extends Composite {
 		
 		Command left_factoring = new Command() {
 			public void execute() {
+				serviceImp.checkContent(ta.getText());
 				if (mGrammar.getType() == TypeHandler.CHOMSKY
 						|| mGrammar.getType() == TypeHandler.DEPENDENT)
 					ShowDialog.incorrectTypeGrammar();
@@ -336,6 +370,7 @@ public class mainGui extends Composite {
 		
 		Command chomsky = new Command() {
 			public void execute() {
+				serviceImp.checkContent(ta.getText());
 				if (mGrammar.getType() == TypeHandler.CHOMSKY
 						|| mGrammar.getType() == TypeHandler.DEPENDENT)
 					ShowDialog.incorrectTypeGrammar();
@@ -355,31 +390,49 @@ public class mainGui extends Composite {
 
 		
 		MenuBar algorithmMenu = new MenuBar(true);
-		algorithmMenu.addItem("Eliminar símbolos no terminables.", eliminate_SNT);
-		algorithmMenu.addItem("Eliminar símbolos no alcanzables.", eliminate_SNA);
-		algorithmMenu.addItem("Eliminar simbolos anulables.", eliminate_SA);
-		algorithmMenu.addItem("Eliminar preduciones no generativas.", eliminate_PNG);
-		algorithmMenu.addItem("Eliminar recursividad directa.",	direct_recursion);
-		algorithmMenu.addItem("Eliminar recursividad indirecta.", indirect_recursion);
-		algorithmMenu.addItem("Eliminar recursividad.", recursion);
-		algorithmMenu.addItem("Factorización por la izquierda.", left_factoring);
-		algorithmMenu.addItem("Forma normal de Chomsky.", chomsky);
+		algorithmMenu.addItem(sms.eliminatesnt(), eliminate_SNT);
+		algorithmMenu.addItem(sms.eliminatesna(), eliminate_SNA);
+		algorithmMenu.addItem(sms.eliminatesa(), eliminate_SA);
+		algorithmMenu.addItem(sms.eliminatepng(), eliminate_PNG);
+		algorithmMenu.addItem(sms.clear(), cmd); //////////////////////////////////////////////////
+		algorithmMenu.addSeparator();
+		algorithmMenu.addItem(sms.eliminatedirectrecursion(),	direct_recursion);
+		algorithmMenu.addItem(sms.eliminateindirectrecursion(), indirect_recursion);
+		algorithmMenu.addItem(sms.eliminaterecursion(), recursion);
+		algorithmMenu.addSeparator();
+		algorithmMenu.addItem(sms.factoring(), left_factoring);
+		algorithmMenu.addItem(sms.fnchomsky(), chomsky);
+		algorithmMenu.addSeparator();
+		algorithmMenu.addItem(sms.calculateff(), cmd);
+		algorithmMenu.addItem(sms.tasp(), cmd);
 
+
+		MenuBar selectIdiom = new MenuBar(true);
+		selectIdiom.addItem("Castellano", spanish);
+
+		selectIdiom.addItem("Deutsch", deutschland);
+
+		selectIdiom.addItem("Français", french);
+
+		selectIdiom.addItem("English", english);
+		
 		MenuBar toolsMenu = new MenuBar(true);
-		toolsMenu.addItem("Idioma.", cmd);
+		toolsMenu.addItem(sms.language(), selectIdiom);
+
+		
 
 		MenuBar menu = new MenuBar();
-		menu.addItem("Archivo", fooMenu);
+		menu.addItem(sms.file(), fooMenu);
 		menu.addSeparator();
-		menu.addItem("Editar", fooMenu);
+		menu.addItem(sms.edit(), fooMenu);
 		menu.addSeparator();
-		menu.addItem("Gramática", grammarMenu);
+		menu.addItem(sms.grammar(), grammarMenu);
 		menu.addSeparator();
-		menu.addItem("Algoritmos", algorithmMenu);
+		menu.addItem(sms.algorithms(), algorithmMenu);
 		menu.addSeparator();
-		menu.addItem("Herramientas", toolsMenu);
+		menu.addItem(sms.tools(), toolsMenu);
 		menu.addSeparator();
-		menu.addItem("Ayuda", fooMenu);
+		menu.addItem(sms.help(), fooMenu);
 
 		hPanel.add(menu);
 	}// buildMenuBar

@@ -2,8 +2,10 @@ package src.client.gui.visual;
 
 import src.client.GrammarServiceClientImp;
 import src.client.core.grammar.Grammar;
+import src.client.gui.MessageMessages;
 import src.client.gui.mediator.MediatorSNT;
 
+import com.google.gwt.core.shared.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Composite;
@@ -35,6 +37,8 @@ import com.google.gwt.user.client.ui.VerticalPanel;
  */
 public class VisualSNT extends Composite {
 
+	private MessageMessages sms = GWT.create(MessageMessages.class);
+	
 	/**
 	 * Área de texto donde se muetra la gramática original.
 	 */
@@ -54,7 +58,15 @@ public class VisualSNT extends Composite {
 	 * 
 	 */
 	public VerticalPanel vPanel = new VerticalPanel();
-
+	
+	/**
+	 * 
+	 */
+	public VerticalPanel vPanelNew = new VerticalPanel();
+	/**
+	 * 
+	 */
+	public VerticalPanel vPanelOld = new VerticalPanel();
 	/**
 	 * 
 	 */
@@ -107,6 +119,12 @@ public class VisualSNT extends Composite {
 		dockPanel.setSpacing(4);
 		dockPanel.setHorizontalAlignment(DockPanel.ALIGN_CENTER);
 
+		vPanelNew.add(new HTML(sms.newgrammar()));
+		vPanelNew.add(mNew);
+		
+		vPanelOld.add(new HTML(sms.oldgrammar()));
+		vPanelOld.add(mOld);
+		
 		// Botones
 		hPanel.add(btnCancel);
 		hPanel.add(btnOneStep);
@@ -115,15 +133,14 @@ public class VisualSNT extends Composite {
 		buildCommonListeners();
 
 		// Add text all around
-		dockPanel.add(new HTML("This is the first north component."),
-				DockPanel.NORTH);
+		//dockPanel.add(new HTML("This is the first north component."),DockPanel.NORTH);
 		dockPanel.add(hPanel, DockPanel.SOUTH);
-		dockPanel.add(mNew, DockPanel.EAST);
-		dockPanel.add(mOld, DockPanel.WEST);
-		dockPanel.add(new HTML("This is the second north component."),
-				DockPanel.NORTH);
-		dockPanel.add(new HTML("This is the second south component"),
-				DockPanel.SOUTH);
+		//dockPanel.add(new HTML(sms.newgrammar()), DockPanel.EAST);
+		dockPanel.add(vPanelNew, DockPanel.EAST);
+		//dockPanel.add(new HTML(sms.oldgrammar()), DockPanel.WEST);
+		dockPanel.add(vPanelOld, DockPanel.WEST);
+		dockPanel.add(new HTML("This is the second north component."),DockPanel.NORTH);
+		//dockPanel.add(new HTML("This is the second south component"),DockPanel.SOUTH);
 
 		vPanel.add(dockPanel);
 
