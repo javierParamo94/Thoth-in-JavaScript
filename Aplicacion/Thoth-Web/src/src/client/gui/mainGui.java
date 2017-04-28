@@ -7,6 +7,7 @@ import src.client.gui.mediator.MediatorRecursive;
 import src.client.gui.utils.ShowDialog;
 import src.client.gui.visual.VisualChomsky;
 import src.client.gui.visual.VisualDirectRecursive;
+import src.client.gui.visual.VisualFirstFollow;
 import src.client.gui.visual.VisualIndirectRecursive;
 import src.client.gui.visual.VisualLeftFactoring;
 import src.client.gui.visual.VisualPNG;
@@ -16,17 +17,24 @@ import src.client.gui.visual.VisualSNT;
 
 
 
+
+
+
 import com.google.gwt.core.shared.GWT;
+import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.logical.shared.SelectionEvent;
 import com.google.gwt.event.logical.shared.SelectionHandler;
 import com.google.gwt.http.client.UrlBuilder;
 import com.google.gwt.layout.client.Layout;
+import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.DockPanel;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
@@ -34,6 +42,7 @@ import com.google.gwt.user.client.ui.MenuBar;
 import com.google.gwt.user.client.ui.PushButton;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TabBar;
+import com.google.gwt.user.client.ui.TabLayoutPanel;
 import com.google.gwt.user.client.ui.TabPanel;
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
@@ -57,8 +66,7 @@ public class mainGui extends Composite {
 	
 	private TabBar bar = new TabBar();
 	public int con = 1;
-	
-	//public TabPanel tabPanel = new TabPanel();
+	public TabPanel tabPanel = new TabPanel();
 	
 	DockPanel dockPanel = new DockPanel();
 
@@ -87,7 +95,7 @@ public class mainGui extends Composite {
 	        
 		vPanel4.add(vPanel);
 		RootPanel.get().add(hPanel);
-		RootPanel.get().add(bar);
+		RootPanel.get().add(tabPanel);
 		//RootPanel.get().add(bar);
 		//RootPanel.get().add(vPanel);
 	}
@@ -105,7 +113,7 @@ public class mainGui extends Composite {
 
 		ta = new TextArea();
 		ta.setCharacterWidth(150);
-		ta.setVisibleLines(20);
+		ta.setVisibleLines(18);
 		ta.setReadOnly(false);
 
 		stocksFlexTable.setText(0, 0, sms.grammartype());
@@ -113,13 +121,15 @@ public class mainGui extends Composite {
 		stocksFlexTable.setText(2, 0, sms.axiom());
 		stocksFlexTable.setText(3, 0, sms.tokens());
 		stocksFlexTable.setText(4, 0, sms.nonterminals());
+		stocksFlexTable.setHeight("230px");
+		stocksFlexTable.setWidth("210px");;
 
 		stocksFlexTable.getRowFormatter().addStyleName(0, "header");
 		stocksFlexTable.getRowFormatter().addStyleName(1, "header");
 		stocksFlexTable.getRowFormatter().addStyleName(2, "header");
 		stocksFlexTable.getRowFormatter().addStyleName(3, "header");
 		stocksFlexTable.getRowFormatter().addStyleName(4, "header");
-		stocksFlexTable.getCellSpacing();
+
 
 		txt1 = new TextBox();
 		txt2 = new TextBox();
@@ -132,7 +142,7 @@ public class mainGui extends Composite {
 		txt3.setReadOnly(true);
 		txt4.setReadOnly(true);
 		txt5.setReadOnly(true);
-		txt1.setSize("250px", "20px");
+		//txt1.setSize("250px", "20px");
 
 		this.vPanel1.add(ta);
 		this.vPanel3.add(txt1);
@@ -156,13 +166,15 @@ public class mainGui extends Composite {
 		txt5.setText(sms.nonterminals());
 
 		this.hPanel3.add(stocksFlexTable);
+
+		hPanel3.setHorizontalAlignment(HorizontalPanel.ALIGN_RIGHT);
 		hPanel3.add(vPanel3);
+
 
 		dockPanel.add(new HTML(sms.grammardef()), DockPanel.NORTH);
 		dockPanel.add(hPanel3, DockPanel.SOUTH);
 		dockPanel.add(vPanel1, DockPanel.EAST);
 		dockPanel.add(vPanel2, DockPanel.WEST);
-		// dockPanel.add(new HTML("center"));
 
 		vPanel.add(dockPanel);
 	}
@@ -181,9 +193,9 @@ public class mainGui extends Composite {
 
 		@Override
 		public void onClick(ClickEvent event) {
-			//bar.addTab( "Tab "+con);
-			bar.insertTab("Tab "+con, con);
-			
+			bar.addTab( "Tab "+con);
+			//tabPanel.insert(vPanel4, "Tab "+con, con);
+			tabPanel.selectTab(tabPanel.getWidgetCount() - 1);
 			con ++;
 		}
 
@@ -218,7 +230,7 @@ public class mainGui extends Composite {
 	}
 	private void buildBar() {
 		    
-		bar.addTab("Tab 0");
+		/*bar.addTab("Tab 0");
 
 		bar.selectTab(0);
 	    bar.addSelectionHandler(new SelectionHandler<Integer>() {
@@ -226,16 +238,16 @@ public class mainGui extends Composite {
 
 	        RootPanel.get().add(vPanel);
 	      }
-	    });
+	    });*/
 	    
 	    //create titles for tabs
-	   /* String tab1Title = "TAB 1";
-	    String tab2Title = "TAB 2";
+
 	    
-	    tabPanel.add(vPanel4, tab1Title);
-	    tabPanel.add(new HTML("Baz"), tab2Title);
-	    tabPanel.selectTab(0);
-*/
+	    tabPanel.add(vPanel4, "TAB 0");
+
+	    //tabPanel.add(new HTML("Baz"), tab2Title);
+	    //tabPanel.selectTab(1);
+
 	    //tabPanel.setWidth("4000");
 	}
 	 
@@ -378,6 +390,49 @@ public class mainGui extends Composite {
 					openChomsky();
 			}
 		};
+		
+		Command fiFo = new Command() {
+			public void execute() {
+				serviceImp.checkContent(ta.getText());
+				if (mGrammar.getType() == TypeHandler.CHOMSKY
+						|| mGrammar.getType() == TypeHandler.DEPENDENT)
+					ShowDialog.incorrectTypeGrammar();
+				
+				else{
+					  final DialogBox deleteDialog = new DialogBox();
+					  deleteDialog.setAnimationEnabled(true);
+					  deleteDialog.setGlassEnabled(true);
+					  
+					  HorizontalPanel buttonPane = new HorizontalPanel();
+					  buttonPane.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
+
+				      Button yesBtn = new Button(sms.yes());
+				      yesBtn.addClickHandler(new ClickHandler() {
+				    	  public void onClick(ClickEvent event) {
+				    		  deleteDialog.hide();
+				    		  openFiFo();
+		              }});
+
+				      Button noBtn = new Button(sms.no());
+				      noBtn.addClickHandler(new ClickHandler() {
+				    	  public void onClick(ClickEvent event) {
+		                  deleteDialog.hide();
+		              }});
+		          
+		          buttonPane.add(yesBtn);
+		          buttonPane.add(noBtn);
+
+		          deleteDialog.center();      
+
+			      buttonPane.setWidth("75%");
+			      
+		          deleteDialog.add(buttonPane);       
+		          deleteDialog.setText(sms.questionfirstfollow()+" "+sms.ucontinue());
+		          deleteDialog.show();
+				}
+			}
+		};
+		
 		MenuBar fooMenu = new MenuBar(true);
 		fooMenu.addItem("ejemplo1", cmd);
 		fooMenu.addItem("ejemplo2", cmd);
@@ -394,7 +449,7 @@ public class mainGui extends Composite {
 		algorithmMenu.addItem(sms.eliminatesna(), eliminate_SNA);
 		algorithmMenu.addItem(sms.eliminatesa(), eliminate_SA);
 		algorithmMenu.addItem(sms.eliminatepng(), eliminate_PNG);
-		algorithmMenu.addItem(sms.clear(), cmd); //////////////////////////////////////////////////
+		algorithmMenu.addItem(sms.clear(), cmd); /////////////////////////////////////////////////////
 		algorithmMenu.addSeparator();
 		algorithmMenu.addItem(sms.eliminatedirectrecursion(),	direct_recursion);
 		algorithmMenu.addItem(sms.eliminateindirectrecursion(), indirect_recursion);
@@ -403,7 +458,7 @@ public class mainGui extends Composite {
 		algorithmMenu.addItem(sms.factoring(), left_factoring);
 		algorithmMenu.addItem(sms.fnchomsky(), chomsky);
 		algorithmMenu.addSeparator();
-		algorithmMenu.addItem(sms.calculateff(), cmd);
+		algorithmMenu.addItem(sms.calculateff(), fiFo);
 		algorithmMenu.addItem(sms.tasp(), cmd);
 
 
@@ -508,5 +563,13 @@ public class mainGui extends Composite {
 		hPanel.clear();
 		this.currentPage = new VisualChomsky(mGrammar);
 		this.vPanel.add(this.currentPage);
+	}
+	
+	//First Follow
+	public void openFiFo() {
+  	  this.vPanel.clear();
+  	  hPanel.clear();
+  	  this.currentPage = new VisualFirstFollow(mGrammar);
+  	  this.vPanel.add(this.currentPage);
 	}
 }//mainGui

@@ -1,7 +1,5 @@
 package src.client.gui.mediator;
 
-
-
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.RichTextArea;
 
@@ -13,7 +11,7 @@ import src.client.core.grammar.cleaner.EliminateSNT;
 import src.client.gui.Application;
 import src.client.gui.mainGui;
 import src.client.gui.utils.ShowDialog;
-import src.client.gui.utils.ToHTML;
+import src.client.gui.utils.HTMLConverter;
 import src.client.gui.visual.VisualSNT;
 
 /**
@@ -74,8 +72,8 @@ public class MediatorSNT {
         mGrammar = grammar;
         mFlagFirst = true;
         mVisual = snt;
-        mVisual.mOld.setHTML(ToHTML.toHTML(mGrammar.completeToString()));
-        mVisual.mNew.setHTML(ToHTML.toHTML(mCleanAlgorithm.getSolution().completeToString()));
+        mVisual.mOld.setHTML(HTMLConverter.toHTML(mGrammar.completeToString()));
+        mVisual.mNew.setHTML(HTMLConverter.toHTML(mCleanAlgorithm.getSolution().completeToString()));
         
         if(!mCleanAlgorithm.firstStep()){
         	ShowDialog.nonTerminalSymbols();
@@ -101,7 +99,7 @@ public class MediatorSNT {
                 exit();
                 return;
             }
-            mVisual.mNew.setHTML(ToHTML.toHTML(mCleanAlgorithm.getSolution().completeToString()));
+            mVisual.mNew.setHTML(HTMLConverter.toHTML(mCleanAlgorithm.getSolution().completeToString()));
             for(Production prod : mCleanAlgorithm.getSolution().getProductions()){
                 highLight(mVisual.mOld, prod.toString());
                 highLight(mVisual.mNew, prod.toString());
@@ -112,7 +110,7 @@ public class MediatorSNT {
             if(!mCleanAlgorithm.nextStep())
                 finish();
             else{
-                mVisual.mNew.setHTML(ToHTML.toHTML(mCleanAlgorithm.getSolution().completeToString()));
+                mVisual.mNew.setHTML(HTMLConverter.toHTML(mCleanAlgorithm.getSolution().completeToString()));
                 removeAllLighter();
                 highLight(mVisual.mOld, mCleanAlgorithm.getSolution().getProductions().lastElement().toString());
                 highLight(mVisual.mNew, mCleanAlgorithm.getSolution().getProductions().lastElement().toString());
@@ -131,7 +129,7 @@ public class MediatorSNT {
             mVisual.mVisible = false;
         }
         else
-            mVisual.mNew.setHTML(ToHTML.toHTML(mCleanAlgorithm.getSolution().completeToString()));
+            mVisual.mNew.setHTML(HTMLConverter.toHTML(mCleanAlgorithm.getSolution().completeToString()));
         
         finish();
     }//all

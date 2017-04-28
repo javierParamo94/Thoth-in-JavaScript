@@ -7,7 +7,7 @@ import src.client.core.grammar.Production;
 import src.client.core.grammar.cleaner.Cleaning;
 import src.client.core.grammar.cleaner.EliminatePNG;
 import src.client.gui.Application;
-import src.client.gui.utils.ToHTML;
+import src.client.gui.utils.HTMLConverter;
 import src.client.gui.visual.VisualPNG;
 import src.client.core.grammar.Grammar;
 
@@ -71,8 +71,8 @@ public class MediatorPNG {
         mGrammar = grammar;
         mFlagFirst = true;
         mVisual = png;
-        mVisual.mOld.setHTML(ToHTML.toHTML(mGrammar.completeToString()));
-        mVisual.mNew.setHTML(ToHTML.toHTML(mCleanAlgorithm.getSolution().completeToString()));
+        mVisual.mOld.setHTML(HTMLConverter.toHTML(mGrammar.completeToString()));
+        mVisual.mNew.setHTML(HTMLConverter.toHTML(mCleanAlgorithm.getSolution().completeToString()));
         mTempSize = mCleanAlgorithm.getSolution().completeToString().length() - 3;
         
         if(!mCleanAlgorithm.firstStep()){
@@ -98,7 +98,7 @@ public class MediatorPNG {
                 return;
             }   //FirstStep
             setAux();
-            mVisual.mNew.setHTML(ToHTML.toHTML(mCleanAlgorithm.getSolution().completeToString()));
+            mVisual.mNew.setHTML(HTMLConverter.toHTML(mCleanAlgorithm.getSolution().completeToString()));
             temp = mCleanAlgorithm.getSolution().completeToString();
             highLight(mVisual.mNew, temp.substring(mTempSize, (temp.length()-3)) ,1);
             mTempSize = mCleanAlgorithm.getSolution().completeToString().length()-3;
@@ -109,7 +109,7 @@ public class MediatorPNG {
             mVisual.mAux.setText("");
                 //Última iteración
             if(!mCleanAlgorithm.nextStep()){
-            	mVisual.mNew.setHTML(ToHTML.toHTML(mCleanAlgorithm.getSolution().completeToString()));
+            	mVisual.mNew.setHTML(HTMLConverter.toHTML(mCleanAlgorithm.getSolution().completeToString()));
                 for(Production prod : ((EliminatePNG)mCleanAlgorithm).getUnitedProductions())
                     highLight(mVisual.mOld, prod.toString(), 0);
                 finish();
@@ -118,7 +118,7 @@ public class MediatorPNG {
             else
                 setAux();
             //En cada iteración
-            mVisual.mNew.setHTML(ToHTML.toHTML(mCleanAlgorithm.getSolution().completeToString()));
+            mVisual.mNew.setHTML(HTMLConverter.toHTML(mCleanAlgorithm.getSolution().completeToString()));
             temp = mCleanAlgorithm.getSolution().completeToString();
             highLight(mVisual.mNew, temp.substring(mTempSize, temp.length()-3),1);
             mTempSize = mCleanAlgorithm.getSolution().completeToString().length()-3;
@@ -137,7 +137,7 @@ public class MediatorPNG {
             mVisual.mVisible = false;
         }
         else
-        	mVisual.mNew.setHTML(ToHTML.toHTML(mCleanAlgorithm.getSolution().completeToString()));
+        	mVisual.mNew.setHTML(HTMLConverter.toHTML(mCleanAlgorithm.getSolution().completeToString()));
         removeAllHighLight();
         finish();
         

@@ -120,4 +120,16 @@ public interface MessageMessages extends Constants {
 	@DefaultStringValue("Nueva gramática:")
 	String newgrammar();
 	
+	@DefaultStringValue("Necesita ejecutar Factorización y Eliminación de recursividad.")
+	String questionfirstfollow();
+	@DefaultStringValue("¿Desea continuar?")
+	String ucontinue();
+
+	@DefaultStringValue("No")
+	String no();
+	@DefaultStringValue("Si")
+	String yes();
+
+	@DefaultStringValue("Salir")
+	String exit();
 	}

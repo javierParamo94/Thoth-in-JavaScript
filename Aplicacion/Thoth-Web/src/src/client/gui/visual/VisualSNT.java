@@ -37,6 +37,9 @@ import com.google.gwt.user.client.ui.VerticalPanel;
  */
 public class VisualSNT extends Composite {
 
+	/**
+	 * 
+	 */
 	private MessageMessages sms = GWT.create(MessageMessages.class);
 	
 	/**
@@ -50,21 +53,21 @@ public class VisualSNT extends Composite {
 	public RichTextArea mOld = new RichTextArea();
 
 	/**
-	 * 
+	 * Panel donde irán colocados los botones
 	 */
 	private HorizontalPanel hPanel = new HorizontalPanel();
 
 	/**
-	 * 
+	 * Panel vertical donde ira la visualizacion de las áreas
 	 */
 	public VerticalPanel vPanel = new VerticalPanel();
 	
 	/**
-	 * 
+	 * Panel vertical que engloba el área de la nueva gramática
 	 */
 	public VerticalPanel vPanelNew = new VerticalPanel();
 	/**
-	 * 
+	 * Panel vertical que engloba el área de la vieja gramática
 	 */
 	public VerticalPanel vPanelOld = new VerticalPanel();
 	/**
@@ -94,6 +97,10 @@ public class VisualSNT extends Composite {
 	public PushButton btnAcept = new PushButton(new Image(
 			"images/acceptAlgorithm.png"));
 
+	/**
+	 * 
+	 * @param grammar
+	 */
 	public VisualSNT(Grammar grammar) {
 
 		mOld.setPixelSize(500, 400);
@@ -133,14 +140,10 @@ public class VisualSNT extends Composite {
 		buildCommonListeners();
 
 		// Add text all around
-		//dockPanel.add(new HTML("This is the first north component."),DockPanel.NORTH);
 		dockPanel.add(hPanel, DockPanel.SOUTH);
-		//dockPanel.add(new HTML(sms.newgrammar()), DockPanel.EAST);
 		dockPanel.add(vPanelNew, DockPanel.EAST);
-		//dockPanel.add(new HTML(sms.oldgrammar()), DockPanel.WEST);
 		dockPanel.add(vPanelOld, DockPanel.WEST);
 		dockPanel.add(new HTML("This is the second north component."),DockPanel.NORTH);
-		//dockPanel.add(new HTML("This is the second south component"),DockPanel.SOUTH);
 
 		vPanel.add(dockPanel);
 

@@ -1,18 +1,19 @@
-package view.grammar.mediator;
+package src.client.gui.mediator;
+
 
 import java.util.Vector;
-import javax.swing.JOptionPane;
 
-import core.NonTerminal;
-import core.grammar.Grammar;
-import core.grammar.cleaner.EliminateDirectRecursion;
-import core.grammar.cleaner.EliminateIndirectRecursion;
-import core.grammar.cleaner.LeftFactoring;
-import core.grammar.tasp.FirstFollow;
-import view.application.Application;
-import view.grammar.visual.VisualFirstFollow;
-import view.grammar.visual.VisualTasp;
-import view.utils.ShowDialog;
+import com.google.gwt.user.client.Window;
+
+import src.client.core.NonTerminal;
+import src.client.core.grammar.Grammar;
+import src.client.core.grammar.cleaner.EliminateDirectRecursion;
+import src.client.core.grammar.cleaner.EliminateIndirectRecursion;
+import src.client.core.grammar.cleaner.LeftFactoring;
+import src.client.core.grammar.tasp.FirstFollow;
+import src.client.gui.visual.VisualFirstFollow;
+import src.client.gui.visual.VisualTasp;
+
 
 /**
  * <b>Descripción</b><br>
@@ -58,9 +59,8 @@ public class MediatorFirstFollow {
      * @param grammar Gramática a limpiar.
      */
     public MediatorFirstFollow (VisualFirstFollow ff, Grammar grammar) {
-            //Mostramos el diálogo
-        if(ShowDialog.questionFirstFollow() == JOptionPane.YES_OPTION){
-                //Quitamos recursividad
+
+            //Quitamos recursividad
             EliminateDirectRecursion edr;
             EliminateIndirectRecursion eir;
             
@@ -80,12 +80,6 @@ public class MediatorFirstFollow {
             
             mVisual = ff;
             mVisual.mVisible = true;
-        }
-        else{
-            ff.mVisible = false;
-            mVisual = null;
-            return;
-        }
         
         mFirstFollow = new FirstFollow(grammar);
         mGrammar = grammar;
@@ -132,7 +126,7 @@ public class MediatorFirstFollow {
      * Crea un nuevo algoritmo para reconocimiento con la TASP.
      */
     public void tasp () {
-        new VisualTasp(Application.getInstance(), mFirstFollow);
+        //new VisualTasp(Application.getInstance(), mFirstFollow);
         exit();
         
     }//tasp
@@ -141,9 +135,10 @@ public class MediatorFirstFollow {
      * Cierra la ventana visual y elimina las referencias.
      */
     public void exit () {
-        mVisual.setVisible(false);
+    	Window.Location.reload();
+       /* mVisual.setVisible(false);
         mVisual.mMediator = null;
-        mVisual = null;
+        mVisual = null;*/
         
     }//exit
     
