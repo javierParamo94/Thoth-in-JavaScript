@@ -55,8 +55,6 @@ public class MediatorSNT {
      * Algoritmo visual al que está asociado.
      */
     private VisualSNT mVisual;
-    private mainGui gui;
-    private GrammarServiceClientImp serviceImp;
     
     // Methods -----------------------------------------------------------------------
     
@@ -101,8 +99,8 @@ public class MediatorSNT {
             }
             mVisual.mNew.setHTML(HTMLConverter.toHTML(mCleanAlgorithm.getSolution().completeToString()));
             for(Production prod : mCleanAlgorithm.getSolution().getProductions()){
-                highLight(mVisual.mOld, prod.toString());
-                highLight(mVisual.mNew, prod.toString());
+                highLight(mVisual.mOld, prod.toString(),true);
+                highLight(mVisual.mNew, prod.toString(),true);
             }
             mFlagFirst = false;
         }   //Siguiente paso
@@ -112,8 +110,8 @@ public class MediatorSNT {
             else{
                 mVisual.mNew.setHTML(HTMLConverter.toHTML(mCleanAlgorithm.getSolution().completeToString()));
                 removeAllLighter();
-                highLight(mVisual.mOld, mCleanAlgorithm.getSolution().getProductions().lastElement().toString());
-                highLight(mVisual.mNew, mCleanAlgorithm.getSolution().getProductions().lastElement().toString());
+                highLight(mVisual.mOld, mCleanAlgorithm.getSolution().getProductions().lastElement().toString(),true);
+                highLight(mVisual.mNew, mCleanAlgorithm.getSolution().getProductions().lastElement().toString(),true);
             }
         
     }//next
@@ -159,43 +157,47 @@ public class MediatorSNT {
     }//accept
     
     /**
-     * Ilumina/Resalta el texto del panel donde se encuentra la antigua gramática que
-     * coincida con pattern. 
      * 
-     * @param pattern Patrón de texto a iluminar.
+     * Ilumina/Resalta el texto de los paneles donde se encuentran las dos gramáticas que
+     * coincidan con pattern. 
+     * 
+     * @param pane Panel en el que se encuentra el texto
+     * @param pattern Texto a iluminar
+     * @param green Booleano que determina el color de la iluminación.
      */
-    private void highLight (RichTextArea pane, String pattern) {
-        String text, text1 = "";
-        int posEnd = 0, posStart = 0;
-        String greenCol = "<mark>";
-        
-        if(pattern.equals(""))
-            return;
-        
-        pattern = pattern.toString().substring(0, pattern.toString().length() - 1);
-        text = pane.getHTML();
-        while((posEnd = text.indexOf(pattern, posEnd)) >= 0 ){
-        	
-        	text1 += text.substring(posStart,posEnd) + greenCol + pattern + "</mark>" ;
+	private void highLight(RichTextArea pane, String pattern, boolean green) {
+		String text = "", text1 = "";
+		int posEnd = 0, posStart = 0;
+		String openMark = "", closeMark = "";
 
-            posEnd += pattern.toString().length();
-            posStart = posEnd;
-            }
-        text1 += text.substring(posStart, pane.getHTML().length());
-        pane.setHTML(text1);
-    
+		//Elección del color del highLight
+		if (green) {
+			openMark = "<mark class=\"green\">";
+			closeMark = "</mark>";
+		} else {
+			openMark = "<mark class=\"red\">";
+			closeMark = "</mark>";
+		}
 
-    }//highLight
-    
+		if (pattern.equals(""))
+			return;
 
-	/**
-     * Clase privada de apoyo para asignar el color a la zona resaltada.
-     */
-   /* private class MyHighLight extends DefaultHighlighter.DefaultHighlightPainter {
-        public MyHighLight () {
-            super(Colors.green());
-        }//MyHighLight
-    }//MyHighLight
+		// Eliminar posible \n al final del patrón.
+		pattern = pattern.replace("\n", "");
+
+		text = pane.getHTML();
+		while ((posEnd = text.indexOf(pattern, posEnd)) >= 0) {
+
+			text1 += text.substring(posStart, posEnd) + openMark + pattern
+					+ closeMark;
+
+			posEnd += pattern.toString().length();
+			posStart = posEnd;
+		}
+		text1 += text.substring(posStart, pane.getHTML().length());
+		pane.setHTML(text1);
+
+	}// highLight
     
     /**
      * Deshabilita los botones de Siguiente y Todos los pasos y habilita el de aceptar.
@@ -212,12 +214,14 @@ public class MediatorSNT {
      * Quita todos los marcadores de los paneles de las gramáticas.
      */
     public void removeAllLighter() {
-    	
-    	String str, str1, str2, str3;
-    	str = mVisual.mNew.getHTML().replaceAll("<mark>", "");
-    	str1 = str.replaceAll("</mark>", "");
-    	str2 = mVisual.mOld.getHTML().replaceAll("<mark>", "");
-    	str3 = str2.replaceAll("</mark>", "");
+		String str, str1, str2, str3;
+		
+		str = mVisual.mNew.getHTML().replaceAll("<mark class=\"green\">", "")
+				.replaceAll("<mark class=\"red\">", "");
+		str1 = str.replaceAll("</mark>", "");
+		str2 = mVisual.mOld.getHTML().replaceAll("<mark class=\"green\">", "")
+				.replaceAll("<mark class=\"red\">", "");
+		str3 = str2.replaceAll("</mark>", "");
     	
     	mVisual.mNew.setHTML(str1);
     	mVisual.mOld.setHTML(str3);

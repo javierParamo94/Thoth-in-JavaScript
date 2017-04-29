@@ -1,5 +1,6 @@
 package src.client.gui.visual;
 
+import com.google.gwt.core.shared.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Composite;
@@ -16,6 +17,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 
 import src.client.GrammarServiceClientImp;
 import src.client.core.grammar.Grammar;
+import src.client.gui.MessageMessages;
 import src.client.gui.mediator.MediatorSA;
 
 /**
@@ -46,8 +48,21 @@ public class VisualSA extends Composite {
 	public RichTextArea mAux = new RichTextArea();
 	private HorizontalPanel hPanel = new HorizontalPanel();
 
-	public VerticalPanel vPanel = new VerticalPanel(), vPanel2 = new VerticalPanel();
+	public VerticalPanel vPanel = new VerticalPanel();
 	public GrammarServiceClientImp serviceImp;
+
+	/**
+	 * Variable para la internacionalización de los textos
+	 */
+	private MessageMessages sms = GWT.create(MessageMessages.class);
+	/**
+	 * Panel vertical que engloba el área de la nueva gramática
+	 */
+	public VerticalPanel vPanelNew = new VerticalPanel();
+	/**
+	 * Panel vertical que engloba el área de la vieja gramática
+	 */
+	public VerticalPanel vPanelOld = new VerticalPanel();
 
 	/**
 	 * Mediador asociado al panel
@@ -82,10 +97,10 @@ public class VisualSA extends Composite {
 	 */
 	public VisualSA(Grammar grammar) {
 
-		mOld.setPixelSize(500, 400);
+		mOld.setPixelSize(500, 350);
 		mOld.setText(grammar.completeToString());
 
-		mNew.setPixelSize(500, 400);
+		mNew.setPixelSize(500, 455);
 
 		mAux.setSize("200px", "30px");
 
@@ -104,6 +119,18 @@ public class VisualSA extends Composite {
 		dockPanel.setSpacing(4);
 		dockPanel.setHorizontalAlignment(DockPanel.ALIGN_CENTER);
 
+		vPanelNew.add(new HTML(sms.newgrammar()));
+		vPanelNew.setSpacing(20);
+		vPanelNew.add(mNew);
+		vPanelNew.setStyleName("gwt-Big-Text");
+
+		vPanelOld.add(new HTML(sms.oldgrammar()));
+		vPanelOld.setSpacing(20);
+		vPanelOld.add(mOld);
+		vPanelOld.add(new HTML(sms.cancelsymbols()));
+		vPanelOld.add(mAux);
+		vPanelOld.setStyleName("gwt-Big-Text");
+
 		// Botones
 		hPanel.add(btnCancel);
 		hPanel.add(btnOneStep);
@@ -111,20 +138,15 @@ public class VisualSA extends Composite {
 		hPanel.add(btnAcept);
 		buildListeners();
 
-		vPanel2.add(mOld);
-		vPanel2.add(new HTML("Símbolos anulables"));
-		vPanel2.add(mAux);
-		// Add text all around
-		dockPanel.add(new HTML("Eliminar símbolos anulables"),
-				DockPanel.NORTH);
+		dockPanel.add(new HTML(sms.saalgorithm()), DockPanel.NORTH);
 		dockPanel.add(hPanel, DockPanel.SOUTH);
-		dockPanel.add(mNew, DockPanel.EAST);
-		dockPanel.add(vPanel2, DockPanel.WEST);
+		dockPanel.add(vPanelNew, DockPanel.EAST);
+		dockPanel.add(vPanelOld, DockPanel.WEST);
 
 		vPanel.add(dockPanel);
 
 		RootPanel.get().add(vPanel);
-	}//buildPanels
+	}// buildPanels
 
 	/**
 	 * Asigna la funcionalidad de los botones.

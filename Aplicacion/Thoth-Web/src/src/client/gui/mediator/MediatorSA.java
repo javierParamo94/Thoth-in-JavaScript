@@ -173,7 +173,7 @@ public class MediatorSA {
 	}// accept
 
 	/**
-	 * Asigna al JTextPane mAux el valor en cada paso.
+	 * Asigna al RichTextPane mAux el valor en cada paso.
 	 */
 	private void setAux() {
 		String temp;
@@ -192,13 +192,16 @@ public class MediatorSA {
 		highLight(mVisual.mAux, ((EliminateSA) mCleanAlgorithm).currentCancel().toString(), false);
 	}// highLightAux*/
 
-	/**
-	 * Ilumina/Resalta el texto del panel donde se encuentra la antigua
-	 * gramática que coincida con pattern.
-	 * 
-	 * @param pattern
-	 *            Patrón de texto a iluminar.
-	 */
+    /**
+     * 
+     * Ilumina/Resalta el texto de los paneles donde se encuentran las dos gramáticas que
+     * coincidan con pattern. 
+     * 
+     * @param pane Panel en el que se encuentra el texto
+     * @param pattern Texto a iluminar
+     * @param green Booleano que determina el color de la iluminación.
+     */
+	
 	private void highLight(RichTextArea pane, String pattern, boolean green) {
 		String text = "", text1 = "";
 		int posEnd = 0, posStart = 0;
@@ -228,30 +231,10 @@ public class MediatorSA {
 			posEnd += pattern.toString().length();
 			posStart = posEnd;
 		}
-		
 		text1 += text.substring(posStart, pane.getHTML().length());
-		
 		pane.setHTML(text1);
 
-	}// highLight*/
-
-	/**
-	 * Clase privada de apoyo para asignar el color a la zona resaltada.
-	 */
-	/*
-	 * private class MyGreenHighLight extends
-	 * DefaultHighlighter.DefaultHighlightPainter { public MyGreenHighLight () {
-	 * super(Colors.green()); }//MyGreenHighLight }//MyGreenHighLight
-	 */
-
-	/**
-	 * Clase privada de apoyo para asignar el color a la zona resaltada.
-	 */
-	/*
-	 * private class MyRedHighLight extends
-	 * DefaultHighlighter.DefaultHighlightPainter { public MyRedHighLight () {
-	 * super(Colors.red()); }//MyRedHighLight }//MyRedHighLight
-	 */
+	}// highLight
 
 	/**
 	 * Deshabilita los botones de Siguiente y Todos los pasos y habilita el de
@@ -283,12 +266,6 @@ public class MediatorSA {
 		mVisual.mNew.setHTML(str1);
 		mVisual.mOld.setHTML(str3);
 		mVisual.mAux.setHTML(str5);
-
-		/*
-		 * mVisual.mOld.getHighlighter().removeAllHighlights();
-		 * mVisual.mNew.getHighlighter().removeAllHighlights();
-		 * mVisual.mAux.getHighlighter().removeAllHighlights();
-		 */
 
 	}// removeAllHighLight()*/
 

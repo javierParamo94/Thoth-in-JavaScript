@@ -7,12 +7,14 @@ import javax.swing.text.Highlighter;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.RichTextArea;
 import com.google.gwt.user.client.ui.TextArea;
 
 import src.client.core.grammar.*;
 import src.client.core.grammar.cleaner.Chomsky;
 import src.client.core.grammar.cleaner.Cleaner;
 import src.client.gui.visual.VisualChomsky;
+import src.client.gui.utils.HTMLConverter;
 import src.client.gui.utils.ShowDialog;
 
 /**
@@ -82,8 +84,8 @@ public class MediatorChomsky {
             }
             mGrammar = clean.getSolution();
             mCleanAlgorithm = new Chomsky(mGrammar);
-            mVisual.mOld.setText(mGrammar.completeToString());
-            mVisual.mNew.setText(mCleanAlgorithm.getSolution().completeToString());
+            mVisual.mOld.setHTML(HTMLConverter.toHTML(mGrammar.completeToString()));
+            mVisual.mNew.setHTML(HTMLConverter.toHTML(mCleanAlgorithm.getSolution().completeToString()));
             mVisual.mVisible = true;
        // }
         //else
@@ -105,28 +107,27 @@ public class MediatorChomsky {
                 return;
             }   //FirstStep
             prods = mCleanAlgorithm.getChanges();
-            mVisual.mNew.setText(mCleanAlgorithm.getSolution().completeToString());
+            mVisual.mNew.setHTML(HTMLConverter.toHTML(mCleanAlgorithm.getSolution().completeToString()));
             
             for(Production prod:prods)
-                highLight(mVisual.mNew, prod.toString()/*, new MyGreenHighLight()*/);
+                highLight(mVisual.mNew, prod.toString(), true);
             mFlagFirst = false;
         }
         else{   //NextStep
-            //removeAllHighLight();
+            removeAllHighLight();
                 //Última iteración
             if(!mCleanAlgorithm.nextStep()){
                 finish();
-                mVisual.mAux.setText("");
+                mVisual.mAux.setHTML(HTMLConverter.toHTML(""));
                 return;
             }
             prods = mCleanAlgorithm.getChanges();
-            mVisual.mNew.setText(mCleanAlgorithm.getSolution().completeToString());
+            mVisual.mNew.setHTML(HTMLConverter.toHTML(mCleanAlgorithm.getSolution().completeToString()));
             temp = prods.firstElement().toString();
-            mVisual.mAux.setText(temp.substring(0, temp.length()-1));
-            highLight(mVisual.mAux, temp.substring(0, temp.length()-1));//,
-                    //new MyRedHighLight());
+            mVisual.mAux.setHTML(HTMLConverter.toHTML(temp.substring(0, temp.length()-1)));
+            highLight(mVisual.mAux, temp.substring(0, temp.length()-1),false);
             for(int i=1; i<prods.size(); i++ )
-                highLight(mVisual.mNew, prods.elementAt(i).toString());
+                highLight(mVisual.mNew, prods.elementAt(i).toString(),true);
         
         }
         
@@ -141,9 +142,9 @@ public class MediatorChomsky {
         if(!mCleanAlgorithm.allSteps())
             ShowDialog.chomskyError();
         else
-            mVisual.mNew.setText(mCleanAlgorithm.getSolution().completeToString());
+            mVisual.mNew.setHTML(HTMLConverter.toHTML(mCleanAlgorithm.getSolution().completeToString()));
         
-        //removeAllHighLight();
+        removeAllHighLight();
         finish();
         
     }//all
@@ -166,60 +167,52 @@ public class MediatorChomsky {
         
     }//accept
     
-    /**
-     * Ilumina/Resalta el texto del panel donde se encuentra la antigua gramática que
-     * coincida con pattern. 
-     * 
-     * @param pane JTextPane que va a ser resaltado.
-     * @param pattern Patrón de texto a iluminar.
-     * @param light Highlighter a aplicar.
-     */
-    private void highLight (TextArea pane, String pattern) {
-        String text;
-		String aux;
-        int pos = 0;
-        StringBuilder sb = new StringBuilder();
-        
-        if(pattern.equals(""))
-            return;
-        
-        //Highlighter hilite = pane.getHighlighter();
-        
-        text = pane.getText();
-        
-        while((pos = text.indexOf(pattern, pos)) >= 0 ){
-            //hilite.addHighlight(pos, pos + pattern.length(), light);
-            //for (int i = pos; i < pos + pattern.length(); i++){
-            	//sb.append("<span style='font-weight:bold;'>" + text.charAt(pos) + "</span>");
-        		//pane.setSelectionRange(pos, pos + pattern.length());
-        	//pane.getSelectedText();
-        	pane.getCursorPos();
-            	pane.getElement().getStyle().setColor("red");
-            	
-           // }
-            pos += pattern.toString().length();
-        }
+	/**
+	 * 
+	 * Ilumina/Resalta el texto de los paneles donde se encuentran las dos
+	 * gramáticas que coincidan con pattern.
+	 * 
+	 * @param pane
+	 *            Panel en el que se encuentra el texto
+	 * @param pattern
+	 *            Texto a iluminar
+	 * @param green
+	 *            Booleano que determina el color de la iluminación.
+	 */
 
+	private void highLight(RichTextArea pane, String pattern, boolean green) {
+		String text = "", text1 = "";
+		int posEnd = 0, posStart = 0;
+		String openMark = "", closeMark = "";
 
-    }//highLight
-    
-    /**
-     * Clase privada de apoyo para asignar el color a la zona resaltada.
-     */
-   /* private class MyGreenHighLight extends DefaultHighlighter.DefaultHighlightPainter {
-        public MyGreenHighLight () {
-            super(Colors.green());
-        }//MyGreenHighLight
-    }//MyGreenHighLight
-    
-    /**
-     * Clase privada de apoyo para asignar el color a la zona resaltada.
-     */
-   /* private class MyRedHighLight extends DefaultHighlighter.DefaultHighlightPainter {
-        public MyRedHighLight () {
-            super(Colors.red());
-        }//MyRedHighLight
-    }//MyRedHighLight
+		// Elección del color del highLight
+		if (green) {
+			openMark = "<mark class=\"green\">";
+			closeMark = "</mark>";
+		} else {
+			openMark = "<mark class=\"red\">";
+			closeMark = "</mark>";
+		}
+
+		if (pattern.equals(""))
+			return;
+
+		// Eliminar posible \n al final del patrón.
+		pattern = pattern.replace("\n", "");
+
+		text = pane.getHTML();
+		while ((posEnd = text.indexOf(pattern, posEnd)) >= 0) {
+
+			text1 += text.substring(posStart, posEnd) + openMark + pattern
+					+ closeMark;
+
+			posEnd += pattern.toString().length();
+			posStart = posEnd;
+		}
+		text1 += text.substring(posStart, pane.getHTML().length());
+		pane.setHTML(text1);
+
+	}// highLight
     
     /**
      * Deshabilita los botones de Siguiente y Todos los pasos y habilita el de aceptar.
@@ -234,10 +227,21 @@ public class MediatorChomsky {
     /**
      * Deselecciona la zona resaltada.
      */
-   /* private void removeAllHighLight() {
-        mVisual.mOld.getHighlighter().removeAllHighlights();
-        mVisual.mAux.getHighlighter().removeAllHighlights();
-        mVisual.mNew.getHighlighter().removeAllHighlights();
+    private void removeAllHighLight() {
+		String str, str1, str2, str3, str4, str5;
+		str = mVisual.mNew.getHTML().replaceAll("<mark class=\"green\">", "")
+				.replaceAll("<mark class=\"red\">", "");
+		str1 = str.replaceAll("</mark>", "");
+		str2 = mVisual.mOld.getHTML().replaceAll("<mark class=\"green\">", "")
+				.replaceAll("<mark class=\"red\">", "");
+		str3 = str2.replaceAll("</mark>", "");
+		str4 = mVisual.mAux.getHTML().replaceAll("<mark class=\"green\">", "")
+				.replaceAll("<mark class=\"red\">", "");
+		str5 = str4.replaceAll("</mark>", "");
+
+		mVisual.mNew.setHTML(str1);
+		mVisual.mOld.setHTML(str3);
+		mVisual.mAux.setHTML(str5);
         
     }//removeAllHighLight()
     

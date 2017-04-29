@@ -1,5 +1,6 @@
 package src.client.gui.visual;
 
+import com.google.gwt.core.shared.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Composite;
@@ -8,6 +9,7 @@ import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.PushButton;
+import com.google.gwt.user.client.ui.RichTextArea;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
@@ -15,6 +17,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 
 import src.client.GrammarServiceClientImp;
 import src.client.core.grammar.Grammar;
+import src.client.gui.MessageMessages;
 import src.client.gui.mediator.MediatorIndirectRecursive;
 
 
@@ -43,16 +46,28 @@ public class VisualIndirectRecursive extends Composite {
     
 	
 	
-	public TextArea mNew = new TextArea();
-	public TextArea mOld = new TextArea();
-	public TextArea mRec = new TextArea();
-	public TextBox mAux = new TextBox();
+	public RichTextArea mNew = new RichTextArea();
+	public RichTextArea mOld = new RichTextArea();
+	public RichTextArea mAux = new RichTextArea();
+	public RichTextArea mRec = new RichTextArea();
+
 	private HorizontalPanel hPanel = new HorizontalPanel();
 
 	public VerticalPanel vPanel = new VerticalPanel();
 	public GrammarServiceClientImp  serviceImp;
-	private Composite currentPage;
 	
+	/**
+	 * Variable para la internacionalización de los textos
+	 */
+	private MessageMessages sms = GWT.create(MessageMessages.class);
+	/**
+	 * Panel vertical que engloba el área de la nueva gramática
+	 */
+	public VerticalPanel vPanelNew = new VerticalPanel();
+	/**
+	 * Panel vertical que engloba el área de la vieja gramática
+	 */
+	public VerticalPanel vPanelOld = new VerticalPanel();
     /**
      * Mediador de limpieza asociado al panel.
      */
@@ -84,20 +99,17 @@ public class VisualIndirectRecursive extends Composite {
      */
     public VisualIndirectRecursive(Grammar grammar) {
     	
-    	mOld.setCharacterWidth(80);
-		mOld.setVisibleLines(20);
-		mOld.setEnabled(false);
+		mOld.setPixelSize(500, 300);
 		mOld.setText(grammar.completeToString());
+		mOld.setStyleName("gwt-Big-Text");
 
-		mNew.setCharacterWidth(80);
-		mNew.setVisibleLines(20);
-		mNew.setEnabled(false);
+		mNew.setPixelSize(500, 460);
 
-		mRec.setCharacterWidth(40);
-		mRec.setVisibleLines(10);
-		mRec.setEnabled(false);
+		mRec.setPixelSize(500, 80);
+		mRec.setStyleName("gwt-Big-Text");
 
-		mAux.setReadOnly(true);
+		mAux.setSize("500px", "20px");
+		mAux.setStyleName("gwt-Big-Text");
 		
 		mVisible = true;
 		mMediator = new MediatorIndirectRecursive(this, grammar);
@@ -118,6 +130,20 @@ public class VisualIndirectRecursive extends Composite {
 		dockPanel.setSpacing(4);
 		dockPanel.setHorizontalAlignment(DockPanel.ALIGN_CENTER);
 
+		vPanelNew.add(new HTML(sms.newgrammar()));
+		vPanelNew.setSpacing(20);
+		vPanelNew.add(mNew);
+		vPanelNew.setStyleName("gwt-Big-Text");
+
+		vPanelOld.add(new HTML(sms.oldgrammar()));
+		vPanelOld.setSpacing(10);
+		vPanelOld.add(mOld);
+		vPanelOld.add(new HTML(sms.recprod()));
+		vPanelOld.add(mAux);
+		vPanelOld.add(new HTML(sms.resultprods()));
+		vPanelOld.add(mRec);
+		vPanelOld.setStyleName("gwt-Big-Text");
+		
 		// Botones
 		hPanel.add(btnCancel);
 		hPanel.add(btnOneStep);
@@ -126,15 +152,11 @@ public class VisualIndirectRecursive extends Composite {
 		buildListeners();
 
 		// Add text all around
-		dockPanel.add(new HTML("This is the first north component."),
+		dockPanel.add(new HTML(sms.indirectrecursive()),
 				DockPanel.NORTH);
 		dockPanel.add(hPanel, DockPanel.SOUTH);
-		dockPanel.add(mNew, DockPanel.EAST);
-		dockPanel.add(mOld, DockPanel.WEST);
-		dockPanel.add(new HTML("This is the second north component."),
-				DockPanel.NORTH);
-		dockPanel.add(mRec, DockPanel.SOUTH);
-		dockPanel.add(mAux, DockPanel.SOUTH);
+		dockPanel.add(vPanelNew, DockPanel.EAST);
+		dockPanel.add(vPanelOld, DockPanel.WEST);
 
 		vPanel.add(dockPanel);
 

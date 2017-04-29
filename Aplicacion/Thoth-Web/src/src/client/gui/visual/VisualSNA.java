@@ -1,6 +1,7 @@
 package src.client.gui.visual;
 
 
+import com.google.gwt.core.shared.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Composite;
@@ -16,6 +17,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 
 import src.client.GrammarServiceClientImp;
 import src.client.core.grammar.Grammar;
+import src.client.gui.MessageMessages;
 import src.client.gui.mediator.MediatorSNA;
 
 /**
@@ -47,6 +49,11 @@ public class VisualSNA extends Composite {
 	public VerticalPanel vPanel = new VerticalPanel();
 	public GrammarServiceClientImp  serviceImp;
 	
+	/**
+	 * Variable para la internacionalización de los textos
+	 */
+	private MessageMessages sms = GWT.create(MessageMessages.class);
+	
     /**
      * Mediador asociado al panel
      */
@@ -56,6 +63,14 @@ public class VisualSNA extends Composite {
      * Indica si debe mostrarse o no el panel.
      */
     public boolean mVisible;
+	/**
+	 * Panel vertical que engloba el área de la nueva gramática
+	 */
+	public VerticalPanel vPanelNew = new VerticalPanel();
+	/**
+	 * Panel vertical que engloba el área de la vieja gramática
+	 */
+	public VerticalPanel vPanelOld = new VerticalPanel();
     
 	public PushButton btnCancel = new PushButton(new Image(
 			"images/cancelAlgorithm.png"));
@@ -101,6 +116,16 @@ public class VisualSNA extends Composite {
     			dockPanel.setSpacing(4);
     			dockPanel.setHorizontalAlignment(DockPanel.ALIGN_CENTER);
 
+    			vPanelNew.add(new HTML(sms.newgrammar()));
+    			vPanelNew.setSpacing(20);
+    			vPanelNew.add(mNew);
+    			vPanelNew.setStyleName("gwt-Big-Text");
+
+    			vPanelOld.add(new HTML(sms.oldgrammar()));
+    			vPanelOld.setSpacing(20);
+    			vPanelOld.add(mOld);
+    			vPanelOld.setStyleName("gwt-Big-Text");
+    			
     			// Botones
     			hPanel.add(btnCancel);
     			hPanel.add(btnOneStep);
@@ -109,16 +134,11 @@ public class VisualSNA extends Composite {
     			buildListeners();
 
     			// Add text all around
-    			dockPanel.add(new HTML("This is the first north component."),
+    			dockPanel.add(new HTML(sms.snaalgorithm()),
     					DockPanel.NORTH);
     			dockPanel.add(hPanel, DockPanel.SOUTH);
-    			dockPanel.add(mNew, DockPanel.EAST);
-    			dockPanel.add(mOld, DockPanel.WEST);
-    			dockPanel.add(new HTML("This is the second north component."),
-    					DockPanel.NORTH);
-    			dockPanel.add(new HTML("This is the second south component"),
-    					DockPanel.SOUTH);
-
+    			dockPanel.add(vPanelNew, DockPanel.EAST);
+    			dockPanel.add(vPanelOld, DockPanel.WEST);
 
     			vPanel.add(dockPanel);
 

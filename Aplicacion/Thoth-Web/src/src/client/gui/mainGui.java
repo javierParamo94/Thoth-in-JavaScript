@@ -15,11 +15,6 @@ import src.client.gui.visual.VisualSA;
 import src.client.gui.visual.VisualSNA;
 import src.client.gui.visual.VisualSNT;
 
-
-
-
-
-
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -53,7 +48,6 @@ import com.google.gwt.user.client.Window;
 
 public class mainGui extends Composite {
 
-
 	private VerticalPanel vPanel = new VerticalPanel();
 	private VerticalPanel vPanel1 = new VerticalPanel();
 	private VerticalPanel vPanel2 = new VerticalPanel();
@@ -63,11 +57,11 @@ public class mainGui extends Composite {
 	private HorizontalPanel hPanel3 = new HorizontalPanel();
 	private TextBox txt1, txt2, txt3, txt4, txt5;
 	private FlexTable stocksFlexTable = new FlexTable();
-	
+
 	private TabBar bar = new TabBar();
 	public int con = 1;
 	public TabPanel tabPanel = new TabPanel();
-	
+
 	DockPanel dockPanel = new DockPanel();
 
 	private TextArea ta;
@@ -75,29 +69,28 @@ public class mainGui extends Composite {
 
 	private static GrammarServiceClientImp serviceImp;
 	private Composite currentPage;
-	
+
 	private static mainGui instance;
-	
+
 	private MessageMessages sms = GWT.create(MessageMessages.class);
-	
-    public static mainGui getInstance () {
-        if(instance == null)
-            instance = new mainGui(serviceImp);
-        
-        return instance;
-    }//getInstance
-    
+
+	public static mainGui getInstance() {
+		if (instance == null)
+			instance = new mainGui(serviceImp);
+
+		return instance;
+	}// getInstance
+
 	public mainGui(GrammarServiceClientImp serviceImp) {
 		buildMenuBar();
-		buildBar(); 
+		buildBar();
 		buildPanel(serviceImp);
-		
-	        
+
 		vPanel4.add(vPanel);
 		RootPanel.get().add(hPanel);
 		RootPanel.get().add(tabPanel);
-		//RootPanel.get().add(bar);
-		//RootPanel.get().add(vPanel);
+		// RootPanel.get().add(bar);
+		// RootPanel.get().add(vPanel);
 	}
 
 	private void buildPanel(GrammarServiceClientImp serviceImp) {
@@ -110,7 +103,6 @@ public class mainGui extends Composite {
 		dockPanel.setHorizontalAlignment(DockPanel.ALIGN_CENTER);
 		dockPanel.setVerticalAlignment(DockPanel.ALIGN_TOP);
 
-
 		ta = new TextArea();
 		ta.setCharacterWidth(150);
 		ta.setVisibleLines(18);
@@ -122,14 +114,14 @@ public class mainGui extends Composite {
 		stocksFlexTable.setText(3, 0, sms.tokens());
 		stocksFlexTable.setText(4, 0, sms.nonterminals());
 		stocksFlexTable.setHeight("230px");
-		stocksFlexTable.setWidth("210px");;
+		stocksFlexTable.setWidth("210px");
+		;
 
 		stocksFlexTable.getRowFormatter().addStyleName(0, "header");
 		stocksFlexTable.getRowFormatter().addStyleName(1, "header");
 		stocksFlexTable.getRowFormatter().addStyleName(2, "header");
 		stocksFlexTable.getRowFormatter().addStyleName(3, "header");
 		stocksFlexTable.getRowFormatter().addStyleName(4, "header");
-
 
 		txt1 = new TextBox();
 		txt2 = new TextBox();
@@ -142,7 +134,7 @@ public class mainGui extends Composite {
 		txt3.setReadOnly(true);
 		txt4.setReadOnly(true);
 		txt5.setReadOnly(true);
-		//txt1.setSize("250px", "20px");
+		// txt1.setSize("250px", "20px");
 
 		this.vPanel1.add(ta);
 		this.vPanel3.add(txt1);
@@ -170,7 +162,6 @@ public class mainGui extends Composite {
 		hPanel3.setHorizontalAlignment(HorizontalPanel.ALIGN_RIGHT);
 		hPanel3.add(vPanel3);
 
-
 		dockPanel.add(new HTML(sms.grammardef()), DockPanel.NORTH);
 		dockPanel.add(hPanel3, DockPanel.SOUTH);
 		dockPanel.add(vPanel1, DockPanel.EAST);
@@ -179,6 +170,11 @@ public class mainGui extends Composite {
 		vPanel.add(dockPanel);
 	}
 
+	/**
+	 * 
+	 * @author User
+	 *
+	 */
 	private class Btn1ClickHandler implements ClickHandler {
 
 		@Override
@@ -189,17 +185,27 @@ public class mainGui extends Composite {
 
 	}
 
+	/**
+	 * 
+	 * @author User
+	 *
+	 */
 	private class Btn2ClickHandler implements ClickHandler {
 
 		@Override
 		public void onClick(ClickEvent event) {
-			bar.addTab( "Tab "+con);
-			//tabPanel.insert(vPanel4, "Tab "+con, con);
+			bar.addTab("Tab " + con);
+			// tabPanel.insert(vPanel4, "Tab "+con, con);
 			tabPanel.selectTab(tabPanel.getWidgetCount() - 1);
-			con ++;
+			con++;
 		}
 
 	}
+
+	/**
+	 * 
+	 * @param grammar
+	 */
 	public void updateLabel(Grammar grammar) {
 		String term = grammar.getTerminals().toString(), noTerm = grammar
 				.getNonTerminals().toString();
@@ -228,48 +234,56 @@ public class mainGui extends Composite {
 		}
 
 	}
+
+	/**
+	 * 
+	 */
 	private void buildBar() {
-		    
-		/*bar.addTab("Tab 0");
 
-		bar.selectTab(0);
-	    bar.addSelectionHandler(new SelectionHandler<Integer>() {
-	      public void onSelection(SelectionEvent<Integer> event) {
+		/*
+		 * bar.addTab("Tab 0");
+		 * 
+		 * bar.selectTab(0); bar.addSelectionHandler(new
+		 * SelectionHandler<Integer>() { public void
+		 * onSelection(SelectionEvent<Integer> event) {
+		 * 
+		 * RootPanel.get().add(vPanel); } });
+		 */
 
-	        RootPanel.get().add(vPanel);
-	      }
-	    });*/
-	    
-	    //create titles for tabs
+		// create titles for tabs
 
-	    
-	    tabPanel.add(vPanel4, "TAB 0");
+		tabPanel.add(vPanel4, "TAB 0");
 
-	    //tabPanel.add(new HTML("Baz"), tab2Title);
-	    //tabPanel.selectTab(1);
+		// tabPanel.add(new HTML("Baz"), tab2Title);
+		// tabPanel.selectTab(1);
 
-	    //tabPanel.setWidth("4000");
+		// tabPanel.setWidth("4000");
 	}
-	 
 
+	/**
+	 * 
+	 */
 	private void buildMenuBar() {
-		
+
 		Command cmd = new Command() {
 			public void execute() {
 				Window.alert("You selected a menu item!");
-				
+
 			}
 		};
 
 		Command spanish = new Command() {
 			public void execute() {
+				Window.alert(sms.restartchanges() + " " + sms.ucontinue());
 				UrlBuilder newUrl = Window.Location.createUrlBuilder();
 				newUrl.setParameter("locale", "es");
 				Window.Location.assign(newUrl.buildString());
 			}
+
 		};
 		Command deutschland = new Command() {
 			public void execute() {
+				Window.alert(sms.restartchanges() + " " + sms.ucontinue());
 				UrlBuilder newUrl = Window.Location.createUrlBuilder();
 				newUrl.setParameter("locale", "de");
 				Window.Location.assign(newUrl.buildString());
@@ -277,6 +291,7 @@ public class mainGui extends Composite {
 		};
 		Command french = new Command() {
 			public void execute() {
+				Window.alert(sms.restartchanges() + " " + sms.ucontinue());
 				UrlBuilder newUrl = Window.Location.createUrlBuilder();
 				newUrl.setParameter("locale", "fr");
 				Window.Location.assign(newUrl.buildString());
@@ -284,6 +299,7 @@ public class mainGui extends Composite {
 		};
 		Command english = new Command() {
 			public void execute() {
+				Window.alert(sms.restartchanges() + " " + sms.ucontinue());
 				UrlBuilder newUrl = Window.Location.createUrlBuilder();
 				newUrl.setParameter("locale", "en");
 				Window.Location.assign(newUrl.buildString());
@@ -368,7 +384,7 @@ public class mainGui extends Composite {
 					openR();
 			}
 		};
-		
+
 		Command left_factoring = new Command() {
 			public void execute() {
 				serviceImp.checkContent(ta.getText());
@@ -379,7 +395,7 @@ public class mainGui extends Composite {
 					openLF();
 			}
 		};
-		
+
 		Command chomsky = new Command() {
 			public void execute() {
 				serviceImp.checkContent(ta.getText());
@@ -390,49 +406,53 @@ public class mainGui extends Composite {
 					openChomsky();
 			}
 		};
-		
+
 		Command fiFo = new Command() {
 			public void execute() {
 				serviceImp.checkContent(ta.getText());
 				if (mGrammar.getType() == TypeHandler.CHOMSKY
 						|| mGrammar.getType() == TypeHandler.DEPENDENT)
 					ShowDialog.incorrectTypeGrammar();
-				
-				else{
-					  final DialogBox deleteDialog = new DialogBox();
-					  deleteDialog.setAnimationEnabled(true);
-					  deleteDialog.setGlassEnabled(true);
-					  
-					  HorizontalPanel buttonPane = new HorizontalPanel();
-					  buttonPane.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
 
-				      Button yesBtn = new Button(sms.yes());
-				      yesBtn.addClickHandler(new ClickHandler() {
-				    	  public void onClick(ClickEvent event) {
-				    		  deleteDialog.hide();
-				    		  openFiFo();
-		              }});
+				else {
+					final DialogBox deleteDialog = new DialogBox();
+					deleteDialog.setAnimationEnabled(true);
+					deleteDialog.setGlassEnabled(true);
 
-				      Button noBtn = new Button(sms.no());
-				      noBtn.addClickHandler(new ClickHandler() {
-				    	  public void onClick(ClickEvent event) {
-		                  deleteDialog.hide();
-		              }});
-		          
-		          buttonPane.add(yesBtn);
-		          buttonPane.add(noBtn);
+					HorizontalPanel buttonPane = new HorizontalPanel();
+					buttonPane
+							.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
 
-		          deleteDialog.center();      
+					Button yesBtn = new Button(sms.yes());
+					yesBtn.addClickHandler(new ClickHandler() {
+						public void onClick(ClickEvent event) {
+							deleteDialog.hide();
+							openFiFo();
+						}
+					});
 
-			      buttonPane.setWidth("75%");
-			      
-		          deleteDialog.add(buttonPane);       
-		          deleteDialog.setText(sms.questionfirstfollow()+" "+sms.ucontinue());
-		          deleteDialog.show();
+					Button noBtn = new Button(sms.no());
+					noBtn.addClickHandler(new ClickHandler() {
+						public void onClick(ClickEvent event) {
+							deleteDialog.hide();
+						}
+					});
+
+					buttonPane.add(yesBtn);
+					buttonPane.add(noBtn);
+
+					deleteDialog.center();
+
+					buttonPane.setWidth("75%");
+
+					deleteDialog.add(buttonPane);
+					deleteDialog.setText(sms.questionfirstfollow() + " "
+							+ sms.ucontinue());
+					deleteDialog.show();
 				}
 			}
 		};
-		
+
 		MenuBar fooMenu = new MenuBar(true);
 		fooMenu.addItem("ejemplo1", cmd);
 		fooMenu.addItem("ejemplo2", cmd);
@@ -443,16 +463,16 @@ public class mainGui extends Composite {
 		grammarMenu.addItem("Comprobar", cmd);
 		grammarMenu.addItem("Renombrar símbolo", cmd);
 
-		
 		MenuBar algorithmMenu = new MenuBar(true);
 		algorithmMenu.addItem(sms.eliminatesnt(), eliminate_SNT);
 		algorithmMenu.addItem(sms.eliminatesna(), eliminate_SNA);
 		algorithmMenu.addItem(sms.eliminatesa(), eliminate_SA);
 		algorithmMenu.addItem(sms.eliminatepng(), eliminate_PNG);
-		algorithmMenu.addItem(sms.clear(), cmd); /////////////////////////////////////////////////////
+		algorithmMenu.addItem(sms.clear(), cmd); // ///////////////////////////////////////////////////
 		algorithmMenu.addSeparator();
-		algorithmMenu.addItem(sms.eliminatedirectrecursion(),	direct_recursion);
-		algorithmMenu.addItem(sms.eliminateindirectrecursion(), indirect_recursion);
+		algorithmMenu.addItem(sms.eliminatedirectrecursion(), direct_recursion);
+		algorithmMenu.addItem(sms.eliminateindirectrecursion(),
+				indirect_recursion);
 		algorithmMenu.addItem(sms.eliminaterecursion(), recursion);
 		algorithmMenu.addSeparator();
 		algorithmMenu.addItem(sms.factoring(), left_factoring);
@@ -460,7 +480,6 @@ public class mainGui extends Composite {
 		algorithmMenu.addSeparator();
 		algorithmMenu.addItem(sms.calculateff(), fiFo);
 		algorithmMenu.addItem(sms.tasp(), cmd);
-
 
 		MenuBar selectIdiom = new MenuBar(true);
 		selectIdiom.addItem("Castellano", spanish);
@@ -470,11 +489,9 @@ public class mainGui extends Composite {
 		selectIdiom.addItem("Français", french);
 
 		selectIdiom.addItem("English", english);
-		
+
 		MenuBar toolsMenu = new MenuBar(true);
 		toolsMenu.addItem(sms.language(), selectIdiom);
-
-		
 
 		MenuBar menu = new MenuBar();
 		menu.addItem(sms.file(), fooMenu);
@@ -492,18 +509,16 @@ public class mainGui extends Composite {
 		hPanel.add(menu);
 	}// buildMenuBar
 
-	
-	
-	//Elimina Símbolos no Terminales
+	// Elimina Símbolos no Terminales
 	public void openSNT() {
 		this.vPanel.clear();
 		hPanel.clear();
-		//tabPanel.clear();
+		// tabPanel.clear();
 		this.currentPage = new VisualSNT(mGrammar);
 		this.vPanel.add(this.currentPage);
 	}
 
-	//Elimina Símbolos no Alcanzables
+	// Elimina Símbolos no Alcanzables
 	public void openSNA() {
 		this.vPanel.clear();
 		hPanel.clear();
@@ -511,7 +526,7 @@ public class mainGui extends Composite {
 		this.vPanel.add(this.currentPage);
 	}
 
-	//Elimina Símbolos Anulables
+	// Elimina Símbolos Anulables
 	public void openSA() {
 		this.vPanel.clear();
 		hPanel.clear();
@@ -519,7 +534,7 @@ public class mainGui extends Composite {
 		this.vPanel.add(this.currentPage);
 	}
 
-	//Elimina Producciones no Generativas
+	// Elimina Producciones no Generativas
 	public void openPNG() {
 		this.vPanel.clear();
 		hPanel.clear();
@@ -527,7 +542,7 @@ public class mainGui extends Composite {
 		this.vPanel.add(this.currentPage);
 	}
 
-	//Eliminar Recursividad Directa
+	// Eliminar Recursividad Directa
 	public void openDR() {
 		this.vPanel.clear();
 		hPanel.clear();
@@ -535,7 +550,7 @@ public class mainGui extends Composite {
 		this.vPanel.add(this.currentPage);
 	}
 
-	//Eliminar Recursividad Indirecta
+	// Eliminar Recursividad Indirecta
 	public void openIR() {
 		this.vPanel.clear();
 		hPanel.clear();
@@ -543,33 +558,33 @@ public class mainGui extends Composite {
 		this.vPanel.add(this.currentPage);
 	}
 
-	//Eliminar Recursividad
+	// Eliminar Recursividad
 	public void openR() {
 		new MediatorRecursive(mGrammar);
 
 	}
-	
-	//Factorización por la izquierda
+
+	// Factorización por la izquierda
 	public void openLF() {
 		this.vPanel.clear();
 		hPanel.clear();
 		this.currentPage = new VisualLeftFactoring(mGrammar);
 		this.vPanel.add(this.currentPage);
 	}
-	
-	//Chomsky
+
+	// Chomsky
 	public void openChomsky() {
 		this.vPanel.clear();
 		hPanel.clear();
 		this.currentPage = new VisualChomsky(mGrammar);
 		this.vPanel.add(this.currentPage);
 	}
-	
-	//First Follow
+
+	// First Follow
 	public void openFiFo() {
-  	  this.vPanel.clear();
-  	  hPanel.clear();
-  	  this.currentPage = new VisualFirstFollow(mGrammar);
-  	  this.vPanel.add(this.currentPage);
+		this.vPanel.clear();
+		hPanel.clear();
+		this.currentPage = new VisualFirstFollow(mGrammar);
+		this.vPanel.add(this.currentPage);
 	}
-}//mainGui
+}// mainGui

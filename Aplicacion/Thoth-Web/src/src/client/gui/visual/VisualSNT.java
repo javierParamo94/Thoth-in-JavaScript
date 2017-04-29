@@ -38,10 +38,10 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 public class VisualSNT extends Composite {
 
 	/**
-	 * 
+	 * Variable para la internacionalización de los textos
 	 */
 	private MessageMessages sms = GWT.create(MessageMessages.class);
-	
+
 	/**
 	 * Área de texto donde se muetra la gramática original.
 	 */
@@ -61,7 +61,7 @@ public class VisualSNT extends Composite {
 	 * Panel vertical donde ira la visualizacion de las áreas
 	 */
 	public VerticalPanel vPanel = new VerticalPanel();
-	
+
 	/**
 	 * Panel vertical que engloba el área de la nueva gramática
 	 */
@@ -127,11 +127,15 @@ public class VisualSNT extends Composite {
 		dockPanel.setHorizontalAlignment(DockPanel.ALIGN_CENTER);
 
 		vPanelNew.add(new HTML(sms.newgrammar()));
+		vPanelNew.setSpacing(20);
 		vPanelNew.add(mNew);
-		
+		vPanelNew.setStyleName("gwt-Big-Text");
+
 		vPanelOld.add(new HTML(sms.oldgrammar()));
+		vPanelOld.setSpacing(20);
 		vPanelOld.add(mOld);
-		
+		vPanelOld.setStyleName("gwt-Big-Text");
+
 		// Botones
 		hPanel.add(btnCancel);
 		hPanel.add(btnOneStep);
@@ -140,10 +144,11 @@ public class VisualSNT extends Composite {
 		buildCommonListeners();
 
 		// Add text all around
+		dockPanel.add(new HTML(sms.sntalgorithm()),
+				DockPanel.NORTH);
 		dockPanel.add(hPanel, DockPanel.SOUTH);
 		dockPanel.add(vPanelNew, DockPanel.EAST);
 		dockPanel.add(vPanelOld, DockPanel.WEST);
-		dockPanel.add(new HTML("This is the second north component."),DockPanel.NORTH);
 
 		vPanel.add(dockPanel);
 
