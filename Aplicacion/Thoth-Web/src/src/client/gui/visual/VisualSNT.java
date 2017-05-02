@@ -3,6 +3,7 @@ package src.client.gui.visual;
 import src.client.GrammarServiceClientImp;
 import src.client.core.grammar.Grammar;
 import src.client.gui.MessageMessages;
+import src.client.gui.mainGui;
 import src.client.gui.mediator.MediatorSNT;
 
 import com.google.gwt.core.shared.GWT;
@@ -16,6 +17,7 @@ import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.PushButton;
 import com.google.gwt.user.client.ui.RichTextArea;
 import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.user.client.ui.TabPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 /**
@@ -97,6 +99,8 @@ public class VisualSNT extends Composite {
 	public PushButton btnAcept = new PushButton(new Image(
 			"images/acceptAlgorithm.png"));
 
+	public mainGui main;
+	
 	/**
 	 * 
 	 * @param grammar
@@ -152,7 +156,17 @@ public class VisualSNT extends Composite {
 
 		vPanel.add(dockPanel);
 
+		//main.tabPanel.add(vPanel, "Tab ");
+		
+		//main.tabPanel.selectTab(main.tabPanel.getWidgetCount() - 1);
+		//main.tabPanel.insert(vPanel, "Tab ", 2);
+		//TabPanel tabPanel = new TabPanel();
+		//main.tabPanel.add(vPanel);
+		//tabPanel.insert(new HTML("Hola juapo"), "Tab ", 2);
+		//main.tabPanel.selectTab(main.tabPanel.getWidgetCount() - 1);
+		//main.con++;
 		RootPanel.get().add(vPanel);
+		//RootPanel.get().add(main.tabPanel);
 	}
 
 	/**

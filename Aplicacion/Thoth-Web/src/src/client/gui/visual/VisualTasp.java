@@ -1,27 +1,9 @@
-package view.grammar.visual;
+package src.client.gui.visual;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Frame;
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JComponent;
-import javax.swing.JDialog;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JTextField;
+import src.client.core.grammar.Grammar;
+import src.client.core.grammar.tasp.FirstFollow;
+import src.client.gui.mediator.MediatorTasp;
 
-import core.grammar.Grammar;
-import core.grammar.tasp.FirstFollow;
-import view.grammar.mediator.MediatorTasp;
-import view.utils.Images;
-import view.utils.Messages;
 
 /**
  * <b>Descripción</b><br>

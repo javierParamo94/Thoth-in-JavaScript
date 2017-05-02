@@ -1,5 +1,7 @@
 package src.client.gui;
 
+import java.awt.Font;
+
 import src.client.GrammarServiceClientImp;
 import src.client.core.grammar.Grammar;
 import src.client.core.grammar.TypeHandler;
@@ -16,13 +18,10 @@ import src.client.gui.visual.VisualSNA;
 import src.client.gui.visual.VisualSNT;
 
 import com.google.gwt.core.shared.GWT;
-import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.logical.shared.SelectionEvent;
-import com.google.gwt.event.logical.shared.SelectionHandler;
+import com.google.gwt.event.dom.client.KeyEvent;
 import com.google.gwt.http.client.UrlBuilder;
-import com.google.gwt.layout.client.Layout;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DialogBox;
@@ -32,17 +31,14 @@ import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
-import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.MenuBar;
 import com.google.gwt.user.client.ui.PushButton;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TabBar;
-import com.google.gwt.user.client.ui.TabLayoutPanel;
 import com.google.gwt.user.client.ui.TabPanel;
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
-import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.Window;
 
@@ -74,6 +70,11 @@ public class mainGui extends Composite {
 
 	private MessageMessages sms = GWT.create(MessageMessages.class);
 
+    /**
+     * Texto inicial del JTextArea
+     */
+    public static final String INITIAL_TEXT = "% start \n%%\n\n\n\n%%\n"; 
+    
 	public static mainGui getInstance() {
 		if (instance == null)
 			instance = new mainGui(serviceImp);
@@ -106,6 +107,7 @@ public class mainGui extends Composite {
 		ta = new TextArea();
 		ta.setCharacterWidth(150);
 		ta.setVisibleLines(18);
+		ta.setText(INITIAL_TEXT);
 		ta.setReadOnly(false);
 
 		stocksFlexTable.setText(0, 0, sms.grammartype());
@@ -134,7 +136,6 @@ public class mainGui extends Composite {
 		txt3.setReadOnly(true);
 		txt4.setReadOnly(true);
 		txt5.setReadOnly(true);
-		// txt1.setSize("250px", "20px");
 
 		this.vPanel1.add(ta);
 		this.vPanel3.add(txt1);
@@ -194,8 +195,9 @@ public class mainGui extends Composite {
 
 		@Override
 		public void onClick(ClickEvent event) {
-			bar.addTab("Tab " + con);
-			// tabPanel.insert(vPanel4, "Tab "+con, con);
+			//bar.addTab("Tab " + con);
+			
+			tabPanel.insert(new HTML("Hola"), "Tab "+con, con);
 			tabPanel.selectTab(tabPanel.getWidgetCount() - 1);
 			con++;
 		}
@@ -274,7 +276,7 @@ public class mainGui extends Composite {
 
 		Command spanish = new Command() {
 			public void execute() {
-				Window.alert(sms.restartchanges() + " " + sms.ucontinue());
+				//Window.alert(sms.restartchanges() + " " + sms.ucontinue());
 				UrlBuilder newUrl = Window.Location.createUrlBuilder();
 				newUrl.setParameter("locale", "es");
 				Window.Location.assign(newUrl.buildString());
@@ -511,11 +513,24 @@ public class mainGui extends Composite {
 
 	// Elimina Símbolos no Terminales
 	public void openSNT() {
+		//bar.addTab("Tab " + con);
+		//tabPanel.add(new HTML("Hola"));
+		//this.currentPage = new VisualSNT(mGrammar);
+		//this.vPanel.add(this.currentPage);
+		//tabPanel.add(vPanel, "Tab "+con);
+		//tabPanel.insert(new VisualSNT(mGrammar), "Tab "+con, con);
+		//
+		//con++;
+
 		this.vPanel.clear();
 		hPanel.clear();
 		// tabPanel.clear();
+		//new VisualSNT(mGrammar);
 		this.currentPage = new VisualSNT(mGrammar);
 		this.vPanel.add(this.currentPage);
+		/*tabPanel.insert(this.currentPage, "Tab "+con, con);
+		tabPanel.selectTab(tabPanel.getWidgetCount() - 1);
+		con++;*/
 	}
 
 	// Elimina Símbolos no Alcanzables
