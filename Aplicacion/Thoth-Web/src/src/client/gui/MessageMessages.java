@@ -117,7 +117,7 @@ public interface MessageMessages extends Constants {
 
 	@DefaultStringValue("Prefijo:")
 	String factorsymbols();
-	
+			
 	@DefaultStringValue("Los cambios no se aplicarán hasta que no reinicie el programa.")
 	String restartchanges();			
 

@@ -1,24 +1,17 @@
 package src.client.gui.visual;
 
-import java.util.Arrays;
-
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DockPanel;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.google.gwt.user.client.ui.PushButton;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.VerticalPanel;
-import com.sun.java.swing.plaf.windows.resources.windows;
-
-import src.client.core.Symbol;
 import src.client.core.grammar.Grammar;
 import src.client.gui.MessageMessages;
 import src.client.gui.mediator.MediatorFirstFollow;
@@ -74,12 +67,6 @@ public class VisualFirstFollow extends Composite {
 	public TextArea mGrammar = new TextArea();
 
 	/**
-	 * Area donde se encuentra la gramática que va a ser analizada.
-	 */
-	public FlexTable mTableFirst = new FlexTable();
-	public FlexTable mTableFollow = new FlexTable();
-	// public TextArea mFirstFollow = new TextArea();
-	/**
 	 * Panel donde se encuentra la gramática que va a ser analizada.
 	 */
 	public VerticalPanel panelGrammar = new VerticalPanel();
@@ -96,7 +83,7 @@ public class VisualFirstFollow extends Composite {
 	/**
 	 * Panel que contiene la tabla del first.
 	 */
-	// public JScrollPane mScrollRightUp;
+	public VerticalPanel panelFirst;
 
 	/**
 	 * JTextPane donde se encuentra el cálculo del first.
@@ -106,12 +93,12 @@ public class VisualFirstFollow extends Composite {
 	/**
 	 * Tabla que almacenará el first.
 	 */
-	// public JTable mTableFirst;
+	public FlexTable mTableFirst = new FlexTable();
 
 	/**
 	 * Panel que contiene la tabla del follow.
 	 */
-	// private JScrollPane mScrollRightDown;
+	private VerticalPanel panelFollow;
 
 	/**
 	 * JTextPane donde se encuentra el cálculo del follow.
@@ -121,7 +108,7 @@ public class VisualFirstFollow extends Composite {
 	/**
 	 * Tabla que almacenará el follow.
 	 */
-	// public JTable mTableFollow;
+	public FlexTable mTableFollow = new FlexTable();
 
 	/**
 	 * Botones de cancelar, siguiente paso, todos los pasos y aceptar.
@@ -175,12 +162,18 @@ public class VisualFirstFollow extends Composite {
 		mGrammar.setVisibleLines(20);
 		panelGrammar.add(new HTML(sms.grammar()));
 		panelGrammar.add(mGrammar);
-		mGrammar.setStyleName("gwt-Big-Text");
-		/*
-		 * mFirstFollow.setCharacterWidth(80); mFirstFollow.setVisibleLines(20);
-		 */
+		panelGrammar.setStyleName("gwt-Big-Text");
 
-		panelFirstFollow.add(new HTML(sms.oldgrammar()));
+		panelFirst = new VerticalPanel();
+		panelFirst.add(new HTML("First"));
+		//panelFirst.setSpacing(10);
+
+		panelFollow = new VerticalPanel();
+		panelFollow.add(new HTML("Follow"));
+		//panelFollow.setSpacing(10);
+
+		panelFirstFollow.setPixelSize(500, 500);
+		panelFirstFollow.setStyleName("gwt-Big-Text");
 		// panelFirstFollow.add(mFirstFollow);
 
 		// Botones
@@ -190,54 +183,16 @@ public class VisualFirstFollow extends Composite {
 		mObtainFollow.setEnabled(false);
 		hPanel.add(mTasp);
 		mTasp.setEnabled(false);
-		// hPanel.add(btnAcept);
 		buildListeners();
 
-		// Add text all around
+		dockPanel.add(new HTML(sms.calculateff()), DockPanel.NORTH);
 		dockPanel.add(hPanel, DockPanel.SOUTH);
 		dockPanel.add(panelFirstFollow, DockPanel.EAST);
 		dockPanel.add(panelGrammar, DockPanel.WEST);
-		dockPanel.add(new HTML("This is the second north component."),
-				DockPanel.NORTH);
 
 		vPanel.add(dockPanel);
 
 		RootPanel.get().add(vPanel);
-		// Construccion de botones
-		/*
-		 * mExit = new JButton(Messages.EXIT); mObtainFirst = new
-		 * JButton("First"); mObtainFollow = new JButton("Follow");
-		 * mObtainFollow.setEnabled(false); mTasp = new JButton("TASP");
-		 * mTasp.setEnabled(false);
-		 * button.setBorder(BorderFactory.createEmptyBorder(5, 62, 10, 65));
-		 * button.add(mExit); button.add(mObtainFirst);
-		 * button.add(mObtainFollow); button.add(mTasp); add(button,
-		 * BorderLayout.PAGE_END);
-		 * 
-		 * //Panel principal mGrammar.setFont(new Font("Comic Sans MS negrita",
-		 * Font.BOLD, 12)); scrollLeft = new JScrollPane(mGrammar); scrollLeft =
-		 * buildBorder(scrollLeft, Messages.GRAMMAR);
-		 * 
-		 * mScrollRightUp = new JScrollPane(); mScrollRightUp =
-		 * buildBorder(mScrollRightUp, "First");
-		 * mScrollRightUp.getViewport().setBackground(Color.WHITE);
-		 * 
-		 * mScrollRightDown = new JScrollPane(); mScrollRightDown =
-		 * buildBorder(mScrollRightDown, "Follow");
-		 * mScrollRightDown.getViewport().setBackground(Color.WHITE);
-		 * 
-		 * left.add(scrollLeft, BorderLayout.CENTER); left.setPreferredSize(new
-		 * Dimension (275, 600));
-		 * left.setBorder(BorderFactory.createEmptyBorder(3, 6, 6, 6));
-		 * central.add(left, BorderLayout.LINE_START);
-		 * mFirstFollow.add(mScrollRightUp); mFirstFollow.add(mScrollRightDown);
-		 * right.add(mFirstFollow, BorderLayout.CENTER);
-		 * right.setBorder(BorderFactory.createEmptyBorder(3, 6, 6, 6));
-		 * central.add(right, BorderLayout.CENTER); add(central,
-		 * BorderLayout.CENTER);
-		 * 
-		 * buildListeners();
-		 */
 
 	}// buildPanels
 
@@ -247,17 +202,19 @@ public class VisualFirstFollow extends Composite {
 	public void buildListeners() {
 		// Pulsar sobre Cancelar
 		mExit.addClickHandler(new ClickHandler() {
-			//@Override
+			@Override
 			public void onClick(ClickEvent event) {
 				mMediator.exit();
 			}
 		});
 		// Pulsar sobre FIRST
 		mObtainFirst.addClickHandler(new ClickHandler() {
-			//@Override
+			@Override
 			public void onClick(ClickEvent event) {
 				if (createTableFirst()) {
-					panelFirstFollow.add(mTableFirst);
+					panelFirst.add(mTableFirst);
+					panelFirst.setStyleName("gwt-Big-Text");
+					panelFirstFollow.add(panelFirst);
 					mObtainFirst.setEnabled(false);
 					mObtainFollow.setEnabled(true);
 				} else {
@@ -268,24 +225,13 @@ public class VisualFirstFollow extends Composite {
 		});
 		// Pulsar sobre FOLLOW
 		mObtainFollow.addClickHandler(new ClickHandler() {
-			//@Override
+			@Override
 			public void onClick(ClickEvent event) {
 				createTableFollow();
-				/*
-				 * mFirstFollow.setVisible(false); mFirstFollow.remove(1);
-				 * mScrollRightDown = new JScrollPane(mTableFollow);
-				 * mScrollRightDown = buildBorder(mScrollRightDown, "Follow");
-				 * mScrollRightDown.getViewport().setBackground(Color.white);
-				 * mFirstFollow.setVisible(true);
-				 * mFirstFollow.add(mScrollRightDown, 1);
-				 */
-				panelFirstFollow.add(mTableFollow);
-				/*
-				 * mTableFollow.setRowSelectionAllowed(false);
-				 * mTableFollow.setColumnSelectionAllowed(true);
-				 * mTableFollow.setSelectionBackground(Colors.yellow());
-				 */
 
+				panelFollow.add(mTableFollow);
+				panelFollow.setStyleName("gwt-Big-Text");
+				panelFirstFollow.add(panelFollow);
 				mObtainFollow.setEnabled(false);
 				mTasp.setEnabled(true);
 
@@ -308,14 +254,15 @@ public class VisualFirstFollow extends Composite {
 	 * @return True si ha podido obtener la tabla first.
 	 */
 	private boolean createTableFirst() {
-
 		if (mMediator.first()) {
-			mTableFirst.addStyleName("header");
+			mTableFirst.setHeight("180px");
+			mTableFirst.setWidth("400px");
 
 			for (int i = 0; i < mHeader.length; i++) {
 				mTableFirst.setText(0, i, mHeader[i]);
+				mTableFirst.getCellFormatter().addStyleName(0,i,"header");
 			}
-
+			
 			for (int i = 0; i < (mFirst).length; i++) {
 				for (int j = 0; j < mHeader.length; j++) {
 					if (mFirst[i][j] == null)
@@ -336,13 +283,14 @@ public class VisualFirstFollow extends Composite {
 	 * @return True si ha podido obtener la tabla del follow.
 	 */
 
-	private boolean createTableFollow() {
-
+	private boolean createTableFollow() {		
 		if (mMediator.follow()) {
-			mTableFollow.addStyleName("header");
+			mTableFollow.setHeight("180px");
+			mTableFollow.setWidth("400px");
 
 			for (int i = 0; i < mHeader.length; i++) {
 				mTableFollow.setText(0, i, mHeader[i]);
+				mTableFollow.getCellFormatter().addStyleName(0,i,"header");
 			}
 
 			for (int i = 0; i < (mFollow).length; i++) {
