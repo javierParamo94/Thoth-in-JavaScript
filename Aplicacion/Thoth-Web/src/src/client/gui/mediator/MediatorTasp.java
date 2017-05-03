@@ -1,23 +1,17 @@
-package view.grammar.mediator;
+package src.client.gui.mediator;
 
 import java.util.Vector;
-import javax.swing.JOptionPane;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.DefaultTableModel;
 
-import core.Terminal;
-import core.TerminalEnd;
-import core.TerminalEpsilon;
-import core.grammar.*;
-import core.grammar.tasp.*;
-import core.grammar.cleaner.LeftFactoring;
-import core.grammar.cleaner.EliminateDirectRecursion;
-import core.grammar.cleaner.EliminateIndirectRecursion;
-import view.grammar.visual.VisualTasp;
-import view.utils.Colors;
-import view.utils.Messages;
-import view.utils.ShowDialog;
+import src.client.core.Terminal;
+import src.client.core.TerminalEnd;
+import src.client.core.TerminalEpsilon;
+import src.client.core.grammar.*;
+import src.client.core.grammar.tasp.*;
+import src.client.core.grammar.cleaner.LeftFactoring;
+import src.client.core.grammar.cleaner.EliminateDirectRecursion;
+import src.client.core.grammar.cleaner.EliminateIndirectRecursion;
+import src.client.gui.visual.VisualTasp;
+
 
 /**
  * <b>Descripción</b><br>
@@ -80,7 +74,7 @@ public class MediatorTasp {
         
             //Si no se ha podido calcular el first o el follow
         if(ff.getFirst()==null || ff.getFollow()==null){
-            ShowDialog.nonFirstFollow();
+            //ShowDialog.nonFirstFollow();
             mVisual.mVisible = false;
         }   //Calculamos la TASP
         else if(mTasp.calculateTasp()){
@@ -89,7 +83,7 @@ public class MediatorTasp {
             mVisual.mVisible = true;
             }
             else{
-                ShowDialog.grammarAmbiguous();
+                //ShowDialog.grammarAmbiguous();
                 mVisual.mVisible = false;
             }
         
@@ -109,7 +103,7 @@ public class MediatorTasp {
         mVisual = vTasp;
         
             //Mostramos el diálogo
-        if(ShowDialog.questionFirstFollow() == JOptionPane.YES_OPTION){
+       /* if(ShowDialog.questionFirstFollow() == JOptionPane.YES_OPTION){
                 //Quitamos recursividad
             EliminateDirectRecursion edr;
             EliminateIndirectRecursion eir;
@@ -131,7 +125,7 @@ public class MediatorTasp {
             FirstFollow ff = new FirstFollow(gra);
                 //Calculamos el first y el follow
             if(!ff.calculateFirst() || !ff.calculateFollow()){
-                ShowDialog.nonFirstFollow();
+                //ShowDialog.nonFirstFollow();
                 vTasp.mVisible = false;
             }
             else{
@@ -144,13 +138,13 @@ public class MediatorTasp {
                     mVisual.mVisible = true;
                 }
                 else{
-                    ShowDialog.grammarAmbiguous();
+                    //ShowDialog.grammarAmbiguous();
                     mVisual.mVisible = false;
                 }
             }
         }
         else
-            mVisual.mVisible = false;
+            mVisual.mVisible = false;*/
         
     }//MediatorTasp
     
@@ -173,10 +167,10 @@ public class MediatorTasp {
                 else
                     data[i][j] = mTasp.getSolution()[i][j-1];
         
-        mVisual.mTaspTable = new JTable(data, header);
+        /*mVisual.mTaspTable = new JTable(data, header);
         mVisual.mTaspTable.setEnabled(false);
         ((DefaultTableCellRenderer)mVisual.mTaspTable.getDefaultRenderer(Object.class)).
-        setHorizontalAlignment(DefaultTableCellRenderer.CENTER);
+        setHorizontalAlignment(DefaultTableCellRenderer.CENTER);*/
         
     }//initiateTasp
     
@@ -184,7 +178,7 @@ public class MediatorTasp {
      * Muestra la tabla donde va a ir la traza de reconocimiento.
      */
     private void initiateTrace () {
-        Object[] header = {Messages.STACK, Messages.TOP, Messages.IN,
+       /* Object[] header = {Messages.STACK, Messages.TOP, Messages.IN,
                            Messages.CHAR, Messages.OUT};
         Object[][] data = new Object[1][5]; 
         DefaultTableModel model = new DefaultTableModel(data, header);
@@ -203,7 +197,7 @@ public class MediatorTasp {
         mVisual.mTraceTable.getColumnModel().getColumn(1).setPreferredWidth(40);
         mVisual.mTraceTable.getColumnModel().getColumn(2).setPreferredWidth(180);
         mVisual.mTraceTable.getColumnModel().getColumn(3).setPreferredWidth(40);
-        
+        */
     }//initiateTrace
     
     /**
@@ -222,7 +216,7 @@ public class MediatorTasp {
         else    //Comprobamos que todo sean terminales.
             for(int i=0; i<s.length(); i++){
                 if(!isTerminal(s.charAt(i))){
-                    ShowDialog.invalidTerminal();
+                    //ShowDialog.invalidTerminal();
                     return;
                 }
                 word.add(new Terminal(s.charAt(i)));
@@ -238,8 +232,8 @@ public class MediatorTasp {
         setButtons(true);
         mFirstTime = true;
         
-        while(((DefaultTableModel)mVisual.mTraceTable.getModel()).getRowCount() > 0)
-            ((DefaultTableModel)mVisual.mTraceTable.getModel()).removeRow(0);
+        /*while(((DefaultTableModel)mVisual.mTraceTable.getModel()).getRowCount() > 0)
+            ((DefaultTableModel)mVisual.mTraceTable.getModel()).removeRow(0);*/
         
     }//acceptWord
     
@@ -276,11 +270,11 @@ public class MediatorTasp {
      * Comprueba si la palabra se puede obtener de la gramática.
      */
     public void checkWord () {
-        if(mWordTasp.isAccept())
+        /*if(mWordTasp.isAccept())
             ShowDialog.recognizedWord();
         else
             ShowDialog.nonRecognizedWord();
-        
+        */
     }//checkWord
     
     /**
@@ -289,9 +283,9 @@ public class MediatorTasp {
     public void cancelWord () {
         mVisual.mWord.setText("");
         setButtons(false);
-        while(((DefaultTableModel)mVisual.mTraceTable.getModel()).getRowCount() > 0)
+        /*while(((DefaultTableModel)mVisual.mTraceTable.getModel()).getRowCount() > 0)
             ((DefaultTableModel)mVisual.mTraceTable.getModel()).removeRow(0);
-        
+        **/
     }//cancelWord
     
     /**
@@ -353,7 +347,7 @@ public class MediatorTasp {
         else
             o[4] = "";
         
-        ((DefaultTableModel)mVisual.mTraceTable.getModel()).addRow(o);
+        //((DefaultTableModel)mVisual.mTraceTable.getModel()).addRow(o);
         
     }//fillTrace
     
@@ -372,8 +366,8 @@ public class MediatorTasp {
      * @param b Si es true habilita los botones y si es false los deshabilita.
      */
     public void setButtons (boolean b) {
-        mVisual.mNext.setEnabled(b);
-        mVisual.mCheck.setEnabled(b);
+        //mVisual.mNext.setEnabled(b);
+        //mVisual.mCheck.setEnabled(b);
         
     }//setButtons
     

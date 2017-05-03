@@ -12,7 +12,7 @@ public class GrammarServiceClientImp {
 	
 	
 	private GrammarServiceAsync service;
-	private mainGui mangui;
+	private mainGui mainGUI;
 
 	public GrammarServiceClientImp (String url){
 		System.out.println(url);
@@ -20,11 +20,11 @@ public class GrammarServiceClientImp {
 		ServiceDefTarget endpoint = (ServiceDefTarget) this.service;
 		endpoint.setServiceEntryPoint(url);
 		
-		this.mangui = new mainGui(this);
+		this.mainGUI = new mainGui(this);
 	}
 	
 	public mainGui getManGUI(){
-		return this.mangui;
+		return this.mainGUI;
 	}
 	
 	private class DefaultCallback implements AsyncCallback {
@@ -59,7 +59,7 @@ public class GrammarServiceClientImp {
 				System.out.println ("La llamada fue exitosa y devolvió: " + result);
 				if (result instanceof Grammar){
 					Grammar grammar = ((Grammar)result);
-					mangui.updateLabel(grammar);
+					mainGUI.updateLabel(grammar);
 				}
 				
 				if (result instanceof Exception) {
