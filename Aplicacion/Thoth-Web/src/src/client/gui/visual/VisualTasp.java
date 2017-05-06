@@ -1,5 +1,8 @@
 package src.client.gui.visual;
 
+import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.TextBox;
+
 import src.client.core.grammar.Grammar;
 import src.client.core.grammar.tasp.FirstFollow;
 import src.client.gui.mediator.MediatorTasp;
@@ -24,7 +27,7 @@ import src.client.gui.mediator.MediatorTasp;
  * @author Álvar Arnáiz González, Andrés Arnáiz Moreno
  * @version 1.0
  */
-public class VisualTasp extends JDialog {
+public class VisualTasp extends Composite {
     
     // Attributes -----------------------------------------------------------------
     
@@ -36,7 +39,7 @@ public class VisualTasp extends JDialog {
     /**
      * JTable donde va a estar la TASP.
      */
-    public JTable mTaspTable;
+   // public JTable mTaspTable;
     
     /**
      * Si está a true la ventana será mostrada y no se mostrará si es false.
@@ -46,41 +49,41 @@ public class VisualTasp extends JDialog {
     /**
      * JTable donde va a estar la traza.
      */
-    public JTable mTraceTable;
+    //public JTable mTraceTable;
     
     /**
      * Panel donde va a ir la JTable con la traza.
      */
-    public JPanel mTracePanel;
+    //public JPanel mTracePanel;
     
     /**
      * JTextField donde se va a introducir la palabra a reconocer.
      */
-    public JTextField mWord;
+    public TextBox mWord;
     
     /**
      * Botón para comprobar si la palabra introducida es válida.
      */
-    public JButton mCheckWord;
+    //public JButton mCheckWord;
     
     /**
      * Botón para borrar la palabra introducida.
      */
-    public JButton mClear;
+   // public JButton mClear;
     /**
      * Botón Validar.
      */
-    public JButton mCheck;
+    //public JButton mCheck;
     
     /**
      * Botón Salir.
      */
-    public JButton mExit;
+   // public JButton mExit;
     
     /**
      * Botón Siguiente.
      */
-    public JButton mNext;
+   // public JButton mNext;
     
     // Methods --------------------------------------------------------------------
     
@@ -90,17 +93,17 @@ public class VisualTasp extends JDialog {
      * @param frame Frame al que está asociado el diálogo.
      * @param gra Gramática de la que vamos a hacer el reconocimiento.
      */
-    public VisualTasp (Frame frame, Grammar gra) {
-        super(frame, Messages.TASP, true);
+    public VisualTasp (Grammar gra) {
+        //super(Messages.TASP, true);
         
-        mWord = new JTextField(20);
+        mWord = new TextBox();
         mVisible = true;
         mMediator = new MediatorTasp(this, gra);
-        setLayout(new BorderLayout());
-        setSize(new Dimension(750, 550));
-        buildPanels();
-        setLocationRelativeTo(frame);
-        setResizable(false);
+        //setLayout(new BorderLayout());
+        //setSize(new Dimension(750, 550));
+        //buildPanels();
+        //setLocationRelativeTo(frame);
+        //setResizable(false);
         setVisible(mVisible);
         
     }//VisualTasp
@@ -111,17 +114,17 @@ public class VisualTasp extends JDialog {
      * @param frame Frame al que está asociado el diálogo.
      * @param first Algoritmo first follow.
      */
-    public VisualTasp (Frame frame, FirstFollow first) {
-        super(frame, Messages.TASP, true);
+    public VisualTasp (FirstFollow first) {
+        //super(frame, Messages.TASP, true);
         
-        mWord = new JTextField(20);
+        mWord = new TextBox();
         mVisible = true;
         mMediator = new MediatorTasp(this, first);
-        setLayout(new BorderLayout());
-        setSize(new Dimension(750, 550));
-        buildPanels();
-        setLocationRelativeTo(frame);
-        setResizable(false);
+        //setLayout(new BorderLayout());
+        //setSize(new Dimension(750, 550));
+        //buildPanels();
+        //setLocationRelativeTo(frame);
+        //setResizable(false);
         setVisible(mVisible);
         
     }//VisualTasp
@@ -130,7 +133,7 @@ public class VisualTasp extends JDialog {
      * Construye los paneles y botones.<br>
      * Asigna la funcionalidad de los botones.
      */
-    private void buildPanels () {
+   /* private void buildPanels () {
         JPanel button = new JPanel(new GridLayout(1, 3, 30, 0)),
                down = new JPanel(new BorderLayout()),
                central = new JPanel(new BorderLayout()),
@@ -187,7 +190,7 @@ public class VisualTasp extends JDialog {
     /**
      * Asigna la funcionalidad de los botones.
      */
-    public void buildListeners () {
+   /* public void buildListeners () {
             //Pulsar sobre validar palabra
         mCheckWord.addActionListener(new ActionListener () {
             public void actionPerformed(ActionEvent e) {
@@ -230,7 +233,7 @@ public class VisualTasp extends JDialog {
      * @param title Título del borde.
      * @return Panel con el borde asignado.
      */
-    private JComponent buildBorder (JComponent component, String title) {
+  /*  private JComponent buildBorder (JComponent component, String title) {
         component.setBorder(
                 BorderFactory.createCompoundBorder(
                         BorderFactory.createCompoundBorder(
@@ -239,6 +242,6 @@ public class VisualTasp extends JDialog {
                         component.getBorder()));
         
         return component;
-    }//buildBorder
+    }//buildBorder*/
     
 }//VisualTasp

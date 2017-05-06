@@ -14,6 +14,10 @@ public class GrammarServiceClientImp {
 	private GrammarServiceAsync service;
 	private mainGui mainGUI;
 
+	/**
+	 * 
+	 * @param url
+	 */
 	public GrammarServiceClientImp (String url){
 		System.out.println(url);
 		this.service = GWT.create(GrammarService.class);
@@ -21,6 +25,20 @@ public class GrammarServiceClientImp {
 		endpoint.setServiceEntryPoint(url);
 		
 		this.mainGUI = new mainGui(this);
+	}
+	
+	/**
+	 * 
+	 * @param url
+	 * @param grammar
+	 */
+	public GrammarServiceClientImp (String url, Grammar grammar){
+		System.out.println(url);
+		this.service = GWT.create(GrammarService.class);
+		ServiceDefTarget endpoint = (ServiceDefTarget) this.service;
+		endpoint.setServiceEntryPoint(url);
+		
+		this.mainGUI = new mainGui(this, grammar);
 	}
 	
 	public mainGui getManGUI(){

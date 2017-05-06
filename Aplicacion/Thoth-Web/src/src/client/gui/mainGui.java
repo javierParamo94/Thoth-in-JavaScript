@@ -1,10 +1,9 @@
 package src.client.gui;
 
-import java.awt.Font;
-
 import src.client.GrammarServiceClientImp;
 import src.client.core.grammar.Grammar;
 import src.client.core.grammar.TypeHandler;
+import src.client.gui.mediator.MediatorClear;
 import src.client.gui.mediator.MediatorRecursive;
 import src.client.gui.utils.ShowDialog;
 import src.client.gui.visual.VisualChomsky;
@@ -18,10 +17,8 @@ import src.client.gui.visual.VisualSNA;
 import src.client.gui.visual.VisualSNT;
 
 import com.google.gwt.core.shared.GWT;
-import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.dom.client.KeyEvent;
 import com.google.gwt.http.client.UrlBuilder;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
@@ -72,9 +69,14 @@ public class mainGui extends Composite {
 	private MessageMessages sms = GWT.create(MessageMessages.class);
 
     /**
-     * Texto inicial del JTextArea
+     * Texto inicial del TextArea
      */
-    public static final String INITIAL_TEXT = "% start \n%%\n\n\n\n%%\n"; 
+    public static  String INITIAL_TEXT = "% start \n%%\n\n\n\n%%\n"; 
+
+    /**
+     * 
+     * @param serviceImp
+     */
     
 	public mainGui(GrammarServiceClientImp serviceImp) {
 		VerticalPanel mainVerticalPanel = new VerticalPanel();
@@ -90,16 +92,34 @@ public class mainGui extends Composite {
 		//tabPanel.add(new VisualSNT(new Grammar()), "SNT");
 		
 		//editorGrammarPanel.add(vPanel);
-//		RootPanel.get().add(barMenuPanel);
-//		RootPanel.get().add(tabPanel);
+		RootPanel.get().add(barMenuPanel);
+		RootPanel.get().add(tabPanel);
 		
 
-		initWidget(mainVerticalPanel);
+		//initWidget(mainVerticalPanel);
 
 		// RootPanel.get().add(bar);
 		// RootPanel.get().add(vPanel);
 	}
+	
+	/**
+	 * Constructor del panel de gramáticas al que se le pasa la gramática.
+	 * 
+	 * @param serviceImp Implementacion del servicio.
+	 * @param grammar Nueva gramática del panel.
+	 */
+   public mainGui (GrammarServiceClientImp serviceImp, Grammar grammar) {
+        this(serviceImp);
+        mGrammar = grammar;
+        ta.setText(grammar.toString());
+        
+    }//mainGui
+    
 
+   /**
+    * 
+    * @param serviceImp
+    */
 	private void buildGrammarPanel(GrammarServiceClientImp serviceImp) {
 
 		mainGui.serviceImp = serviceImp;
@@ -214,6 +234,7 @@ public class mainGui extends Composite {
 	 * 
 	 * @param grammar
 	 */
+	//@Override
 	public void updateLabel(Grammar grammar) {
 		String term = grammar.getTerminals().toString(), noTerm = grammar
 				.getNonTerminals().toString();
@@ -358,6 +379,16 @@ public class mainGui extends Composite {
 					openPNG();
 			}
 		};
+		Command cleanGr = new Command() {
+			public void execute() {
+				serviceImp.checkContent(ta.getText());
+				if (mGrammar.getType() == TypeHandler.CHOMSKY
+						|| mGrammar.getType() == TypeHandler.DEPENDENT)
+					ShowDialog.incorrectTypeGrammar();
+				else
+					openClear();
+			}
+		};
 
 		Command direct_recursion = new Command() {
 			public void execute() {
@@ -475,7 +506,7 @@ public class mainGui extends Composite {
 		algorithmMenu.addItem(sms.eliminatesna(), eliminate_SNA);
 		algorithmMenu.addItem(sms.eliminatesa(), eliminate_SA);
 		algorithmMenu.addItem(sms.eliminatepng(), eliminate_PNG);
-		algorithmMenu.addItem(sms.clear(), cmd); // ///////////////////////////////////////////////////
+		algorithmMenu.addItem(sms.clear(), cleanGr); // ///////////////////////////////////////////////////
 		algorithmMenu.addSeparator();
 		algorithmMenu.addItem(sms.eliminatedirectrecursion(), direct_recursion);
 		algorithmMenu.addItem(sms.eliminateindirectrecursion(),
@@ -516,38 +547,36 @@ public class mainGui extends Composite {
 		barMenuPanel.add(menu);
 	}// buildMenuBar
 
+	
 	// Elimina Símbolos no Terminales
 	public void openSNT() {
 
 		//tabPanel.insert(new VisualSNT(mGrammar), "SNT", 2);
-		tabPanel.insert(new HTML(""), "HTML_SNT", tabPanel.getWidgetCount() - 1);
+		/*tabPanel.insert(new HTML(""), "HTML_SNT", tabPanel.getWidgetCount() - 1);
 		Composite tab = new VisualSNT(mGrammar);
 		tabPanel.insert(tab, "SNT", tabPanel.getWidgetCount() - 1);
-
-
-		//this.vPanel.clear();
-		//hPanel.clear();
-		// tabPanel.clear();
-		//new VisualSNT(mGrammar);
-		//this.currentPage = new VisualSNT(mGrammar);
-		//this.vPanel.add(this.currentPage);
-		/*tabPanel.insert(this.currentPage, "Tab "+con, con);
-		tabPanel.selectTab(tabPanel.getWidgetCount() - 1);
-		con++;*/
+		*/
+		editorGrammarPanel.clear();
+		barMenuPanel.clear();
+		tabPanel.clear();
+		this.currentPage = new VisualSNT(mGrammar);
+		this.vPanel.add(this.currentPage);
 	}
 
 	// Elimina Símbolos no Alcanzables
 	public void openSNA() {
-		this.vPanel.clear();
+		editorGrammarPanel.clear();
 		barMenuPanel.clear();
+		tabPanel.clear();
 		this.currentPage = new VisualSNA(mGrammar);
 		this.vPanel.add(this.currentPage);
 	}
 
 	// Elimina Símbolos Anulables
 	public void openSA() {
-		this.vPanel.clear();
+		editorGrammarPanel.clear();
 		barMenuPanel.clear();
+		tabPanel.clear();
 		this.currentPage = new VisualSA(mGrammar);
 		this.vPanel.add(this.currentPage);
 	}
@@ -559,49 +588,65 @@ public class mainGui extends Composite {
 		this.currentPage = new VisualPNG(mGrammar);
 		this.vPanel.add(this.currentPage);
 	}
+	
+	public void openClear() {
+		editorGrammarPanel.clear();
+		barMenuPanel.clear();
+		tabPanel.clear();
+		new MediatorClear(mGrammar);
+
+	}
 
 	// Eliminar Recursividad Directa
 	public void openDR() {
-		this.vPanel.clear();
+		editorGrammarPanel.clear();
 		barMenuPanel.clear();
+		tabPanel.clear();
 		this.currentPage = new VisualDirectRecursive(mGrammar);
 		this.vPanel.add(this.currentPage);
 	}
 
 	// Eliminar Recursividad Indirecta
 	public void openIR() {
-		this.vPanel.clear();
+		editorGrammarPanel.clear();
 		barMenuPanel.clear();
+		tabPanel.clear();
 		this.currentPage = new VisualIndirectRecursive(mGrammar);
 		this.vPanel.add(this.currentPage);
 	}
 
 	// Eliminar Recursividad
 	public void openR() {
+		editorGrammarPanel.clear();
+		barMenuPanel.clear();
+		tabPanel.clear();
 		new MediatorRecursive(mGrammar);
 
 	}
 
 	// Factorización por la izquierda
 	public void openLF() {
-		this.vPanel.clear();
+		editorGrammarPanel.clear();
 		barMenuPanel.clear();
+		tabPanel.clear();
 		this.currentPage = new VisualLeftFactoring(mGrammar);
 		this.vPanel.add(this.currentPage);
 	}
 
 	// Chomsky
 	public void openChomsky() {
-		this.vPanel.clear();
+		editorGrammarPanel.clear();
 		barMenuPanel.clear();
+		tabPanel.clear();
 		this.currentPage = new VisualChomsky(mGrammar);
 		this.vPanel.add(this.currentPage);
 	}
 
 	// First Follow
 	public void openFiFo() {
-		this.vPanel.clear();
+		editorGrammarPanel.clear();
 		barMenuPanel.clear();
+		tabPanel.clear();
 		this.currentPage = new VisualFirstFollow(mGrammar);
 		this.vPanel.add(this.currentPage);
 	}

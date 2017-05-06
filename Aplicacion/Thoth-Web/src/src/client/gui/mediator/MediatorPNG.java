@@ -1,8 +1,10 @@
 package src.client.gui.mediator;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.RichTextArea;
 
+import src.client.GrammarServiceClientImp;
 import src.client.core.grammar.Production;
 import src.client.core.grammar.cleaner.Cleaning;
 import src.client.core.grammar.cleaner.EliminatePNG;
@@ -159,22 +161,18 @@ public class MediatorPNG {
 
 	/**
 	 * Aceptar.<br>
-	 * Cierra el diálogo y crea una nueva pestaña con la gramática.
+	 * Crea una nueva vista con la gramática nueva.
 	 */
 	public void accept() {
-		Application app = Application.getInstance();
 
-		/*
-		 * if(mVisual.mNew.getText().length()>0){ app.createTab(Messages.GRAMMAR
-		 * + " " + Actions.mCountGram, new
-		 * PanelGrammar(mCleanAlgorithm.getSolution())); Actions.mCountGram++;
-		 * app.getCurrentTab().setChanges(true); }
-		 * 
-		 * ((PanelGrammar)app.getCurrentTab()).checkContent();
-		 */
-		exit();
+		if (mVisual.mNew.getText().length() > 0) {
 
-	}// accept
+			mVisual.vPanel.clear();
+			new GrammarServiceClientImp(GWT.getModuleBaseURL()
+					+ "grammarservice", mCleanAlgorithm.getSolution());
+
+		}
+	}// acceptt
 
 	/**
 	 * Asigna al RichTextPane mAux el valor en cada paso.
@@ -264,13 +262,13 @@ public class MediatorPNG {
 	}// removeAllHighLight()*/
 
 	/**
-	 * Cierra la ventana visual y elimina las referencias.
+	 * Crea una nueva vista con la grmática vieja.
 	 */
 	public void exit() {
-		Window.Location.reload();
-		/*
-		 * mVisual.setVisible(false); mVisual.mMediator = null; mVisual = null;
-		 */
+
+		mVisual.vPanel.clear();
+		new GrammarServiceClientImp(GWT.getModuleBaseURL() + "grammarservice",
+				mGrammar);
 
 	}// exit
 

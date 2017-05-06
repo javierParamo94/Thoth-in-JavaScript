@@ -1,8 +1,10 @@
 package src.client.gui.mediator;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.RichTextArea;
 
+import src.client.GrammarServiceClientImp;
 import src.client.core.grammar.Grammar;
 import src.client.core.grammar.Production;
 import src.client.core.grammar.cleaner.Cleaning;
@@ -110,23 +112,20 @@ public class MediatorIndirectRecursive {
         
     }//all
     
-    /**
-     * Aceptar.<br>
-     * Cierra el diálogo y crea una nueva pestaña con la gramática.
-     */
-    public void accept () {
-        Application app = Application.getInstance();
-        
-        /*if(mVisual.mNew.getText().length()>0){
-            app.createTab(Messages.GRAMMAR + " " + Actions.mCountGram,
-                    new PanelGrammar(mCleanAlgorithm.getSolution()));
-            Actions.mCountGram++;
-            app.getCurrentTab().setChanges(true);
-        }
-        ((PanelGrammar)app.getCurrentTab()).checkContent();*/
-        exit();
-        
-    }//accept
+	/**
+	 * Aceptar.<br>
+	 * Crea una nueva vista con la gramática nueva.
+	 */
+	public void accept() {
+
+		if (mVisual.mNew.getText().length() > 0) {
+
+			mVisual.vPanel.clear();
+			new GrammarServiceClientImp(GWT.getModuleBaseURL()
+					+ "grammarservice", mCleanAlgorithm.getSolution());
+
+		}
+	}// accept
     
     /**
      * Asigna al JTextPane mAux el valor en cada paso y le ilumina.
@@ -240,16 +239,14 @@ public class MediatorIndirectRecursive {
         
     }//removeAllHighLight()
     
-    /**
-     * Cierra la ventana visual y elimina las referencias.
-     */
-    public void exit () {
-    	Window.Location.reload();
-    	/*
-        mVisual.setVisible(false);
-        mVisual.mMediator = null;
-        mVisual = null;*/
-        
-    }//exit
-    
+	/**
+	 * Crea una nueva vista con la grmática vieja.
+	 */
+	public void exit() {
+
+		mVisual.vPanel.clear();
+		new GrammarServiceClientImp(GWT.getModuleBaseURL() + "grammarservice",
+				mGrammar);
+
+	}// exit
 }//MediatorIndirectRecursive

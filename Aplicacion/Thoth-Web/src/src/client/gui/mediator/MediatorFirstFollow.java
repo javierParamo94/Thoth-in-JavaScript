@@ -3,8 +3,10 @@ package src.client.gui.mediator;
 
 import java.util.Vector;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Window;
 
+import src.client.GrammarServiceClientImp;
 import src.client.core.NonTerminal;
 import src.client.core.grammar.Grammar;
 import src.client.core.grammar.cleaner.EliminateDirectRecursion;
@@ -131,15 +133,15 @@ public class MediatorFirstFollow {
         
     }//tasp
     
-    /**
-     * Cierra la ventana visual y elimina las referencias.
-     */
-    public void exit () {
-    	Window.Location.reload();
-       /* mVisual.setVisible(false);
-        mVisual.mMediator = null;
-        mVisual = null;*/
-        
-    }//exit
-    
+
+	/**
+	 * Crea una nueva vista con la grmática vieja.
+	 */
+	public void exit() {
+
+		mVisual.vPanel.clear();
+		new GrammarServiceClientImp(GWT.getModuleBaseURL() + "grammarservice",
+				mGrammar);
+
+	}// exit
 }//MediatorFirstFollow
