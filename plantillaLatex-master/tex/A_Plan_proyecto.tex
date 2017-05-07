@@ -116,7 +116,7 @@ Por lo tanto las tareas son básicamente dos:
 
 La realización del prototipo nos lleva tiempo ya que se necesita comprender muy bien el funcionamiento interno de Thoth y así poder definir un diseño del software adecuado según ese funcionamiento. Una vez hecho eso parece simplificarse los problemas que al principio se tenían.
 
-\subsection{Sprint 7 (2/3/2017 - 29/3/2017)}
+\subsection{Sprint 7 (22/3/2017 - 29/3/2017)}
 
 Parece ser que en esta octava semana ya podemos empezar a trabajar más en la programación del diseño e implementar funcionalidades. Lo primero que tenemos que hacer es que esa comunicación entre métodos de resultados <<más>> visibles e integrarlos en una <<GUI>> denominada en español como interfaz gráfica de usuario. 
 
@@ -129,6 +129,67 @@ Así es que definimos como tareas las siguientes:
 \end{itemize}
 
 Primeramente hay que organizar el código haciéndolo más legible y limpiarlo de comentarios, y pruebas para ver su funcionamiento. Queremos que los resultados queden de una forma similar al Thoth original, para conservar su esencia, usabilidad, y buen diseño. Para ello hacemos uso de Vaadin, una herramienta que se puede utilizar como un <<plugin>> en eclipse y que se integra perfectamente con GWT.
+
+\subsection{Sprint 8 (29/3/2017 - 5/4/2017)}
+
+Al principio de este octavo sprint o 9 semana, estuve pendiente de la respuesta por parte de Vaadin sobre si me podía conceder o no una licencia gratuita, así que me centré en incluir el algoritmo de eliminación de símbolos no terminales, mejorando lo que tenía hasta el momento, que era solo una pequeña interfaz con una funcionalidad que no era la exacta. Por ello me centré en corregirla. Así lo hicimos.
+Posteriormente llegó la respuesta de Vaadin explicando que no me podía conceder la licencia y que buscase otras opciones dentro de las que ellos mismos me ofrecían. Al principió lo intenté pero resulto que no supe como hacerlo. Lograba hacer un proyecto de Vaadin pero no conseguía incluirlo en el mio propio de GWT.
+
+Así que comencé a hacer la interfaz por mi mismo, con las posibilidades de GWT.
+
+Las tareas para esa semana fueron: 
+
+\begin{itemize}
+\item La inclusión del algoritmo de Eliminacion de símbolos no terminales, de una forma mejorada.
+\item Recabar información sobre internacionalización en GWT.
+\end{itemize}
+
+Logramos hacer que funcionase el algoritmo como queríamos y estuvimos mejorando el diseño y la funcionalidad de la interfaz de dicho algoritmo.
+
+\subsection{Sprint 9 (05/4/2017 - 19/4/2017)}
+
+Es el sprint más largo hasta la fecha ya que incluye dos semanas de trabajo por coincidir con las vacaciones de Semana Santa. Engloba fundamentalmente el hacer los demás algoritmos, con sus respectivas vistas.
+
+\begin{itemize}
+\item Implementar los algoritmos restantes.
+\item Mejorar el código, haciéndolo más comprensible y organizar la parte visual.
+\item Hacer la documentación sobre la parte del diseño y sobre las herramientas que tiene la UBU relacionadas con este proyecto.
+\end{itemize}
+
+En estas dos semanas no pude realizar todos los algoritmos como en un principio pretendía porque la parte visual se alejaba de lo que tenia hecho hasta el momento, es decir, necesitaba hacer nuevas vistas que llevaban más tiempo del pensado y no me dio tiempo, pero si que incluí la mayor parte de ellos. Estuvimos estudiando como aplicar el resaltado de las producciones. En el Thoth original utilizaba una librería, java swing, que ya comprobamos anteriormente que no podía ser incluida en GWT en este proyecto así que buscamos otras alternativas como hacer un resaltado a mano con HTML. De momento lo dejamos ahí.
+
+\subsection{Sprint 10 (19/4/2017 - 26/4/2017)}
+
+Una vez pasadas las vacaciones de Semana Santa, el proyecto tiene una forma más madura y podemos ir haciendo añadidos más funcionales a la aplicación. Es por ello que decidimos empezar con la internacionalización, viendo como funcionaba para poder entenderla y una vez entendida incluirla en el proyecto. Además de esto, después de comprobar en la semana pasada que el resaltado lo podíamos hacer con HTML nos dedicamos de lleno a ello. La verdad es que nos llevó muchos quebraderos de cabeza. El porqué no era otra cosa que teníamos que tener en cuenta todo el funcionamiento interno, <<destripar>> que contenía cada variable, como funcionaban cada método de GWT etc. Todo este trabajo nos llevo mucho tiempo, ya que estuvimos todo el sprint a base de prueba y error con los diferentes algoritmos hasta que funcionó en todos de la forma que deseamos.
+
+Estas fueron las tareas correspondientes a esta semana.
+
+\begin{itemize}
+\item Aplicar internacionalización.
+\item Cambiar la visualización de los paneles.
+\item Resaltado de producciones en los algoritmos con HTML.
+\item Incluir los demás algoritmos.
+\item Incluir pestañas y elementos de Vaadin.
+\end{itemize}
+
+La parte visual, es decir, la inclusión de pestañas en realidad no lo llegamos a aplicar bien, de la forma deseada y se trató en el siguiente sprint. Además los elementos de Vaadin no se pudieron incluir ya que la única forma de añadirlos a un proyecto GWT son con licencias de pago. La visualización de los paneles simplemente fue una recolocación para que quedase más agradable a la vista.
+
+
+\subsection{Sprint 11 (26/4/2017 - 03/5/2017)}
+
+En la semana 13, seguimos acumulando un pequeño <<bug>> en el resaltado de las producciones, y es que la interpretación de las comillas dobles <<``''>> no las interpretaba como nosotros queríamos y por ello no hacía un buen borrado del resaltado, manteniéndose en cada paso. La solución fue simplemente sustituirlas por las comillas dobles de java <</``>>. Pero las dos grandes tareas de esta semana consistieron en aplicar el algoritmos FirstFollow y un TabLayoutPanel para hacer un panel con pestañas como los que se ven en los navegadores web.
+
+Las tareas quedaron asi.
+
+\begin{itemize}
+\item Solucionar bug en el resaltado.
+\item Implementar algoritmo FirstFollow.
+\item Incluir TabLayoutPanel para hacer diferentes pestañas.
+\end{itemize}
+
+El algoritmo FirstFollow fue fácil hasta el momento de mostrar los resultados en las tablas. Resulta que al tratar de imprimir los resultados de tipo Object pasándolos como un <<string>> no los reconocía bien. Este tipo de errores no son fáciles de detectar en GWT, ya que la forma para verlos claramente es imprimiendo los valores por pantalla y tratando de analizarlos, en que formato están etc. Al final descubrimos que el problema era al tratar de pasara al formato string valores que GWT interpretaba como <<undefined>> y que no eran más que valores en blanco, espacios en blanco dentro de la tabla. 
+
+El otro gran quebradero de cabeza fue el tratar de incluir pestañas en la aplicación. No es nada fácil añadir una pestaña con una nueva vista sin que esta remplace otra, se superponga o cualquier otra cosa. A día de hoy no sabemos bien el porqué de esto al cien por cien. Lo que si es cierto es que no es completamente necesaria y se puede hacer un reemplazamiento de otras vistas.
 
 \section{Estudio de viabilidad}
 
