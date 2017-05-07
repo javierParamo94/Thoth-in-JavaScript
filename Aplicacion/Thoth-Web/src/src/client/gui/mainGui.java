@@ -68,19 +68,19 @@ public class mainGui extends Composite {
 
 	private MessageMessages sms = GWT.create(MessageMessages.class);
 
-    /**
-     * Texto inicial del TextArea
-     */
-    public static  String INITIAL_TEXT = "% start \n%%\n\n\n\n%%\n"; 
+	/**
+	 * Texto inicial del TextArea
+	 */
+	public static String INITIAL_TEXT = "% start \n%%\n\n\n\n%%\n";
 
-    /**
-     * 
-     * @param serviceImp
-     */
-    
+	/**
+	 * 
+	 * @param serviceImp
+	 */
+
 	public mainGui(GrammarServiceClientImp serviceImp) {
 		VerticalPanel mainVerticalPanel = new VerticalPanel();
-		
+
 		buildMenuBar();
 		buildGrammarPanel(serviceImp);
 
@@ -89,37 +89,37 @@ public class mainGui extends Composite {
 
 		tabPanel.add(editorGrammarPanel, "Grammar");
 		tabPanel.add(new HTML("hi!"), "title");
-		//tabPanel.add(new VisualSNT(new Grammar()), "SNT");
-		
-		//editorGrammarPanel.add(vPanel);
+		// tabPanel.add(new VisualSNT(new Grammar()), "SNT");
+
+		// editorGrammarPanel.add(vPanel);
 		RootPanel.get().add(barMenuPanel);
 		RootPanel.get().add(tabPanel);
-		
 
-		//initWidget(mainVerticalPanel);
+		// initWidget(mainVerticalPanel);
 
 		// RootPanel.get().add(bar);
 		// RootPanel.get().add(vPanel);
 	}
-	
+
 	/**
 	 * Constructor del panel de gramáticas al que se le pasa la gramática.
 	 * 
-	 * @param serviceImp Implementacion del servicio.
-	 * @param grammar Nueva gramática del panel.
+	 * @param serviceImp
+	 *            Implementacion del servicio.
+	 * @param grammar
+	 *            Nueva gramática del panel.
 	 */
-   public mainGui (GrammarServiceClientImp serviceImp, Grammar grammar) {
-        this(serviceImp);
-        mGrammar = grammar;
-        ta.setText(grammar.toString());
-        
-    }//mainGui
-    
+	public mainGui(GrammarServiceClientImp serviceImp, Grammar grammar) {
+		this(serviceImp);
+		mGrammar = grammar;
+		ta.setText(grammar.toString());
 
-   /**
-    * 
-    * @param serviceImp
-    */
+	}// mainGui
+
+	/**
+	 * 
+	 * @param serviceImp
+	 */
 	private void buildGrammarPanel(GrammarServiceClientImp serviceImp) {
 
 		mainGui.serviceImp = serviceImp;
@@ -213,6 +213,7 @@ public class mainGui extends Composite {
 	}
 
 	/**
+	 * Renombrar
 	 * 
 	 * @author User
 	 *
@@ -221,20 +222,18 @@ public class mainGui extends Composite {
 
 		@Override
 		public void onClick(ClickEvent event) {
-			//bar.addTab("Tab " + con);
-			
-			tabPanel.insert(new HTML("Hola"), "Tab "+con, con);
-			tabPanel.selectTab(tabPanel.getWidgetCount() - 1);
-			con++;
-		}
 
+			serviceImp.checkContent(ta.getText());
+			//new RenameSymbolDialog(Application.getInstance());
+			// serviceImp.checkContent(textcheck);
+		}
 	}
 
 	/**
 	 * 
 	 * @param grammar
 	 */
-	//@Override
+	// @Override
 	public void updateLabel(Grammar grammar) {
 		String term = grammar.getTerminals().toString(), noTerm = grammar
 				.getNonTerminals().toString();
@@ -281,7 +280,6 @@ public class mainGui extends Composite {
 
 		// create titles for tabs
 
-		
 		// tabPanel.add(new HTML("Baz"), tab2Title);
 		// tabPanel.selectTab(1);
 
@@ -302,7 +300,7 @@ public class mainGui extends Composite {
 
 		Command spanish = new Command() {
 			public void execute() {
-				//Window.alert(sms.restartchanges() + " " + sms.ucontinue());
+				Window.alert(sms.restartchanges() + " " + sms.ucontinue());
 				UrlBuilder newUrl = Window.Location.createUrlBuilder();
 				newUrl.setParameter("locale", "es");
 				Window.Location.assign(newUrl.buildString());
@@ -385,8 +383,22 @@ public class mainGui extends Composite {
 				if (mGrammar.getType() == TypeHandler.CHOMSKY
 						|| mGrammar.getType() == TypeHandler.DEPENDENT)
 					ShowDialog.incorrectTypeGrammar();
-				else
-					openClear();
+				else {
+
+					MediatorClear clean = new MediatorClear(mGrammar);
+					switch (clean.doAll()) {
+					case 0:
+						ShowDialog.innecesaryAlgorithm();
+						break;
+					case 1:
+						editorGrammarPanel.clear();
+						barMenuPanel.clear();
+						tabPanel.clear();
+						break;
+					default:
+						ShowDialog.cleanError();
+					}
+				}
 			}
 		};
 
@@ -506,7 +518,7 @@ public class mainGui extends Composite {
 		algorithmMenu.addItem(sms.eliminatesna(), eliminate_SNA);
 		algorithmMenu.addItem(sms.eliminatesa(), eliminate_SA);
 		algorithmMenu.addItem(sms.eliminatepng(), eliminate_PNG);
-		algorithmMenu.addItem(sms.clear(), cleanGr); // ///////////////////////////////////////////////////
+		algorithmMenu.addItem(sms.clear(), cleanGr);
 		algorithmMenu.addSeparator();
 		algorithmMenu.addItem(sms.eliminatedirectrecursion(), direct_recursion);
 		algorithmMenu.addItem(sms.eliminateindirectrecursion(),
@@ -547,15 +559,15 @@ public class mainGui extends Composite {
 		barMenuPanel.add(menu);
 	}// buildMenuBar
 
-	
 	// Elimina Símbolos no Terminales
 	public void openSNT() {
 
-		//tabPanel.insert(new VisualSNT(mGrammar), "SNT", 2);
-		/*tabPanel.insert(new HTML(""), "HTML_SNT", tabPanel.getWidgetCount() - 1);
-		Composite tab = new VisualSNT(mGrammar);
-		tabPanel.insert(tab, "SNT", tabPanel.getWidgetCount() - 1);
-		*/
+		// tabPanel.insert(new VisualSNT(mGrammar), "SNT", 2);
+		/*
+		 * tabPanel.insert(new HTML(""), "HTML_SNT", tabPanel.getWidgetCount() -
+		 * 1); Composite tab = new VisualSNT(mGrammar); tabPanel.insert(tab,
+		 * "SNT", tabPanel.getWidgetCount() - 1);
+		 */
 		editorGrammarPanel.clear();
 		barMenuPanel.clear();
 		tabPanel.clear();
@@ -587,14 +599,6 @@ public class mainGui extends Composite {
 		barMenuPanel.clear();
 		this.currentPage = new VisualPNG(mGrammar);
 		this.vPanel.add(this.currentPage);
-	}
-	
-	public void openClear() {
-		editorGrammarPanel.clear();
-		barMenuPanel.clear();
-		tabPanel.clear();
-		new MediatorClear(mGrammar);
-
 	}
 
 	// Eliminar Recursividad Directa

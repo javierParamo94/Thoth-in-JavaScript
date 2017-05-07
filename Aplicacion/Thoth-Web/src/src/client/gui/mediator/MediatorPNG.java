@@ -1,15 +1,14 @@
 package src.client.gui.mediator;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.RichTextArea;
 
 import src.client.GrammarServiceClientImp;
 import src.client.core.grammar.Production;
 import src.client.core.grammar.cleaner.Cleaning;
 import src.client.core.grammar.cleaner.EliminatePNG;
-import src.client.gui.Application;
 import src.client.gui.utils.HTMLConverter;
+import src.client.gui.utils.ShowDialog;
 import src.client.gui.visual.VisualPNG;
 import src.client.core.grammar.Grammar;
 
@@ -83,7 +82,7 @@ public class MediatorPNG {
 		mTempSize = mCleanAlgorithm.getSolution().completeToString().length() - 3;
 
 		if (!mCleanAlgorithm.firstStep()) {
-			// ShowDialog.nonUniSymbols();
+			ShowDialog.nonUniSymbols();
 			mVisual.mVisible = false;
 			mVisual = null;
 		} else
@@ -149,7 +148,7 @@ public class MediatorPNG {
 		mCleanAlgorithm = new EliminatePNG(mGrammar);
 
 		if (!mCleanAlgorithm.allSteps()) {
-			// ShowDialog.nonUniSymbols();
+			ShowDialog.nonUniSymbols();
 			mVisual.mVisible = false;
 		} else
 			mVisual.mNew.setHTML(HTMLConverter.toHTML(mCleanAlgorithm

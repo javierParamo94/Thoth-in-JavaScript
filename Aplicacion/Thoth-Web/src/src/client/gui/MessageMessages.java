@@ -117,6 +117,30 @@ public interface MessageMessages extends Constants {
 
 	@DefaultStringValue("Prefijo:")
 	String factorsymbols();
+	
+	@DefaultStringValue("No es necesario ejecutar este algoritmo.")
+	String innecesaryalgorithm();
+
+	@DefaultStringValue("No se han podido ejecutar todos los algoritmos de limpieza.")
+	String cleanerrora();
+	
+	@DefaultStringValue("Por favor ejecutelos por separado.")
+	String cleanerrorb();
+
+	@DefaultStringValue("La gramática no tiene recursividad a izquierdas.")
+	String norecursive();
+	
+	@DefaultStringValue("La gramática no tiene recursividad directa.")
+	String nodirectrecursive();
+	
+	@DefaultStringValue("La gramática no tiene recursividad indirecta.")
+	String noindirectrecursive();
+	
+	@DefaultStringValue("La gramática no se puede factorizar.")
+	String nofactor();
+	
+	@DefaultStringValue("No se ha podido convertir a FNC.")
+	String chomskyerror();
 			
 	@DefaultStringValue("Los cambios no se aplicarán hasta que no reinicie el programa.")
 	String restartchanges();			

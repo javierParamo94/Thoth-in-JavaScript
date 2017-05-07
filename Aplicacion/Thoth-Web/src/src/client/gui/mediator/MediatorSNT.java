@@ -34,9 +34,6 @@ public class MediatorSNT {
 
 	// Attributes
 	// --------------------------------------------------------------------
-	// public GrammarServiceClientImp serviceImp = new GrammarServiceClientImp
-	// (GWT.getModuleBaseURL() + "grammarservice");
-	// public GrammarServiceClientImp serviceImp;
 	/**
 	 * Algoritmo de limpieza asociado al mediador.
 	 */
@@ -240,7 +237,5 @@ public class MediatorSNT {
 		mVisual.vPanel.clear();
 		new GrammarServiceClientImp(GWT.getModuleBaseURL() + "grammarservice",
 				mGrammar);
-
 	}// exit
-
 }// MediatorSNT

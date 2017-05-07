@@ -1,18 +1,12 @@
 package src.client.gui.mediator;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.RichTextArea;
 
 import src.client.GrammarServiceClientImp;
 import src.client.core.grammar.*;
 import src.client.core.grammar.cleaner.Cleaning;
 import src.client.core.grammar.cleaner.EliminateSA;
-import src.client.gui.Application;
-import src.client.gui.mainGui;
-
- //import view.utils.Messages;
-
 import src.client.gui.utils.ShowDialog;
 import src.client.gui.utils.HTMLConverter;
 import src.client.gui.visual.VisualSA;
@@ -38,7 +32,6 @@ public class MediatorSA {
 
 	// Attributes
 	// --------------------------------------------------------------------
-	private mainGui mangui;
 	/**
 	 * Algoritmo de limpieza asociado al mediador.
 	 */
@@ -114,7 +107,7 @@ public class MediatorSA {
 					.length() - 3;
 			setAux();
 			mFlagFirst = false;
-			
+
 		} else { // NextStep
 			removeAllHighLight();
 			setAux();
@@ -178,7 +171,7 @@ public class MediatorSA {
 
 		temp = ((EliminateSA) mCleanAlgorithm).getCancel().toString();
 		mVisual.mAux.setHTML(HTMLConverter.toHTML(temp.substring(1,
-				temp.length() -1)));
+				temp.length() - 1)));
 		mTempSize = mCleanAlgorithm.getSolution().completeToString().length() - 3;
 	}// setAux
 
@@ -186,26 +179,30 @@ public class MediatorSA {
 	 * Ilumina/Resalta el no terminal anulable en cada momento.
 	 */
 	private void highLightAux() {
-		
-		highLight(mVisual.mAux, ((EliminateSA) mCleanAlgorithm).currentCancel().toString(), false);
+
+		highLight(mVisual.mAux, ((EliminateSA) mCleanAlgorithm).currentCancel()
+				.toString(), false);
 	}// highLightAux*/
 
-    /**
-     * 
-     * Ilumina/Resalta el texto de los paneles donde se encuentran las dos gramáticas que
-     * coincidan con pattern. 
-     * 
-     * @param pane Panel en el que se encuentra el texto
-     * @param pattern Texto a iluminar
-     * @param green Booleano que determina el color de la iluminación.
-     */
-	
+	/**
+	 * 
+	 * Ilumina/Resalta el texto de los paneles donde se encuentran las dos
+	 * gramáticas que coincidan con pattern.
+	 * 
+	 * @param pane
+	 *            Panel en el que se encuentra el texto
+	 * @param pattern
+	 *            Texto a iluminar
+	 * @param green
+	 *            Booleano que determina el color de la iluminación.
+	 */
+
 	private void highLight(RichTextArea pane, String pattern, boolean green) {
 		String text = "", text1 = "";
 		int posEnd = 0, posStart = 0;
 		String openMark = "", closeMark = "";
 
-		//Elección del color del highLight
+		// Elección del color del highLight
 		if (green) {
 			openMark = "<mark class=\"green\">";
 			closeMark = "</mark>";
@@ -277,6 +274,5 @@ public class MediatorSA {
 				mGrammar);
 
 	}// exit
-
 
 }// MediatorSA

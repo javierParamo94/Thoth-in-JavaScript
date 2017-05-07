@@ -1,7 +1,6 @@
 package src.client.gui.mediator;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.RichTextArea;
 
 import src.client.GrammarServiceClientImp;
@@ -9,14 +8,13 @@ import src.client.core.grammar.Grammar;
 import src.client.core.grammar.Production;
 import src.client.core.grammar.cleaner.Cleaning;
 import src.client.core.grammar.cleaner.EliminateIndirectRecursion;
-import src.client.gui.Application;
 import src.client.gui.utils.HTMLConverter;
 import src.client.gui.utils.ShowDialog;
 import src.client.gui.visual.VisualIndirectRecursive;
 
 /**
  * <b>Descripción</b><br>
- * Clase que hace de mediador entre el algoritmo de eliminación de recursividad 
+ * Clase que hace de mediador entre el algoritmo de eliminación de recursividad
  * indirecta.
  * <p>
  * <b>Detalles</b><br>
@@ -26,92 +24,100 @@ import src.client.gui.visual.VisualIndirectRecursive;
  * <p>
  * <b>Funcionalidad</b><br>
  * Evita el acomplamiento entre la parte visual y la física.<br>
- * Ilumina las producciones que cambian. 
+ * Ilumina las producciones que cambian.
  * </p>
  * 
  * @author Álvar Arnáiz González, Andrés Arnáiz Moreno
  * @version 1.0
  */
 public class MediatorIndirectRecursive {
-    
-    // Attributes --------------------------------------------------------------------
-    
-    /**
-     * Algoritmo de limpieza asociado al mediador.
-     */
-    private Cleaning mCleanAlgorithm;
-    
-    /**
-     * Gramática a limpiar.
-     */
-    private Grammar mGrammar;
-    
-    /**
-     * Algoritmo visual al que está asociado.
-     */
-    private VisualIndirectRecursive mVisual;
-    
-    // Methods -----------------------------------------------------------------------
-    
-    /**
-     * Constructor completo del mediador del algoritmo de recursividad indirecta.
-     * 
-     * @param vir Pantalla del algoritmo.
-     * @param grammar Gramática a limpiar.
-     */
-    public MediatorIndirectRecursive (VisualIndirectRecursive vir, Grammar grammar) {
-        mCleanAlgorithm = new EliminateIndirectRecursion(grammar);
-        mGrammar = grammar;
-        mVisual = vir;
-        mVisual.mOld.setHTML(HTMLConverter.toHTML(mGrammar.completeToString()));
-        mVisual.mNew.setHTML(HTMLConverter.toHTML(mCleanAlgorithm.getSolution().completeToString()));
-        
-        if(!mCleanAlgorithm.firstStep()){
-            //ShowDialog.nonRecursiveIndir();
-            mVisual.mVisible = false;
-        }
-    }//MediatorIndirectRecursive
-    
-    /**
-     * Cada paso del algoritmo.
-     */
-    public void next () {
-            //Borramos todos los resaltos
-        removeAllHighLight();
-            //Última iteración
-        if(!mCleanAlgorithm.nextStep()){
-            mVisual.mAux.setHTML(HTMLConverter.toHTML(""));
-            mVisual.mRec.setHTML(HTMLConverter.toHTML(""));
-            mVisual.mNew.setHTML(HTMLConverter.toHTML(mCleanAlgorithm.getSolution().completeToString()));
-            finish();
-        }
-        else{
-                //En cada iteración
-            setAux();
-            mVisual.mNew.setHTML(HTMLConverter.toHTML(mCleanAlgorithm.getSolution().completeToString()));
-            setRec();
-        }
-        
-    }//next
-    
-    /**
-     * Todos los pasos del algoritmo.
-     */
-    public void all () {
-        mCleanAlgorithm = new EliminateIndirectRecursion(mGrammar);
-        
-        if(!mCleanAlgorithm.allSteps()){
-            //ShowDialog.nonRecursiveIndir();
-            exit();
-        }
-        else
-            mVisual.mNew.setHTML(HTMLConverter.toHTML(mCleanAlgorithm.getSolution().completeToString()));
-        
-        removeAllHighLight();
-        finish();
-        
-    }//all
-    
+
+	// Attributes
+	// --------------------------------------------------------------------
+
+	/**
+	 * Algoritmo de limpieza asociado al mediador.
+	 */
+	private Cleaning mCleanAlgorithm;
+
+	/**
+	 * Gramática a limpiar.
+	 */
+	private Grammar mGrammar;
+
+	/**
+	 * Algoritmo visual al que está asociado.
+	 */
+	private VisualIndirectRecursive mVisual;
+
+	// Methods
+	// -----------------------------------------------------------------------
+
+	/**
+	 * Constructor completo del mediador del algoritmo de recursividad
+	 * indirecta.
+	 * 
+	 * @param vir
+	 *            Pantalla del algoritmo.
+	 * @param grammar
+	 *            Gramática a limpiar.
+	 */
+	public MediatorIndirectRecursive(VisualIndirectRecursive vir,
+			Grammar grammar) {
+		mCleanAlgorithm = new EliminateIndirectRecursion(grammar);
+		mGrammar = grammar;
+		mVisual = vir;
+		mVisual.mOld.setHTML(HTMLConverter.toHTML(mGrammar.completeToString()));
+		mVisual.mNew.setHTML(HTMLConverter.toHTML(mCleanAlgorithm.getSolution()
+				.completeToString()));
+
+		if (!mCleanAlgorithm.firstStep()) {
+			ShowDialog.nonRecursiveIndir();
+			mVisual.mVisible = false;
+		}
+	}// MediatorIndirectRecursive
+
+	/**
+	 * Cada paso del algoritmo.
+	 */
+	public void next() {
+		// Borramos todos los resaltos
+		removeAllHighLight();
+		// Última iteración
+		if (!mCleanAlgorithm.nextStep()) {
+			mVisual.mAux.setHTML(HTMLConverter.toHTML(""));
+			mVisual.mRec.setHTML(HTMLConverter.toHTML(""));
+			mVisual.mNew.setHTML(HTMLConverter.toHTML(mCleanAlgorithm
+					.getSolution().completeToString()));
+			finish();
+		} else {
+			// En cada iteración
+			setAux();
+			mVisual.mNew.setHTML(HTMLConverter.toHTML(mCleanAlgorithm
+					.getSolution().completeToString()));
+			setRec();
+		}
+
+	}// next
+
+	/**
+	 * Todos los pasos del algoritmo.
+	 */
+	public void all() {
+		mCleanAlgorithm = new EliminateIndirectRecursion(mGrammar);
+
+		if (!mCleanAlgorithm.allSteps()) {
+			ShowDialog.nonRecursiveIndir();
+			exit();
+		} else
+			mVisual.mNew.setHTML(HTMLConverter.toHTML(mCleanAlgorithm
+					.getSolution().completeToString()));
+
+		removeAllHighLight();
+		finish();
+
+	}// all
+
 	/**
 	 * Aceptar.<br>
 	 * Crea una nueva vista con la gramática nueva.
@@ -126,37 +132,41 @@ public class MediatorIndirectRecursive {
 
 		}
 	}// accept
-    
-    /**
-     * Asigna al JTextPane mAux el valor en cada paso y le ilumina.
-     */
-    private void setAux () {
-        Production prod = ((EliminateIndirectRecursion)mCleanAlgorithm).getOldProd();
-        String temp = prod.toString().substring(0, prod.toString().length()-1);
-        
-        mVisual.mAux.setHTML(HTMLConverter.toHTML(temp));
-        highLight(mVisual.mAux, temp, false);
-        highLight(mVisual.mOld, temp, false);
-    }//setAux
-    
-    /**
-     * Asigna al JTextPane mRec el valor en cada paso.<br>
-     * Ilumina tanto éste JTextPane como mNew.
-     */
-    private void setRec () {
-        String temp = new String();
-        
-        for(Production prod : ((EliminateIndirectRecursion)mCleanAlgorithm).getAllProds()){
-            highLight(mVisual.mNew, prod.toString(), true);
-            temp += prod.toString();
-        }
-        mVisual.mRec.setText(temp);
-        
-        for(Production prod : ((EliminateIndirectRecursion)mCleanAlgorithm).getRecDirProds())
-            highLight(mVisual.mNew, prod.toString(), true);
-        
-    }//setRec
-    
+
+	/**
+	 * Asigna al JTextPane mAux el valor en cada paso y le ilumina.
+	 */
+	private void setAux() {
+		Production prod = ((EliminateIndirectRecursion) mCleanAlgorithm)
+				.getOldProd();
+		String temp = prod.toString()
+				.substring(0, prod.toString().length() - 1);
+
+		mVisual.mAux.setHTML(HTMLConverter.toHTML(temp));
+		highLight(mVisual.mAux, temp, false);
+		highLight(mVisual.mOld, temp, false);
+	}// setAux
+
+	/**
+	 * Asigna al JTextPane mRec el valor en cada paso.<br>
+	 * Ilumina tanto éste JTextPane como mNew.
+	 */
+	private void setRec() {
+		String temp = new String();
+
+		for (Production prod : ((EliminateIndirectRecursion) mCleanAlgorithm)
+				.getAllProds()) {
+			highLight(mVisual.mNew, prod.toString(), true);
+			temp += prod.toString();
+		}
+		mVisual.mRec.setText(temp);
+
+		for (Production prod : ((EliminateIndirectRecursion) mCleanAlgorithm)
+				.getRecDirProds())
+			highLight(mVisual.mNew, prod.toString(), true);
+
+	}// setRec
+
 	/**
 	 * 
 	 * Ilumina/Resalta el texto de los paneles donde se encuentran las dos
@@ -203,21 +213,22 @@ public class MediatorIndirectRecursive {
 		pane.setHTML(text1);
 
 	}// highLight
-    
-    /**
-     * Deshabilita los botones de Siguiente y Todos los pasos y habilita el de aceptar.
-     */
-    public void finish () {
-        mVisual.btnOneStep.setEnabled(false);
-        mVisual.btnAllSteps.setEnabled(false);
-        mVisual.btnAcept.setEnabled(true);
-        
-    }//finish
-    
-    /**
-     * Deselecciona la zona resaltada.
-     */
-    private void removeAllHighLight() {
+
+	/**
+	 * Deshabilita los botones de Siguiente y Todos los pasos y habilita el de
+	 * aceptar.
+	 */
+	public void finish() {
+		mVisual.btnOneStep.setEnabled(false);
+		mVisual.btnAllSteps.setEnabled(false);
+		mVisual.btnAcept.setEnabled(true);
+
+	}// finish
+
+	/**
+	 * Deselecciona la zona resaltada.
+	 */
+	private void removeAllHighLight() {
 		String str, str1, str2, str3, str4, str5, str6, str7;
 		str = mVisual.mNew.getHTML().replaceAll("<mark class=\"green\">", "")
 				.replaceAll("<mark class=\"red\">", "");
@@ -236,9 +247,9 @@ public class MediatorIndirectRecursive {
 		mVisual.mOld.setHTML(str3);
 		mVisual.mAux.setHTML(str5);
 		mVisual.mRec.setHTML(str7);
-        
-    }//removeAllHighLight()
-    
+
+	}// removeAllHighLight()
+
 	/**
 	 * Crea una nueva vista con la grmática vieja.
 	 */
@@ -249,4 +260,4 @@ public class MediatorIndirectRecursive {
 				mGrammar);
 
 	}// exit
-}//MediatorIndirectRecursive
+}// MediatorIndirectRecursive

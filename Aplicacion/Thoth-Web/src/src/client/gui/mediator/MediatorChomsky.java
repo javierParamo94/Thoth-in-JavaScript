@@ -2,14 +2,8 @@ package src.client.gui.mediator;
 
 import java.util.Vector;
 
-import javax.swing.text.Highlighter;
-
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.HTML;
-import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RichTextArea;
-import com.google.gwt.user.client.ui.TextArea;
 
 import src.client.GrammarServiceClientImp;
 import src.client.core.grammar.*;
@@ -30,127 +24,134 @@ import src.client.gui.utils.ShowDialog;
  * <p>
  * <b>Funcionalidad</b><br>
  * Evita el acomplamiento entre la parte visual y la física.<br>
- * Ilumina las producciones que cambian. 
+ * Ilumina las producciones que cambian.
  * </p>
  * 
  * @author Álvar Arnáiz González, Andrés Arnáiz Moreno
  * @version 1.0
  */
 public class MediatorChomsky {
-    
-    // Attributes --------------------------------------------------------------------
-	private HTML html = new HTML();
-    /**
-     * Algoritmo de limpieza asociado al mediador.
-     */
-    private Chomsky mCleanAlgorithm;
-    
-    /**
-     * Gramática a limpiar.
-     */
-    private Grammar mGrammar;
-    
-    /**
-     * Bandera usada para saber si ha realizado el primer paso del algoritmo.
-     */
-    private boolean mFlagFirst;
-    
-    /**
-     * Algoritmo visual al que está asociado.
-     */
-    private VisualChomsky mVisual;
-    
-    // Methods -----------------------------------------------------------------------
-    
-    /**
-     * Constructor completo del mediador del algoritmo de limpieza de producciones no
-     * generativas.
-     * 
-     * @param chomsky Pantalla del algoritmo.
-     * @param grammar Gramática a limpiar.
-     */
-    public MediatorChomsky (VisualChomsky chomsky, Grammar grammar) {
-        mGrammar = grammar;
-        mFlagFirst = true;
-        mVisual = chomsky;
-        
-            //Mostramos el diálogo
-        //if(ShowDialog.clearQuestion() == JOptionPane.YES_OPTION){
-                //Limpiamos
-            Cleaner clean = new Cleaner(mGrammar);
-            
-            if(!clean.toClean()){
-                //ShowDialog.cleanError();
-                mVisual.mVisible = false;
-                return;
-            }
-            mGrammar = clean.getSolution();
-            mCleanAlgorithm = new Chomsky(mGrammar);
-            mVisual.mOld.setHTML(HTMLConverter.toHTML(mGrammar.completeToString()));
-            mVisual.mNew.setHTML(HTMLConverter.toHTML(mCleanAlgorithm.getSolution().completeToString()));
-            mVisual.mVisible = true;
-       // }
-        //else
-           // mVisual.mVisible = false;
-        
-    }//MediatorChomsky
-    
-    /**
-     * Primer paso del algoritmo.
-     */
-    public void next () {
-        String temp;
-        Vector<Production> prods;
-        
-        if(mFlagFirst){
-            if(!mCleanAlgorithm.firstStep()){
-                finish();
-                //ShowDialog.chomskyError();
-                return;
-            }   //FirstStep
-            prods = mCleanAlgorithm.getChanges();
-            mVisual.mNew.setHTML(HTMLConverter.toHTML(mCleanAlgorithm.getSolution().completeToString()));
-            
-            for(Production prod:prods)
-                highLight(mVisual.mNew, prod.toString(), true);
-            mFlagFirst = false;
-        }
-        else{   //NextStep
-            removeAllHighLight();
-                //Última iteración
-            if(!mCleanAlgorithm.nextStep()){
-                finish();
-                mVisual.mAux.setHTML(HTMLConverter.toHTML(""));
-                return;
-            }
-            prods = mCleanAlgorithm.getChanges();
-            mVisual.mNew.setHTML(HTMLConverter.toHTML(mCleanAlgorithm.getSolution().completeToString()));
-            temp = prods.firstElement().toString();
-            mVisual.mAux.setHTML(HTMLConverter.toHTML(temp.substring(0, temp.length()-1)));
-            highLight(mVisual.mAux, temp.substring(0, temp.length()-1),false);
-            for(int i=1; i<prods.size(); i++ )
-                highLight(mVisual.mNew, prods.elementAt(i).toString(),true);
-        
-        }
-        
-    }//next
-    
-    /**
-     * Todos los pasos del algoritmo.
-     */
-    public void all () {
-        mCleanAlgorithm = new Chomsky(mGrammar);
-        
-        if(!mCleanAlgorithm.allSteps())
-            ShowDialog.chomskyError();
-        else
-            mVisual.mNew.setHTML(HTMLConverter.toHTML(mCleanAlgorithm.getSolution().completeToString()));
-        
-        removeAllHighLight();
-        finish();
-        
-    }//all
-    
+
+	// Attributes
+	// --------------------------------------------------------------------
+	/**
+	 * Algoritmo de limpieza asociado al mediador.
+	 */
+	private Chomsky mCleanAlgorithm;
+
+	/**
+	 * Gramática a limpiar.
+	 */
+	private Grammar mGrammar;
+
+	/**
+	 * Bandera usada para saber si ha realizado el primer paso del algoritmo.
+	 */
+	private boolean mFlagFirst;
+
+	/**
+	 * Algoritmo visual al que está asociado.
+	 */
+	private VisualChomsky mVisual;
+
+	// Methods
+	// -----------------------------------------------------------------------
+
+	/**
+	 * Constructor completo del mediador del algoritmo de limpieza de
+	 * producciones no generativas.
+	 * 
+	 * @param chomsky
+	 *            Pantalla del algoritmo.
+	 * @param grammar
+	 *            Gramática a limpiar.
+	 */
+	public MediatorChomsky(VisualChomsky chomsky, Grammar grammar) {
+		mGrammar = grammar;
+		mFlagFirst = true;
+		mVisual = chomsky;
+
+		// Mostramos el diálogo
+		// if(ShowDialog.clearQuestion() == JOptionPane.YES_OPTION){
+		// Limpiamos
+		Cleaner clean = new Cleaner(mGrammar);
+
+		if (!clean.toClean()) {
+			ShowDialog.cleanError();
+			mVisual.mVisible = false;
+			return;
+		}
+		mGrammar = clean.getSolution();
+		mCleanAlgorithm = new Chomsky(mGrammar);
+		mVisual.mOld.setHTML(HTMLConverter.toHTML(mGrammar.completeToString()));
+		mVisual.mNew.setHTML(HTMLConverter.toHTML(mCleanAlgorithm.getSolution()
+				.completeToString()));
+		mVisual.mVisible = true;
+		// }
+		/*
+		 * else mVisual.mVisible = false;
+		 */
+	}// MediatorChomsky
+
+	/**
+	 * Primer paso del algoritmo.
+	 */
+	public void next() {
+		String temp;
+		Vector<Production> prods;
+
+		if (mFlagFirst) {
+			if (!mCleanAlgorithm.firstStep()) {
+				finish();
+				ShowDialog.chomskyError();
+				return;
+			} // FirstStep
+			prods = mCleanAlgorithm.getChanges();
+			mVisual.mNew.setHTML(HTMLConverter.toHTML(mCleanAlgorithm
+					.getSolution().completeToString()));
+
+			for (Production prod : prods)
+				highLight(mVisual.mNew, prod.toString(), true);
+			mFlagFirst = false;
+		} else { // NextStep
+			removeAllHighLight();
+			// Última iteración
+			if (!mCleanAlgorithm.nextStep()) {
+				finish();
+				mVisual.mAux.setHTML(HTMLConverter.toHTML(""));
+				return;
+			}
+			prods = mCleanAlgorithm.getChanges();
+			mVisual.mNew.setHTML(HTMLConverter.toHTML(mCleanAlgorithm
+					.getSolution().completeToString()));
+			temp = prods.firstElement().toString();
+			mVisual.mAux.setHTML(HTMLConverter.toHTML(temp.substring(0,
+					temp.length() - 1)));
+			highLight(mVisual.mAux, temp.substring(0, temp.length() - 1), false);
+			for (int i = 1; i < prods.size(); i++)
+				highLight(mVisual.mNew, prods.elementAt(i).toString(), true);
+
+		}
+
+	}// next
+
+	/**
+	 * Todos los pasos del algoritmo.
+	 */
+	public void all() {
+		mCleanAlgorithm = new Chomsky(mGrammar);
+
+		if (!mCleanAlgorithm.allSteps())
+			ShowDialog.chomskyError();
+		else
+			mVisual.mNew.setHTML(HTMLConverter.toHTML(mCleanAlgorithm
+					.getSolution().completeToString()));
+
+		removeAllHighLight();
+		finish();
+
+	}// all
+
 	/**
 	 * Aceptar.<br>
 	 * Crea una nueva vista con la gramática nueva.
@@ -162,10 +163,9 @@ public class MediatorChomsky {
 			mVisual.vPanel.clear();
 			new GrammarServiceClientImp(GWT.getModuleBaseURL()
 					+ "grammarservice", mCleanAlgorithm.getSolution());
-
 		}
 	}// accept
-    
+
 	/**
 	 * 
 	 * Ilumina/Resalta el texto de los paneles donde se encuentran las dos
@@ -212,21 +212,22 @@ public class MediatorChomsky {
 		pane.setHTML(text1);
 
 	}// highLight
-    
-    /**
-     * Deshabilita los botones de Siguiente y Todos los pasos y habilita el de aceptar.
-     */
-    public void finish () {
-        mVisual.btnOneStep.setEnabled(false);
-        mVisual.btnAllSteps.setEnabled(false);
-        mVisual.btnAcept.setEnabled(true);
-        
-    }//finish
-    
-    /**
-     * Deselecciona la zona resaltada.
-     */
-    private void removeAllHighLight() {
+
+	/**
+	 * Deshabilita los botones de Siguiente y Todos los pasos y habilita el de
+	 * aceptar.
+	 */
+	public void finish() {
+		mVisual.btnOneStep.setEnabled(false);
+		mVisual.btnAllSteps.setEnabled(false);
+		mVisual.btnAcept.setEnabled(true);
+
+	}// finish
+
+	/**
+	 * Deselecciona la zona resaltada.
+	 */
+	private void removeAllHighLight() {
 		String str, str1, str2, str3, str4, str5;
 		str = mVisual.mNew.getHTML().replaceAll("<mark class=\"green\">", "")
 				.replaceAll("<mark class=\"red\">", "");
@@ -241,9 +242,9 @@ public class MediatorChomsky {
 		mVisual.mNew.setHTML(str1);
 		mVisual.mOld.setHTML(str3);
 		mVisual.mAux.setHTML(str5);
-        
-    }//removeAllHighLight()
-    
+
+	}// removeAllHighLight()
+
 	/**
 	 * Crea una nueva vista con la grmática vieja.
 	 */
@@ -254,4 +255,4 @@ public class MediatorChomsky {
 				mGrammar);
 
 	}// exit
-}//MediatorChomsky
+}// MediatorChomsky

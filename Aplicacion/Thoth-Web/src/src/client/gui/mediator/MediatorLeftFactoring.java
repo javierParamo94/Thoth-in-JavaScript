@@ -1,7 +1,6 @@
 package src.client.gui.mediator;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.RichTextArea;
 
 import src.client.GrammarServiceClientImp;
@@ -16,7 +15,8 @@ import src.client.gui.utils.ShowDialog;
 
 /**
  * <b>Descripción</b><br>
- * Clase que hace de mediador entre el algoritmo de factorización por la izquierda.
+ * Clase que hace de mediador entre el algoritmo de factorización por la
+ * izquierda.
  * <p>
  * <b>Detalles</b><br>
  * Se encarga de mediar entre la parte gráfica y la parte física.<br>
@@ -32,81 +32,87 @@ import src.client.gui.utils.ShowDialog;
  * @version 1.0
  */
 public class MediatorLeftFactoring {
-    
-    // Attributes --------------------------------------------------------------------
-    
-    /**
-     * Algoritmo de limpieza asociado al mediador.
-     */
-    private Cleaning mCleanAlgorithm;
-    
-    /**
-     * Gramática a limpiar.
-     */
-    private Grammar mGrammar;
-    
-    /**
-     * Algoritmo visual al que está asociado.
-     */
-    private VisualLeftFactoring mVisual;
-    
-    // Methods -----------------------------------------------------------------------
-    
-    /**
-     * Constructor completo del mediador del algoritmo de factorización por la izquierda.
-     * 
-     * @param vlf Pantalla del algoritmo.
-     * @param grammar Gramática a limpiar.
-     */
-    public MediatorLeftFactoring (VisualLeftFactoring vlf, Grammar grammar) {
-        mCleanAlgorithm = new LeftFactoring(grammar);
-        mVisual = vlf;
-        if(!mCleanAlgorithm.firstStep()){
-            //ShowDialog.nonFactorSymbols();
-            mVisual.mVisible = false;
-        }
-        
-        mGrammar = grammar;
-        mVisual.mOld.setHTML(HTMLConverter.toHTML(mGrammar.completeToString()));
-        mVisual.mNew.setHTML(HTMLConverter.toHTML(mCleanAlgorithm.getSolution().completeToString()));
-        
-    }//MediatorLeftFactoring
-    
-    /**
-     * Cada paso del algoritmo.
-     */
-    public void next () {
-            //NextStep
-        removeAllHighLight();
-        mVisual.mAux.setText("");
-            //Última iteración
-        if(!mCleanAlgorithm.nextStep())
-            finish();
-        else{
-            //En cada iteración
-            setAux();
-            setNew();
-        }
-        
-    }//next
-    
-    /**
-     * Todos los pasos del algoritmo.
-     */
-    public void all () {
-        mCleanAlgorithm = new LeftFactoring(mGrammar);
-        
-        if(!mCleanAlgorithm.allSteps()){
-            //ShowDialog.nonFactorSymbols();
-            mVisual.mVisible = false;
-        }
-        else
-            mVisual.mNew.setText(mCleanAlgorithm.getSolution().completeToString());
-        removeAllHighLight();
-        finish();
-        
-    }//all
-    
+
+	// Attributes
+	// --------------------------------------------------------------------
+
+	/**
+	 * Algoritmo de limpieza asociado al mediador.
+	 */
+	private Cleaning mCleanAlgorithm;
+
+	/**
+	 * Gramática a limpiar.
+	 */
+	private Grammar mGrammar;
+
+	/**
+	 * Algoritmo visual al que está asociado.
+	 */
+	private VisualLeftFactoring mVisual;
+
+	// Methods
+	// -----------------------------------------------------------------------
+
+	/**
+	 * Constructor completo del mediador del algoritmo de factorización por la
+	 * izquierda.
+	 * 
+	 * @param vlf
+	 *            Pantalla del algoritmo.
+	 * @param grammar
+	 *            Gramática a limpiar.
+	 */
+	public MediatorLeftFactoring(VisualLeftFactoring vlf, Grammar grammar) {
+		mCleanAlgorithm = new LeftFactoring(grammar);
+		mVisual = vlf;
+		if (!mCleanAlgorithm.firstStep()) {
+			ShowDialog.nonFactorSymbols();
+			mVisual.mVisible = false;
+		}
+
+		mGrammar = grammar;
+		mVisual.mOld.setHTML(HTMLConverter.toHTML(mGrammar.completeToString()));
+		mVisual.mNew.setHTML(HTMLConverter.toHTML(mCleanAlgorithm.getSolution()
+				.completeToString()));
+
+	}// MediatorLeftFactoring
+
+	/**
+	 * Cada paso del algoritmo.
+	 */
+	public void next() {
+		// NextStep
+		removeAllHighLight();
+		mVisual.mAux.setText("");
+		// Última iteración
+		if (!mCleanAlgorithm.nextStep())
+			finish();
+		else {
+			// En cada iteración
+			setAux();
+			setNew();
+		}
+
+	}// next
+
+	/**
+	 * Todos los pasos del algoritmo.
+	 */
+	public void all() {
+		mCleanAlgorithm = new LeftFactoring(mGrammar);
+
+		if (!mCleanAlgorithm.allSteps()) {
+			ShowDialog.nonFactorSymbols();
+			mVisual.mVisible = false;
+		} else
+			mVisual.mNew.setText(mCleanAlgorithm.getSolution()
+					.completeToString());
+		removeAllHighLight();
+		finish();
+
+	}// all
+
 	/**
 	 * Aceptar.<br>
 	 * Crea una nueva vista con la gramática nueva.
@@ -121,38 +127,41 @@ public class MediatorLeftFactoring {
 
 		}
 	}// accept
-    
-    /**
-     * Asigna al JTextPane mAux el valor en cada paso e ilumina lo que corresponda.
-     */
-    private void setAux () {
-        String temp = new String();
-        
-        for(Symbol s : ((LeftFactoring)mCleanAlgorithm).getPrefix())
-            temp += s.toString();
-        
-        mVisual.mAux.setHTML(HTMLConverter.toHTML(temp));
-        
-        highLight(mVisual.mAux, temp, true);
-    }//setAux
-    
-    /**
-     * Asigna al JTextPane mNew el valor en cada paso e ilumina lo que corresponda.
-     */
-    private void setNew () {
-        Symbol s = ((LeftFactoring)mCleanAlgorithm).getNewProd().
-                                firstElement().getLeft().firstElement();
-        
-        mVisual.mNew.setHTML(HTMLConverter.toHTML(mCleanAlgorithm.getSolution().completeToString()));
-        
-        for(Production prod : mCleanAlgorithm.getSolution().getProductions())
-            if(prod.getRight().contains(s))
-                highLight(mVisual.mNew, prod.toString(), true);
-        
-        for(Production prod : ((LeftFactoring)mCleanAlgorithm).getNewProd())
-            highLight(mVisual.mNew, prod.toString(), true);
-    }//setNew
-    
+
+	/**
+	 * Asigna al JTextPane mAux el valor en cada paso e ilumina lo que
+	 * corresponda.
+	 */
+	private void setAux() {
+		String temp = new String();
+
+		for (Symbol s : ((LeftFactoring) mCleanAlgorithm).getPrefix())
+			temp += s.toString();
+
+		mVisual.mAux.setHTML(HTMLConverter.toHTML(temp));
+
+		highLight(mVisual.mAux, temp, true);
+	}// setAux
+
+	/**
+	 * Asigna al JTextPane mNew el valor en cada paso e ilumina lo que
+	 * corresponda.
+	 */
+	private void setNew() {
+		Symbol s = ((LeftFactoring) mCleanAlgorithm).getNewProd()
+				.firstElement().getLeft().firstElement();
+
+		mVisual.mNew.setHTML(HTMLConverter.toHTML(mCleanAlgorithm.getSolution()
+				.completeToString()));
+
+		for (Production prod : mCleanAlgorithm.getSolution().getProductions())
+			if (prod.getRight().contains(s))
+				highLight(mVisual.mNew, prod.toString(), true);
+
+		for (Production prod : ((LeftFactoring) mCleanAlgorithm).getNewProd())
+			highLight(mVisual.mNew, prod.toString(), true);
+	}// setNew
+
 	/**
 	 * 
 	 * Ilumina/Resalta el texto de los paneles donde se encuentran las dos
@@ -199,18 +208,19 @@ public class MediatorLeftFactoring {
 		pane.setHTML(text1);
 
 	}// highLight
-    
-    /**
-     * Deshabilita los botones de Siguiente y Todos los pasos y habilita el de aceptar.
-     */
-    public void finish () {
-        mVisual.mAux.setText("");
-        mVisual.btnOneStep.setEnabled(false);
-        mVisual.btnAllSteps.setEnabled(false);
-        mVisual.btnAcept.setEnabled(true);
-        
-    }//finish
-    
+
+	/**
+	 * Deshabilita los botones de Siguiente y Todos los pasos y habilita el de
+	 * aceptar.
+	 */
+	public void finish() {
+		mVisual.mAux.setText("");
+		mVisual.btnOneStep.setEnabled(false);
+		mVisual.btnAllSteps.setEnabled(false);
+		mVisual.btnAcept.setEnabled(true);
+
+	}// finish
+
 	/**
 	 * Deselecciona la zona resaltada.
 	 */
@@ -227,7 +237,7 @@ public class MediatorLeftFactoring {
 		mVisual.mOld.setHTML(str3);
 
 	}// removeAllHighLight()*/
-    
+
 	/**
 	 * Crea una nueva vista con la grmática vieja.
 	 */
@@ -238,4 +248,4 @@ public class MediatorLeftFactoring {
 				mGrammar);
 
 	}// exit
-}//MediatorLeftFactoring
+}// MediatorLeftFactoring

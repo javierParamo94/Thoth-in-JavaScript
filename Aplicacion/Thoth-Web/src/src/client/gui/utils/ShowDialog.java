@@ -1,5 +1,8 @@
 package src.client.gui.utils;
 
+import src.client.gui.MessageMessages;
+
+import com.google.gwt.core.shared.GWT;
 import com.google.gwt.user.client.Window;
 
 
@@ -25,6 +28,8 @@ import com.google.gwt.user.client.Window;
  */
 public class ShowDialog {
     
+	private static MessageMessages sms = GWT.create(MessageMessages.class);
+	
     // Methods -------------------------------------------------------------------
     
     /**
@@ -164,17 +169,17 @@ public class ShowDialog {
     /**
      * Lanza un mensaje de advertencia si la gramática no necesita ejecutar ese algoritmo
      */
- /*   public static void innecesaryAlgorithm () {
-        JOptionPane.showMessageDialog(null,
-                Messages.INNECESARY_ALGORITHM, "Information", JOptionPane.INFORMATION_MESSAGE);
+    public static void innecesaryAlgorithm () {
+    	Window.alert(sms.innecesaryalgorithm());
+    	
     }//innecesaryAlgorithm
     
     /**
      * Lanza un mensaje de advertencia si la gramática no ha podido ser limpiada.
      */
- /*   public static void cleanError () {
-        JOptionPane.showMessageDialog(null,
-                Messages.CLEAN_ERRORA+"\n"+Messages.CLEAN_ERRORB, "Warning", JOptionPane.WARNING_MESSAGE);
+    public static void cleanError () {
+    	Window.alert(sms.cleanerrora()+"\n"+sms.cleanerrorb());
+
     }//cleanError
     
     /**
@@ -182,9 +187,8 @@ public class ShowDialog {
      * 
      * @param message Mensaje que se va a mostrar.
      */
- /*   public static void messageError (String message) {
-        JOptionPane.showMessageDialog((Frame)null, 
-                message, "ERROR", JOptionPane.ERROR_MESSAGE);
+    public static void messageError (String message) {
+    	Window.alert(message);
     }//messageError
     
     /**
@@ -206,52 +210,47 @@ public class ShowDialog {
      * de chomsky.
      */
     public static void chomskyError () {
-    	Window.alert("Chomsky Error.");
+    	Window.alert(sms.chomskyerror());
     }//chomskyError
     
     /**
      * Muestra un mensaje de error por pantalla indicando que no hay recursividad
      * directa.
      */
- /*   public static void nonRecursiveDir () {
-        JOptionPane.showMessageDialog(null,
-                Messages.NO_DIR_RECURSIVE, "Warning", JOptionPane.WARNING_MESSAGE);
+    public static void nonRecursiveDir () {
+    	Window.alert(sms.nodirectrecursive());
     }//nonRecursiveDir
     
     /**
      * Muestra un mensaje de error por pantalla indicando que no hay recursividad
      * indirecta
      */
-  /*  public static void nonRecursiveIndir () {
-        JOptionPane.showMessageDialog(null,
-                Messages.NO_INDIR_RECURSIVE, "Warning", JOptionPane.WARNING_MESSAGE);
+    public static void nonRecursiveIndir () {
+    	Window.alert(sms.noindirectrecursive());
+
     }//nonRecursiveIndir
-    
     /**
      * Muestra un mensaje de error por pantalla cuando la gramática no tiene
      * recursión a izquierdas.
      */
- /*   public static void nonRecursive () {
-        JOptionPane.showMessageDialog(null,
-                Messages.NO_RECURSIVE, "Warning", JOptionPane.WARNING_MESSAGE);
+    public static void nonRecursive () {
+    	Window.alert(sms.norecursive());
     }//nonRecursive
     
     /**
      * Muestra un mensaje de error por pantalla indicando que la gramática no se puede
      * factorizar.
      */
- /*   public static void nonFactorSymbols () {
-        JOptionPane.showMessageDialog(null,
-                Messages.NO_FACTOR, "ERROR", JOptionPane.ERROR_MESSAGE);
+    public static void nonFactorSymbols () {
+    	Window.alert(sms.nofactor());
     }//nonFactorSymbols
     
     /**
      * Muestra un mensaje de error por pantalla indicando que no hay
      * producciones generativas.
      */
- /*   public static void nonUniSymbols () {
-        JOptionPane.showMessageDialog(null,
-                Messages.ALL_PNG, "Warning", JOptionPane.WARNING_MESSAGE);
+    public static void nonUniSymbols () {
+    	Window.alert(sms.allpng());
     }//nonUniSymbols
     
     /**
@@ -259,7 +258,7 @@ public class ShowDialog {
      * producciones épsilon.
      */
     public static void nonCancelSymbols () {
-    	Window.alert("La gramática no tiene producciones épsilon (Ê).");
+    	Window.alert(sms.allsa());
     }//nonCancelSymbols
     
     /**
@@ -267,7 +266,7 @@ public class ShowDialog {
      * alcanzables.
      */
     public static void nonReachableSymbols () {
-    	Window.alert("La gramática no tiene símbolos no alcanzables");
+    	Window.alert(sms.allsna());
     }//nonReachableSymbols
     
     /**
@@ -275,7 +274,7 @@ public class ShowDialog {
      * terminables.
      */
     public static void nonTerminalSymbols () {
-    	Window.alert("La gramática no tiene símbolos no terminales");
+    	Window.alert(sms.allsnt());
     }//nonTerminalSymbols
     
     /**

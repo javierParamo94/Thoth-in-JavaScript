@@ -63,11 +63,12 @@ public class MediatorRecursive {
 			new GrammarServiceClientImp(GWT.getModuleBaseURL()
 					+ "grammarservice", grammar);
 
-		}
-		// else
-		// ShowDialog.nonRecursive();
+		} else {
 
-		// ((PanelGrammar)Application.getInstance().getCurrentTab()).checkContent();
+			ShowDialog.nonRecursive();
+			new GrammarServiceClientImp(GWT.getModuleBaseURL()
+					+ "grammarservice", grammar);
+		}
 	}// MediatorRecursion
 
 }// MediatorRecursion
