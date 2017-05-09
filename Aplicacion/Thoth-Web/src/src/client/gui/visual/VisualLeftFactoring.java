@@ -17,9 +17,9 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 
 import src.client.GrammarServiceClientImp;
 import src.client.core.grammar.Grammar;
-import src.client.gui.MessageMessages;
 import src.client.gui.mediator.MediatorDirectRecursive;
 import src.client.gui.mediator.MediatorLeftFactoring;
+import src.client.gui.utils.MessageMessages;
 
 /**
  * <b>Descripción</b><br>

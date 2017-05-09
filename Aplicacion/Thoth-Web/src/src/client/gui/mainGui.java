@@ -5,6 +5,7 @@ import src.client.core.grammar.Grammar;
 import src.client.core.grammar.TypeHandler;
 import src.client.gui.mediator.MediatorClear;
 import src.client.gui.mediator.MediatorRecursive;
+import src.client.gui.utils.MessageMessages;
 import src.client.gui.utils.ShowDialog;
 import src.client.gui.visual.VisualChomsky;
 import src.client.gui.visual.VisualDirectRecursive;
@@ -15,6 +16,7 @@ import src.client.gui.visual.VisualPNG;
 import src.client.gui.visual.VisualSA;
 import src.client.gui.visual.VisualSNA;
 import src.client.gui.visual.VisualSNT;
+import src.client.gui.visual.VisualTasp;
 
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -503,6 +505,52 @@ public class mainGui extends Composite {
 			}
 		};
 
+		Command tasp = new Command() {
+			public void execute() {
+				serviceImp.checkContent(ta.getText());
+				if (mGrammar.getType() == TypeHandler.CHOMSKY
+						|| mGrammar.getType() == TypeHandler.DEPENDENT)
+					ShowDialog.incorrectTypeGrammar();
+
+				else {
+					final DialogBox deleteDialog = new DialogBox();
+					deleteDialog.setAnimationEnabled(true);
+					deleteDialog.setGlassEnabled(true);
+
+					HorizontalPanel buttonPane = new HorizontalPanel();
+					buttonPane
+							.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
+
+					Button yesBtn = new Button(sms.yes());
+					yesBtn.addClickHandler(new ClickHandler() {
+						public void onClick(ClickEvent event) {
+							deleteDialog.hide();
+							openTASP();
+						}
+					});
+
+					Button noBtn = new Button(sms.no());
+					noBtn.addClickHandler(new ClickHandler() {
+						public void onClick(ClickEvent event) {
+							deleteDialog.hide();
+						}
+					});
+
+					buttonPane.add(yesBtn);
+					buttonPane.add(noBtn);
+
+					deleteDialog.center();
+
+					buttonPane.setWidth("75%");
+
+					deleteDialog.add(buttonPane);
+					deleteDialog.setText(sms.questionfirstfollow() + " "
+							+ sms.ucontinue());
+					deleteDialog.show();
+				}
+			}
+		};
+		
 		MenuBar fooMenu = new MenuBar(true);
 		fooMenu.addItem("ejemplo1", cmd);
 		fooMenu.addItem("ejemplo2", cmd);
@@ -529,7 +577,7 @@ public class mainGui extends Composite {
 		algorithmMenu.addItem(sms.fnchomsky(), chomsky);
 		algorithmMenu.addSeparator();
 		algorithmMenu.addItem(sms.calculateff(), fiFo);
-		algorithmMenu.addItem(sms.tasp(), cmd);
+		algorithmMenu.addItem(sms.tasp(), tasp);
 
 		MenuBar selectIdiom = new MenuBar(true);
 		selectIdiom.addItem("Castellano", spanish);
@@ -652,6 +700,14 @@ public class mainGui extends Composite {
 		barMenuPanel.clear();
 		tabPanel.clear();
 		this.currentPage = new VisualFirstFollow(mGrammar);
+		this.vPanel.add(this.currentPage);
+	}
+	// TASP
+	public void openTASP() {
+		editorGrammarPanel.clear();
+		barMenuPanel.clear();
+		tabPanel.clear();
+		this.currentPage = new VisualTasp(mGrammar);
 		this.vPanel.add(this.currentPage);
 	}
 }// mainGui

@@ -12,9 +12,10 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.VerticalPanel;
+
 import src.client.core.grammar.Grammar;
-import src.client.gui.MessageMessages;
 import src.client.gui.mediator.MediatorFirstFollow;
+import src.client.gui.utils.MessageMessages;
 
 /**
  * <b>Descripción</b><br>
@@ -135,14 +136,7 @@ public class VisualFirstFollow extends Composite {
 		mGrammar.setEnabled(false);
 		mVisible = true;
 		mMediator = new MediatorFirstFollow(this, grammar);
-
-		// mFirstFollow.add(stocksFlexTable);
-
-		// setLayout(new BorderLayout());
-		// setSize(new Dimension(750, 550));
 		buildPanels();
-		// setLocationRelativeTo(frame);
-		// setResizable(false);
 		setVisible(mVisible);
 
 	}// VisualFirstFollow
@@ -166,15 +160,12 @@ public class VisualFirstFollow extends Composite {
 
 		panelFirst = new VerticalPanel();
 		panelFirst.add(new HTML("First"));
-		//panelFirst.setSpacing(10);
 
 		panelFollow = new VerticalPanel();
 		panelFollow.add(new HTML("Follow"));
-		//panelFollow.setSpacing(10);
 
 		panelFirstFollow.setPixelSize(500, 500);
 		panelFirstFollow.setStyleName("gwt-Big-Text");
-		// panelFirstFollow.add(mFirstFollow);
 
 		// Botones
 		hPanel.add(mExit);
@@ -241,6 +232,7 @@ public class VisualFirstFollow extends Composite {
 		mTasp.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
+				vPanel.clear();
 				mMediator.tasp();
 
 			}
@@ -249,7 +241,7 @@ public class VisualFirstFollow extends Composite {
 	}// buildListeners
 
 	/**
-	 * Crea una Jtable nueva para el First.
+	 * Crea una tabla nueva para el First.
 	 * 
 	 * @return True si ha podido obtener la tabla first.
 	 */
@@ -278,7 +270,7 @@ public class VisualFirstFollow extends Composite {
 	}// createTableFirst
 
 	/**
-	 * Crea una Jtable nueva para el follow
+	 * Crea una tabla nueva para el follow
 	 * 
 	 * @return True si ha podido obtener la tabla del follow.
 	 */

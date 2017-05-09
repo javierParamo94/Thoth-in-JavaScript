@@ -14,8 +14,8 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 import src.client.GrammarServiceClientImp;
-import src.client.gui.MessageMessages;
 import src.client.gui.mediator.MediatorChomsky;
+import src.client.gui.utils.MessageMessages;
 import src.client.core.grammar.Grammar;
 
 /**

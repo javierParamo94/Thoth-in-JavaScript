@@ -129,7 +129,7 @@ public class MediatorFirstFollow {
 	 * Crea un nuevo algoritmo para reconocimiento con la TASP.
 	 */
 	public void tasp() {
-		new VisualTasp(mFirstFollow);
+		new VisualTasp(mFirstFollow, mGrammar);
 		exit();
 
 	}// tasp
@@ -138,7 +138,6 @@ public class MediatorFirstFollow {
 	 * Crea una nueva vista con la grmática vieja.
 	 */
 	public void exit() {
-
 		mVisual.vPanel.clear();
 		new GrammarServiceClientImp(GWT.getModuleBaseURL() + "grammarservice",
 				mGrammar);

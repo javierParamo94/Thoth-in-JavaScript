@@ -1,7 +1,5 @@
 package src.client.gui.utils;
 
-import src.client.gui.MessageMessages;
-
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.user.client.Window;
 
@@ -291,16 +289,15 @@ public class ShowDialog {
     /**
      * Muestra un error producido en la ejecución del first o el follow.
      */
-    /*public static void nonFirstFollow () {
-    	Window.alert("La gramática no tiene símbolos no terminales");
+    public static void nonFirstFollow () {
+    	Window.alert(sms.firstempty());
     }//nonFirstFollow
     
     /**
      * Muestra un error cuando la gramática es ambigua.
      */
-    /*public static void grammarAmbiguous () {
-        JOptionPane.showMessageDialog(null,
-                Messages.AMBIGUOUS_GRAMMAR, "ERROR", JOptionPane.ERROR_MESSAGE);
+    public static void grammarAmbiguous () {
+    	Window.alert(sms.ambiguousgrammar());
     }//nonFirstFollow*/
     
     /**
@@ -316,17 +313,16 @@ public class ShowDialog {
     /**
      * Muestra la información de que ha sido reconocida la palabra.
      */
-   /* public static void recognizedWord () {
-        JOptionPane.showMessageDialog(null,
-                Messages.RECOGNIZED_WORD, "Information", JOptionPane.INFORMATION_MESSAGE);
+    public static void recognizedWord () {
+    	Window.alert(sms.recognizedword());
     }//recognizedWord*/
     
     /**
      * Muestra la información de que no ha sido reconocida la palabra.
      */
-   /* public static void nonRecognizedWord () {
-        JOptionPane.showMessageDialog(null,
-                Messages.NON_RECOGNIZED_WORD, "Information", JOptionPane.INFORMATION_MESSAGE);
+    public static void nonRecognizedWord () {
+    	Window.alert(sms.nonrecognizedword());
+
     }//nonRecognizedWord*/
     
     /**
@@ -361,9 +357,8 @@ public class ShowDialog {
      * Este error es debido a que el terminal escogido esta reservado para otras
      * funciones.
      */
-    /*public static void invalidTerminal () {
-        JOptionPane.showMessageDialog(null, Messages.INVALID_TERMINAL,
-                "Warning", JOptionPane.WARNING_MESSAGE);
+    public static void invalidTerminal () {
+    	Window.alert(sms.invalidterminal());
     }//invalidTerminal*/
     
     /**
