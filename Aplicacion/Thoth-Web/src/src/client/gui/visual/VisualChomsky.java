@@ -3,17 +3,15 @@ package src.client.gui.visual;
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DockPanel;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.google.gwt.user.client.ui.Image;
-import com.google.gwt.user.client.ui.PushButton;
-import com.google.gwt.user.client.ui.RichTextArea;
 import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
-import src.client.GrammarServiceClientImp;
 import src.client.gui.mediator.MediatorChomsky;
 import src.client.gui.utils.MessageMessages;
 import src.client.core.grammar.Grammar;
@@ -41,18 +39,36 @@ public class VisualChomsky extends Composite {
 
 	// Attributes
 	// --------------------------------------------------------------------
-	public RichTextArea mNew = new RichTextArea();
-	public RichTextArea mOld = new RichTextArea();
-	public RichTextArea mAux = new RichTextArea();
-	private HorizontalPanel hPanel = new HorizontalPanel();
-
-	public VerticalPanel vPanel = new VerticalPanel();
-	public GrammarServiceClientImp serviceImp;
-
 	/**
 	 * Variable para la internacionalización de los textos
 	 */
 	private MessageMessages sms = GWT.create(MessageMessages.class);
+
+	/**
+	 * Texto el cuál muestra la gramática original.
+	 */
+	public HTML mNew = new HTML();
+
+	/**
+	 * Texto que muestra la gramática final.
+	 */
+	public HTML mOld = new HTML();
+	
+	/**
+	 * Texto que muestra los simbolos unitarios.
+	 */
+	public HTML mAux = new HTML();
+	
+	/**
+	 * Panel que contiene los botones.
+	 */
+	private HorizontalPanel buttonPanel = new HorizontalPanel();
+
+	/**
+	 * Panel general de la vista.
+	 */
+	public VerticalPanel generalPanel = new VerticalPanel();
+	
 	/**
 	 * Panel vertical que engloba el área de la nueva gramática
 	 */
@@ -72,14 +88,13 @@ public class VisualChomsky extends Composite {
 	 */
 	public boolean mVisible;
 
-	public PushButton btnCancel = new PushButton(new Image(
-			"images/cancelAlgorithm.png"));
-	public PushButton btnOneStep = new PushButton(new Image(
-			"images/oneStep.png"));
-	public PushButton btnAllSteps = new PushButton(new Image(
-			"images/allSteps.png"));
-	public PushButton btnAcept = new PushButton(new Image(
-			"images/acceptAlgorithm.png"));
+	/**
+	 * Botones de cancelar, siguiente paso, todos los pasos y aceptar.
+	 */
+	public Button btnCancel = new Button(sms.cancel());
+	public Button btnOneStep = new Button(sms.nextstep());
+	public Button btnAllSteps = new Button(sms.allsteps());
+	public Button btnAcept = new Button(sms.accept());
 
 	// Methods
 	// -----------------------------------------------------------------------
@@ -94,20 +109,19 @@ public class VisualChomsky extends Composite {
 	 */
 	public VisualChomsky(Grammar grammar) {
 
-		mOld.setPixelSize(500, 350);
 		mOld.setText(grammar.completeToString());
-		mNew.setPixelSize(500, 455);
 		mAux.setSize("500px", "30px");
 
-		mOld.setEnabled(false);
-		mNew.setEnabled(false);
-		mAux.setEnabled(false);
+		mOld.setStyleName("Grammar-Text");
+		mNew.setStyleName("Grammar-Text");
+		mAux.setStyleName("Grammar-Text");
 
 		mVisible = true;
 		mMediator = new MediatorChomsky(this, grammar);
 
-		buildPanels();
-		setVisible(mVisible);
+		//Si cumple las condiciones, construye los paneles
+		if (mVisible)
+			buildPanels();
 
 	}// VisualChomsky
 
@@ -123,32 +137,36 @@ public class VisualChomsky extends Composite {
 
 		// Paneles
 		vPanelNew.add(new HTML(sms.newgrammar()));
-		vPanelNew.setSpacing(20);
-		vPanelNew.add(mNew);
+		ScrollPanel sPanelNew = new ScrollPanel(mNew);
+		sPanelNew.setSize("600px", "450px");
+		vPanelNew.setSpacing(10);
+		vPanelNew.add(sPanelNew);
 		vPanelNew.setStyleName("gwt-Big-Text");
 
 		vPanelOld.add(new HTML(sms.oldgrammar()));
-		vPanelOld.setSpacing(20);
-		vPanelOld.add(mOld);
+		ScrollPanel sPanelOld = new ScrollPanel(mOld);
+		sPanelOld.setSize("600px", "380px");
+		vPanelOld.setSpacing(10);
+		vPanelOld.add(sPanelOld);
 		vPanelOld.add(new HTML(sms.transprod()));
 		vPanelOld.add(mAux);
 		vPanelOld.setStyleName("gwt-Big-Text");
 
 		// Botones
-		hPanel.add(btnCancel);
-		hPanel.add(btnOneStep);
-		hPanel.add(btnAllSteps);
-		hPanel.add(btnAcept);
+		buttonPanel.add(btnCancel);
+		buttonPanel.add(btnOneStep);
+		buttonPanel.add(btnAllSteps);
+		buttonPanel.add(btnAcept);
 		buildListeners();
 
 		dockPanel.add(new HTML(sms.chomskyalgorithm()), DockPanel.NORTH);
-		dockPanel.add(hPanel, DockPanel.SOUTH);
+		dockPanel.add(buttonPanel, DockPanel.SOUTH);
 		dockPanel.add(vPanelNew, DockPanel.EAST);
 		dockPanel.add(vPanelOld, DockPanel.WEST);
 
-		vPanel.add(dockPanel);
+		generalPanel.add(dockPanel);
 
-		RootPanel.get().add(vPanel);
+		RootPanel.get().add(generalPanel);
 
 	}// buildPanels
 

@@ -55,12 +55,12 @@ public class VisualFirstFollow extends Composite {
 	/**
 	 * Panel donde irán colocados los botones
 	 */
-	private HorizontalPanel hPanel = new HorizontalPanel();
+	private HorizontalPanel buttonPanel = new HorizontalPanel();
 
 	/**
 	 * Panel vertical donde ira la visualizacion de las áreas
 	 */
-	public VerticalPanel vPanel = new VerticalPanel();
+	public VerticalPanel generalPanel = new VerticalPanel();
 
 	/**
 	 * Area donde se encuentra la gramática que va a ser analizada.
@@ -136,8 +136,8 @@ public class VisualFirstFollow extends Composite {
 		mGrammar.setEnabled(false);
 		mVisible = true;
 		mMediator = new MediatorFirstFollow(this, grammar);
-		buildPanels();
-		setVisible(mVisible);
+		if (mVisible)
+			buildPanels();
 
 	}// VisualFirstFollow
 
@@ -168,22 +168,22 @@ public class VisualFirstFollow extends Composite {
 		panelFirstFollow.setStyleName("gwt-Big-Text");
 
 		// Botones
-		hPanel.add(mExit);
-		hPanel.add(mObtainFirst);
-		hPanel.add(mObtainFollow);
+		buttonPanel.add(mExit);
+		buttonPanel.add(mObtainFirst);
+		buttonPanel.add(mObtainFollow);
 		mObtainFollow.setEnabled(false);
-		hPanel.add(mTasp);
+		buttonPanel.add(mTasp);
 		mTasp.setEnabled(false);
 		buildListeners();
 
 		dockPanel.add(new HTML(sms.calculateff()), DockPanel.NORTH);
-		dockPanel.add(hPanel, DockPanel.SOUTH);
+		dockPanel.add(buttonPanel, DockPanel.SOUTH);
 		dockPanel.add(panelFirstFollow, DockPanel.EAST);
 		dockPanel.add(panelGrammar, DockPanel.WEST);
 
-		vPanel.add(dockPanel);
+		generalPanel.add(dockPanel);
 
-		RootPanel.get().add(vPanel);
+		RootPanel.get().add(generalPanel);
 
 	}// buildPanels
 
@@ -232,7 +232,7 @@ public class VisualFirstFollow extends Composite {
 		mTasp.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
-				vPanel.clear();
+				generalPanel.clear();
 				mMediator.tasp();
 
 			}
@@ -299,26 +299,4 @@ public class VisualFirstFollow extends Composite {
 
 		return false;
 	}// createTableFollow
-
-	/**
-	 * Asigna al panel que se le pasa un borde con un título.
-	 * 
-	 * @param scroll
-	 *            Panel al que se le asigna el borde.
-	 * 
-	 * @param title
-	 *            Título del borde.
-	 * 
-	 * @return Panel con el borde asignado.
-	 */
-	/*
-	 * private JScrollPane buildBorder (JScrollPane scroll, String title) {
-	 * scroll.setBorder( BorderFactory.createCompoundBorder(
-	 * BorderFactory.createCompoundBorder(
-	 * BorderFactory.createTitledBorder(title),
-	 * BorderFactory.createEmptyBorder(3, 6, 6, 6)), scroll.getBorder()));
-	 * 
-	 * return scroll; }//buildBorder
-	 */
-
 }// VisualFirstFollow

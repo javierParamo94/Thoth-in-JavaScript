@@ -171,6 +171,9 @@ public interface MessageMessages extends Constants {
 	@DefaultStringValue("Palabra:")
 	String word();
 	
+	@DefaultStringValue("Siguiente paso")
+	String nextstep();
+			
 	@DefaultStringValue("Los cambios no se aplicarán hasta que no reinicie el programa.")
 	String restartchanges();
 

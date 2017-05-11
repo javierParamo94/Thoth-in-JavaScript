@@ -138,7 +138,7 @@ public class MediatorFirstFollow {
 	 * Crea una nueva vista con la grmática vieja.
 	 */
 	public void exit() {
-		mVisual.vPanel.clear();
+		mVisual.generalPanel.clear();
 		new GrammarServiceClientImp(GWT.getModuleBaseURL() + "grammarservice",
 				mGrammar);
 	}// exit

@@ -1,7 +1,7 @@
 package src.client.gui.mediator;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.user.client.ui.RichTextArea;
+import com.google.gwt.user.client.ui.HTML;
 
 import src.client.GrammarServiceClientImp;
 import src.client.core.grammar.Grammar;
@@ -126,7 +126,7 @@ public class MediatorIndirectRecursive {
 
 		if (mVisual.mNew.getText().length() > 0) {
 
-			mVisual.vPanel.clear();
+			mVisual.generalPanel.clear();
 			new GrammarServiceClientImp(GWT.getModuleBaseURL()
 					+ "grammarservice", mCleanAlgorithm.getSolution());
 
@@ -172,7 +172,7 @@ public class MediatorIndirectRecursive {
 	 * Ilumina/Resalta el texto de los paneles donde se encuentran las dos
 	 * gramáticas que coincidan con pattern.
 	 * 
-	 * @param pane
+	 * @param mNew
 	 *            Panel en el que se encuentra el texto
 	 * @param pattern
 	 *            Texto a iluminar
@@ -180,7 +180,7 @@ public class MediatorIndirectRecursive {
 	 *            Booleano que determina el color de la iluminación.
 	 */
 
-	private void highLight(RichTextArea pane, String pattern, boolean green) {
+	private void highLight(HTML mNew, String pattern, boolean green) {
 		String text = "", text1 = "";
 		int posEnd = 0, posStart = 0;
 		String openMark = "", closeMark = "";
@@ -200,7 +200,7 @@ public class MediatorIndirectRecursive {
 		// Eliminar posible \n al final del patrón.
 		pattern = pattern.replace("\n", "");
 
-		text = pane.getHTML();
+		text = mNew.getHTML();
 		while ((posEnd = text.indexOf(pattern, posEnd)) >= 0) {
 
 			text1 += text.substring(posStart, posEnd) + openMark + pattern
@@ -209,8 +209,8 @@ public class MediatorIndirectRecursive {
 			posEnd += pattern.toString().length();
 			posStart = posEnd;
 		}
-		text1 += text.substring(posStart, pane.getHTML().length());
-		pane.setHTML(text1);
+		text1 += text.substring(posStart, mNew.getHTML().length());
+		mNew.setHTML(text1);
 
 	}// highLight
 
@@ -255,7 +255,7 @@ public class MediatorIndirectRecursive {
 	 */
 	public void exit() {
 
-		mVisual.vPanel.clear();
+		mVisual.generalPanel.clear();
 		new GrammarServiceClientImp(GWT.getModuleBaseURL() + "grammarservice",
 				mGrammar);
 

@@ -33,12 +33,7 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.MenuBar;
 import com.google.gwt.user.client.ui.PushButton;
-import com.google.gwt.user.client.ui.RootLayoutPanel;
 import com.google.gwt.user.client.ui.RootPanel;
-import com.google.gwt.user.client.ui.TabBar;
-import com.google.gwt.user.client.ui.TabBar.Tab;
-import com.google.gwt.user.client.ui.TabLayoutPanel;
-import com.google.gwt.user.client.ui.TabPanel;
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -58,7 +53,6 @@ public class mainGui extends Composite {
 	private FlexTable stocksFlexTable = new FlexTable();
 
 	public int con = 1;
-	public TabPanel tabPanel = new TabPanel();
 
 	DockPanel dockPanel = new DockPanel();
 
@@ -87,21 +81,9 @@ public class mainGui extends Composite {
 		buildGrammarPanel(serviceImp);
 
 		mainVerticalPanel.add(barMenuPanel);
-		mainVerticalPanel.add(tabPanel);
-
-		tabPanel.add(editorGrammarPanel, "Grammar");
-		tabPanel.add(new HTML("hi!"), "title");
-		// tabPanel.add(new VisualSNT(new Grammar()), "SNT");
-
-		// editorGrammarPanel.add(vPanel);
 		RootPanel.get().add(barMenuPanel);
-		RootPanel.get().add(tabPanel);
-
-		// initWidget(mainVerticalPanel);
-
-		// RootPanel.get().add(bar);
-		// RootPanel.get().add(vPanel);
-	}
+		RootPanel.get().add(editorGrammarPanel);
+	}//manGui
 
 	/**
 	 * Constructor del panel de gramáticas al que se le pasa la gramática.
@@ -115,7 +97,6 @@ public class mainGui extends Composite {
 		this(serviceImp);
 		mGrammar = grammar;
 		ta.setText(grammar.toString());
-
 	}// mainGui
 
 	/**
@@ -145,7 +126,6 @@ public class mainGui extends Composite {
 		stocksFlexTable.setText(4, 0, sms.nonterminals());
 		stocksFlexTable.setHeight("230px");
 		stocksFlexTable.setWidth("210px");
-		;
 
 		stocksFlexTable.getRowFormatter().addStyleName(0, "header");
 		stocksFlexTable.getRowFormatter().addStyleName(1, "header");
@@ -268,29 +248,6 @@ public class mainGui extends Composite {
 	/**
 	 * 
 	 */
-	private void buildBar() {
-
-		/*
-		 * bar.addTab("Tab 0");
-		 * 
-		 * bar.selectTab(0); bar.addSelectionHandler(new
-		 * SelectionHandler<Integer>() { public void
-		 * onSelection(SelectionEvent<Integer> event) {
-		 * 
-		 * RootPanel.get().add(vPanel); } });
-		 */
-
-		// create titles for tabs
-
-		// tabPanel.add(new HTML("Baz"), tab2Title);
-		// tabPanel.selectTab(1);
-
-		// tabPanel.setWidth("4000");
-	}
-
-	/**
-	 * 
-	 */
 	private void buildMenuBar() {
 
 		Command cmd = new Command() {
@@ -301,10 +258,15 @@ public class mainGui extends Composite {
 		};
 
 		Command spanish = new Command() {
+			//private String locale;
+			/*public void Command(String locale) {
+				super();
+				this.locale = locale;
+			}*/
 			public void execute() {
 				Window.alert(sms.restartchanges() + " " + sms.ucontinue());
 				UrlBuilder newUrl = Window.Location.createUrlBuilder();
-				newUrl.setParameter("locale", "es");
+				newUrl.setParameter("locale","es");// this.locale);
 				Window.Location.assign(newUrl.buildString());
 			}
 
@@ -395,7 +357,6 @@ public class mainGui extends Composite {
 					case 1:
 						editorGrammarPanel.clear();
 						barMenuPanel.clear();
-						tabPanel.clear();
 						break;
 					default:
 						ShowDialog.cleanError();
@@ -609,16 +570,8 @@ public class mainGui extends Composite {
 
 	// Elimina Símbolos no Terminales
 	public void openSNT() {
-
-		// tabPanel.insert(new VisualSNT(mGrammar), "SNT", 2);
-		/*
-		 * tabPanel.insert(new HTML(""), "HTML_SNT", tabPanel.getWidgetCount() -
-		 * 1); Composite tab = new VisualSNT(mGrammar); tabPanel.insert(tab,
-		 * "SNT", tabPanel.getWidgetCount() - 1);
-		 */
 		editorGrammarPanel.clear();
 		barMenuPanel.clear();
-		tabPanel.clear();
 		this.currentPage = new VisualSNT(mGrammar);
 		this.vPanel.add(this.currentPage);
 	}
@@ -627,7 +580,6 @@ public class mainGui extends Composite {
 	public void openSNA() {
 		editorGrammarPanel.clear();
 		barMenuPanel.clear();
-		tabPanel.clear();
 		this.currentPage = new VisualSNA(mGrammar);
 		this.vPanel.add(this.currentPage);
 	}
@@ -636,14 +588,13 @@ public class mainGui extends Composite {
 	public void openSA() {
 		editorGrammarPanel.clear();
 		barMenuPanel.clear();
-		tabPanel.clear();
 		this.currentPage = new VisualSA(mGrammar);
 		this.vPanel.add(this.currentPage);
 	}
 
 	// Elimina Producciones no Generativas
 	public void openPNG() {
-		this.vPanel.clear();
+		editorGrammarPanel.clear();
 		barMenuPanel.clear();
 		this.currentPage = new VisualPNG(mGrammar);
 		this.vPanel.add(this.currentPage);
@@ -653,7 +604,6 @@ public class mainGui extends Composite {
 	public void openDR() {
 		editorGrammarPanel.clear();
 		barMenuPanel.clear();
-		tabPanel.clear();
 		this.currentPage = new VisualDirectRecursive(mGrammar);
 		this.vPanel.add(this.currentPage);
 	}
@@ -662,7 +612,6 @@ public class mainGui extends Composite {
 	public void openIR() {
 		editorGrammarPanel.clear();
 		barMenuPanel.clear();
-		tabPanel.clear();
 		this.currentPage = new VisualIndirectRecursive(mGrammar);
 		this.vPanel.add(this.currentPage);
 	}
@@ -671,7 +620,6 @@ public class mainGui extends Composite {
 	public void openR() {
 		editorGrammarPanel.clear();
 		barMenuPanel.clear();
-		tabPanel.clear();
 		new MediatorRecursive(mGrammar);
 
 	}
@@ -680,7 +628,6 @@ public class mainGui extends Composite {
 	public void openLF() {
 		editorGrammarPanel.clear();
 		barMenuPanel.clear();
-		tabPanel.clear();
 		this.currentPage = new VisualLeftFactoring(mGrammar);
 		this.vPanel.add(this.currentPage);
 	}
@@ -689,7 +636,6 @@ public class mainGui extends Composite {
 	public void openChomsky() {
 		editorGrammarPanel.clear();
 		barMenuPanel.clear();
-		tabPanel.clear();
 		this.currentPage = new VisualChomsky(mGrammar);
 		this.vPanel.add(this.currentPage);
 	}
@@ -698,7 +644,6 @@ public class mainGui extends Composite {
 	public void openFiFo() {
 		editorGrammarPanel.clear();
 		barMenuPanel.clear();
-		tabPanel.clear();
 		this.currentPage = new VisualFirstFollow(mGrammar);
 		this.vPanel.add(this.currentPage);
 	}
@@ -706,8 +651,22 @@ public class mainGui extends Composite {
 	public void openTASP() {
 		editorGrammarPanel.clear();
 		barMenuPanel.clear();
-		tabPanel.clear();
 		this.currentPage = new VisualTasp(mGrammar);
 		this.vPanel.add(this.currentPage);
 	}
+	
+/*	private class CommandLang() extends Command {
+		private String locale;
+		public void Command(String locale) {
+			super();
+			this.locale = locale;
+		}
+		public void execute() {
+			Window.alert(sms.restartchanges() + " " + sms.ucontinue());
+			UrlBuilder newUrl = Window.Location.createUrlBuilder();
+			newUrl.setParameter("locale", this.locale);
+			Window.Location.assign(newUrl.buildString());
+		}
+
+	}*/
 }// mainGui

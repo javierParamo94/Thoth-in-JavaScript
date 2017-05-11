@@ -1,7 +1,7 @@
 package src.client.gui.mediator;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.user.client.ui.RichTextArea;
+import com.google.gwt.user.client.ui.HTML;
 
 import src.client.GrammarServiceClientImp;
 import src.client.core.grammar.*;
@@ -156,7 +156,7 @@ public class MediatorSA {
 
 		if (mVisual.mNew.getText().length() > 0) {
 
-			mVisual.vPanel.clear();
+			mVisual.generalPanel.clear();
 			new GrammarServiceClientImp(GWT.getModuleBaseURL()
 					+ "grammarservice", mCleanAlgorithm.getSolution());
 
@@ -189,7 +189,7 @@ public class MediatorSA {
 	 * Ilumina/Resalta el texto de los paneles donde se encuentran las dos
 	 * gramáticas que coincidan con pattern.
 	 * 
-	 * @param pane
+	 * @param mOld
 	 *            Panel en el que se encuentra el texto
 	 * @param pattern
 	 *            Texto a iluminar
@@ -197,7 +197,7 @@ public class MediatorSA {
 	 *            Booleano que determina el color de la iluminación.
 	 */
 
-	private void highLight(RichTextArea pane, String pattern, boolean green) {
+	private void highLight(HTML mOld, String pattern, boolean green) {
 		String text = "", text1 = "";
 		int posEnd = 0, posStart = 0;
 		String openMark = "", closeMark = "";
@@ -217,7 +217,7 @@ public class MediatorSA {
 		// Eliminar posible \n al final del patrón.
 		pattern = pattern.replace("\n", "");
 
-		text = pane.getHTML();
+		text = mOld.getHTML();
 		while ((posEnd = text.indexOf(pattern, posEnd)) >= 0) {
 
 			text1 += text.substring(posStart, posEnd) + openMark + pattern
@@ -226,8 +226,8 @@ public class MediatorSA {
 			posEnd += pattern.toString().length();
 			posStart = posEnd;
 		}
-		text1 += text.substring(posStart, pane.getHTML().length());
-		pane.setHTML(text1);
+		text1 += text.substring(posStart, mOld.getHTML().length());
+		mOld.setHTML(text1);
 
 	}// highLight
 
@@ -269,7 +269,7 @@ public class MediatorSA {
 	 */
 	public void exit() {
 
-		mVisual.vPanel.clear();
+		mVisual.generalPanel.clear();
 		new GrammarServiceClientImp(GWT.getModuleBaseURL() + "grammarservice",
 				mGrammar);
 
