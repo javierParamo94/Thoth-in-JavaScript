@@ -1,7 +1,10 @@
 package src.client.gui.utils;
 
-import com.google.gwt.user.client.Window;
-
+/**
+ * 
+ * @author User
+ *
+ */
 public class HTMLConverter {
      public static String toHTML (String txt) {
     	

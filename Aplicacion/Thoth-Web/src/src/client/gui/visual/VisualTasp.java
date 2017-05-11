@@ -3,6 +3,7 @@ package src.client.gui.visual;
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HTML;
@@ -94,17 +95,17 @@ public class VisualTasp extends Composite {
 	/**
 	 * Botón Validar.
 	 */
-	public PushButton mCheck;
+	public Button mCheck;
 
 	/**
 	 * Botón Salir.
 	 */
-	public PushButton mExit;
+	public Button mExit;
 
 	/**
 	 * Botón Siguiente.
 	 */
-	public PushButton mNext;
+	public Button mNext;
 	/**
 	 * 
 	 */
@@ -127,8 +128,8 @@ public class VisualTasp extends Composite {
 		mWord.setPixelSize(50, 15);
 		mVisible = true;
 		mMediator = new MediatorTasp(this, gra);
-		buildPanels();
-		setVisible(mVisible);
+		if (mVisible)
+			buildPanels();
 
 	}// VisualTasp
 
@@ -162,9 +163,9 @@ public class VisualTasp extends Composite {
 		panelTrace = new VerticalPanel();
 
 		// Botonera inferior
-		mExit = new PushButton(new Image("images/cancelAlgorithm.png"));
-		mNext = new PushButton(new Image("images/oneStep.png"));
-		mCheck = new PushButton(new Image("images/allSteps.png"));
+		mExit = new Button(sms.cancel());
+		mNext = new Button(sms.nextstep());
+		mCheck = new Button(sms.allsteps());
 
 		panelButton.add(mExit);
 		panelButton.add(mNext);

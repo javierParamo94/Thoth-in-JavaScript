@@ -21,7 +21,6 @@ import src.client.gui.visual.VisualTasp;
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.http.client.UrlBuilder;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DialogBox;
@@ -242,7 +241,6 @@ public class mainGui extends Composite {
 			txt1.setText(sms.regular());
 			break;
 		}
-
 	}
 
 	/**
@@ -257,45 +255,13 @@ public class mainGui extends Composite {
 			}
 		};
 
-		Command spanish = new Command() {
-			//private String locale;
-			/*public void Command(String locale) {
-				super();
-				this.locale = locale;
-			}*/
-			public void execute() {
-				Window.alert(sms.restartchanges() + " " + sms.ucontinue());
-				UrlBuilder newUrl = Window.Location.createUrlBuilder();
-				newUrl.setParameter("locale","es");// this.locale);
-				Window.Location.assign(newUrl.buildString());
-			}
+		//Cambio de idioma
+		CommandLang spanish = new CommandLang("es");
+		CommandLang deutschland = new CommandLang("de");
+		CommandLang french = new CommandLang("fr");
+		CommandLang english = new CommandLang("en"); 
 
-		};
-		Command deutschland = new Command() {
-			public void execute() {
-				Window.alert(sms.restartchanges() + " " + sms.ucontinue());
-				UrlBuilder newUrl = Window.Location.createUrlBuilder();
-				newUrl.setParameter("locale", "de");
-				Window.Location.assign(newUrl.buildString());
-			}
-		};
-		Command french = new Command() {
-			public void execute() {
-				Window.alert(sms.restartchanges() + " " + sms.ucontinue());
-				UrlBuilder newUrl = Window.Location.createUrlBuilder();
-				newUrl.setParameter("locale", "fr");
-				Window.Location.assign(newUrl.buildString());
-			}
-		};
-		Command english = new Command() {
-			public void execute() {
-				Window.alert(sms.restartchanges() + " " + sms.ucontinue());
-				UrlBuilder newUrl = Window.Location.createUrlBuilder();
-				newUrl.setParameter("locale", "en");
-				Window.Location.assign(newUrl.buildString());
-			}
-		};
-
+		
 		Command eliminate_SNT = new Command() {
 			public void execute() {
 				serviceImp.checkContent(ta.getText());
@@ -474,9 +440,9 @@ public class mainGui extends Composite {
 					ShowDialog.incorrectTypeGrammar();
 
 				else {
-					final DialogBox deleteDialog = new DialogBox();
-					deleteDialog.setAnimationEnabled(true);
-					deleteDialog.setGlassEnabled(true);
+					final DialogBox choiceDialog = new DialogBox();
+					choiceDialog.setAnimationEnabled(true);
+					choiceDialog.setGlassEnabled(true);
 
 					HorizontalPanel buttonPane = new HorizontalPanel();
 					buttonPane
@@ -485,7 +451,7 @@ public class mainGui extends Composite {
 					Button yesBtn = new Button(sms.yes());
 					yesBtn.addClickHandler(new ClickHandler() {
 						public void onClick(ClickEvent event) {
-							deleteDialog.hide();
+							choiceDialog.hide();
 							openTASP();
 						}
 					});
@@ -493,21 +459,21 @@ public class mainGui extends Composite {
 					Button noBtn = new Button(sms.no());
 					noBtn.addClickHandler(new ClickHandler() {
 						public void onClick(ClickEvent event) {
-							deleteDialog.hide();
+							choiceDialog.hide();
 						}
 					});
 
 					buttonPane.add(yesBtn);
 					buttonPane.add(noBtn);
 
-					deleteDialog.center();
+					choiceDialog.center();
 
 					buttonPane.setWidth("75%");
 
-					deleteDialog.add(buttonPane);
-					deleteDialog.setText(sms.questionfirstfollow() + " "
+					choiceDialog.add(buttonPane);
+					choiceDialog.setText(sms.questionfirstfollow() + " "
 							+ sms.ucontinue());
-					deleteDialog.show();
+					choiceDialog.show();
 				}
 			}
 		};
@@ -541,7 +507,7 @@ public class mainGui extends Composite {
 		algorithmMenu.addItem(sms.tasp(), tasp);
 
 		MenuBar selectIdiom = new MenuBar(true);
-		selectIdiom.addItem("Castellano", spanish);
+		selectIdiom.addItem("Castellano", spanish);//Command(spanish));
 
 		selectIdiom.addItem("Deutsch", deutschland);
 
@@ -654,19 +620,4 @@ public class mainGui extends Composite {
 		this.currentPage = new VisualTasp(mGrammar);
 		this.vPanel.add(this.currentPage);
 	}
-	
-/*	private class CommandLang() extends Command {
-		private String locale;
-		public void Command(String locale) {
-			super();
-			this.locale = locale;
-		}
-		public void execute() {
-			Window.alert(sms.restartchanges() + " " + sms.ucontinue());
-			UrlBuilder newUrl = Window.Location.createUrlBuilder();
-			newUrl.setParameter("locale", this.locale);
-			Window.Location.assign(newUrl.buildString());
-		}
-
-	}*/
 }// mainGui
