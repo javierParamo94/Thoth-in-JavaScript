@@ -1,5 +1,27 @@
 \capitulo{3}{Conceptos teóricos}
 
+Como conceptos teóricos, me veo en la obligación de dar, primero, una definición general de lo que es una <<gramática formal>> antes de pasara a otras cuestiones que, por supuesto, tendrán que ver con esta.
+
+Una gramática formal es un mecanismo para la generación de cadenas de caracteres que son admitidas por un determinado lenguaje formal, y que utiliza un conjunto de reglas de formación. Por lo tanto, podemos entenderlo dentro del concepto de las ciencias de la computación y la lógica matemática. Las cadenas de caracteres resultantes son a su vez <<bien formadas>> cuando pertenecen al lenguaje formal con el que se trabaja.
+
+Por otro lado, la denominación de la gramática formal desde un punto de vista más concreto, de denomina como una cuádrupla compuesta por:
+
+\begin{itemize}
+	\item Un alfabeto de símbolos terminales o tokenes denominado con la letra griega $\Sigma$ .
+	\item  $N$ que es un alfabeto formado por símbolos no terminales
+	\item Un alfabeto de producciones denominado $P$
+	\item Y por último un símbolo llamado axioma o símbolo inicial el cual $S \in N$
+\end{itemize}
+
+El alfabeto total que compone la gramática esta formado, según lo anterior, por $\Sigma \cup N$ , es decir, por el conjunto de los símbolos terminales y no terminales.
+
+Pongamos un ejemplo de una gramática simple y veamos de que esta formada. Se suele utilizar el sistema de notación  \[x \rightarrow y\] \[z \rightarrow w\] para indicar una o varias producciones, en vez de \[(x, y) \in P \] \[(z, w) \in P \] siendo $P$ el conjunto de producciones.
+
+Por otro lado si hay más de una producción que comience con el mismo elemento la notación sería de esta forma \[ x \rightarrow y | z | w\] en lugar de ser \[ x \rightarrow y, x \rightarrow z, x \rightarrow w\]
+
+
+Producción: 
+
 En aquellos proyectos que necesiten para su comprensión y desarrollo de unos conceptos teóricos de una determinada materia o de un determinado dominio de conocimiento, debe existir un apartado que sintetice dichos conceptos.
 
 Algunos conceptos teóricos de \LaTeX \footnote{Créditos a los proyectos de Álvaro López Cantero: Configurador de Presupuestos y Roberto Izquierdo Amo: PLQuiz}.
