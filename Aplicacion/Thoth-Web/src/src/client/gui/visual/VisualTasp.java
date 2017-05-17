@@ -147,9 +147,8 @@ public class VisualTasp extends Composite {
 		mWord.setPixelSize(50, 15);
 		mVisible = true;
 		mMediator = new MediatorTasp(this, first);
-		buildPanels();
-		setVisible(mVisible);
-
+		if (mVisible)
+			buildPanels();
 	}// VisualTasp
 
 	/**
@@ -166,7 +165,6 @@ public class VisualTasp extends Composite {
 		mExit = new Button(sms.cancel());
 		mNext = new Button(sms.nextstep());
 		mCheck = new Button(sms.allsteps());
-
 		panelButton.add(mExit);
 		panelButton.add(mNext);
 		panelButton.add(mCheck);
@@ -175,39 +173,43 @@ public class VisualTasp extends Composite {
 
 		// TASP
 		VerticalPanel panelTaspTable = new VerticalPanel();
-		panelTaspTable.add(new HTML("TASP"));
-		panelTaspTable.setPixelSize(500, 300);
+		HTML tasp = new HTML("TASP");
+		tasp.setStyleName("Panel-Text");
+		panelTaspTable.add(tasp);
+		panelTaspTable.setPixelSize(700, 300);
+		mTaspTable.setPixelSize(700, 300);
 		panelTaspTable.add(mTaspTable);
+		
 
 		// Introducir palabra
-		word.setPixelSize(500, 100);
+		word.add(new HTML(sms.word()));
+		word.setPixelSize(700, 50);
 		word.add(mWord);
 		word.setStyleName("gwt-Big-Text");
 
 		// Botones validar y borrar palabra
-		word.add(new HTML(sms.word()));
 		mCheckWord = new PushButton(new Image("images/tick.png"));
 		mClear = new PushButton(new Image("images/cross.png"));
 		word.add(mCheckWord);
 		word.add(mClear);
 
-		// Tabla
-		VerticalPanel scrollTraceTable = new VerticalPanel();
-		//scrollTraceTable.add(mTraceTitle);
-		scrollTraceTable.add(mTraceTable);
-		// Pantalla central
-		down.setPixelSize(500, 500);
-		down.add(new HTML(sms.trace()));
+		// Tabla de la traza
+		VerticalPanel panelTraceTable = new VerticalPanel();
+		panelTraceTable.add(mTraceTable);
+		mTraceTable.setPixelSize(700, 300);
+		HTML trace = new HTML(sms.trace());
+		trace.setStyleName("Panel-Text");
+		down.add(trace);
 		down.add(word);
-		down.add(scrollTraceTable);
+		down.add(panelTraceTable);
 		panelTrace.add(panelTaspTable);
+		down.setSpacing(5);
 		panelTrace.add(down);
 
 		// Principal
 		RootPanel.get().add(panelTrace);
 		RootPanel.get().add(panelButton);
 		buildListeners();
-
 	}// buildPanels
 
 	/**
@@ -253,24 +255,4 @@ public class VisualTasp extends Composite {
 		});
 
 	}// buildListeners
-
-	/**
-	 * Asigna al panel que se le pasa un borde con un título.
-	 * 
-	 * @param component
-	 *            Panel al que se le asigna el borde.
-	 * @param title
-	 *            Título del borde.
-	 * @return Panel con el borde asignado.
-	 */
-	/*
-	 * private JComponent buildBorder (JComponent component, String title) {
-	 * component.setBorder( BorderFactory.createCompoundBorder(
-	 * BorderFactory.createCompoundBorder(
-	 * BorderFactory.createTitledBorder(title),
-	 * BorderFactory.createEmptyBorder(3, 6, 6, 6)), component.getBorder()));
-	 * 
-	 * return component; }//buildBorder
-	 */
-
 }// VisualTasp

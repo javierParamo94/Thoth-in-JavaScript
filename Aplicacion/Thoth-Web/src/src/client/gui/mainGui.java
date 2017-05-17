@@ -41,7 +41,8 @@ import com.google.gwt.user.client.Window;
 
 public class mainGui extends Composite {
 
-	private VerticalPanel vPanel = new VerticalPanel();
+	// Attributes
+	// -----------------------------------------------------------------------
 	private VerticalPanel vPanel1 = new VerticalPanel();
 	private VerticalPanel vPanel2 = new VerticalPanel();
 	private VerticalPanel vPanel3 = new VerticalPanel();
@@ -51,16 +52,25 @@ public class mainGui extends Composite {
 	private TextBox txt1, txt2, txt3, txt4, txt5;
 	private FlexTable stocksFlexTable = new FlexTable();
 
-	public int con = 1;
-
 	DockPanel dockPanel = new DockPanel();
 
-	private TextArea ta;
+	/**
+	 * Area de texto donde podremos escribir la gramática que queramos.
+	 */
+	private TextArea grammarArea;
+	/**
+	 * Variable que contendrá la gramática.
+	 */
 	public Grammar mGrammar;
 
+	/**
+	 * 
+	 */
 	private static GrammarServiceClientImp serviceImp;
-	private Composite currentPage;
 
+	/**
+	 * Variable para la internacionalización de los textos
+	 */
 	private MessageMessages sms = GWT.create(MessageMessages.class);
 
 	/**
@@ -68,18 +78,17 @@ public class mainGui extends Composite {
 	 */
 	public static String INITIAL_TEXT = "% start \n%%\n\n\n\n%%\n";
 
+	// Methods 
+	// -----------------------------------------------------------------------
 	/**
+	 * Constructor del panel de gramáticas al que se le pasa el servicio.
 	 * 
-	 * @param serviceImp
+	 * @param serviceImp Implementacion del servicio.
 	 */
-
 	public mainGui(GrammarServiceClientImp serviceImp) {
-		VerticalPanel mainVerticalPanel = new VerticalPanel();
-
 		buildMenuBar();
 		buildGrammarPanel(serviceImp);
-
-		mainVerticalPanel.add(barMenuPanel);
+		//Añadimos los elementos al panel raiz.
 		RootPanel.get().add(barMenuPanel);
 		RootPanel.get().add(editorGrammarPanel);
 	}//manGui
@@ -95,7 +104,7 @@ public class mainGui extends Composite {
 	public mainGui(GrammarServiceClientImp serviceImp, Grammar grammar) {
 		this(serviceImp);
 		mGrammar = grammar;
-		ta.setText(grammar.toString());
+		grammarArea.setText(grammar.toString());
 	}// mainGui
 
 	/**
@@ -112,11 +121,11 @@ public class mainGui extends Composite {
 		dockPanel.setHorizontalAlignment(DockPanel.ALIGN_CENTER);
 		dockPanel.setVerticalAlignment(DockPanel.ALIGN_TOP);
 
-		ta = new TextArea();
-		ta.setCharacterWidth(150);
-		ta.setVisibleLines(18);
-		ta.setText(INITIAL_TEXT);
-		ta.setReadOnly(false);
+		grammarArea = new TextArea();
+		grammarArea.setCharacterWidth(150);
+		grammarArea.setVisibleLines(18);
+		grammarArea.setText(INITIAL_TEXT);
+		grammarArea.setReadOnly(false);
 
 		stocksFlexTable.setText(0, 0, sms.grammartype());
 		stocksFlexTable.setText(1, 0, sms.productionnumber());
@@ -144,7 +153,7 @@ public class mainGui extends Composite {
 		txt4.setReadOnly(true);
 		txt5.setReadOnly(true);
 
-		this.vPanel1.add(ta);
+		this.vPanel1.add(grammarArea);
 		this.vPanel3.add(txt1);
 		this.vPanel3.add(txt2);
 		this.vPanel3.add(txt3);
@@ -170,13 +179,16 @@ public class mainGui extends Composite {
 		hPanel3.setHorizontalAlignment(HorizontalPanel.ALIGN_RIGHT);
 		hPanel3.add(vPanel3);
 
-		dockPanel.add(new HTML(sms.grammardef()), DockPanel.NORTH);
+		HTML grammarDef = new HTML(sms.grammardef());
+		grammarDef.setStyleName("Panel-Text");
+		//vPanelNew.add(grammarDef);
+		dockPanel.add(grammarDef, DockPanel.NORTH);
 		dockPanel.add(hPanel3, DockPanel.SOUTH);
 		dockPanel.add(vPanel1, DockPanel.EAST);
 		dockPanel.add(vPanel2, DockPanel.WEST);
 
 		editorGrammarPanel.add(dockPanel);
-	}
+	}//buildGrammarPanel
 
 	/**
 	 * 
@@ -187,11 +199,10 @@ public class mainGui extends Composite {
 
 		@Override
 		public void onClick(ClickEvent event) {
-			String textcheck = ta.getText();
+			String textcheck = grammarArea.getText();
 			serviceImp.checkContent(textcheck);
 		}
-
-	}
+	}//Btn1ClickHandler
 
 	/**
 	 * Renombrar
@@ -204,7 +215,8 @@ public class mainGui extends Composite {
 		@Override
 		public void onClick(ClickEvent event) {
 
-			serviceImp.checkContent(ta.getText());
+			//Window.Location.assign("/login/");
+			serviceImp.checkContent(grammarArea.getText());
 			//new RenameSymbolDialog(Application.getInstance());
 			// serviceImp.checkContent(textcheck);
 		}
@@ -241,7 +253,7 @@ public class mainGui extends Composite {
 			txt1.setText(sms.regular());
 			break;
 		}
-	}
+	}//updateLabel
 
 	/**
 	 * 
@@ -264,7 +276,7 @@ public class mainGui extends Composite {
 		
 		Command eliminate_SNT = new Command() {
 			public void execute() {
-				serviceImp.checkContent(ta.getText());
+				serviceImp.checkContent(grammarArea.getText());
 				if (mGrammar.getType() == TypeHandler.CHOMSKY
 						|| mGrammar.getType() == TypeHandler.DEPENDENT)
 					ShowDialog.incorrectTypeGrammar();
@@ -277,7 +289,7 @@ public class mainGui extends Composite {
 
 		Command eliminate_SNA = new Command() {
 			public void execute() {
-				serviceImp.checkContent(ta.getText());
+				serviceImp.checkContent(grammarArea.getText());
 				if (mGrammar.getType() == TypeHandler.CHOMSKY
 						|| mGrammar.getType() == TypeHandler.DEPENDENT)
 					ShowDialog.incorrectTypeGrammar();
@@ -288,7 +300,7 @@ public class mainGui extends Composite {
 
 		Command eliminate_SA = new Command() {
 			public void execute() {
-				serviceImp.checkContent(ta.getText());
+				serviceImp.checkContent(grammarArea.getText());
 				if (mGrammar.getType() == TypeHandler.CHOMSKY
 						|| mGrammar.getType() == TypeHandler.DEPENDENT)
 					ShowDialog.incorrectTypeGrammar();
@@ -299,7 +311,7 @@ public class mainGui extends Composite {
 
 		Command eliminate_PNG = new Command() {
 			public void execute() {
-				serviceImp.checkContent(ta.getText());
+				serviceImp.checkContent(grammarArea.getText());
 				if (mGrammar.getType() == TypeHandler.CHOMSKY
 						|| mGrammar.getType() == TypeHandler.DEPENDENT)
 					ShowDialog.incorrectTypeGrammar();
@@ -309,7 +321,7 @@ public class mainGui extends Composite {
 		};
 		Command cleanGr = new Command() {
 			public void execute() {
-				serviceImp.checkContent(ta.getText());
+				serviceImp.checkContent(grammarArea.getText());
 				if (mGrammar.getType() == TypeHandler.CHOMSKY
 						|| mGrammar.getType() == TypeHandler.DEPENDENT)
 					ShowDialog.incorrectTypeGrammar();
@@ -333,7 +345,7 @@ public class mainGui extends Composite {
 
 		Command direct_recursion = new Command() {
 			public void execute() {
-				serviceImp.checkContent(ta.getText());
+				serviceImp.checkContent(grammarArea.getText());
 				if (mGrammar.getType() == TypeHandler.CHOMSKY
 						|| mGrammar.getType() == TypeHandler.DEPENDENT)
 					ShowDialog.incorrectTypeGrammar();
@@ -344,7 +356,7 @@ public class mainGui extends Composite {
 
 		Command indirect_recursion = new Command() {
 			public void execute() {
-				serviceImp.checkContent(ta.getText());
+				serviceImp.checkContent(grammarArea.getText());
 				if (mGrammar.getType() == TypeHandler.CHOMSKY
 						|| mGrammar.getType() == TypeHandler.DEPENDENT)
 					ShowDialog.incorrectTypeGrammar();
@@ -355,7 +367,7 @@ public class mainGui extends Composite {
 
 		Command recursion = new Command() {
 			public void execute() {
-				serviceImp.checkContent(ta.getText());
+				serviceImp.checkContent(grammarArea.getText());
 				if (mGrammar.getType() == TypeHandler.CHOMSKY
 						|| mGrammar.getType() == TypeHandler.DEPENDENT)
 					ShowDialog.incorrectTypeGrammar();
@@ -366,7 +378,7 @@ public class mainGui extends Composite {
 
 		Command left_factoring = new Command() {
 			public void execute() {
-				serviceImp.checkContent(ta.getText());
+				serviceImp.checkContent(grammarArea.getText());
 				if (mGrammar.getType() == TypeHandler.CHOMSKY
 						|| mGrammar.getType() == TypeHandler.DEPENDENT)
 					ShowDialog.incorrectTypeGrammar();
@@ -377,7 +389,7 @@ public class mainGui extends Composite {
 
 		Command chomsky = new Command() {
 			public void execute() {
-				serviceImp.checkContent(ta.getText());
+				serviceImp.checkContent(grammarArea.getText());
 				if (mGrammar.getType() == TypeHandler.CHOMSKY
 						|| mGrammar.getType() == TypeHandler.DEPENDENT)
 					ShowDialog.incorrectTypeGrammar();
@@ -388,7 +400,7 @@ public class mainGui extends Composite {
 
 		Command fiFo = new Command() {
 			public void execute() {
-				serviceImp.checkContent(ta.getText());
+				serviceImp.checkContent(grammarArea.getText());
 				if (mGrammar.getType() == TypeHandler.CHOMSKY
 						|| mGrammar.getType() == TypeHandler.DEPENDENT)
 					ShowDialog.incorrectTypeGrammar();
@@ -434,7 +446,7 @@ public class mainGui extends Composite {
 
 		Command tasp = new Command() {
 			public void execute() {
-				serviceImp.checkContent(ta.getText());
+				serviceImp.checkContent(grammarArea.getText());
 				if (mGrammar.getType() == TypeHandler.CHOMSKY
 						|| mGrammar.getType() == TypeHandler.DEPENDENT)
 					ShowDialog.incorrectTypeGrammar();
@@ -538,48 +550,42 @@ public class mainGui extends Composite {
 	public void openSNT() {
 		editorGrammarPanel.clear();
 		barMenuPanel.clear();
-		this.currentPage = new VisualSNT(mGrammar);
-		this.vPanel.add(this.currentPage);
+		new VisualSNT(mGrammar);
 	}
 
 	// Elimina Símbolos no Alcanzables
 	public void openSNA() {
 		editorGrammarPanel.clear();
 		barMenuPanel.clear();
-		this.currentPage = new VisualSNA(mGrammar);
-		this.vPanel.add(this.currentPage);
+		new VisualSNA(mGrammar);
 	}
 
 	// Elimina Símbolos Anulables
 	public void openSA() {
 		editorGrammarPanel.clear();
 		barMenuPanel.clear();
-		this.currentPage = new VisualSA(mGrammar);
-		this.vPanel.add(this.currentPage);
+		new VisualSA(mGrammar);
 	}
 
 	// Elimina Producciones no Generativas
 	public void openPNG() {
 		editorGrammarPanel.clear();
 		barMenuPanel.clear();
-		this.currentPage = new VisualPNG(mGrammar);
-		this.vPanel.add(this.currentPage);
+		new VisualPNG(mGrammar);
 	}
 
 	// Eliminar Recursividad Directa
 	public void openDR() {
 		editorGrammarPanel.clear();
 		barMenuPanel.clear();
-		this.currentPage = new VisualDirectRecursive(mGrammar);
-		this.vPanel.add(this.currentPage);
+		new VisualDirectRecursive(mGrammar);
 	}
 
 	// Eliminar Recursividad Indirecta
 	public void openIR() {
 		editorGrammarPanel.clear();
 		barMenuPanel.clear();
-		this.currentPage = new VisualIndirectRecursive(mGrammar);
-		this.vPanel.add(this.currentPage);
+		new VisualIndirectRecursive(mGrammar);
 	}
 
 	// Eliminar Recursividad
@@ -587,37 +593,32 @@ public class mainGui extends Composite {
 		editorGrammarPanel.clear();
 		barMenuPanel.clear();
 		new MediatorRecursive(mGrammar);
-
 	}
 
 	// Factorización por la izquierda
 	public void openLF() {
 		editorGrammarPanel.clear();
 		barMenuPanel.clear();
-		this.currentPage = new VisualLeftFactoring(mGrammar);
-		this.vPanel.add(this.currentPage);
+		new VisualLeftFactoring(mGrammar);
 	}
 
 	// Chomsky
 	public void openChomsky() {
 		editorGrammarPanel.clear();
 		barMenuPanel.clear();
-		this.currentPage = new VisualChomsky(mGrammar);
-		this.vPanel.add(this.currentPage);
+		new VisualChomsky(mGrammar);
 	}
 
 	// First Follow
 	public void openFiFo() {
 		editorGrammarPanel.clear();
 		barMenuPanel.clear();
-		this.currentPage = new VisualFirstFollow(mGrammar);
-		this.vPanel.add(this.currentPage);
+		new VisualFirstFollow(mGrammar);
 	}
 	// TASP
 	public void openTASP() {
 		editorGrammarPanel.clear();
 		barMenuPanel.clear();
-		this.currentPage = new VisualTasp(mGrammar);
-		this.vPanel.add(this.currentPage);
+		new VisualTasp(mGrammar);
 	}
 }// mainGui

@@ -139,19 +139,25 @@ public class VisualPNG extends Composite {
 		dockPanel.setHorizontalAlignment(DockPanel.ALIGN_CENTER);
 
 		// Paneles
-		vPanelNew.add(new HTML(sms.newgrammar()));
+		HTML newGrammar = new HTML(sms.newgrammar());
+		newGrammar.setStyleName("Panel-Text");
+		vPanelNew.add(newGrammar);
 		ScrollPanel sPanelNew = new ScrollPanel(mNew);
 		sPanelNew.setSize("600px", "450px");
 		vPanelNew.setSpacing(10);
 		vPanelNew.add(sPanelNew);
 		vPanelNew.setStyleName("gwt-Big-Text");
 
-		vPanelOld.add(new HTML(sms.oldgrammar()));
+		HTML oldGramar = new HTML(sms.oldgrammar());
+		oldGramar.setStyleName("Panel-Text");
+		vPanelOld.add(oldGramar);
 		ScrollPanel sPanelOld = new ScrollPanel(mOld);
 		sPanelOld.setSize("600px", "380px");
 		vPanelOld.setSpacing(10);
 		vPanelOld.add(sPanelOld);
-		vPanelOld.add(new HTML(sms.unisymbols()));
+		HTML uniSymbols = new HTML(sms.unisymbols());
+		uniSymbols.setStyleName("Panel-Text");
+		vPanelOld.add(uniSymbols);
 		vPanelOld.add(mAux);
 		vPanelOld.setStyleName("gwt-Big-Text");
 
@@ -162,7 +168,9 @@ public class VisualPNG extends Composite {
 		buttonPanel.add(btnAcept);
 		buildListeners();
 
-		dockPanel.add(new HTML(sms.pngalgorithm()), DockPanel.NORTH);
+		HTML pngAlgorithm = new HTML(sms.pngalgorithm());
+		pngAlgorithm.setStyleName("Panel-Text");
+		dockPanel.add(pngAlgorithm, DockPanel.NORTH);
 		dockPanel.add(buttonPanel, DockPanel.SOUTH);
 		dockPanel.add(vPanelNew, DockPanel.EAST);
 		dockPanel.add(vPanelOld, DockPanel.WEST);

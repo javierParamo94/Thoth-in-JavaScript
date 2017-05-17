@@ -38,8 +38,8 @@ public class MediatorTasp {
 	// Attributes
 	// ----------------------------------------------------------------
 	/**
-     * 
-     */
+	 * Variable para la internacionalización de los textos
+	 */
 	private MessageMessages sms = GWT.create(MessageMessages.class);
 
 	/**
@@ -141,7 +141,7 @@ public class MediatorTasp {
 			gra = leftFac.getSolution();
 
 		FirstFollow ff = new FirstFollow(gra);
-		
+
 		// Calculamos el first y el follow
 		if (!ff.calculateFirst() || !ff.calculateFollow()) {
 			ShowDialog.nonFirstFollow();
@@ -210,18 +210,16 @@ public class MediatorTasp {
 
 		mVisual.mTraceTable = new FlexTable();
 		mVisual.mTraceTable.setStyleName("FlexTable-ColumnLabelCell");
-		/*mVisual.mTraceTitle = new FlexTable();
-		mVisual.mTraceTitle.setStyleName("header");
 
-		mVisual.mTraceTitle.setHeight("180px");
-		mVisual.mTraceTitle.setWidth("400px");*/
-		mVisual.mTraceTable.setHeight("180px");
-		mVisual.mTraceTable.setWidth("400px");
-
-		//imprimo los titulos de la tabla.
+		// imprimo los titulos de la tabla.
 		for (int i = 0; i < header.length; i++) {
 			mVisual.mTraceTable.setText(0, i, (String) header[i]);
-			mVisual.mTraceTable.getCellFormatter().addStyleName(0,i,"header");
+			mVisual.mTraceTable.getCellFormatter().addStyleName(0, i, "header");
+			mVisual.mTraceTable.getCellFormatter().setHeight(0, i, "20");
+			for (int j = 1; j < header.length; j++) {
+				mVisual.mTraceTable.setText(j, i, " ");
+
+			}
 		}
 
 	}// initiateTrace
@@ -380,9 +378,8 @@ public class MediatorTasp {
 		} else
 			o[4] = "";
 
-
 		for (int i = 0; i < o.length; i++) {
-			(mVisual.mTraceTable).setText(contador, i, (String) o[i]);	
+			(mVisual.mTraceTable).setText(contador, i, (String) o[i]);
 		}
 		contador++;
 
@@ -416,7 +413,7 @@ public class MediatorTasp {
 	public void exit() {
 		mVisual.panelTrace.clear();
 		mVisual.panelButton.clear();
-		
+
 		new GrammarServiceClientImp(GWT.getModuleBaseURL() + "grammarservice",
 				mVisual.mGrammar);
 	}// exit

@@ -129,8 +129,9 @@ public class MediatorFirstFollow {
 	 * Crea un nuevo algoritmo para reconocimiento con la TASP.
 	 */
 	public void tasp() {
+		mVisual.generalPanel.clear();
 		new VisualTasp(mFirstFollow, mGrammar);
-		exit();
+		//exit();
 
 	}// tasp
 

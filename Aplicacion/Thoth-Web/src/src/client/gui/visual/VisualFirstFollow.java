@@ -154,15 +154,21 @@ public class VisualFirstFollow extends Composite {
 
 		mGrammar.setCharacterWidth(80);
 		mGrammar.setVisibleLines(20);
-		panelGrammar.add(new HTML(sms.grammar()));
+		HTML gramar = new HTML(sms.grammar());
+		gramar.setStyleName("Panel-Text");
+		panelGrammar.add(gramar);
 		panelGrammar.add(mGrammar);
 		panelGrammar.setStyleName("gwt-Big-Text");
 
 		panelFirst = new VerticalPanel();
-		panelFirst.add(new HTML("First"));
+		HTML first = new HTML("First");
+		first.setStyleName("Panel-Text");
+		panelFirst.add(first);
 
 		panelFollow = new VerticalPanel();
-		panelFollow.add(new HTML("Follow"));
+		HTML follow = new HTML("Follow");
+		follow.setStyleName("Panel-Text");
+		panelFollow.add(follow);
 
 		panelFirstFollow.setPixelSize(500, 500);
 		panelFirstFollow.setStyleName("gwt-Big-Text");
@@ -176,7 +182,9 @@ public class VisualFirstFollow extends Composite {
 		mTasp.setEnabled(false);
 		buildListeners();
 
-		dockPanel.add(new HTML(sms.calculateff()), DockPanel.NORTH);
+		HTML calculateFF = new HTML(sms.calculateff());
+		calculateFF.setStyleName("Panel-Text");
+		dockPanel.add(calculateFF, DockPanel.NORTH);
 		dockPanel.add(buttonPanel, DockPanel.SOUTH);
 		dockPanel.add(panelFirstFollow, DockPanel.EAST);
 		dockPanel.add(panelGrammar, DockPanel.WEST);

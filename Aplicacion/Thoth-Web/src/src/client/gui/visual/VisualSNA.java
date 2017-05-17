@@ -130,14 +130,18 @@ public class VisualSNA extends Composite {
 		dockPanel.setSpacing(4);
 		dockPanel.setHorizontalAlignment(DockPanel.ALIGN_CENTER);
 		
-		vPanelNew.add(new HTML(sms.newgrammar()));
+		HTML newGrammar = new HTML(sms.newgrammar());
+		newGrammar.setStyleName("Panel-Text");
+		vPanelNew.add(newGrammar);
 		ScrollPanel sPanelNew = new ScrollPanel(mNew);
 		sPanelNew.setSize("600px", "450px");
 		vPanelNew.setSpacing(10);
 		vPanelNew.add(sPanelNew);
 		vPanelNew.setStyleName("gwt-Big-Text");
 
-		vPanelOld.add(new HTML(sms.oldgrammar()));
+		HTML oldGramar = new HTML(sms.oldgrammar());
+		oldGramar.setStyleName("Panel-Text");
+		vPanelOld.add(oldGramar);
 		ScrollPanel sPanelOld = new ScrollPanel(mOld);
 		sPanelOld.setSize("600px", "450px");
 		vPanelOld.setSpacing(10);
@@ -154,7 +158,9 @@ public class VisualSNA extends Composite {
 		buildListeners();
 
 		// Add text all around
-		dockPanel.add(new HTML(sms.snaalgorithm()), DockPanel.NORTH);
+		HTML snaAlgorithm = new HTML(sms.snaalgorithm());
+		snaAlgorithm.setStyleName("Panel-Text");
+		dockPanel.add(snaAlgorithm, DockPanel.NORTH);
 		dockPanel.add(buttonPanel, DockPanel.SOUTH);
 		dockPanel.add(vPanelNew, DockPanel.EAST);
 		dockPanel.add(vPanelOld, DockPanel.WEST);

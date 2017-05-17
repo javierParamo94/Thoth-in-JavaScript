@@ -124,15 +124,21 @@ public class VisualSNT extends Composite {
 		dockPanel.setStyleName("dockpanel");
 		dockPanel.setSpacing(4);
 		dockPanel.setHorizontalAlignment(DockPanel.ALIGN_CENTER);
-
-		vPanelNew.add(new HTML(sms.newgrammar()));
+		
+		//Nombre del panel.
+		HTML newGrammar = new HTML(sms.newgrammar());
+		newGrammar.setStyleName("Panel-Text");
+		vPanelNew.add(newGrammar);
+		//Panel 
 		ScrollPanel sPanelNew = new ScrollPanel(mNew);
 		sPanelNew.setSize("600px", "450px");
 		vPanelNew.setSpacing(10);
 		vPanelNew.add(sPanelNew);
 		vPanelNew.setStyleName("gwt-Big-Text");
 
-		vPanelOld.add(new HTML(sms.oldgrammar()));
+		HTML oldGramar = new HTML(sms.oldgrammar());
+		oldGramar.setStyleName("Panel-Text");
+		vPanelOld.add(oldGramar);
 		ScrollPanel sPanelOld = new ScrollPanel(mOld);
 		sPanelOld.setSize("600px", "450px");
 		vPanelOld.setSpacing(10);
@@ -147,8 +153,9 @@ public class VisualSNT extends Composite {
 		buildCommonListeners();
 
 		// Add text all around
-		dockPanel.add(new HTML(sms.sntalgorithm()),
-				DockPanel.NORTH);
+		HTML sntaAlgorithm = new HTML(sms.sntalgorithm());
+		sntaAlgorithm.setStyleName("Panel-Text");
+		dockPanel.add(sntaAlgorithm, DockPanel.NORTH);
 		dockPanel.add(buttonPanel, DockPanel.SOUTH);
 		dockPanel.add(vPanelNew, DockPanel.EAST);
 		dockPanel.add(vPanelOld, DockPanel.WEST);

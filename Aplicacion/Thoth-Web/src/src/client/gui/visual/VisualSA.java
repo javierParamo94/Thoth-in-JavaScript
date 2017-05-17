@@ -135,19 +135,25 @@ public class VisualSA extends Composite {
 		dockPanel.setSpacing(4);
 		dockPanel.setHorizontalAlignment(DockPanel.ALIGN_CENTER);
 
-		vPanelNew.add(new HTML(sms.newgrammar()));
+		HTML newGrammar = new HTML(sms.newgrammar());
+		newGrammar.setStyleName("Panel-Text");
+		vPanelNew.add(newGrammar);
 		ScrollPanel sPanelNew = new ScrollPanel(mNew);
 		sPanelNew.setSize("600px", "450px");
 		vPanelNew.setSpacing(10);
 		vPanelNew.add(sPanelNew);
 		vPanelNew.setStyleName("gwt-Big-Text");
 
-		vPanelOld.add(new HTML(sms.oldgrammar()));
+		HTML oldGramar = new HTML(sms.oldgrammar());
+		oldGramar.setStyleName("Panel-Text");
+		vPanelOld.add(oldGramar);
 		ScrollPanel sPanelOld = new ScrollPanel(mOld);
 		sPanelOld.setSize("600px", "380px");
 		vPanelOld.setSpacing(10);
 		vPanelOld.add(sPanelOld);
-		vPanelOld.add(new HTML(sms.cancelsymbols()));
+		HTML cancelSymbols = new HTML(sms.cancelsymbols());
+		cancelSymbols.setStyleName("Panel-Text");
+		vPanelOld.add(cancelSymbols);
 		vPanelOld.add(mAux);
 		vPanelOld.setStyleName("gwt-Big-Text");
 
@@ -158,7 +164,9 @@ public class VisualSA extends Composite {
 		buttonPanel.add(btnAcept);
 		buildListeners();
 
-		dockPanel.add(new HTML(sms.saalgorithm()), DockPanel.NORTH);
+		HTML saAlgorithm = new HTML(sms.saalgorithm());
+		saAlgorithm.setStyleName("Panel-Text");
+		dockPanel.add(saAlgorithm, DockPanel.NORTH);
 		dockPanel.add(buttonPanel, DockPanel.SOUTH);
 		dockPanel.add(vPanelNew, DockPanel.EAST);
 		dockPanel.add(vPanelOld, DockPanel.WEST);
