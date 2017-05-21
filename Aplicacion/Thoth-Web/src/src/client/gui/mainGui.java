@@ -179,10 +179,6 @@ public class mainGui extends Composite {
 		hPanel3.setHorizontalAlignment(HorizontalPanel.ALIGN_RIGHT);
 		hPanel3.add(vPanel3);
 
-		HTML grammarDef = new HTML(sms.grammardef());
-		grammarDef.setStyleName("Panel-Text");
-		//vPanelNew.add(grammarDef);
-		dockPanel.add(grammarDef, DockPanel.NORTH);
 		dockPanel.add(hPanel3, DockPanel.SOUTH);
 		dockPanel.add(vPanel1, DockPanel.EAST);
 		dockPanel.add(vPanel2, DockPanel.WEST);
@@ -215,7 +211,7 @@ public class mainGui extends Composite {
 		@Override
 		public void onClick(ClickEvent event) {
 
-			//Window.Location.assign("/login/");
+			Window.Location.assign("/login/");
 			serviceImp.checkContent(grammarArea.getText());
 			//new RenameSymbolDialog(Application.getInstance());
 			// serviceImp.checkContent(textcheck);
@@ -520,26 +516,18 @@ public class mainGui extends Composite {
 
 		MenuBar selectIdiom = new MenuBar(true);
 		selectIdiom.addItem("Castellano", spanish);//Command(spanish));
-
 		selectIdiom.addItem("Deutsch", deutschland);
-
 		selectIdiom.addItem("Français", french);
-
 		selectIdiom.addItem("English", english);
-
-		MenuBar toolsMenu = new MenuBar(true);
-		toolsMenu.addItem(sms.language(), selectIdiom);
 
 		MenuBar menu = new MenuBar();
 		menu.addItem(sms.file(), fooMenu);
-		menu.addSeparator();
-		menu.addItem(sms.edit(), fooMenu);
 		menu.addSeparator();
 		menu.addItem(sms.grammar(), grammarMenu);
 		menu.addSeparator();
 		menu.addItem(sms.algorithms(), algorithmMenu);
 		menu.addSeparator();
-		menu.addItem(sms.tools(), toolsMenu);
+		menu.addItem(sms.language(), selectIdiom);
 		menu.addSeparator();
 		menu.addItem(sms.help(), fooMenu);
 
