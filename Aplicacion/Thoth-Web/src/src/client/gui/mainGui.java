@@ -160,8 +160,8 @@ public class mainGui extends Composite {
 		this.vPanel3.add(txt4);
 		this.vPanel3.add(txt5);
 
-		PushButton btn1 = new PushButton(new Image("images/checkGrammar.png"));
-		PushButton btn2 = new PushButton(new Image("images/renameSymbol.png"));
+		PushButton btn1 = new PushButton(new Image("/images/checkGrammar.png"));
+		PushButton btn2 = new PushButton(new Image("/images/renameSymbol.png"));
 
 		btn1.addClickHandler(new Btn1ClickHandler());
 		btn2.addClickHandler(new Btn2ClickHandler());
@@ -211,8 +211,8 @@ public class mainGui extends Composite {
 		@Override
 		public void onClick(ClickEvent event) {
 
-			Window.Location.assign("/login/");
-			serviceImp.checkContent(grammarArea.getText());
+			String textcheck = grammarArea.getText();
+			serviceImp.checkContent(textcheck);
 			//new RenameSymbolDialog(Application.getInstance());
 			// serviceImp.checkContent(textcheck);
 		}
@@ -262,6 +262,23 @@ public class mainGui extends Composite {
 
 			}
 		};
+		
+		Command download = new Command() {
+			public void execute() {
+				//String url = GWT.getModuleBaseURL() + "downloadService?fileInfo1=" + fileInfo1;
+				//Window.open( url, "_blank", "status=0,toolbar=0,menubar=0,location=0");
+				//Window.open(GWT.getHostPageBaseURL() + "/file.rar", "name", "enabled");
+				Window.open("http://127.0.0.1:8888/file.rar", "_self", "enabled");
+
+			}
+		};
+		
+		Command about = new Command() {
+			public void execute() {
+				Window.Location.replace("http://thoth-project.herokuapp.com/");
+			}
+		};
+		
 
 		//Cambio de idioma
 		CommandLang spanish = new CommandLang("es");
@@ -487,8 +504,8 @@ public class mainGui extends Composite {
 		};
 		
 		MenuBar fooMenu = new MenuBar(true);
-		fooMenu.addItem("ejemplo1", cmd);
-		fooMenu.addItem("ejemplo2", cmd);
+		fooMenu.addItem("Abrir", cmd);
+		fooMenu.addItem("Guardar", download);
 		fooMenu.addItem("ejemplo3", cmd);
 
 		MenuBar grammarMenu = new MenuBar(true);
@@ -520,6 +537,9 @@ public class mainGui extends Composite {
 		selectIdiom.addItem("Français", french);
 		selectIdiom.addItem("English", english);
 
+		MenuBar helpMenu = new MenuBar(true);
+		helpMenu.addItem(sms.about(), about);
+		
 		MenuBar menu = new MenuBar();
 		menu.addItem(sms.file(), fooMenu);
 		menu.addSeparator();
@@ -529,7 +549,7 @@ public class mainGui extends Composite {
 		menu.addSeparator();
 		menu.addItem(sms.language(), selectIdiom);
 		menu.addSeparator();
-		menu.addItem(sms.help(), fooMenu);
+		menu.addItem(sms.help(), helpMenu);
 
 		barMenuPanel.add(menu);
 	}// buildMenuBar

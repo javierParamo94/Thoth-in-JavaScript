@@ -126,7 +126,7 @@ public class Login implements EntryPoint {
 									new HTML("Please, sign in "));
 						} else {
 
-								Window.Location.assign("/module_b/");
+								Window.Location.assign("/gramaticacs/");
 
 						}
 					}

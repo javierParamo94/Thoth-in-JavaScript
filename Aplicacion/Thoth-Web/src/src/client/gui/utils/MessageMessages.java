@@ -34,6 +34,9 @@ public interface MessageMessages extends Constants {
 	@DefaultStringValue("Número de producciones:")
 	String productionnumber();
 
+	@DefaultStringValue("Acerca de...")
+	String about();
+
 	@DefaultStringValue("Aceptar")
 	String accept();
 

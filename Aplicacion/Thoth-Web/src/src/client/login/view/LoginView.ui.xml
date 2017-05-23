@@ -5,7 +5,7 @@
 
 	</ui:style>
 	<g:HTMLPanel>
-		<h1>Prueba de Login Avanzada</h1>
+		<h1>Login</h1>
 		<g:SimplePanel ui:field="message"></g:SimplePanel>
 		<table>
 			<tr>
