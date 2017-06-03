@@ -2,35 +2,79 @@
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
 	xmlns:g="urn:import:com.google.gwt.user.client.ui">
 	<ui:style>
-
+	/* Full-width input fields */
+	input[type=text], input[type=password], input[type=email] {
+		width: 100%;
+		padding: 12px 20px;
+		margin: 8px 0;
+		display: inline-block;
+		border: 3px solid #ccc;
+		box-sizing: border-box;
+	}
+	
+	/* Set a style for all buttons */
+	button {
+		background: #4CAF50;
+		color: #008CBA;
+		padding: 14px 20px;
+		font-weight: bold;
+		margin: 8px 0;
+		border: none;
+		cursor: pointer;
+		width: 100%;
+	}
+	
+	td {
+		color: #008CBA;
+		font-weight: bold;
+	}
+	
+	table {
+		border: 1px solid #008CBA;
+		background: #eeeeee;
+	}
+	
+	html {
+		background: url('/images/Fondo.jpeg');
+		-webkit-background-size: xx-small;
+		-moz-background-size: xx-small;
+		-o-background-size: xx-small;
+		background-size: xx-small;
+	}
 	</ui:style>
 	<g:HTMLPanel>
-		<h1>Login</h1>
-		<g:SimplePanel ui:field="message"></g:SimplePanel>
-		<table>
-			<tr>
-				<td>Email</td>
-				<td>
-					<g:TextBox ui:field="email"></g:TextBox>
-				</td>
-			</tr>
-			<tr>
-				<td>Password</td>
-				<td>
-					<g:PasswordTextBox ui:field="password"></g:PasswordTextBox>
-				</td>
-			</tr>
-			<tr>
-				<td></td>
-				<td>
-					<g:Button ui:field="submit_button"></g:Button>
-					<g:Anchor ui:field="register_link"></g:Anchor>
-				</td>
-			</tr>
-		</table>
-		<br/>
-		<br/>
-		<br/>
 
+		<center>
+			<body> <!-- /images/thothSplashScreen.png -->
+				<h1>Login</h1>
+				<g:SimplePanel ui:field="message"></g:SimplePanel>
+				<table>
+					<tr>
+						<td>Email</td>
+						<td>
+							<g:TextBox ui:field="email"></g:TextBox>
+						</td>
+					</tr>
+					<tr>
+						<td>Password</td>
+						<td>
+							<g:PasswordTextBox ui:field="password"></g:PasswordTextBox>
+						</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td>
+							<g:Button ui:field="submit_button"></g:Button>
+							<g:Anchor ui:field="register_link"></g:Anchor>
+						</td>
+					</tr>
+					<img src="/images/LogoPrincipal.png" style="width:384px;height:133px;">
+					</img>
+				</table>
+				<br />
+				<br />
+				<br />
+			</body>
+		</center>
 	</g:HTMLPanel>
 </ui:UiBinder> 

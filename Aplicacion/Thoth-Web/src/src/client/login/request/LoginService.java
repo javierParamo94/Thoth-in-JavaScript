@@ -8,7 +8,7 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 @RemoteServiceRelativePath("loginservice")
 public interface LoginService extends RemoteService{
 
-	UserDto authenticate(String email, String password);
+	UserDto authenticate(String email, String password) throws Exception;
 	void logout();
-	UserDto register(String name, String username, String email,String pass);
+	UserDto register(String name, String username, String email,String pass) throws Exception;
 }

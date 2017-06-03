@@ -1,4 +1,4 @@
-package src.client.login.view;
+package src.client.register;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -11,52 +11,72 @@ import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 
-public class LoginView extends Composite {
+/**
+ * 
+ * @author Francisco Javier Páramo Arnaiz
+ *
+ */
+public class Registration extends Composite {
 
-	private static LoginViewUiBinder uiBinder = GWT
-			.create(LoginViewUiBinder.class);
+	private static RegistrationUiBinder uiBinder = GWT
+			.create(RegistrationUiBinder.class);
 
-	interface LoginViewUiBinder extends UiBinder<Widget, LoginView> {
+	interface RegistrationUiBinder extends UiBinder<Widget, Registration> {
 	}
 
+	/**
+	 * 
+	 */
+	@UiField SimplePanel message;
+	@UiField TextBox fName;
+	@UiField TextBox lName;
 	@UiField TextBox email;
 	@UiField PasswordTextBox password;
 	@UiField Button submit_button;
-	@UiField Anchor register_link;
-	@UiField SimplePanel message;
+	@UiField Anchor login_link;
 	
-	public LoginView() {
+	/**
+	 * 
+	 */
+	public Registration() {
 		initWidget(uiBinder.createAndBindUi(this));
-		submit_button.setText("Login");
-		register_link.setText("Register");
+		submit_button.setText("Register");
+		login_link.setText("login");
 	}
-	
+	//método que devuelve el valor del email.
 	public String getEmailValue(){
 		email.getElement().setAttribute("type", "email");
 		return email.getValue();
 	}
-	
+	//método get que devuelve el valor del nombre
+	public String getNameValue(){
+		return fName.getValue();
+	}
+	//método get que devuelve el valor del apellido
+	public String getLastNameValue(){
+		return lName.getValue();
+	}
+	//método get que devuelve el valor del la contraseña
 	public String getPasswordValue(){
 		return password.getValue();
 	}
-
+	//
 	public Button getSubmitButton(){
 		return submit_button;
 	}
-	
-	public Anchor getRegisterLink(){
-		return register_link;
+	//método get que devuelve el link al login
+	public Anchor getLoginLink(){
+		return login_link;
 	}
-
-	
+	//
 	public TextBox getEmailBox(){
 		return email;
 	}
-	
+	//
 	public PasswordTextBox getPasswordBox(){
 		return password;
 	}
-	
+	//método get que devuelve el mensaje 
 	public SimplePanel getMessage(){
 		return message;
 	}

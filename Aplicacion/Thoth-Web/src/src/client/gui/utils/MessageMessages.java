@@ -2,6 +2,23 @@ package src.client.gui.utils;
 
 import com.google.gwt.i18n.client.Constants;
 
+/**
+ * <b>Descripción</b><br>
+ * Todos los textos internacionalizables.
+ * <p>
+ * <b>Detalles</b><br>
+ * Es obligatorio poner un valor por defecto de cada mensaje.<br>
+ * En este caso los mensajes esta por defecto en español.
+ * </p>
+ * <p>
+ * <b>Funcionalidad</b><br>
+ * Por medio de una funcion determina el mensaje a mostrar.
+ * </p>
+ * 
+ * 
+ * @author Francisco Javier Páramo Arnaiz
+ * @version 1.0
+ */
 public interface MessageMessages extends Constants {
 
 	@DefaultStringValue("Eliminar símbolos no terminables")
@@ -36,6 +53,18 @@ public interface MessageMessages extends Constants {
 
 	@DefaultStringValue("Acerca de...")
 	String about();
+
+	@DefaultStringValue("No se han detectado cambios en la gramática.")
+	String changeerror();
+	
+	@DefaultStringValue("Debe introducir un símbolo válido.")
+	String renameerror();
+			
+	@DefaultStringValue("Buscar y renombrar:")
+	String renamesymbol();
+	
+	@DefaultStringValue("Sustituir:")
+	String find();
 
 	@DefaultStringValue("Aceptar")
 	String accept();

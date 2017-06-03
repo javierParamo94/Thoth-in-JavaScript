@@ -139,7 +139,7 @@ public class VisualSA extends Composite {
 		newGrammar.setStyleName("Panel-Text");
 		vPanelNew.add(newGrammar);
 		ScrollPanel sPanelNew = new ScrollPanel(mNew);
-		sPanelNew.setSize("600px", "450px");
+		sPanelNew.setSize("600px", "485px");
 		vPanelNew.setSpacing(10);
 		vPanelNew.add(sPanelNew);
 		vPanelNew.setStyleName("gwt-Big-Text");

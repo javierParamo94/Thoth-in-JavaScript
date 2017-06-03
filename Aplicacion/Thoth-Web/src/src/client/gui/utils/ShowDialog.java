@@ -4,7 +4,6 @@ import com.google.gwt.core.shared.GWT;
 import com.google.gwt.user.client.Window;
 
 
-
 /**
  * <b>Descripción</b><br>
  * Almacena todos los diálogos de error, advertencia e información de la aplicación.
@@ -23,6 +22,9 @@ import com.google.gwt.user.client.Window;
  * 
  * @author Javier Jimeno Visitación, Iñigo Mediavilla Saiz
  * @version 2.0
+ * 
+ * @author Francisco Javier Páramo Arnaiz
+ * @version 3.0
  */
 public class ShowDialog {
     
@@ -329,19 +331,17 @@ public class ShowDialog {
      * Muestra un diálogo de error causado por no haber introducido un símbolo
      * válido para buscar y reemplazar en una gramática.
      */
-   /* public static void nonSymbolRename () {
-        JOptionPane.showMessageDialog(null, Messages.RENAME_ERROR,
-                "ERROR", JOptionPane.ERROR_MESSAGE);
-    }//nonSymbolRename*/
+    public static void nonSymbolRename () {
+        Window.alert(sms.renameerror());
+    }//nonSymbolRename
     
     /**
      * Muestra un diálogo informando que el buscar y reemplazar no ha provocado
      * cambios en la gramática.
      */
-   /* public static void nonChangesRename () {
-        JOptionPane.showMessageDialog(null, Messages.CHANGE_ERROR,
-                "Information", JOptionPane.INFORMATION_MESSAGE);
-    }//nonChangesRename*/
+    public static void nonChangesRename () {
+        Window.alert(sms.changeerror());
+    }//nonChangesRename
     
     /**
      * Muestra un diálogo informando que no se ha podido construir un estado

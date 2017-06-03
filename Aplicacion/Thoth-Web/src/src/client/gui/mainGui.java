@@ -5,7 +5,9 @@ import src.client.core.grammar.Grammar;
 import src.client.core.grammar.TypeHandler;
 import src.client.gui.mediator.MediatorClear;
 import src.client.gui.mediator.MediatorRecursive;
+import src.client.gui.utils.CommandLang;
 import src.client.gui.utils.MessageMessages;
+import src.client.gui.utils.RenameSymbolDialog;
 import src.client.gui.utils.ShowDialog;
 import src.client.gui.visual.VisualChomsky;
 import src.client.gui.visual.VisualDirectRecursive;
@@ -26,7 +28,6 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.DockPanel;
 import com.google.gwt.user.client.ui.FlexTable;
-import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
@@ -46,23 +47,23 @@ public class mainGui extends Composite {
 	private VerticalPanel vPanel1 = new VerticalPanel();
 	private VerticalPanel vPanel2 = new VerticalPanel();
 	private VerticalPanel vPanel3 = new VerticalPanel();
-	private VerticalPanel editorGrammarPanel = new VerticalPanel();
-	private HorizontalPanel barMenuPanel = new HorizontalPanel();
+	public VerticalPanel editorGrammarPanel = new VerticalPanel();
+	public HorizontalPanel barMenuPanel = new HorizontalPanel();
 	private HorizontalPanel hPanel3 = new HorizontalPanel();
 	private TextBox txt1, txt2, txt3, txt4, txt5;
 	private FlexTable stocksFlexTable = new FlexTable();
+	private mainGui mVisual= this;
 
 	DockPanel dockPanel = new DockPanel();
 
 	/**
 	 * Area de texto donde podremos escribir la gramática que queramos.
 	 */
-	private TextArea grammarArea;
+	public TextArea grammarArea;
 	/**
 	 * Variable que contendrá la gramática.
 	 */
 	public Grammar mGrammar;
-
 	/**
 	 * 
 	 */
@@ -105,6 +106,16 @@ public class mainGui extends Composite {
 		this(serviceImp);
 		mGrammar = grammar;
 		grammarArea.setText(grammar.toString());
+	}// mainGui
+	
+	/**
+	 * 
+	 * @param serviceImp
+	 * @param grammarText
+	 */
+	public mainGui(GrammarServiceClientImp serviceImp, String grammarText) {
+		this(serviceImp);
+		grammarArea.setText(grammarText);
 	}// mainGui
 
 	/**
@@ -208,16 +219,16 @@ public class mainGui extends Composite {
 	 */
 	private class Btn2ClickHandler implements ClickHandler {
 
-		@Override
 		public void onClick(ClickEvent event) {
-
 			String textcheck = grammarArea.getText();
 			serviceImp.checkContent(textcheck);
-			//new RenameSymbolDialog(Application.getInstance());
-			// serviceImp.checkContent(textcheck);
+			new RenameSymbolDialog(mVisual, mGrammar).show();
+			
 		}
 	}
 
+
+	  
 	/**
 	 * 
 	 * @param grammar
