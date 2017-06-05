@@ -1,0 +1,73 @@
+[33mcommit 1096e38f1f5eeb3304c836898466e63836ef6cbf[m
+Author: javierParamo <javierParamo@javierParamo>
+Date:   Wed Feb 8 16:14:47 2017 +0100
+
+    Revert "Add files via upload"
+    
+    This reverts commit 155c07d81e2c987062690f16ee2c446bcd3125d0.
+
+[33mcommit 6ef3bbaaa7e2723f453c22c0ed385359734e0204[m
+Author: javierParamo <javierParamo@javierParamo>
+Date:   Wed Feb 8 16:14:37 2017 +0100
+
+    Revert "Add files via upload"
+    
+    This reverts commit f728b436d7c77c005db3c79e9ea19566c28bf5be.
+
+[33mcommit 7aa86a048d99609b3fc373e1f07dd18238f51cb2[m
+Author: javierParamo <javierParamo@javierParamo>
+Date:   Wed Feb 8 16:11:44 2017 +0100
+
+    Revert "Revert "Create .gitignore""
+    
+    This reverts commit 5744fc55a1ee718f9e116dd84693135d20f5744f.
+
+[33mcommit 5744fc55a1ee718f9e116dd84693135d20f5744f[m
+Author: javierParamo <javierParamo@javierParamo>
+Date:   Wed Feb 8 16:11:38 2017 +0100
+
+    Revert "Create .gitignore"
+    
+    This reverts commit d81f6a59d29a7ee8391cdb4a6eb30b3c39469584.
+
+[33mcommit ef79a2cfd543af4d74a8cb3a5ae1147acb6a9964[m
+Author: javierParamo94 <fpa0019@alu.ubu.es>
+Date:   Wed Feb 8 16:08:32 2017 +0100
+
+    Delete readme.txt
+
+[33mcommit 155c07d81e2c987062690f16ee2c446bcd3125d0[m
+Author: javierParamo94 <fpa0019@alu.ubu.es>
+Date:   Wed Feb 8 13:43:04 2017 +0100
+
+    Add files via upload
+
+[33mcommit 688eff2972091670b0c47f3bccfdcdeec4b7977b[m
+Author: javierParamo94 <fpa0019@alu.ubu.es>
+Date:   Wed Feb 8 13:42:27 2017 +0100
+
+    Create readme.txt
+
+[33mcommit f728b436d7c77c005db3c79e9ea19566c28bf5be[m
+Author: javierParamo94 <fpa0019@alu.ubu.es>
+Date:   Wed Feb 8 13:27:34 2017 +0100
+
+    Add files via upload
+
+[33mcommit d81f6a59d29a7ee8391cdb4a6eb30b3c39469584[m
+Author: javierParamo94 <fpa0019@alu.ubu.es>
+Date:   Wed Feb 8 13:25:35 2017 +0100
+
+    Create .gitignore
+
+[33mcommit e40d6c44f5bbfe5d8ea9449882926af4d10f003f[m
+Author: javierParamo94 <fpa0019@alu.ubu.es>
+Date:   Sat Feb 4 11:42:42 2017 +0100
+
+    Update README.md
+
+[33mcommit 835f8347a317c39a9d5940b736b28c34fc9510f9[m
+Author: javierParamo94 <fpa0019@alu.ubu.es>
+Date:   Sat Feb 4 11:21:04 2017 +0100
+
+    Initial commit
