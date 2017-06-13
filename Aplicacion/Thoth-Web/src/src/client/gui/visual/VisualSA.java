@@ -33,17 +33,18 @@ import src.client.gui.utils.MessageMessages;
  * </p>
  * 
  * @author Álvar Arnáiz González, Andrés Arnáiz Moreno
- * @version 1.0
+ * @author Francisco Javier Páramo Arnaiz
+ * @version 2.0
  */
 public class VisualSA extends Composite {
 
 	// Attributes
 	// --------------------------------------------------------------------
+	
 	/**
 	 * Variable para la internacionalización de los textos
 	 */
-	private MessageMessages sms = GWT.create(MessageMessages.class);
-
+	private MessageMessages mMsg = GWT.create(MessageMessages.class);
 	/**
 	 * Texto el cuál muestra la gramática original.
 	 */
@@ -67,7 +68,7 @@ public class VisualSA extends Composite {
 	/**
 	 * Panel vertical donde ira la visualizacion de las áreas
 	 */
-	public VerticalPanel generalPanel = new VerticalPanel();
+	public VerticalPanel mGeneralPanel = new VerticalPanel();
 
 	/**
 	 * Panel vertical que engloba el área de la nueva gramática
@@ -88,14 +89,13 @@ public class VisualSA extends Composite {
 	 * Indica si debe mostrarse o no el panel.
 	 */
 	public boolean mVisible;
-	
 	/**
 	 * Botones de cancelar, siguiente paso, todos los pasos y aceptar.
 	 */
-	public Button btnCancel = new Button(sms.cancel());
-	public Button btnOneStep = new Button(sms.nextstep());
-	public Button btnAllSteps = new Button(sms.allsteps());
-	public Button btnAcept = new Button(sms.accept());
+	public Button mBtnCancel = new Button(mMsg.cancel());
+	public Button mBtnOneStep = new Button(mMsg.nextstep());
+	public Button mBtnAllSteps = new Button(mMsg.allsteps());
+	public Button mBtnAcept = new Button(mMsg.accept());
 
 	// Methods
 	// -----------------------------------------------------------------------
@@ -120,7 +120,7 @@ public class VisualSA extends Composite {
 		
 		mVisible = true;
 		mMediator = new MediatorSA(this, grammar);
-		btnAcept.setEnabled(false);
+		mBtnAcept.setEnabled(false);
 		
 		//Si cumple las condiciones, construye los paneles
 		if (mVisible)
@@ -135,7 +135,7 @@ public class VisualSA extends Composite {
 		dockPanel.setSpacing(4);
 		dockPanel.setHorizontalAlignment(DockPanel.ALIGN_CENTER);
 
-		HTML newGrammar = new HTML(sms.newgrammar());
+		HTML newGrammar = new HTML(mMsg.newgrammar());
 		newGrammar.setStyleName("Panel-Text");
 		vPanelNew.add(newGrammar);
 		ScrollPanel sPanelNew = new ScrollPanel(mNew);
@@ -144,36 +144,36 @@ public class VisualSA extends Composite {
 		vPanelNew.add(sPanelNew);
 		vPanelNew.setStyleName("gwt-Big-Text");
 
-		HTML oldGramar = new HTML(sms.oldgrammar());
+		HTML oldGramar = new HTML(mMsg.oldgrammar());
 		oldGramar.setStyleName("Panel-Text");
 		vPanelOld.add(oldGramar);
 		ScrollPanel sPanelOld = new ScrollPanel(mOld);
 		sPanelOld.setSize("600px", "380px");
 		vPanelOld.setSpacing(10);
 		vPanelOld.add(sPanelOld);
-		HTML cancelSymbols = new HTML(sms.cancelsymbols());
+		HTML cancelSymbols = new HTML(mMsg.cancelsymbols());
 		cancelSymbols.setStyleName("Panel-Text");
 		vPanelOld.add(cancelSymbols);
 		vPanelOld.add(mAux);
 		vPanelOld.setStyleName("gwt-Big-Text");
 
 		// Botones
-		buttonPanel.add(btnCancel);
-		buttonPanel.add(btnOneStep);
-		buttonPanel.add(btnAllSteps);
-		buttonPanel.add(btnAcept);
+		buttonPanel.add(mBtnCancel);
+		buttonPanel.add(mBtnOneStep);
+		buttonPanel.add(mBtnAllSteps);
+		buttonPanel.add(mBtnAcept);
 		buildListeners();
 
-		HTML saAlgorithm = new HTML(sms.saalgorithm());
+		HTML saAlgorithm = new HTML(mMsg.saalgorithm());
 		saAlgorithm.setStyleName("Panel-Text");
 		dockPanel.add(saAlgorithm, DockPanel.NORTH);
 		dockPanel.add(buttonPanel, DockPanel.SOUTH);
 		dockPanel.add(vPanelNew, DockPanel.EAST);
 		dockPanel.add(vPanelOld, DockPanel.WEST);
 
-		generalPanel.add(dockPanel);
+		mGeneralPanel.add(dockPanel);
 
-		RootPanel.get().add(generalPanel);
+		RootPanel.get().add(mGeneralPanel);
 	}// buildPanels
 
 	/**
@@ -181,7 +181,7 @@ public class VisualSA extends Composite {
 	 */
 	public void buildListeners() {
 		// Pulsar sobre Cancelar
-		btnCancel.addClickHandler(new ClickHandler() {
+		mBtnCancel.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
 				mMediator.exit();
@@ -189,7 +189,7 @@ public class VisualSA extends Composite {
 			}
 		});
 		// Pulsar sobre Siguiente
-		btnOneStep.addClickHandler(new ClickHandler() {
+		mBtnOneStep.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
 				mMediator.next();
@@ -197,7 +197,7 @@ public class VisualSA extends Composite {
 			}
 		});
 		// Pulsar sobre Todos los pasos
-		btnAllSteps.addClickHandler(new ClickHandler() {
+		mBtnAllSteps.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
 				mMediator.all();
@@ -205,7 +205,7 @@ public class VisualSA extends Composite {
 			}
 		});
 		// Pulsar sobre Aceptar
-		btnAcept.addClickHandler(new ClickHandler() {
+		mBtnAcept.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
 				mMediator.accept();

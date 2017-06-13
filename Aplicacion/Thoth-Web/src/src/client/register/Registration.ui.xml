@@ -23,7 +23,7 @@
 	</ui:style>
 	<g:HTMLPanel>
 		<center>
-			<h1>Registro</h1>
+			<h1>Thoth</h1>
 			<g:SimplePanel ui:field="message"></g:SimplePanel>
 			<table>
 				<tr>

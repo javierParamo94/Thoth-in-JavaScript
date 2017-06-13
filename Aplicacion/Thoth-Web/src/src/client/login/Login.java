@@ -1,9 +1,11 @@
 package src.client.login;
 
-import src.client.login.request.LoginService;
-import src.client.login.request.LoginServiceAsync;
+import java.util.Date;
+
 import src.client.login.view.LoginView;
 import src.client.register.Registration;
+import src.client.register.request.RegistrationService;
+import src.client.register.request.RegistrationServiceAsync;
 import src.shared.UserDto;
 
 import com.google.gwt.core.client.EntryPoint;
@@ -13,10 +15,13 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
+import com.google.gwt.user.client.Cookies;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.RootLayoutPanel;
+import com.google.gwt.user.client.ui.RootPanel;
 
 /**
  * 
@@ -25,50 +30,72 @@ import com.google.gwt.user.client.ui.RootLayoutPanel;
  */
 public class Login implements EntryPoint {
 
-	private LoginView viewLog = GWT.create(LoginView.class);
-	private Registration viewReg = GWT.create(Registration.class);
-	private final LoginServiceAsync loginService = GWT
-			.create(LoginService.class);
+	private LoginView mViewLog = GWT.create(LoginView.class);
+	private Registration mViewReg = GWT.create(Registration.class);
+	private final RegistrationServiceAsync regService = GWT.create(RegistrationService.class);
 
 	/**
 	 * 
 	 */
 	public void onModuleLoad() {
-
-		showLogin();
-
+		
+		String sessionID = Cookies.getCookie("sid");
+	    if (sessionID == null){
+	    	showLogin();
+	    }else{
+	        checkWithServerIfSessionIdIsStillLegal(sessionID);
+	    }
+	}
+	 
+	    private void checkWithServerIfSessionIdIsStillLegal(String sessionID){
+	    	regService.loginFromSessionServer(new AsyncCallback(){
+	    		@Override
+	        public void onFailure(Throwable caught){
+	    			showLogin();
+	        }
+	    		
+			@Override
+			public void onSuccess(Object result) {
+	            if (result == null){
+	            	showLogin();
+	            }else{
+	                //RootPanel.get().add(w);
+	            	Window.Location.assign("/gramaticacs/");
+	            }
+			}
+	    });
 	}
 
 	public void showLogin() {
 
-		SubmitHandler handler = new SubmitHandler();
-		loginHandler handler2 = new loginHandler();
+		SubmitHandler handlerReg = new SubmitHandler();
+		LoginHandler handlerLog = new LoginHandler();
 
-		viewReg.getSubmitButton().addClickHandler(handler);
-		viewReg.getEmailBox().addKeyUpHandler(handler);
-		viewReg.getPasswordBox().addKeyUpHandler(handler);
+		mViewReg.getSubmitButton().addClickHandler(handlerReg);
+		mViewReg.getEmailBox().addKeyUpHandler(handlerReg);
+		mViewReg.getPasswordBox().addKeyUpHandler(handlerReg);
 
-		viewLog.getSubmitButton().addClickHandler(handler2);
-		viewLog.getEmailBox().addKeyUpHandler(handler2);
-		viewLog.getPasswordBox().addKeyUpHandler(handler2);
+		mViewLog.getSubmitButton().addClickHandler(handlerLog);
+		mViewLog.getEmailBox().addKeyUpHandler(handlerLog);
+		mViewLog.getPasswordBox().addKeyUpHandler(handlerLog);
 
-		viewReg.getLoginLink().addClickHandler(new ClickHandler() {
+		mViewReg.getLoginLink().addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 
 				RootLayoutPanel.get().clear();
-				RootLayoutPanel.get().add(viewLog);
+				RootLayoutPanel.get().add(mViewLog);
 			}
 		});
 
-		viewLog.getRegisterLink().addClickHandler(new ClickHandler() {
+		mViewLog.getRegisterLink().addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 
 				RootLayoutPanel.get().clear();
-				RootLayoutPanel.get().add(viewReg);
+				RootLayoutPanel.get().add(mViewReg);
 			}
 		});
 		RootLayoutPanel.get().clear();
-		RootLayoutPanel.get().add(viewLog);
+		RootLayoutPanel.get().add(mViewLog);
 	}
 
 	// Al pulsar el boton se hace la autenticacion
@@ -85,11 +112,10 @@ public class Login implements EntryPoint {
 	}
 
 	// Al pulsar el boton se hace la autenticacion
-	class loginHandler implements ClickHandler, KeyUpHandler {
+	class LoginHandler implements ClickHandler, KeyUpHandler {
 		public void onClick(ClickEvent event) {
 			authenticate();
 		}
-
 		public void onKeyUp(KeyUpEvent event) {
 			if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
 				authenticate();
@@ -99,11 +125,11 @@ public class Login implements EntryPoint {
 
 	public void authenticate() {
 		disableHandler();
-		loginService.authenticate(viewLog.getEmailValue(),
-				viewLog.getPasswordValue(), new AsyncCallback<UserDto>() {
+		regService.authenticate(mViewLog.getEmailValue(),
+				mViewLog.getPasswordValue(), new AsyncCallback<UserDto>() {
 
 					public void onFailure(Throwable caught) {
-						viewLog.getMessage()
+						mViewLog.getMessage()
 								.setWidget(
 										new HTML(
 												"Authentication failed. Please try again."));
@@ -111,31 +137,25 @@ public class Login implements EntryPoint {
 					}
 
 					public void onSuccess(UserDto user) {
-
-						if (user == null) {
-							// pantalla de registro
-							// showLogin();
-							enableHandler();
-							viewReg.getMessage().setWidget(
-									new HTML("Tu correo electrónico o tu contraseña no son correctos."));//Please, sign in "));
-						} else {
-
-							Window.Location.assign("/gramaticacs/");
-
-						}
-					}
+						if (user != null)
+                        {
+                            Window.Location.assign("/gramaticacs/");
+                            //session();
+                        } else
+                            Window.alert("Access Denied. Check your user-name and password.");
+                    }
 				});
-
 	}
+	
 
 	public void registrate() {
 
 		disableHandler();
-		loginService.register(viewReg.getNameValue(),
-				viewReg.getLastNameValue(), viewReg.getEmailValue(),
-				viewReg.getPasswordValue(), new AsyncCallback<UserDto>() {
+		regService.register(mViewReg.getNameValue(),
+				mViewReg.getLastNameValue(), mViewReg.getEmailValue(),
+				mViewReg.getPasswordValue(), new AsyncCallback<UserDto>() {
 					public void onFailure(Throwable caught) {
-						viewReg.getMessage()
+						mViewReg.getMessage()
 								.setWidget(
 										new HTML(
 												"Authentication failed. Please try again."));
@@ -150,48 +170,47 @@ public class Login implements EntryPoint {
 							showLogin();
 							enableHandler();
 						} else {
-							viewReg.getMessage().setWidget(
+							mViewReg.getMessage().setWidget(
 									new HTML("Registration Success."));
 							enableHandler();
 						}
 					}
 				});
-
 	}
+	
 	/**
 	 * 
 	 */
 	public void disableHandler() {
-		viewReg.getMessage().clear();
-		viewLog.getMessage().clear();
-		viewReg.getSubmitButton().setText("Checking...");
-		viewLog.getSubmitButton().setText("Checking...");
-		viewReg.getSubmitButton().setEnabled(false);
-		viewLog.getSubmitButton().setEnabled(false);
-		viewReg.getEmailBox().setEnabled(false);
-		viewLog.getEmailBox().setEnabled(false);
-		viewReg.getPasswordBox().setEnabled(false);
-		viewLog.getPasswordBox().setEnabled(false);
-		viewReg.getLoginLink().setEnabled(false);
-		viewLog.getRegisterLink().setEnabled(false);
+		mViewReg.getMessage().clear();
+		mViewLog.getMessage().clear();
+		mViewReg.getSubmitButton().setText("Checking...");
+		mViewLog.getSubmitButton().setText("Checking...");
+		mViewReg.getSubmitButton().setEnabled(false);
+		mViewLog.getSubmitButton().setEnabled(false);
+		mViewReg.getEmailBox().setEnabled(false);
+		mViewLog.getEmailBox().setEnabled(false);
+		mViewReg.getPasswordBox().setEnabled(false);
+		mViewLog.getPasswordBox().setEnabled(false);
+		mViewReg.getLoginLink().setEnabled(false);
+		mViewLog.getRegisterLink().setEnabled(false);
 	}
 
 	/**
 	 * 
-	 * @param login
 	 */
 	public void enableHandler() {
-		viewLog.getSubmitButton().setText("Login");
-		viewReg.getSubmitButton().setText("Register");
+		mViewLog.getSubmitButton().setText("Login");
+		mViewReg.getSubmitButton().setText("Register");
 		
-		viewReg.getSubmitButton().setEnabled(true);
-		viewReg.getEmailBox().setEnabled(true);
-		viewReg.getPasswordBox().setEnabled(true);
-		viewReg.getLoginLink().setEnabled(true);
+		mViewReg.getSubmitButton().setEnabled(true);
+		mViewReg.getEmailBox().setEnabled(true);
+		mViewReg.getPasswordBox().setEnabled(true);
+		mViewReg.getLoginLink().setEnabled(true);
 		
-		viewLog.getSubmitButton().setEnabled(true);
-		viewLog.getEmailBox().setEnabled(true);
-		viewLog.getPasswordBox().setEnabled(true);
-		viewLog.getRegisterLink().setEnabled(true);
+		mViewLog.getSubmitButton().setEnabled(true);
+		mViewLog.getEmailBox().setEnabled(true);
+		mViewLog.getPasswordBox().setEnabled(true);
+		mViewLog.getRegisterLink().setEnabled(true);
 	}
 }

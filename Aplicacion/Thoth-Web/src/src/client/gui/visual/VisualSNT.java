@@ -31,7 +31,8 @@ import com.google.gwt.user.client.ui.VerticalPanel;
  * </p>
  * 
  * @author Álvar Arnáiz González, Andrés Arnáiz Moreno
- * @version 1.0
+ * @author Francisco Javier Páramo Arnaiz
+ * @version 2.0
  */
 public class VisualSNT extends Composite {
 	// Attributes
@@ -40,7 +41,7 @@ public class VisualSNT extends Composite {
 	/**
 	 * Variable para la internacionalización de los textos
 	 */
-	private MessageMessages sms = GWT.create(MessageMessages.class);
+	private MessageMessages mMsg = GWT.create(MessageMessages.class);
 
 	/**
 	 * Texto el cuál muestra la gramática original.
@@ -85,10 +86,10 @@ public class VisualSNT extends Composite {
 	/**
 	 * Botones de cancelar, siguiente paso, todos los pasos y aceptar.
 	 */
-	public Button btnCancel = new Button(sms.cancel());
-	public Button btnOneStep = new Button(sms.nextstep());
-	public Button btnAllSteps = new Button(sms.allsteps());
-	public Button btnAcept = new Button(sms.accept());
+	public Button btnCancel = new Button(mMsg.cancel());
+	public Button btnOneStep = new Button(mMsg.nextstep());
+	public Button btnAllSteps = new Button(mMsg.allsteps());
+	public Button btnAcept = new Button(mMsg.accept());
 	
 	// Methods
 	// -----------------------------------------------------------------------
@@ -126,7 +127,7 @@ public class VisualSNT extends Composite {
 		dockPanel.setHorizontalAlignment(DockPanel.ALIGN_CENTER);
 		
 		//Nombre del panel.
-		HTML newGrammar = new HTML(sms.newgrammar());
+		HTML newGrammar = new HTML(mMsg.newgrammar());
 		newGrammar.setStyleName("Panel-Text");
 		vPanelNew.add(newGrammar);
 		//Panel 
@@ -136,7 +137,7 @@ public class VisualSNT extends Composite {
 		vPanelNew.add(sPanelNew);
 		vPanelNew.setStyleName("gwt-Big-Text");
 
-		HTML oldGramar = new HTML(sms.oldgrammar());
+		HTML oldGramar = new HTML(mMsg.oldgrammar());
 		oldGramar.setStyleName("Panel-Text");
 		vPanelOld.add(oldGramar);
 		ScrollPanel sPanelOld = new ScrollPanel(mOld);
@@ -153,7 +154,7 @@ public class VisualSNT extends Composite {
 		buildCommonListeners();
 
 		// Add text all around
-		HTML sntaAlgorithm = new HTML(sms.sntalgorithm());
+		HTML sntaAlgorithm = new HTML(mMsg.sntalgorithm());
 		sntaAlgorithm.setStyleName("Panel-Text");
 		dockPanel.add(sntaAlgorithm, DockPanel.NORTH);
 		dockPanel.add(buttonPanel, DockPanel.SOUTH);

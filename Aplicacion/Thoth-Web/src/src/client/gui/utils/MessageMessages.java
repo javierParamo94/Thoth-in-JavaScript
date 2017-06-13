@@ -20,51 +20,9 @@ import com.google.gwt.i18n.client.Constants;
  * @version 1.0
  */
 public interface MessageMessages extends Constants {
-
-	@DefaultStringValue("Eliminar símbolos no terminables")
-	String eliminatesnt();
-
-	@DefaultStringValue("Eliminar símbolos no alcanzables")
-	String eliminatesna();
-
-	@DefaultStringValue("Eliminar símbolos anulables")
-	String eliminatesa();
-
-	@DefaultStringValue("Eliminar recursividad")
-	String eliminaterecursion();
-
-	@DefaultStringValue("Eliminar producciones no generativas")
-	String eliminatepng();
-
-	@DefaultStringValue("Eliminar recursividad directa")
-	String eliminatedirectrecursion();
-
-	@DefaultStringValue("Eliminar recursividad indirecta")
-	String eliminateindirectrecursion();
-
-	@DefaultStringValue("Factorizar por la izquierda")
-	String factoring();
-
-	@DefaultStringValue("Forma normal de Chomsky")
-	String fnchomsky();
-
-	@DefaultStringValue("Número de producciones:")
-	String productionnumber();
-
+	// A
 	@DefaultStringValue("Acerca de...")
 	String about();
-
-	@DefaultStringValue("No se han detectado cambios en la gramática.")
-	String changeerror();
-	
-	@DefaultStringValue("Debe introducir un símbolo válido.")
-	String renameerror();
-			
-	@DefaultStringValue("Buscar y renombrar:")
-	String renamesymbol();
-	
-	@DefaultStringValue("Sustituir:")
-	String find();
 
 	@DefaultStringValue("Aceptar")
 	String accept();
@@ -102,62 +60,138 @@ public interface MessageMessages extends Constants {
 	@DefaultStringValue("El axioma no tiene ninguna producción.")
 	String axiomerror();
 
+	// B
 	@DefaultStringValue("por:")
 	String by();
 
+	// C
 	@DefaultStringValue("Cancelar")
 	String cancel();
+
+	@DefaultStringValue("Cálculo First y Follow")
+	String calculateff();
 
 	@DefaultStringValue("Símbolos anulables:")
 	String cancelsymbols();
 
-	@DefaultStringValue("No terminales:")
-	String nonterminals();
+	@DefaultStringValue("No se han detectado cambios en la gramática.")
+	String changeerror();
 
-	@DefaultStringValue("Terminales")
-	String tokens();
+	@DefaultStringValue("Carácter")
+	String chara();
 
-	@DefaultStringValue("Eliminación de Símbolos no Alcanzables (SNA)")
-	String snaalgorithm();
+	@DefaultStringValue("No se ha podido convertir a FNC.")
+	String chomskyerror();
 
-	@DefaultStringValue("Eliminación de Símbolos no Terminables (SNT)")
-	String sntalgorithm();
-
-	@DefaultStringValue("Eliminación de Recursividad Indirecta")
-	String indirectrecursive();
-
-	@DefaultStringValue("Eliminación de Símbolos Anulables (SA)")
-	String saalgorithm();
-
-	@DefaultStringValue("Símbolos unitarios:")
-	String unisymbols();
-
-	@DefaultStringValue("Eliminación de Producciones no Generativas (PNG)")
-	String pngalgorithm();
-
-	@DefaultStringValue("Eliminación de Recursividad Directa")
-	String directrecursive();
-
-	@DefaultStringValue("Producciones recursivas:")
-	String recprods();
-
-	@DefaultStringValue("Producción recursiva:")
-	String recprod();
-
-	@DefaultStringValue("Producciones nuevas tras eliminar Rec. Indir:")
-	String resultprods();
-
-	@DefaultStringValue("Prefijo:")
-	String factorsymbols();
-
-	@DefaultStringValue("No es necesario ejecutar este algoritmo.")
-	String innecesaryalgorithm();
+	@DefaultStringValue("Convertir a Forma Normal de Chomsky")
+	String chomskyalgorithm();
 
 	@DefaultStringValue("No se han podido ejecutar todos los algoritmos de limpieza.")
 	String cleanerrora();
 
 	@DefaultStringValue("Por favor ejecutelos por separado.")
 	String cleanerrorb();
+
+	@DefaultStringValue("Limpiar gramática")
+	String clear();
+
+	// D
+	@DefaultStringValue("Dependiente del contexto")
+	String dependent();
+
+	@DefaultStringValue("Eliminación de Recursividad Directa")
+	String directrecursive();
+
+	// E
+	@DefaultStringValue("Editar")
+	String edit();
+
+	@DefaultStringValue("Eliminar símbolos no terminables")
+	String eliminatesnt();
+
+	@DefaultStringValue("Eliminar símbolos no alcanzables")
+	String eliminatesna();
+
+	@DefaultStringValue("Eliminar símbolos anulables")
+	String eliminatesa();
+
+	@DefaultStringValue("Eliminar recursividad")
+	String eliminaterecursion();
+
+	@DefaultStringValue("Eliminar producciones no generativas")
+	String eliminatepng();
+
+	@DefaultStringValue("Eliminar recursividad directa")
+	String eliminatedirectrecursion();
+
+	@DefaultStringValue("Eliminar recursividad indirecta")
+	String eliminateindirectrecursion();
+
+	@DefaultStringValue("Salir")
+	String exit();
+
+	// F
+	@DefaultStringValue("Factorizar por la izquierda")
+	String factoring();
+
+	@DefaultStringValue("Algoritmo de factorización")
+	String factoralgorithm();
+
+	@DefaultStringValue("Prefijo:")
+	String factorsymbols();
+
+	@DefaultStringValue("Sustituir:")
+	String find();
+
+	@DefaultStringValue("El first calculado está vacío.")
+	String firstempty();
+
+	@DefaultStringValue("Archivo")
+	String file();
+
+	@DefaultStringValue("Forma normal de Chomsky")
+	String fnchomsky();
+
+	// G
+	@DefaultStringValue("Gramática")
+	String grammar();
+
+	@DefaultStringValue("Definición de Gramática")
+	String grammardef();
+
+	@DefaultStringValue("Propiedades de la gramática:")
+	String grammarproperties();
+
+	@DefaultStringValue("Tipo de Gramática:")
+	String grammartype();
+
+	// H
+	@DefaultStringValue("Ayuda")
+	String help();
+
+	// I
+	@DefaultStringValue("Eliminación de Recursividad Indirecta")
+	String indirectrecursive();
+
+	@DefaultStringValue("No es necesario ejecutar este algoritmo.")
+	String innecesaryalgorithm();
+
+	@DefaultStringValue("Terminal incorrecto.")
+	String invalidterminal();
+
+	@DefaultStringValue("Independiente del contexto")
+	String independent();
+
+	@DefaultStringValue("Entrada")
+	String in();
+
+	// L
+	@DefaultStringValue("Idioma")
+	String language();
+
+	// N
+	@DefaultStringValue("No terminales:")
+	String nonterminals();
 
 	@DefaultStringValue("La gramática no tiene recursividad a izquierdas.")
 	String norecursive();
@@ -171,117 +205,106 @@ public interface MessageMessages extends Constants {
 	@DefaultStringValue("La gramática no se puede factorizar.")
 	String nofactor();
 
-	@DefaultStringValue("No se ha podido convertir a FNC.")
-	String chomskyerror();
-
-	@DefaultStringValue("El first calculado está vacío.")
-	String firstempty();
-
-	@DefaultStringValue("Terminal incorrecto.")
-	String invalidterminal();
-
-	@DefaultStringValue("Palabra RECONOCIDA.")
-	String recognizedword();
+	@DefaultStringValue("Siguiente paso")
+	String nextstep();
 
 	@DefaultStringValue("Palabra NO reconocida.")
 	String nonrecognizedword();
 
-	@DefaultStringValue("Pila")
-	String stack();
-	@DefaultStringValue("Tope")
-	String top();
-	@DefaultStringValue("Carácter")
-	String chara();
-	@DefaultStringValue("Entrada")
-	String in();
+	@DefaultStringValue("No")
+	String no();
+
+	@DefaultStringValue("Gramática resultante:")
+	String newgrammar();
+
+	// O
 	@DefaultStringValue("Salida")
 	String out();
-	
-	@DefaultStringValue("Traza de reconocimiento:")
-	String trace(); 
-	
-	@DefaultStringValue("Palabra:")
-	String word();
-	
-	@DefaultStringValue("Siguiente paso")
-	String nextstep();
-			
+
+	@DefaultStringValue("Antigua gramática:")
+	String oldgrammar();
+
+	// P
+	@DefaultStringValue("Número de producciones:")
+	String productionnumber();
+
+	@DefaultStringValue("Eliminación de Producciones no Generativas (PNG)")
+	String pngalgorithm();
+
+	// Q
+	@DefaultStringValue("Necesita ejecutar Factorización y Eliminación de recursividad.")
+	String questionfirstfollow();
+
+	// R
+	@DefaultStringValue("Producciones recursivas:")
+	String recprods();
+
+	@DefaultStringValue("Producción recursiva:")
+	String recprod();
+
+	@DefaultStringValue("Producciones nuevas tras eliminar Rec. Indir:")
+	String resultprods();
+
+	@DefaultStringValue("Debe introducir un símbolo válido.")
+	String renameerror();
+
+	@DefaultStringValue("Buscar y renombrar:")
+	String renamesymbol();
+
+	@DefaultStringValue("Palabra RECONOCIDA.")
+	String recognizedword();
+
 	@DefaultStringValue("Los cambios no se aplicarán hasta que no reinicie el programa.")
 	String restartchanges();
-
-	@DefaultStringValue("Producción a transformar:")
-	String transprod();
-
-	@DefaultStringValue("Convertir a Forma Normal de Chomsky")
-	String chomskyalgorithm();
-
-	@DefaultStringValue("Algoritmo de factorización")
-	String factoralgorithm();
-
-	@DefaultStringValue("Gramática")
-	String grammar();
-
-	@DefaultStringValue("Definición de Gramática")
-	String grammardef();
-
-	@DefaultStringValue("Propiedades de la gramática:")
-	String grammarproperties();
-
-	@DefaultStringValue("Tipo de Gramática:")
-	String grammartype();
-
-	@DefaultStringValue("Dependiente del contexto")
-	String dependent();
-
-	@DefaultStringValue("Independiente del contexto")
-	String independent();
 
 	@DefaultStringValue("Regular")
 	String regular();
 
-	@DefaultStringValue("Idioma")
-	String language();
+	// S
+	@DefaultStringValue("Pila")
+	String stack();
 
-	@DefaultStringValue("Archivo")
-	String file();
+	@DefaultStringValue("Eliminación de Símbolos no Alcanzables (SNA)")
+	String snaalgorithm();
 
-	@DefaultStringValue("Editar")
-	String edit();
+	@DefaultStringValue("Eliminación de Símbolos no Terminables (SNT)")
+	String sntalgorithm();
+
+	@DefaultStringValue("Eliminación de Símbolos Anulables (SA)")
+	String saalgorithm();
+
+	// T
+	@DefaultStringValue("Terminales")
+	String tokens();
 
 	@DefaultStringValue("Herramientas")
 	String tools();
 
-	@DefaultStringValue("Ayuda")
-	String help();
-
-	@DefaultStringValue("Limpiar gramática")
-	String clear();
-
-	@DefaultStringValue("Cálculo First y Follow")
-	String calculateff();
-
 	@DefaultStringValue("Reconocimiento con TASP")
 	String tasp();
 
-	@DefaultStringValue("Vieja gramática:")
-	String oldgrammar();
+	@DefaultStringValue("Tope")
+	String top();
 
-	@DefaultStringValue("Nueva gramática:")
-	String newgrammar();
+	@DefaultStringValue("Producción a transformar:")
+	String transprod();
 
-	@DefaultStringValue("Necesita ejecutar Factorización y Eliminación de recursividad.")
-	String questionfirstfollow();
+	@DefaultStringValue("Traza de reconocimiento:")
+	String trace();
 
+	// U
 	@DefaultStringValue("¿Desea continuar?")
 	String ucontinue();
 
-	@DefaultStringValue("No")
-	String no();
+	@DefaultStringValue("Símbolos unitarios:")
+	String unisymbols();
 
+	// W
+	@DefaultStringValue("Palabra:")
+	String word();
+
+	// Y
 	@DefaultStringValue("Si")
 	String yes();
-
-	@DefaultStringValue("Salir")
-	String exit();
 
 }

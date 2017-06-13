@@ -27,7 +27,8 @@ import src.client.core.grammar.Grammar;
  * </p>
  * 
  * @author Álvar Arnáiz González, Andrés Arnáiz Moreno
- * @version 1.0
+ * @author Francisco Javier Páramo Arnaiz
+ * @version 2.0
  */
 public class MediatorPNG {
 
@@ -166,7 +167,7 @@ public class MediatorPNG {
 
 		if (mVisual.mNew.getText().length() > 0) {
 
-			mVisual.generalPanel.clear();
+			mVisual.mGeneralPanel.clear();
 			new GrammarServiceClientImp(GWT.getModuleBaseURL()
 					+ "grammarservice", mCleanAlgorithm.getSolution());
 
@@ -237,9 +238,9 @@ public class MediatorPNG {
 	 * aceptar.
 	 */
 	public void finish() {
-		mVisual.btnOneStep.setEnabled(false);
-		mVisual.btnAllSteps.setEnabled(false);
-		mVisual.btnAcept.setEnabled(true);
+		mVisual.mBtnOneStep.setEnabled(false);
+		mVisual.mBtnAllSteps.setEnabled(false);
+		mVisual.mBtnAcept.setEnabled(true);
 
 	}// finish
 
@@ -265,7 +266,7 @@ public class MediatorPNG {
 	 */
 	public void exit() {
 
-		mVisual.generalPanel.clear();
+		mVisual.mGeneralPanel.clear();
 		new GrammarServiceClientImp(GWT.getModuleBaseURL() + "grammarservice",
 				mGrammar);
 

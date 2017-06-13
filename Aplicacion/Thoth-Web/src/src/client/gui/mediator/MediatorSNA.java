@@ -27,7 +27,8 @@ import src.client.gui.visual.VisualSNA;
  * </p>
  * 
  * @author Álvar Arnáiz González, Andrés Arnáiz Moreno
- * @version 1.0
+ * @author Francisco Javier Páramo Arnaiz
+ * @version 2.0
  */
 public class MediatorSNA {
 
@@ -143,7 +144,7 @@ public class MediatorSNA {
 
 		if (mVisual.mNew.getText().length() > 0) {
 
-			mVisual.generalPanel.clear();
+			mVisual.mGeneralPanel.clear();
 			new GrammarServiceClientImp(GWT.getModuleBaseURL()
 					+ "grammarservice", mCleanAlgorithm.getSolution());
 
@@ -201,9 +202,9 @@ public class MediatorSNA {
 	 * aceptar.
 	 */
 	public void finish() {
-		mVisual.btnOneStep.setEnabled(false);
-		mVisual.btnAllSteps.setEnabled(false);
-		mVisual.btnAcept.setEnabled(true);
+		mVisual.mBtnOneStep.setEnabled(false);
+		mVisual.mBtnAllSteps.setEnabled(false);
+		mVisual.mBtnAcept.setEnabled(true);
 		removeAllHighLight();
 
 	}// finish
@@ -230,7 +231,7 @@ public class MediatorSNA {
 	 * Crea una nueva vista con la gramática vieja.
 	 */
 	public void exit() {
-		mVisual.generalPanel.clear();
+		mVisual.mGeneralPanel.clear();
 		new GrammarServiceClientImp(GWT.getModuleBaseURL() + "grammarservice",
 				mGrammar);
 

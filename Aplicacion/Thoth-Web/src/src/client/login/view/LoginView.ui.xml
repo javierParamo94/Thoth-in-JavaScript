@@ -43,10 +43,9 @@
 	}
 	</ui:style>
 	<g:HTMLPanel>
-
 		<center>
-			<body> <!-- /images/thothSplashScreen.png -->
-				<h1>Login</h1>
+			<body> <!-- background=" /images/thothSplashScreen.png ">-->
+				<h1>Thoth</h1>
 				<g:SimplePanel ui:field="message"></g:SimplePanel>
 				<table>
 					<tr>

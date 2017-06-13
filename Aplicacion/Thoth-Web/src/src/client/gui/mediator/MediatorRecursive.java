@@ -22,7 +22,8 @@ import src.client.gui.utils.ShowDialog;
  * </p>
  * 
  * @author Álvar Arnáiz González, Andrés Arnáiz Moreno
- * @version 1.0
+ * @author Francisco Javier Páramo Arnaiz
+ * @version 2.0
  */
 public class MediatorRecursive {
 

@@ -19,10 +19,13 @@ import src.client.gui.visual.VisualSA;
 import src.client.gui.visual.VisualSNA;
 import src.client.gui.visual.VisualSNT;
 import src.client.gui.visual.VisualTasp;
+import src.client.register.request.RegistrationService;
+import src.client.register.request.RegistrationServiceAsync;
 
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DialogBox;
@@ -40,6 +43,11 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.Window;
 
+/**
+ * 
+ * @author User
+ *
+ */
 public class mainGui extends Composite {
 
 	// Attributes
@@ -52,8 +60,10 @@ public class mainGui extends Composite {
 	private HorizontalPanel hPanel3 = new HorizontalPanel();
 	private TextBox txt1, txt2, txt3, txt4, txt5;
 	private FlexTable stocksFlexTable = new FlexTable();
-	private mainGui mVisual= this;
+	private mainGui mVisual = this;
 
+	private RegistrationServiceAsync loginService = GWT
+			.create(RegistrationService.class);
 	DockPanel dockPanel = new DockPanel();
 
 	/**
@@ -79,20 +89,21 @@ public class mainGui extends Composite {
 	 */
 	public static String INITIAL_TEXT = "% start \n%%\n\n\n\n%%\n";
 
-	// Methods 
+	// Methods
 	// -----------------------------------------------------------------------
 	/**
 	 * Constructor del panel de gramáticas al que se le pasa el servicio.
 	 * 
-	 * @param serviceImp Implementacion del servicio.
+	 * @param serviceImp
+	 *            Implementacion del servicio.
 	 */
 	public mainGui(GrammarServiceClientImp serviceImp) {
 		buildMenuBar();
 		buildGrammarPanel(serviceImp);
-		//Añadimos los elementos al panel raiz.
+		// Añadimos los elementos al panel raiz.
 		RootPanel.get().add(barMenuPanel);
 		RootPanel.get().add(editorGrammarPanel);
-	}//manGui
+	}// manGui
 
 	/**
 	 * Constructor del panel de gramáticas al que se le pasa la gramática.
@@ -107,7 +118,7 @@ public class mainGui extends Composite {
 		mGrammar = grammar;
 		grammarArea.setText(grammar.toString());
 	}// mainGui
-	
+
 	/**
 	 * 
 	 * @param serviceImp
@@ -195,7 +206,7 @@ public class mainGui extends Composite {
 		dockPanel.add(vPanel2, DockPanel.WEST);
 
 		editorGrammarPanel.add(dockPanel);
-	}//buildGrammarPanel
+	}// buildGrammarPanel
 
 	/**
 	 * 
@@ -209,7 +220,7 @@ public class mainGui extends Composite {
 			String textcheck = grammarArea.getText();
 			serviceImp.checkContent(textcheck);
 		}
-	}//Btn1ClickHandler
+	}// Btn1ClickHandler
 
 	/**
 	 * Renombrar
@@ -223,12 +234,9 @@ public class mainGui extends Composite {
 			String textcheck = grammarArea.getText();
 			serviceImp.checkContent(textcheck);
 			new RenameSymbolDialog(mVisual, mGrammar).show();
-			
 		}
 	}
 
-
-	  
 	/**
 	 * 
 	 * @param grammar
@@ -240,7 +248,18 @@ public class mainGui extends Composite {
 
 		term = term.substring(1, term.length() - 1);
 		noTerm = noTerm.substring(1, noTerm.length() - 1);
+	/*	loginService.userAction(new AsyncCallback() {
+			@Override
+			public void onFailure(Throwable caught) {
+				Window.alert("Error ");
+			}
 
+			@Override
+			public void onSuccess(Object result) {
+				Window.alert("Acierto ");
+
+			}
+		});*/
 		mGrammar = grammar;
 		txt2.setText(((Integer) grammar.getProductions().size()).toString());
 		txt3.setText(grammar.getAxiom().toString());
@@ -260,7 +279,7 @@ public class mainGui extends Composite {
 			txt1.setText(sms.regular());
 			break;
 		}
-	}//updateLabel
+	}// updateLabel
 
 	/**
 	 * 
@@ -273,31 +292,33 @@ public class mainGui extends Composite {
 
 			}
 		};
-		
+
 		Command download = new Command() {
 			public void execute() {
-				//String url = GWT.getModuleBaseURL() + "downloadService?fileInfo1=" + fileInfo1;
-				//Window.open( url, "_blank", "status=0,toolbar=0,menubar=0,location=0");
-				//Window.open(GWT.getHostPageBaseURL() + "/file.rar", "name", "enabled");
-				Window.open("http://127.0.0.1:8888/file.rar", "_self", "enabled");
+				// String url = GWT.getModuleBaseURL() +
+				// "downloadService?fileInfo1=" + fileInfo1;
+				// Window.open( url, "_blank",
+				// "status=0,toolbar=0,menubar=0,location=0");
+				// Window.open(GWT.getHostPageBaseURL() + "/file.rar", "name",
+				// "enabled");
+				Window.open("http://127.0.0.1:8888/file.rar", "_self",
+						"enabled");
 
 			}
 		};
-		
+
 		Command about = new Command() {
 			public void execute() {
 				Window.Location.replace("http://thoth-project.herokuapp.com/");
 			}
 		};
-		
 
-		//Cambio de idioma
+		// Cambio de idioma
 		CommandLang spanish = new CommandLang("es");
 		CommandLang deutschland = new CommandLang("de");
 		CommandLang french = new CommandLang("fr");
-		CommandLang english = new CommandLang("en"); 
+		CommandLang english = new CommandLang("en");
 
-		
 		Command eliminate_SNT = new Command() {
 			public void execute() {
 				serviceImp.checkContent(grammarArea.getText());
@@ -513,7 +534,7 @@ public class mainGui extends Composite {
 				}
 			}
 		};
-		
+
 		MenuBar fooMenu = new MenuBar(true);
 		fooMenu.addItem("Abrir", cmd);
 		fooMenu.addItem("Guardar", download);
@@ -543,14 +564,14 @@ public class mainGui extends Composite {
 		algorithmMenu.addItem(sms.tasp(), tasp);
 
 		MenuBar selectIdiom = new MenuBar(true);
-		selectIdiom.addItem("Castellano", spanish);//Command(spanish));
+		selectIdiom.addItem("Castellano", spanish);// Command(spanish));
 		selectIdiom.addItem("Deutsch", deutschland);
 		selectIdiom.addItem("Français", french);
 		selectIdiom.addItem("English", english);
 
 		MenuBar helpMenu = new MenuBar(true);
 		helpMenu.addItem(sms.about(), about);
-		
+
 		MenuBar menu = new MenuBar();
 		menu.addItem(sms.file(), fooMenu);
 		menu.addSeparator();
@@ -634,6 +655,7 @@ public class mainGui extends Composite {
 		barMenuPanel.clear();
 		new VisualFirstFollow(mGrammar);
 	}
+
 	// TASP
 	public void openTASP() {
 		editorGrammarPanel.clear();

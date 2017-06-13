@@ -36,7 +36,8 @@ import src.client.gui.utils.MessageMessages;
  * </p>
  * 
  * @author Álvar Arnáiz González, Andrés Arnáiz Moreno
- * @version 1.0
+ * @author Francisco Javier Páramo Arnaiz 
+ * @version 2.0
  */
 public class VisualTasp extends Composite {
 
@@ -45,7 +46,7 @@ public class VisualTasp extends Composite {
 	/**
      * Variable para imprimir mensajes con internacionalización.
      */
-	private MessageMessages sms = GWT.create(MessageMessages.class);
+	private MessageMessages mMsg = GWT.create(MessageMessages.class);
 	/**
 	 * Mediador asociado al panel.
 	 */
@@ -67,17 +68,13 @@ public class VisualTasp extends Composite {
 	public FlexTable mTraceTable;
 
 	/**
-	 * FlexTable donde van a estar los titulos de las columnas en la traza.
-	 */
-	public FlexTable mTraceTitle;//////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	/**
 	 * Panel donde va a ir la FlexTable con la traza y tabla TASB.
 	 */
-	public VerticalPanel panelTrace;
+	public VerticalPanel mPanelTrace;
 	/**
 	 * Panel donde va a ir la FlexTable con la traza.
 	 */
-	public 	HorizontalPanel panelButton;
+	public 	HorizontalPanel mPanelButton;
 	/**
 	 * JTextField donde se va a introducir la palabra a reconocer.
 	 */
@@ -107,7 +104,7 @@ public class VisualTasp extends Composite {
 	 */
 	public Button mNext;
 	/**
-	 * 
+	 * Gramática asociada.
 	 */
 	public Grammar mGrammar;
 
@@ -158,16 +155,16 @@ public class VisualTasp extends Composite {
 	private void buildPanels() {
 		HorizontalPanel word = new HorizontalPanel();
 		VerticalPanel down = new VerticalPanel();
-		panelButton = new HorizontalPanel();
-		panelTrace = new VerticalPanel();
+		mPanelButton = new HorizontalPanel();
+		mPanelTrace = new VerticalPanel();
 
 		// Botonera inferior
-		mExit = new Button(sms.cancel());
-		mNext = new Button(sms.nextstep());
-		mCheck = new Button(sms.allsteps());
-		panelButton.add(mExit);
-		panelButton.add(mNext);
-		panelButton.add(mCheck);
+		mExit = new Button(mMsg.cancel());
+		mNext = new Button(mMsg.nextstep());
+		mCheck = new Button(mMsg.allsteps());
+		mPanelButton.add(mExit);
+		mPanelButton.add(mNext);
+		mPanelButton.add(mCheck);
 		mNext.setEnabled(false);
 		mCheck.setEnabled(false);
 
@@ -182,7 +179,7 @@ public class VisualTasp extends Composite {
 		
 
 		// Introducir palabra
-		word.add(new HTML(sms.word()));
+		word.add(new HTML(mMsg.word()));
 		word.setPixelSize(700, 50);
 		word.add(mWord);
 		word.setStyleName("gwt-Big-Text");
@@ -197,18 +194,18 @@ public class VisualTasp extends Composite {
 		VerticalPanel panelTraceTable = new VerticalPanel();
 		panelTraceTable.add(mTraceTable);
 		mTraceTable.setPixelSize(700, 300);
-		HTML trace = new HTML(sms.trace());
+		HTML trace = new HTML(mMsg.trace());
 		trace.setStyleName("Panel-Text");
 		down.add(trace);
 		down.add(word);
 		down.add(panelTraceTable);
-		panelTrace.add(panelTaspTable);
+		mPanelTrace.add(panelTaspTable);
 		down.setSpacing(5);
-		panelTrace.add(down);
+		mPanelTrace.add(down);
 
 		// Principal
-		RootPanel.get().add(panelTrace);
-		RootPanel.get().add(panelButton);
+		RootPanel.get().add(mPanelTrace);
+		RootPanel.get().add(mPanelButton);
 		buildListeners();
 	}// buildPanels
 

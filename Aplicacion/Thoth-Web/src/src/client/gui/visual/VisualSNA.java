@@ -33,7 +33,8 @@ import src.client.gui.utils.MessageMessages;
  * </p>
  * 
  * @author Álvar Arnáiz González, Andrés Arnáiz Moreno
- * @version 1.0
+ * @author Francisco Javier Páramo Arnaiz
+ * @version 2.0
  */
 public class VisualSNA extends Composite {
 
@@ -42,7 +43,7 @@ public class VisualSNA extends Composite {
 	/**
 	 * Variable para la internacionalización de los textos
 	 */
-	private MessageMessages sms = GWT.create(MessageMessages.class);
+	private MessageMessages mMsg = GWT.create(MessageMessages.class);
 
 	/**
 	 * Texto el cuál muestra la gramática original.
@@ -62,7 +63,7 @@ public class VisualSNA extends Composite {
 	/**
 	 * Panel vertical donde ira la visualizacion de las áreas
 	 */
-	public VerticalPanel generalPanel = new VerticalPanel();
+	public VerticalPanel mGeneralPanel = new VerticalPanel();
 
 	/**
 	 * Mediador asociado al panel
@@ -87,10 +88,10 @@ public class VisualSNA extends Composite {
 	/**
 	 * Botones de cancelar, siguiente paso, todos los pasos y aceptar.
 	 */
-	public Button btnCancel = new Button(sms.cancel());
-	public Button btnOneStep = new Button(sms.nextstep());
-	public Button btnAllSteps = new Button(sms.allsteps());
-	public Button btnAcept = new Button(sms.accept());
+	public Button mBtnCancel = new Button(mMsg.cancel());
+	public Button mBtnOneStep = new Button(mMsg.nextstep());
+	public Button mBtnAllSteps = new Button(mMsg.allsteps());
+	public Button mBtnAcept = new Button(mMsg.accept());
 
 	// Methods
 	// -----------------------------------------------------------------------
@@ -115,7 +116,7 @@ public class VisualSNA extends Composite {
 
 		mVisible = true;
 		mMediator = new MediatorSNA(this, grammar);
-		btnAcept.setEnabled(false);
+		mBtnAcept.setEnabled(false);
 
 		//Si cumple las condiciones, construye los paneles
 		if (mVisible)
@@ -130,7 +131,7 @@ public class VisualSNA extends Composite {
 		dockPanel.setSpacing(4);
 		dockPanel.setHorizontalAlignment(DockPanel.ALIGN_CENTER);
 		
-		HTML newGrammar = new HTML(sms.newgrammar());
+		HTML newGrammar = new HTML(mMsg.newgrammar());
 		newGrammar.setStyleName("Panel-Text");
 		vPanelNew.add(newGrammar);
 		ScrollPanel sPanelNew = new ScrollPanel(mNew);
@@ -139,7 +140,7 @@ public class VisualSNA extends Composite {
 		vPanelNew.add(sPanelNew);
 		vPanelNew.setStyleName("gwt-Big-Text");
 
-		HTML oldGramar = new HTML(sms.oldgrammar());
+		HTML oldGramar = new HTML(mMsg.oldgrammar());
 		oldGramar.setStyleName("Panel-Text");
 		vPanelOld.add(oldGramar);
 		ScrollPanel sPanelOld = new ScrollPanel(mOld);
@@ -150,24 +151,24 @@ public class VisualSNA extends Composite {
 
 
 		// Botones
-		buttonPanel.add(btnCancel);
-		buttonPanel.add(btnOneStep);
-		buttonPanel.add(btnAllSteps);
-		buttonPanel.add(btnAcept);
+		buttonPanel.add(mBtnCancel);
+		buttonPanel.add(mBtnOneStep);
+		buttonPanel.add(mBtnAllSteps);
+		buttonPanel.add(mBtnAcept);
 		
 		buildListeners();
 
 		// Add text all around
-		HTML snaAlgorithm = new HTML(sms.snaalgorithm());
+		HTML snaAlgorithm = new HTML(mMsg.snaalgorithm());
 		snaAlgorithm.setStyleName("Panel-Text");
 		dockPanel.add(snaAlgorithm, DockPanel.NORTH);
 		dockPanel.add(buttonPanel, DockPanel.SOUTH);
 		dockPanel.add(vPanelNew, DockPanel.EAST);
 		dockPanel.add(vPanelOld, DockPanel.WEST);
 
-		generalPanel.add(dockPanel);
+		mGeneralPanel.add(dockPanel);
 
-		RootPanel.get().add(generalPanel);
+		RootPanel.get().add(mGeneralPanel);
 	}
 
 	/**
@@ -175,7 +176,7 @@ public class VisualSNA extends Composite {
 	 */
 	public void buildListeners() {
 		// Pulsar sobre Cancelar
-		btnCancel.addClickHandler(new ClickHandler() {
+		mBtnCancel.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
 				mMediator.exit();
@@ -183,7 +184,7 @@ public class VisualSNA extends Composite {
 			}
 		});
 		// Pulsar sobre Siguiente
-		btnOneStep.addClickHandler(new ClickHandler() {
+		mBtnOneStep.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
 				mMediator.next();
@@ -191,7 +192,7 @@ public class VisualSNA extends Composite {
 			}
 		});
 		// Pulsar sobre Todos los pasos
-		btnAllSteps.addClickHandler(new ClickHandler() {
+		mBtnAllSteps.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
 				mMediator.all();
@@ -199,7 +200,7 @@ public class VisualSNA extends Composite {
 			}
 		});
 		// Pulsar sobre Aceptar
-		btnAcept.addClickHandler(new ClickHandler() {
+		mBtnAcept.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
 				mMediator.accept();

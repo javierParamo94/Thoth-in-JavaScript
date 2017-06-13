@@ -41,10 +41,9 @@ public class CommandLang implements Command {
 	 * Variable en la cual se va a guardar el indice del idioma a traducir.
 	 */
 	private String locale;
-	/**
-	 * Ventana de diálogo para elegir si se desea o no reiniciar
-	 */
+	
 	private DialogBox choiceDialog = new DialogBox();
+
 
 	// Methods
 	// -----------------------------------------------------------------------
@@ -64,7 +63,9 @@ public class CommandLang implements Command {
 	 * Ejecución asociada a la clase
 	 */
 	public void execute() {
-
+		
+		
+		
 		choiceDialog.setAnimationEnabled(true);
 		choiceDialog.setGlassEnabled(true);
 

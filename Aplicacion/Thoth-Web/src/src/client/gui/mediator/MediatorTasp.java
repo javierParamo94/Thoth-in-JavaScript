@@ -40,7 +40,7 @@ public class MediatorTasp {
 	/**
 	 * Variable para la internacionalización de los textos
 	 */
-	private MessageMessages sms = GWT.create(MessageMessages.class);
+	private MessageMessages mMsg = GWT.create(MessageMessages.class);
 
 	/**
 	 * Tabla TASP a partir de la cual se va a producir el reconocimiento.
@@ -68,11 +68,6 @@ public class MediatorTasp {
 	 */
 	private boolean mFirstTime;
 
-	/**
-	 * Variable que funciona como un contador para insertar filas nuevas en la
-	 * tabla traza.
-	 */
-	private int contador = 1;
 
 	// Methods
 	// -----------------------------------------------------------------------
@@ -205,8 +200,8 @@ public class MediatorTasp {
 	 * Muestra la tabla donde va a ir la traza de reconocimiento.
 	 */
 	private void initiateTrace() {
-		Object[] header = { sms.stack(), sms.top(), sms.in(), sms.chara(),
-				sms.out() };
+		Object[] header = { mMsg.stack(), mMsg.top(), mMsg.in(), mMsg.chara(),
+				mMsg.out() };
 
 		mVisual.mTraceTable = new FlexTable();
 		mVisual.mTraceTable.setStyleName("FlexTable-ColumnLabelCell");
@@ -345,6 +340,7 @@ public class MediatorTasp {
 	 *            Si es true rellena la columna de Salida.
 	 */
 	private void fillTrace(boolean out) {
+		int numRow = 1;
 		Object[] o = new String[5];
 		String temp;
 		Production tempProd;
@@ -379,9 +375,9 @@ public class MediatorTasp {
 			o[4] = "";
 
 		for (int i = 0; i < o.length; i++) {
-			(mVisual.mTraceTable).setText(contador, i, (String) o[i]);
+			(mVisual.mTraceTable).setText(numRow, i, (String) o[i]);
 		}
-		contador++;
+		numRow++;
 
 	}// fillTrace
 
@@ -392,7 +388,6 @@ public class MediatorTasp {
 	public void check() {
 		while (next())
 			;
-
 	}// check
 
 	/**
@@ -411,8 +406,8 @@ public class MediatorTasp {
 	 * Cierra la ventana visual y elimina las referencias.
 	 */
 	public void exit() {
-		mVisual.panelTrace.clear();
-		mVisual.panelButton.clear();
+		mVisual.mPanelTrace.clear();
+		mVisual.mPanelButton.clear();
 
 		new GrammarServiceClientImp(GWT.getModuleBaseURL() + "grammarservice",
 				mVisual.mGrammar);
