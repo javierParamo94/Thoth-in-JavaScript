@@ -10,8 +10,55 @@ h1 {
   text-align: center;
 }
 
-.MyText {
-  color: blue;
+input[type=text] {
+	background-color : #d8ecf3;
+    width: 100%;
+    padding: 10px 50px;
+    margin: 0.2px 0;
+    display: inline-block;
+    border: 1px solid #000000;
+    border-radius: 4px;
+    font-size-adjust: none;
+    font-weight: bold;
+}
+
+/* Texto de las gramática*/
+.Grammar-Text{
+	font-size: 15px;
+}
+
+/*Texto de los paneles*/
+.Panel-Text{
+	font: bolder;
+	font-size: 18px;
+	margin: 0.5em; 
+}
+
+.gwt-MenuBar .gwt-MenuItem {
+   cursor: default;
+   font-family: fantasy;
+   font-size: 14px;
+   color: gray;
+}
+
+.gwt-MenuBar-horizontal .gwt-MenuItem {
+   padding: 5px 10px;
+   vertical-align: bottom;
+   color: #000;
+   font-weight: bold;  
+}
+
+.gwt-MenuBar-horizontal .gwt-MenuItemSeparator {
+   width: 1px;
+   padding: 0px;
+   margin: 0px;
+   border: 0px;
+   border-left: 1px solid #ccc;
+   background: white;
+}
+
+.gwt-MenuBar-vertical .subMenuIcon-selected {
+   background: #E3E8F3;
 }
 
 .sendButton {
@@ -21,12 +68,27 @@ h1 {
 
 /* stock list flex table */
 .header {
-	font: 200% ;
+	font: 300;
 	background-color: #2062B8;
 	color: white;
-	font-style: italic;
+	margin: 10px;
+	text-align: center;
+	min-width: 60px;
+	min-height: 10px;
+	max-height: 10px;
 }
 
+/* Estilo de las celdas de la flextable*/
+.FlexTable-ColumnLabelCell {
+  border-width: 0 0 2px 0;
+  border-style: solid;
+  border-color: white;
+  margin: 0;
+  border: 1px solid #BBBBBB;
+  padding: 3px;
+  text-align: center;
+  /*vertical-align: middle;*/
+}
 
 /** Most GWT widgets already have a style name defined */
 .gwt-DialogBox {
@@ -41,7 +103,31 @@ h1 {
   color: red;
 }
 
-/** Set ids using widget.getElement().setId("idOfElement") */
+
 #closeButton {
   margin: 15px 6px 6px;
 }
+
+.gwt-TextArea {
+     font-weight: bold;
+}
+
+.gwt-RichTextArea {
+	background-color: wite;
+	font: "Verdana", sans-serif ;
+	
+}
+/* Estilo del dockpanel con una separacion de 3px */
+.dockpanel td {
+   padding: 3px;
+   /*background-color: #dfefff;*/
+}
+
+.gwt-Big-Text{
+	padding: 3px;
+	background-color: #e6e6e6;
+	border: 1px solid #808080;
+	margin-top: 7px;
+	margin: 10px 10px 10px;
+}
+
