@@ -2,7 +2,19 @@
 
 \section{Introducción}
 
+El apartado aquí descrito se comenta cómo ha sido el seguimiento de este  proyecto. La metodología utilizada es la de cualquier otro proyecto ágil, es decir, metodología Scrum, que consiste en un desarrollo colaborativo en el que se hacen entregas periódicas de las diferentes partes del proyecto hasta juntar un todo que forme el proyecto final. 
+
+Para ello hemos hecho uso de herramientas como GitHub y ZenHub que ayudan en la labor de definir objetivos semanales o Milestones que a su vez están compuestos por problemas denominados issues. También hemos podido ver el progreso semanal, comunicar aspectos relacionados con el trabajo o agrupar los issues según el tipo.
+
+Como en cualquier proyecto de este tipo, a veces, algunos objetivos semanales se han modificado debido a que resultaban más complejos de lo esperado o inútiles para el fin buscado o no accesibles como es el caso, por ejemplo, de los elementos para el desarrollo de interfaces con Vaadin, que requerían una licencia de pago muy elevada.Todo ello forma parte de la gestión de proyectos ágiles.
+
 \section{Planificación temporal}
+
+El desarrollo del proyecto esta compuesto por entregas periódicas denominadas sprints y que han tenido una duración de una semana, a excepción del sprint número nueve que por motivos de vacaciones escolares tuvo que ser del doble de tiempo. Aunque al principio el seguimiento del proyecto no fue el correcto en cuanto al manejo de las herramientas GitHub  y ZenHub, posteriormente se trató de mejorarlo.
+
+Se trató de llevar una carga constante de trabajo para mantener un ritmo con el que se llegase a la fecha de entrega pero en alguno de los últimos sprints se tuvo que aumentar la cantidad porque había más materia sobre la que trabajar y mejorar.
+
+En total fueron unas 18 semanas, medidas en 16 sprints o milestones, desde el mes de febrero hasta junio.
 
 \subsection{Sprint 0 (1/2/2017 - 8/2/2017)}
 
@@ -39,6 +51,13 @@ También profundizo algo más en la documentación y en el uso de las herramient
 
 En este tercer sprint, lo primero que hago es solucionar el anterior problema que tuve con GWT. Consistía en configurar bien el entorno de Eclipse y el <<plugin>> para poder hacer la ejecución de GWT con <<Super Dev Mode>>, alternativa implantada por los desarrolladores para evitar la necesidad de instalar una extension de GWT en el buscador en el cual se lanza la aplicación.
 
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.99\textwidth]{Semana3}
+\caption{Burndown del sprint 2}
+\label{fig:A.2.6}
+\end{figure}
+
 También en esta semana descubrimos una nueva herramienta relacionada con el tema, que se llama Vaadin y que nos puede servir, por lo menos para hacer una comparativa más completa de las herramientas de traducción. 
 
 La parte más importante de esta semana es la prueba de traducción del <<core>> de Thoth, que aunque no sale como esperamos, ha resultado útil para conocer con mayor profundidad tanto la aplicación como la herramienta.
@@ -56,7 +75,7 @@ Muy a mi pesar, en el <<milestone>> de esta semana, aunque he pasado cada tarea 
 
 \subsection{Sprint 3 (22/2/2017 - 1/3/2017)}
 
-Ya en la cuarta semana se hace un intento más completo para traducir la aplicación. Como pudimos comprobar en la semana pasada, GWT no traducía las librerías de la parte visual de Thoth. Es por ello decidimos hacer un ejemplo de forma manual que consiste en programar parte de la vista que esta asociada a las partes más relevantes del núcleo
+Ya en la cuarta semana se hace un intento más completo para traducir la aplicación. Como pudimos comprobar en la semana pasada, GWT no traducía las librerías de la parte visual de Thoth. Es por ello decidimos hacer un ejemplo de forma manual que consiste en programar parte de la vista que esta asociada a las partes más relevantes del núcleo.
 
 Por ejemplo, nos centramos en hacer una prueba con la gramática, que esta dentro del núcleo, creando una pantalla con un <<text label>> para comprobar si funcionaba la traducción de esa parte del núcleo. De esta forma podríamos ver como hacía la traducción de todo el núcleo, ya que las otras partes de las que se compone son similares en el uso de librerías y bibliotecas.
 
@@ -69,7 +88,16 @@ Quedan así asignadas las tareas para del sprint número tres:
 \item Documentar toda esta parte.
 \end{itemize}
 
-Al final solo se pudo llevar a cabo la tares de la Gramática y la documentación porque no se pudo avanzar a las demás. Nuestra idea era probar a tratar de traducir todo, núcleo incluido, ejecutando esas partes en el cliente de GWT  pero vimos que esto no es posible. Intentamos hacerlo de varias formas eliminando partes no esenciales de la aplicación para reducir errores de compilación hasta darnos por vencidos y ver que esa no era la solución.
+Al final solo se pudo llevar a cabo la tareas de la Gramática y la documentación porque no se pudo avanzar a las otras como muestra la siguiente imagen \ref{fig:A.2.6}.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.99\textwidth]{Semana4}
+\caption{Burndown del sprint 3}
+\label{fig:A.2.6}
+\end{figure}
+
+ Nuestra idea era probar a tratar de traducir todo, núcleo incluido, ejecutando esas partes en el cliente de GWT  pero vimos que esto no es posible. Intentamos hacerlo de varias formas eliminando partes no esenciales de la aplicación para reducir errores de compilación hasta darnos por vencidos y ver que esa no era la solución.
 
 \subsection{Sprint 4 (1/3/2017 - 8/3/2017)}
 La cuarta es la semana en la cual, hemos intentado pasar la aplicación en la parte del servidor y probar por nuestra cuenta. Sólo hemos metido el núcleo en el paquete servidor para ver que surgía. Como vimos que no había una comunicación entre el cliente y el servidor hicimos varios intentos, probando con el paquete de <<shared>> o compartido, pero GWT también traduce ese paquete a JavaScript por lo que seguía dando los mismo errores que en el cliente.
@@ -84,6 +112,14 @@ Por lo tanto en este sprint tenemos esta tareas:
 
 Una vez nos dimos cuenta de que el fallo de tratar de hacer la aplicación en la parte del servidor era que GWT no reconocía algunas de las librerías claves, tanto en la parte visual como en el núcleo de la aplicación, decidimos buscar otros caminos alternativos. 
 
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.99\textwidth]{Semana5}
+\caption{Burndown del sprint 4}
+\label{fig:A.2.6}
+\end{figure}
+
 El funcionamiento de GWT consiste en traducir a <<JavaScript>> la parte del cliente y la compartida. En consecuencia decidimos hacer pruebas en las que las partes mas fundamentales del núcleo se encontrasen en el lado del servidor. De esta forma cuando el cliente necesitase hacer algún uso de métodos con librerías no reconocidas por GWT, simplemente llamase al servidor ya que este podría soportar dichos métodos. 
 
 En los primeros intentos nos dimos cuenta de que estas llamadas no se podían hacer de una forma simple, ya que la comunicación entre cliente y servidor no funcionaba y no obteníamos los resultados que esperábamos. Aún así seguimos haciendo pruebas para asegurarnos, metiendo dentro del paquete <<compartido>> las partes del núcleo mas cercanas a lo que nosotros consideramos la vista. El problema seguía siendo esa comunicación. Interpretaba como del lado del cliente lo que nosotros queríamos que formara parte del servidor, dando errores debido a que GWT no trabaja con esas librerías.
@@ -91,6 +127,13 @@ En los primeros intentos nos dimos cuenta de que estas llamadas no se podían ha
 \subsection{Sprint 5 (8/3/2017 - 15/3/2017)}
 
 Principalmente, en este quinto sprint, se llevan a cabo las pruebas para entender y poder evaluar la comunicación cliente-servidor, por medio de unos ejemplos. Además de eso, planteamos la idea de realizar un <<login>> y validación de usuarios, pero solo como idea, ya que no es de gran importancia.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.99\textwidth]{Semana6}
+\caption{Burndown del sprint 5}
+\label{fig:A.2.6}
+\end{figure}
 
 
 Así que en este sprint tenemos esta tareas:
@@ -106,6 +149,13 @@ La comunicación entre el cliente y el servidor se lleva a cabo mediante la comu
 \subsection{Sprint 6 (15/3/2017 - 22/3/2017)}
 
 En esta semana nos metemos ya en serio con la aplicación propiamente dicha. Lo primero que hacemos es conseguir que la comunicación entre en núcleo (ya hecho) y su uso sea fluido. Para ello lo que hacemos es incluir algunas partes en el cliente y otras en el servidor. En el cliente sólo podemos incluir las clases más simples, más primitivas de la aplicación porque su contenido es entendido por GWT y puede hacer la traducción a JavaScript sin problemas de librerías.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.99\textwidth]{Semana7}
+\caption{Burndown del sprint 6}
+\label{fig:A.2.6}
+\end{figure}
 
 Por lo tanto las tareas son básicamente dos:
 
@@ -128,11 +178,26 @@ Así es que definimos como tareas las siguientes:
 \item Implementar el algoritmo "Eliminar símbolos no terminales"
 \end{itemize}
 
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.99\textwidth]{Semana8}
+\caption{Burndown del sprint 7}
+\label{fig:A.2.6}
+\end{figure}
+
 Primeramente hay que organizar el código haciéndolo más legible y limpiarlo de comentarios, y pruebas para ver su funcionamiento. Queremos que los resultados queden de una forma similar al Thoth original, para conservar su esencia, usabilidad, y buen diseño. Para ello hacemos uso de Vaadin, una herramienta que se puede utilizar como un <<plugin>> en eclipse y que se integra perfectamente con GWT.
 
 \subsection{Sprint 8 (29/3/2017 - 5/4/2017)}
 
 Al principio de este octavo sprint o 9 semana, estuve pendiente de la respuesta por parte de Vaadin sobre si me podía conceder o no una licencia gratuita, así que me centré en incluir el algoritmo de eliminación de símbolos no terminales, mejorando lo que tenía hasta el momento, que era solo una pequeña interfaz con una funcionalidad que no era la exacta. Por ello me centré en corregirla. Así lo hicimos.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.99\textwidth]{Semana9}
+\caption{Burndown del sprint 8}
+\label{fig:A.2.6}
+\end{figure}
+
 Posteriormente llegó la respuesta de Vaadin explicando que no me podía conceder la licencia y que buscase otras opciones dentro de las que ellos mismos me ofrecían. Al principió lo intenté pero resulto que no supe como hacerlo. Lograba hacer un proyecto de Vaadin pero no conseguía incluirlo en el mio propio de GWT.
 
 Así que comencé a hacer la interfaz por mi mismo, con las posibilidades de GWT.
@@ -156,11 +221,25 @@ Es el sprint más largo hasta la fecha ya que incluye dos semanas de trabajo por
 \item Hacer la documentación sobre la parte del diseño y sobre las herramientas que tiene la UBU relacionadas con este proyecto.
 \end{itemize}
 
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.99\textwidth]{Semana10-11}
+\caption{Burndown del sprint 9}
+\label{fig:A.2.6}
+\end{figure}
+
 En estas dos semanas no pude realizar todos los algoritmos como en un principio pretendía porque la parte visual se alejaba de lo que tenia hecho hasta el momento, es decir, necesitaba hacer nuevas vistas que llevaban más tiempo del pensado y no me dio tiempo, pero si que incluí la mayor parte de ellos. Estuvimos estudiando como aplicar el resaltado de las producciones. En el Thoth original utilizaba una librería, java swing, que ya comprobamos anteriormente que no podía ser incluida en GWT en este proyecto así que buscamos otras alternativas como hacer un resaltado a mano con HTML. De momento lo dejamos ahí.
 
 \subsection{Sprint 10 (19/4/2017 - 26/4/2017)}
 
 Una vez pasadas las vacaciones de Semana Santa, el proyecto tiene una forma más madura y podemos ir haciendo añadidos más funcionales a la aplicación. Es por ello que decidimos empezar con la internacionalización, viendo como funcionaba para poder entenderla y una vez entendida incluirla en el proyecto. Además de esto, después de comprobar en la semana pasada que el resaltado lo podíamos hacer con HTML nos dedicamos de lleno a ello. La verdad es que nos llevó muchos quebraderos de cabeza. El porqué no era otra cosa que teníamos que tener en cuenta todo el funcionamiento interno, <<destripar>> que contenía cada variable, como funcionaban cada método de GWT etc. Todo este trabajo nos llevo mucho tiempo, ya que estuvimos todo el sprint a base de prueba y error con los diferentes algoritmos hasta que funcionó en todos de la forma que deseamos.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.99\textwidth]{Semana12}
+\caption{Burndown del sprint 10}
+\label{fig:A.2.6}
+\end{figure}
 
 Estas fueron las tareas correspondientes a esta semana.
 
@@ -189,11 +268,26 @@ Las tareas quedaron asi.
 
 El algoritmo FirstFollow fue fácil hasta el momento de mostrar los resultados en las tablas. Resulta que al tratar de imprimir los resultados de tipo Object pasándolos como un <<string>> no los reconocía bien. Este tipo de errores no son fáciles de detectar en GWT, ya que la forma para verlos claramente es imprimiendo los valores por pantalla y tratando de analizarlos, en que formato están etc. Al final descubrimos que el problema era al tratar de pasara al formato string valores que GWT interpretaba como <<undefined>> y que no eran más que valores en blanco, espacios en blanco dentro de la tabla. 
 
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.99\textwidth]{Semana13}
+\caption{Burndown del sprint 11}
+\label{fig:A.2.6}
+\end{figure}
+
 El otro gran quebradero de cabeza fue el tratar de incluir pestañas en la aplicación. No es nada fácil añadir una pestaña con una nueva vista sin que esta remplace otra, se superponga o cualquier otra cosa. A día de hoy no sabemos bien el porqué de esto al cien por cien. Lo que si es cierto es que no es completamente necesaria y se puede hacer un reemplazamiento de otras vistas.
 
 \subsection{Sprint 12 (03/5/2017 - 10/5/2017)}
-Entrado en el mes de mayo, la recta final del proyecto, y con una aplicación base ya consolidada, por denominarlo así, no dedicamos sobre todo ha hacer mejoras en cuanto a temas visuales y funcionales. Además de esto el objetivo en este mes es hacer un registro e inicio de sesión de los usuarios para así tener un control detallado del uso.
+
+Entrado en el mes de mayo, la recta final del proyecto, y con una aplicación base ya consolidada, por denominarlo así, nos dedicamos sobre todo ha hacer mejoras en cuanto a temas visuales y funcionales. Además de esto el objetivo en este mes es hacer un registro e inicio de sesión de los usuarios para así tener un control detallado del uso.
 Con todo esto por un lado, también era hora de dedicarle un porcentaje de tiempo mayo a documentar el proyecto. 
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.99\textwidth]{Semana14}
+\caption{Burndown del sprint 12}
+\label{fig:A.2.6}
+\end{figure}
 
 Para esta semana determinamos que las tareas quedaría de esta manera:
 
@@ -208,6 +302,99 @@ Para esta semana determinamos que las tareas quedaría de esta manera:
 La tarea de cambiar la funcionalidad de los botones en los algoritmos hace referencia a que regrese o vaya a una vista u otra dependiendo del botón pulsado o de las acciones asociadas a ello.
 Las mejoras visuales son hechas a mano, como ya he comentado anteriormente, y es por ello que es un trabajo largo, en el que hay que estar compilando continuamente para ver los efectos resultantes, que no siempre son los esperados.
 El inicio de sesión acabó en un ejemplo con varios errores y algo chapucero que sirvió para comprender el funcionamiento por lo que no se mejoró nada en la aplicación.
+
+\subsection{Sprint 13 (10/5/2017 - 17/5/2017)}
+
+Llegados a este punto comenzamos a <<pulir>> lo que tenemos añadiendo estilos con CSS y mejorando pequeños aspectos como es el caso de la vista de los algoritmos. Al resaltar los pasos en un algoritmo, tuvimos la <<necesidad>> de utilizar un RichTextArea para poder manejar el código HTML y poder así subrayarlo. Más tarde nos dimos cuenta de que este tipo de área no se puede inhabilitar para que no se editable y esto se trata de un bug de GWT, la función está pero no hace nada. Otros usuarios también se quejaron de ello. Así que decidimos meterlo todo dentro de un panel como texto normal en HTML, que al fin y al cabo era lo que ya habíamos hecho.
+
+Los issues quedaron definidos así:
+\begin{itemize}
+\item Cambiar las interfaces de las gramáticas.
+\item Incluir nuevos estilos.
+\item Documentar aspectos como la introducción y los conceptos teóricos.
+\item Añadir una nueva clase para hacer la internacionalización.
+\item Solucionar un bug que surgió sobre la vista de los algoritmos.
+\item Aplicar un pequeño ejemplo de inicio de sesión.
+\end{itemize}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.99\textwidth]{Semana15}
+\caption{Burndown del sprint 13}
+\label{fig:A.2.6}
+\end{figure}
+
+Se pudo hacer un ejemplo en un proyecto a parte para hacer un simple inicio de sesión sin base de datos. Para lograr el inicio se hizo por medio de cookies. El objetivo siguiente sería poder aplicar esto a nuestro proyecto pero con una pequeña base de datos en la cual se registraban los usuarios y luego hacían inicio de sesión. Tambien añadimos clases para que encapsularan la internacionalización y poder lanzar mensajes de aviso.
+
+\subsection{Sprint 14 (17/5/2017 - 24/5/2017)}
+
+En el sprint 14, es decir la decimosexta semana, se centraron los esfuerzos sobre todo en hacer un registro e inicio de sesión de usuarios. La idea inicial era la de guardar información de nombre, apellido, un correo que sirviera de identificador único y una contraseña. Para ello se creó una pequeña base de datos, casi podríamos hablar de repositorio. Una vez registrados esos datos el usuario tendría un perfil creado y podría acceder a la aplicación.
+
+Las tareas se centraron en documentar y hacer el registro y sesión de usuarios:
+\begin{itemize}
+\item Añadir un login o inicio se sesión.
+\item Corregir aspectos de la documentación.
+\item Incluir alguna mejora en el menú principal.
+\end{itemize}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.99\textwidth]{Semana16}
+\caption{Burndown del sprint 14}
+\label{fig:A.2.6}
+\end{figure}
+
+Además de esto, surgió un bug o pequeño error con los estilos <<css>>. Consisten en que al hacer diferentes vistas y para ello hacer dos módulos de carga de la aplicación los estilos se solapaban y no se aplicaban bien. El error no tenía mucha complicación y se pudo solucionar sin problema. 
+El registro e inicio de sesión me llevo tiempo, dos sprints el hacer lo básico y otros dos <<pulirlo>> ya que los conceptos en cuanto a carga de módulos, y comunicación RPC eran en parte nuevos. Lo demás fue principalmente documentación, mejorarla y continuar con lo anterior.
+
+\subsection{Sprint 15 (24/5/2017 - 31/5/2017)}
+
+Ya en la semana 17, una vez que tenemos la base de datos haciendo el registro de usuarios nos metemos con la codificación de las contraseñas. Consiste en crear una clave secreta generada por medio de una función con la que ciframos la contraseña para mantener la privacidad de los datos de los usuarios registrados. 
+
+Los <<issues>> para este sprint son:
+\begin{itemize}
+\item Cifrado de contraseñas.
+\item Registro de más información.
+\item Mejorar el aspecto del <<login>>
+\end{itemize}
+
+El registro de más información consiste en añadir a la base de datos la fecha de registro de un usuario o la última vez que inició sesión en la aplicación.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.99\textwidth]{Semana17}
+\caption{Burndown del sprint 15}
+\label{fig:A.2.6}
+\end{figure}
+
+Además de esto, añadimos algunos estilos a las vistas de inicio y registro de sesión aunque posteriormente lo volveremos a modificar, hasta estar a gusto con el diseño.
+
+\subsection{Sprint 16 (/5/2017 - 7/6/2017)}
+
+El sprint número dieciséis no es muy completo, tratamos de pulir un poco lo que tenemos. Para ello limpiamos el código refactorizando y dando nombres a las variables con un sentido más específico, comentando un poco el código y eliminando aquello que no nos es útil. Arreglamos algún <<bug>> que aparece en el renombrado de nodos por ejemplo.
+
+
+Para esta semana las tareas son las siguientes.
+\begin{itemize}
+\item Cifrado de contraseñas.
+\item Validación de e-mail.
+\item Añadir tratamiento de errores en el login.
+\item Refactorizar el código.
+\end{itemize}
+
+Seguimos con el cifrado de contraseñas porque decidimos mejorarlo y dejarlo más claro y con más posibilidades, dependiendo de las iteraciones y de las variables podemos crear un nivel de cifrado más simple o más complejo. 
+
+A su vez comprobamos que la dirección de correo introducida cumpla con la <<plantilla>> de una dirección real. Consiste en hacer una comprobación por medio de HTML y una función en Java bastante simple.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.99\textwidth]{Semana18}
+\caption{Burndown del sprint 16}
+\label{fig:A.2.6}
+\end{figure}
+
+Además de esto añadimos imágenes de fondo, el escudo de la universidad de Burgos en el inicio de sesión y registro de usuarios. Esta semana tiene un poco menos de carga de trabajo porque coincide con fechas de exámenes.
+
 
 \section{Estudio de viabilidad}
 

@@ -1,21 +1,31 @@
 \capitulo{3}{Conceptos teóricos}
 
-Como conceptos teóricos, me veo en la obligación de dar, primero, una definición general de lo que es una <<gramática formal>> antes de pasara a otras cuestiones que, por supuesto, tendrán que ver con esta.
+En mi experiencia como profesor de programación, diseño 3D y robótica para alumnos de primaria, lo primero que les enseñábamos era a definir la programación como el lenguaje de comunicación entre nosotros, los humanos, y los ordenadores o los robots. Todo esto pertenece a los conceptos más puramente teóricos sobre la computación y que es, en sí, la base de la informática. 
 
-Una gramática formal es un mecanismo para la generación de cadenas de caracteres que son admitidas por un determinado lenguaje formal, y que utiliza un conjunto de reglas de formación. Por lo tanto, podemos entenderlo dentro del concepto de las ciencias de la computación y la lógica matemática. Las cadenas de caracteres resultantes son a su vez <<bien formadas>> cuando pertenecen al lenguaje formal con el que se trabaja.
+Pues bien, a <<grosso modo>> el concepto es el mismo ahora. Como cada uno, hombre y máquina, <<habla>> un idioma diferente se debe establecer un lenguaje que sea la vía de comunicación entre ambos. 
+
+Para poder entender todo lo que se va a tratar a continuación, debo explicar primero el concepto de \textit{autómata} o \textit{máquina abstracta}. Un autómata es un modelo matemático o un dispositivo teórico que recibe una cadena de símbolos como entrada y que al procesarla, genera un cambio de estado produciendo una salida determinada. Esta salida pude reconocer palabras y determinar si la entrada pertenece a un determinado lenguaje o no. En el símil anterior digamos que es el corrector, que cuando escribe el humano algo determina si esta bien escrito o no porque no lo va a poder entender el ordenador. 
+
+Entonces ya sabemos que para que haya comunicación entre un ordenador o robot y un humano, tiene que haber un lenguaje y un autómata. Pero también algo más: una gramática.
+
+\section{¿ Qué es una gramática y para qué sirve?}
+
+Una gramática formal es un mecanismo para la generación de cadenas de caracteres que son admitidas por un determinado lenguaje formal, y que utiliza un conjunto de reglas de formación. Por lo tanto, podemos entenderlo dentro del concepto de las ciencias de la computación y la lógica matemática. Las cadenas de caracteres resultantes son a su vez <<bien formadas>> cuando pertenecen al lenguaje formal con el que se trabaja.\cite{aho1986compilers}
+
+¿ Y porque es tan importante? Siguiendo con el ejemplo del principio, la gramática es lo que va a determinar si lo que se introduce en el autómata es correcto o no. Un conjunto de reglas que nos indicará el porque al juntar una serie de caracteres de una forma se van a poder entender.
 
 Por otro lado, la denominación de la gramática formal desde un punto de vista más concreto, de denomina como una cuádrupla compuesta por:
 
 \begin{itemize}
-	\item Un alfabeto de símbolos terminales o tokenes denominado con la letra griega $\Sigma$ .
-	\item  $N$ que es un alfabeto formado por símbolos no terminales
-	\item Un alfabeto de producciones denominado $P$
-	\item Y por último un símbolo llamado axioma o símbolo inicial el cual $S \in N$
+	\item Un alfabeto de símbolos terminales o tókenes denominado con la letra griega $\Sigma$.
+	\item $\mathcal{N}$ que es un alfabeto formado por símbolos no terminales
+	\item Un alfabeto de producciones denominado $\mathcal{P}$.
+	\item Y por último un símbolo llamado axioma o símbolo inicial el cual $\mathcal{S} \in \mathcal{N}$.
 \end{itemize}
 
-El alfabeto total que compone la gramática esta formado, según lo anterior, por $\Sigma \cup N$ , es decir, por el conjunto de los símbolos terminales y no terminales.
+El alfabeto total que compone la gramática esta formado, según lo anterior, por $\Sigma\cup\mathcal{N}$ , es decir, por el conjunto de los símbolos terminales y no terminales.
 
-Pongamos un ejemplo de una gramática simple y veamos de que esta formada. Se suele utilizar el sistema de notación  \[x \rightarrow y\] \[z \rightarrow w\] para indicar una o varias producciones, en vez de \[(x, y) \in P \] \[(z, w) \in P \] siendo $P$ el conjunto de producciones.
+Pongamos un ejemplo de una gramática simple y veamos de que esta formada. Se suele utilizar el sistema de notación  \[x \rightarrow y\] \[z \rightarrow w\] para indicar una o varias producciones, en vez de \[(x, y) \in \mathcal{P} \] \[(z, w) \in \mathcal{P} \] siendo $\mathcal{P}$ el conjunto de producciones.
 
 Por otro lado si hay más de una producción que comience con el mismo elemento la notación sería de esta forma \[ x \rightarrow y | z | w\] en lugar de ser \[ x \rightarrow y, x \rightarrow z, x \rightarrow w\]
 
@@ -26,7 +36,7 @@ En aquellos proyectos que necesiten para su comprensión y desarrollo de unos co
 
 Algunos conceptos teóricos de \LaTeX \footnote{Créditos a los proyectos de Álvaro López Cantero: Configurador de Presupuestos y Roberto Izquierdo Amo: PLQuiz}.
 
-\section{Secciones}
+\section{Cifrado}
 
 Las secciones se incluyen con el comando section.
 
