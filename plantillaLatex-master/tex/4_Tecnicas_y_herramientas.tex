@@ -1,32 +1,60 @@
 \capitulo{4}{Técnicas y herramientas}
 
-Dentro de las diferentes herramientas que utilizaré para la realización de este trabajo, la más esencial es aquella con la cual, realizaré la conversión a JavaScript. Es por ello esencial hacer una buena elección comparando y analizando la diferentes posibilidades a elegir.
+Dentro de las diferentes herramientas que utilizaré para la realización de este trabajo, la más importante es aquella con la cual, realizaré la conversión a JavaScript. Es por ello esencial hacer una buena elección comparando y analizando la diferentes posibilidades a elegir.
 
-Como principales herramientas para la conversión de Java a JavaScript he podido encontrar GWT (Google Web Toolkit), JSweet y DukeScript aunque también hay otras de las que hablaré más adelante. Comenzaré por GWT.
+Como principales herramientas para la conversión de Java a JavaScript he podido encontrar GWT (Google Web Toolkit), JSweet, WebSwing, Vaadin y DukeScript aunque también hay otras que descartamos por su poco relevancia o información.
 
-\section{GWT:}
+\section{GWT}
 
-Google Web Toolkit es un framework ampliamente conocido por los desarrolladores web, entre otras cosas, gracias a ser de código abierto, de su gran utilidad y calidad además de ser completamente gratuito \footnote{http://www.gwtproject.org/}.
+Google Web Toolkit es un framework ámpliamente conocido por los desarrolladores web, entre otras cosas, gracias a ser de código abierto, de su gran utilidad y calidad además de ser completamente gratuito \footnote{\url{http://www.gwtproject.org/}}.
 Contiene una SDK que proporciona un conjunto de APIs de Java que permiten el desarrollo de aplicaciones AJAX escritas en Java. Posteriormente compila el código en JavaScript ya optimizado dando robustez a la aplicación web.
 
 Básicamente, permite a los desarrolladores compilar código JAVA en archivos JavaScript ya optimizados de forma autónoma, proporcionando así todas las ventajas de las aplicaciones escritas en este último lenguaje. 
 
 GWT permite compartir código escrito en Java en la parte del servidor con código JavaScript en la parte del cliente lo que nos lleva pensar que la aplicación resultante será fiel a la idea inicial del Thoth. 
 
+Nos decantamos por GWT porque, a parte de que supone un aprendizaje para mí como alumno, también es la base de otros frameworks de los que más tarde hablaré. Ha sido muy utilizado anteriormente y ahora está digamos que en decadencia. El soporte actual es mínimo y sobre todo en el tema visual anda algo anticuado. En el desarrollo del proyecto hemos llegado a ver  y probar <<bugs>> que según otros usuarios ya descubrieron hace un par de años.
 
-\section{JSweet:}
+Aun así, hay bastante información con la que he podido trabajar, y una comunidad grande, que aunque ahora se ha <<pasado>> a otros frameworks más actuales, han dejado huella y soluciones a muchos de los problemas con los que he trabajado.
 
-JSweet\footnote{http://http://www.jsweet.org/} es básicamente un <<transpiler>> es decir un compilador que traduce un código en un lenguaje a otro lenguaje. Al igual que GWT esta orientado a objetos, que proporciona una programación segura gracias a que usa un sistema de <<tipado>> Java.
+\section{WebSwing}
 
-La diferencia fundamental con GWT es que al ser un <<transpiler>> hace una traducción directa entre Java y JavaScript posicionando el código a un lado o al otro del Cliente y el servidor. Esto, claramente, tiene sus ventajas y sus inconvenientes dependiendo del uso que se le quiera dar.
+En cuanto a esta herramienta, es algo diferente a las demás. WebSwing la descubrimos debido a una duda que nos surgió a al principio del proyecto. Y es que la aplicación Thoth original cuenta con muchísimos elementos de la biblioteca gráfica <<Swing>>, es digamos toda la estructura visual que utiliza. El problema surgió que con GWT no podemos hacer uso de ella ya que al ser algo visual debe ir en la parte del cliente y como ya hemos mencionado, en el cliente, que es donde se hace la traducción a JavaScript, las librerías de Java para desarrollar son muy limitadas. 
 
-\section{DukeScript:}
+Pues bien al buscar una alternativa, descubrimos WebSwing. Se trata de un servidor web que permite la ejecución de aplicaciones que utilicen la biblioteca gráfica Swing desde el navegador, utilizando sólo HTML5. De esta forma toda la aplicación de Thoth se ejecutaría en el navegador conservando su aspecto de siempre y manteniendo las ventajas de una aplicación web.
 
-Se define así mismo como una tecnología para la creación de aplicaciones Java <<multiplataforma>> que internamente hacen uso de tecnologías HTML5 y JavaScript para el renderizado.\footnote{https://dukescript.com/} 
-Al igual que en los casos anteriores <<sólo>> se necesita desarrollar la aplicación en Java para después transformarla. Y digo <<sólo>> porque eso es en la teoría ya que como hemos podido ver, y en parte es lógico, la traducción no suele requerir, por lo menos, realizar ajustes del lenguaje para un buen funcionamiento.
+En vez de utilizar JavaScript utiliza HTML5, cumpliendo además el objetivo principal del proyecto, que es llevar Thoth a la web.
 
-DukeScript se centra sobre todo en el desarrollo de aplicaciones <<multiplataforma>> llevadas a cabo en Java, más que en el paso de Java a JavaScript. Da la posibilidad de que alguien con conocimientos, digamoslo así, en Java pueda llevar a cabo un proyecto en lenguajes pensados para aplicaciones móviles o web. Esto no quita que se puedan realizar aplicaciones de escritorio con JavaScript.
+La cuestión es que el utilizar esta herramienta no supone ningún reto como informático y facilitaría tanto el proyecto que este quedaría en nada más que unas simples mejoras de Thoth hechas con poco desarrollo. Por lo tanto la descartamos después de haberla probado.
 
-\section{Vaadin:}
+\section{JSweet} 
 
-Vaadin en un <<framework>> de Java de código abierto, para crear aplicaciones web \footnote{https://vaadin.com/home}. Se programa en Java o cualquier otro lenguaje de JVM.
+JSweet\footnote{\url{http://http://www.jsweet.org/}}es básicamente un <<transpiler>> es decir un compilador que traduce un código en un lenguaje a otro lenguaje. Al igual que GWT esta orientado a objetos, que proporciona una programación segura gracias a que usa un sistema de <<tipado>> Java.
+
+La diferencia fundamental con GWT es que al ser un <<transpiler>> hace una traducción directa entre Java y JavaScript posicionando el código a un lado o al otro del Cliente y el servidor. Esto, claramente, tiene sus ventajas y sus inconvenientes dependiendo del uso que se le quiera dar. 
+
+porque no queriamos esto
+
+\section{DukeScript}
+
+Se define como una tecnología para la creación de aplicaciones Java <<multiplataforma>> que internamente hacen uso de tecnologías HTML5 y JavaScript para el renderizado.\footnote{\url{https://dukescript.com/}}
+Al igual que en los casos anteriores <<sólo>> se necesita desarrollar la aplicación en Java para después transformarla. Y digo <<sólo>> porque eso es en la teoría ya que como hemos podido ver, y en parte es lógico, la traducción suele requerir, por lo menos, realizar ajustes del lenguaje para un buen funcionamiento.
+
+DukeScript se centra sobre todo en el desarrollo de aplicaciones <<multi-plataforma>> llevadas a cabo en Java, más que en el paso de Java a JavaScript. Da la posibilidad de que alguien con conocimientos, digamoslo así, en Java pueda llevar a cabo un proyecto en lenguajes pensados para aplicaciones móviles o web. Esto no quita que se puedan realizar aplicaciones de escritorio con JavaScript.
+
+---añadir más---
+
+\section{Vaadin}
+
+Vaadin en un <<framework>> de Java de código abierto, para crear aplicaciones web \footnote{\url{https://vaadin.com/home}}. Se programa en Java o cualquier otro lenguaje de JVM. Lo mas destacado de Vaadin es que esta construido sobre una base de GWT, por ello es una de las grandes alternativas a este último. La forma de trabajar con Vaadin es mediante el lenguaje Java e incorpora un lado cliente y otro servidor, el el cual irán las funcionalidades más complejas y su programación es dirigida por eventos. Es decir, hasta aquí es igual a GWT.
+
+Las mejoras con respecto a GWT son varias, pero voy a mencionar solo aquellas que son más relevantes para este proyecto. Cuenta sobre todo con muchos elementos visuales, mejorados y con diseños más actuales. La parte visual es tan importante en Vaadin que incluyen un <<diseñador>> o <<designer>> en inglés, en le puggin de Eclipse que facilita mucho la creación de la parte visual ya que da la posibilidad de hacer el diseño de forma visual.
+
+En realidad la mayor parte de los elementos visuales, menús, <<boards>>, diagramas estadísticos, iconos etc, están pensados sobre todo para un uso comercial orientado sobre todo para empresas. Por ello, el problema principal es que para poder hacer uso de su potencial se necesitan licencias de pago.
+
+Aunque cuenta con un núcleo de elementos gratuitos y periodos de prueba también gratuitos, decidimos seguir nuestro camino, por llamarlo así, con GWT y hacerlo completamente de esta forma.
+
+tecnicas de cifrado? 
+de mantenimiento de session?
+subrayado con HTML?
+cifrado?

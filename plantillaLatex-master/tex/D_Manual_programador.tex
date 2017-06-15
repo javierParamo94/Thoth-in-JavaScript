@@ -8,7 +8,7 @@
 \section{Manual del programador}
 
 
-\section{Instalación y configuración de GWT:}
+\subsection{Instalación y configuración de GWT:}
 
 
 Para poder trabajar con GWT \url{http://www.oracle.com/technetwork/java/javase/downloads/index.html}, se debe descargar el SDK de GWT proporcionado en la página web oficial. Los requisitos previos para crear un aplicación web con Google Web Toolkit son básicamente dos: tener instalada la SDK de Java en su versión 1.6 o cualquiera superior a esta y tener instalado también Apache Ant o en su defecto Apache Maven.
@@ -32,6 +32,41 @@ El <<plugin>> de GWT es sencillo de utilizar y solo con hacer click en <<New Web
 Los proyectos en GWT se componen de una parte cliente y otra servidor. He creado un proyecto con sólo la parte del cliente, la cual es la más importante. En el paquete <<src/client>> he incluido la clase principal que llamará a las otras. En realidad no se si esto es correcto al cien por cien.
 Solución del error del  <<prefuse>> es descargando de la página oficial \footnote{http://prefuse.org/} el proyecto, incluyo el paquete prefuse y añado, desde <<Java Build Path>> la librería  <<lucene>> porque es necesaria para algunas clases del paquete. Inicialmente muestra unos errores del tipo <<did you forget to inherit a required module?>> referente a que dentro del proyecto, la clase con extensión .gwt.xml no incluye algunas de las rutas de los recursos que utilizo. No estiendo muy bien el error. (continuar con la explicación)
 
+
+ 
+\subsection{Parser JavaCC}
+GWT esta compuesto por una parte cliente que es la que será traducida a JavaScript y otra servidor escrita en Java. Lo ideal en una aplicación de este estilo sería incluir todo en el lado del cliente y olvidarse del resto, traduciendo todo a JavaScript para una ejecución fluida en la web. El caso es, que como no es fácil traducir de un lenguaje a otro, hay partes del Thoth antiguo que no pueden ir en el lado del cliente y por consiguiente traducirse a dicho lenguaje. Una de estas partes es el parser JavaCC.
+
+Originalmente en el núcleo de Thoth dentro del directorio <<grammar>> colgaba un sub-directorio llamado <<parserjavacc>> en el cual se encontraba el parser para la gramática. Es la parte más importante dentro de la gramática ya que permite reconocer si esta está bien construida o no.
+Ahora no procede explicar que es, pero si en que ha cambiado esta versión con respecto a la anterior. 
+Para poder incluir esa parte en el proyecto decidimos hacerlo en el lado del servidor, ya que al no hacerse la traducción no habría ningún problema. Ahora bien lo más complicado de todo esto es la comunicación entre esas dos partes.
+
+
+
+\subsection{Comunicación cliente-servidor}
+Una vez alojado en el servidor el parser habrá que establecer una comunicación entre la parte del ciente en la que habrá un método que llame a la funcionalidad que se desee del servidor.
+
+Para hacerlo, GWT utiliza la técnica denominada por sus siglas en inglés RPC o llamada de procedimiento remoto (Remote Procedure Call) que tiene una estructura similar a esta: 
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.65\textwidth]{RPC}
+\caption{Arquitectura RPC simple.}
+\label{fig:5.1}
+\end{figure}
+
+Del lado del cliente tenemos, en este caso, una interfaz gráfica de usuario (GUI), una clase dedicada a hacer las llamadas RPC (ClienImpl), dos interfaces que definen los métodos (Service y ServiceAsync), una clase con los métodos en el lado del servidor (serviceImpl) y por último una interfaz, que no es esencialmente necesaria (ClientInterface). 
+
+En términos generales, para utilizar el parser de la gramática, que es quizá la clave de todo, hay que llamar al servidor y establecer una comunicación. Es ahí donde utilizamos la clase <<GrmmarServiceClientImp>> que hace las llamadas a las interfaces necesarias hasta llegar al servidor. Esta clase es un nexo de unión entre la parte del núcleo, que ese encuentra en el servidor y la parte del cliente que contiene lo visual y las acciones de los botones entre otros. La comunicación queda representada en este diagrama.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.65\textwidth]{ParserDiagram}
+\caption{Diagrama sobre la comunicación entre el cliente y el servidor.}
+\label{fig:5.1}
+\end{figure}
+
+Dentro de la clase <<GrammarServiceClientImp>> he creado dos constructores, uno al que le paso una url y otro una url y además una gramática para que construya, valga la redundancia, una nueva interfaz gráfica de usuario con dicha gramática. La url es simplemente la localización del <<servlet>> para la comunicación.
 
 
 \section{Compilación, instalación y ejecución del proyecto}
