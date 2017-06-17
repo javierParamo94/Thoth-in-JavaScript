@@ -42,8 +42,6 @@ Al igual que en los casos anteriores <<sólo>> se necesita desarrollar la aplica
 
 DukeScript se centra sobre todo en el desarrollo de aplicaciones <<multi-plataforma>> llevadas a cabo en Java, más que en el paso de Java a JavaScript. Da la posibilidad de que alguien con conocimientos, digamoslo así, en Java pueda llevar a cabo un proyecto en lenguajes pensados para aplicaciones móviles o web. Esto no quita que se puedan realizar aplicaciones de escritorio con JavaScript.
 
----añadir más---
-
 \section{Vaadin}
 
 Vaadin en un <<framework>> de Java de código abierto, para crear aplicaciones web \footnote{\url{https://vaadin.com/home}}. Se programa en Java o cualquier otro lenguaje de JVM. Lo mas destacado de Vaadin es que esta construido sobre una base de GWT, por ello es una de las grandes alternativas a este último. La forma de trabajar con Vaadin es mediante el lenguaje Java e incorpora un lado cliente y otro servidor, el el cual irán las funcionalidades más complejas y su programación es dirigida por eventos. Es decir, hasta aquí es igual a GWT.
@@ -53,6 +51,18 @@ Las mejoras con respecto a GWT son varias, pero voy a mencionar solo aquellas qu
 En realidad la mayor parte de los elementos visuales, menús, <<boards>>, diagramas estadísticos, iconos etc, están pensados sobre todo para un uso comercial orientado sobre todo para empresas. Por ello, el problema principal es que para poder hacer uso de su potencial se necesitan licencias de pago.
 
 Aunque cuenta con un núcleo de elementos gratuitos y periodos de prueba también gratuitos, decidimos seguir nuestro camino, por llamarlo así, con GWT y hacerlo completamente de esta forma.
+
+\section{Herramientas para el cifrado de contraseñas}
+librerias utilizadas para el cifrado, para el login etc
+
+
+En este programa utilizamos una técnica muy simple, que mejora un poco este aspecto. Sabemos que existen técnicas más avanzadas que lo que hacen, sobre todo, es aumentar mucho los tiempos de procesado en los ataques por fuerza bruta por ejemplo, pero no queríamos centrarnos mucho en ese tema además de que percibimos un ralentizado a la hora de registrar a un usuario ya que cifrar la contraseña requiere un mayor tiempo de ejecución.
+
+
+
+La técnica que empleamos es se conoce como el cifrado hash con sal o semilla (según su traducción del inglés, hashing with salt). Consiste en añadir un conjunto de caracteres aleatorio y concatenarlo a la contraseña y una vez hecho esto, cifrarlo con la función hash. De esta manera se consigue que la contraseña sea mucho más aleatoria que la que inicialmente ha introducido el usuario. Además de forma transparente para él. Para generar el salt en Java contamos con el paquete <<security>> y la clase <<SecureRandom>> especificando el tamaño del salt. 
+
+Por otro lado, para hacer la autentificación del usuario se debe almacenar en la base de datos tanto el salt como el hash generado. Cuando el usuario introduce la contraseña para iniciar sesión, internamente se añade el salt a la contraseña introducida, se cifra con el mismo método y se comparan. Si coinciden, accederá a la aplicación, sino, deberá introducir de nuevo los datos necesarios.
 
 tecnicas de cifrado? 
 de mantenimiento de session?
