@@ -1,69 +1,89 @@
 /** Add css rules here for your application. */
-
-
 /** Example rules used by the template application (remove for your app) */
 h1 {
-  font-size: 2em;
-  font-weight: bold;
-  color: #777777;
-  margin: 40px 0px 70px;
-  text-align: center;
+	font-size: 2em;
+	font-weight: bold;
+	color: #777777;
+	margin: 40px 0px 70px;
+	text-align: center;
 }
 
 input[type=text] {
-	background-color : #d8ecf3;
-    width: 100%;
-    padding: 10px 50px;
-    margin: 0.2px 0;
-    display: inline-block;
-    border: 1px solid #000000;
-    border-radius: 4px;
-    font-size-adjust: none;
-    font-weight: bold;
+	background-color: #d8ecf3;
+	width: 100%;
+	padding: 10px 50px;
+	margin: 0.2px 0;
+	display: inline-block;
+	border: 1px solid #000000;
+	border-radius: 4px;
+	font-size-adjust: none;
+	font-weight: bold;
 }
 
-/* Texto de las gramática*/
-.Grammar-Text{
-	font-size: 15px;
+/*body {
+background: url('/images/Fondo.jpeg');
+	-webkit-background-size: xx-large;
+	-moz-background-size: xx-large;
+	-o-background-size: xx-large;
+	background-attachment: fixed;
+	background-position: center;
+}
+*/
+.InputWrite {
+	background-color: #ff80c0;
+	width: 100%;
+	padding: 10px 50px;
+	margin: 0.2px 0;
+	display: inline-block;
+	border: 1px solid #000000;
+	border-radius: 4px;
+	font-size-adjust: none;
+	font-weight: bold;
 }
 
 /*Texto de los paneles*/
-.Panel-Text{
+.Panel-Text {
 	font: bolder;
 	font-size: 18px;
-	margin: 0.5em; 
+	margin: 0.5em;
 }
+
 
 .gwt-MenuBar .gwt-MenuItem {
-   cursor: default;
-   font-family: fantasy;
-   font-size: 14px;
-   color: gray;
+	cursor: default;
+	font-family: fantasy;
+	font-size: 14px;
+	color: gray;
+	
+		padding: 5px 10px;
+	vertical-align: bottom;
+	color: #000;
+	font-weight: bold;
 }
-
+/*
 .gwt-MenuBar-horizontal .gwt-MenuItem {
-   padding: 5px 10px;
-   vertical-align: bottom;
-   color: #000;
-   font-weight: bold;  
-}
+	padding: 5px 10px;
+	vertical-align: bottom;
+	color: #000;
+	font-weight: bold;
+}*/
 
 .gwt-MenuBar-horizontal .gwt-MenuItemSeparator {
-   width: 1px;
-   padding: 0px;
-   margin: 0px;
-   border: 0px;
-   border-left: 1px solid #ccc;
-   background: white;
+	width: 1px;
+	padding: 0px;
+	margin: 0px;
+	border: 0px;
+	border-left: 1px solid #ccc;
+	background: white;
 }
 
 .gwt-MenuBar-vertical .subMenuIcon-selected {
-   background: #E3E8F3;
+	background: #E3E8F3;
 }
 
 .sendButton {
-  display: block;
-  font-size: 16pt;
+	display: block;
+	font-size: 16pt;
 }
 
 /* stock list flex table */
@@ -80,54 +100,47 @@ input[type=text] {
 
 /* Estilo de las celdas de la flextable*/
 .FlexTable-ColumnLabelCell {
-  border-width: 0 0 2px 0;
-  border-style: solid;
-  border-color: white;
-  margin: 0;
-  border: 1px solid #BBBBBB;
-  padding: 3px;
-  text-align: center;
-  /*vertical-align: middle;*/
+	border-width: 0 0 2px 0;
+	border-style: solid;
+	border-color: white;
+	margin: 0;
+	border: 1px solid #BBBBBB;
+	padding: 3px;
+	text-align: center;
+	/*vertical-align: middle;*/
 }
 
 /** Most GWT widgets already have a style name defined */
 .gwt-DialogBox {
-  width: 400px;
+	width: 400px;
 }
 
 .dialogVPanel {
-  margin: 5px;
+	margin: 5px;
 }
 
 .serverResponseLabelError {
-  color: red;
-}
-
-
-#closeButton {
-  margin: 15px 6px 6px;
+	color: red;
 }
 
 .gwt-TextArea {
-     font-weight: bold;
+	font-weight: bold;
 }
 
 .gwt-RichTextArea {
 	background-color: wite;
-	font: "Verdana", sans-serif ;
-	
+	font: "Verdana", sans-serif;
 }
 /* Estilo del dockpanel con una separacion de 3px */
 .dockpanel td {
-   padding: 3px;
-   /*background-color: #dfefff;*/
+	padding: 3px;
+	/*background-color: #dfefff;*/
 }
 
-.gwt-Big-Text{
+.gwt-Big-Text {
 	padding: 3px;
 	background-color: #e6e6e6;
 	border: 1px solid #808080;
 	margin-top: 7px;
 	margin: 10px 10px 10px;
 }
-
