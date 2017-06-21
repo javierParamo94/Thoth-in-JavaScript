@@ -2,11 +2,11 @@
 
 \section{Introducción}
 
-En esta sección se definirán los requisitos de la aplicación así como los objetivos de una forma más esquemática y concreta que en otros apartados. De esta manera se puede ver en que dirección va orientado el proyecto y porque se ha elegido cada uno de acuerdo a los requisitos.
+En esta sección se definen los requisitos de la aplicación así como los objetivos de una forma más esquemática y concreta que en otros apartados. De esta manera se puede ver en que dirección va orientado el proyecto y por qué se ha elegido cada uno de acuerdo a los requisitos.
 
 \section{Objetivos generales}
 
-Estos has sido los principales objetivos del proyecto según la línea de tiempo.
+Estos han sido los principales objetivos del proyecto según la línea de tiempo. Primero creamos un prototipo cliente-servidor para ir conociendo el funcionamiento y una vez entendido, pasar a construir la aplicación con la definición de la gramática. En la construcción de la aplicación se necesita haber entendido el prototipo porque ya ahí se aplica la funcionalidad del cliente y del servidor. Más tarde se van incluyendo los algoritmos sobre las gramáticas formales. Por último, una vez se ha construido la parte esencial de la aplicación podemos centrarnos en crear un registro e inicio de sesión de usuarios.
 
 \subsection{Crear un prototipo de aplicación cliente-servidor con GWT}
 
@@ -15,20 +15,20 @@ El objetivo de crearlo es el de poder ver el funcionamiento, comunicación y pro
 \item El lado del cliente y el compartido (shared) son los que se traducen al lenguaje JavaScript y los ficheros se crean dentro de un directorio <<war>>.
 \item El lado del cliente tiene ciertas limitaciones y no acepta todo tipo de librerías de Java. 
 \item La comunicación entre cliente y servidor es por medio de llamadas de procedimiento remoto o RPC.
-\item Parte de la aplicación debe ir indudablemente en el servidor y comunicarse con el cliente para mostrar los resultados 
+\item Parte de la aplicación debe ir indudablemente en el servidor y comunicarse con el cliente para mostrar los resultados.
 \end{itemize}
 
 Este primer objetivo es fundamental y marca las posibilidades reales que ofrece GWT de cara a este proyecto.
 
 \subsection{Construir la aplicación con la definición de gramática}
 
-Consiste en hacer ya el comienzo de la aplicación empezando por la <<definición de gramática>> que es la parte de Thoth en la que se introduce un a gramática en un recuadro de texto y el programa es capaz de identificarla y mostrar sus propiedades. Para ello es necesario haber logrado en objetivo anteriormente descrito, ya que se necesita alojar en el servidor el <<parser>> de la gramática y hacerle peticiones desde el cliente para interpretarla y mostrar sus propiedades.
+Consiste en hacer ya el comienzo de la aplicación empezando por la <<definición de gramática>> que es la parte de Thoth en la que se introduce una gramática en un campo de texto y el programa es capaz de identificarla y mostrar sus propiedades. Para ello es necesario haber logrado en objetivo anteriormente descrito, ya que se necesita alojar en el servidor el <<parser>> de la gramática y hacerle peticiones desde el cliente para interpretarla y mostrar sus propiedades.
 
-Es el comienzo de la aplicación y la base sobre la que trabajar posteriormente ya que para implementar los algoritmos es necesario tener definida una gramática.
+Es el comienzo de la aplicación y la base sobre la que trabajar posteriormente, ya que para implementar los algoritmos es necesario tener definida una gramática.
 
 \subsection{Construir los algoritmos sobre gramáticas}
 
-El objetivo es implementar cada unos de los algoritmos que se aplican sobre una gramática en Thoth. Es una de las utilidades más importantes de esta aplicación y la cuál otorga mas posibilidades a los usuarios. Esta compuesta por los algoritmos siguientes:
+El objetivo es implementar cada uno de los algoritmos que se aplican sobre una gramática en Thoth. Es una de las utilidades más importantes de esta aplicación y la cual otorga mas posibilidades a los usuarios. Esta compuesta por los algoritmos siguientes:
 
 \begin{itemize}
 \item Eliminación de símbolos no terminales.
@@ -44,16 +44,16 @@ El objetivo es implementar cada unos de los algoritmos que se aplican sobre una 
 
 Hay además dos funcionalidades que engloban varios de estos algoritmos como son la de limpiar gramática y eliminar recursividad.
 
-Varois de ellos tienen la particularidad de que su ejecución esta hecha paso a paso, señalando dichos pasos con un resaltado con colores.
+Varios de ellos tienen la particularidad de que su ejecución esta hecha paso a paso, señalando dichos pasos con un resaltado con colores.
 
 \subsection{Construir un registro de usuarios}
 
-Es el objetivo puesto en último lugar debido a que la prioridad principal era que la aplicación funcionase correctamente y una vez conseguido añadir funcionalidades asociadas a ella. Consiste en, por medio de la aplicación cliente-servidor, hacer una base de datos con los usuarios que se conecten a la aplicación una vez que hayan sido registrados.
+Es el objetivo puesto en último lugar debido a que la prioridad principal era que la aplicación funcionase correctamente y, una vez conseguido esto, añadir funcionalidades asociadas a ella. Consiste en, por medio de la aplicación cliente-servidor, hacer una base de datos con los usuarios que se conecten a la aplicación una vez que hayan sido registrados.
 
 Se comprueba que los datos introducidos cumplen una serie de requisitos y se debe rellenar una información que se almacena en la base de datos.
 El fin de este registro es para obtener información de quienes accedan a la aplicación y poder así analizar por ejemplo cuantos usuarios han hecho uso de ella.
 
-\section{Catalogo de requisitos}
+\section{Catálogo de requisitos}
 
 \section{Especificación de requisitos}
 

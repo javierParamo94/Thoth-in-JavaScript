@@ -1,15 +1,17 @@
 \capitulo{4}{Técnicas y herramientas}
 
-Dentro de las diferentes herramientas que utilizaré para la realización de este trabajo, la más importante es aquella con la cual, realizaré la conversión a JavaScript. Es por ello esencial hacer una buena elección comparando y analizando la diferentes posibilidades a elegir.
+Dentro de las diferentes herramientas que utilizaré para la realización de este trabajo, la más importante es aquella con la cual realizaré la conversión a JavaScript. Es por ello esencial hacer una buena elección comparando y analizando la diferentes posibilidades a elegir.
 
-Como principales herramientas para la conversión de Java a JavaScript he podido encontrar GWT (Google Web Toolkit), JSweet, WebSwing, Vaadin y DukeScript aunque también hay otras que descartamos por su poco relevancia o información.
+Como principales herramientas para la conversión de Java a JavaScript he podido encontrar GWT (Google Web Toolkit), JSweet, WebSwing, Vaadin y DukeScript. Aunque también hay otras que descartamos por su poca relevancia o información.
 
 \section{GWT}
 
-Google Web Toolkit es un framework ámpliamente conocido por los desarrolladores web, entre otras cosas, gracias a ser de código abierto, de su gran utilidad y calidad además de ser completamente gratuito \footnote{\url{http://www.gwtproject.org/}}.
-Contiene una SDK que proporciona un conjunto de APIs de Java que permiten el desarrollo de aplicaciones AJAX escritas en Java. Posteriormente compila el código en JavaScript ya optimizado dando robustez a la aplicación web.
+Google Web Toolkit es un framework ampliamente conocido por los desarrolladores web, entre otras cosas, gracias a ser de código abierto, de su gran utilidad y calidad además de ser completamente gratuito \footnote{\url{http://www.gwtproject.org/}}.
+Contiene una SDK que proporciona un conjunto de APIs de Java que permiten el desarrollo de aplicaciones AJAX (Asynchronous JavaScript And XML) escritas en Java. Posteriormente compila el código en JavaScript ya optimizado dando rapidez a la aplicación web. 
 
-Básicamente, permite a los desarrolladores compilar código JAVA en archivos JavaScript ya optimizados de forma autónoma, proporcionando así todas las ventajas de las aplicaciones escritas en este último lenguaje. 
+AJAX es una técnica que se emplea en el desarrollo web, para ejecutar aplicaciones en el lado del cliente en el navegador, comunicándose de manera asíncrona con el servidor. Todas las comunicaciones que se hacen en GWT por medio de RPC son asíncronas, esto quiere decir que las peticiones no se bloquean unas a otras mientras están esperando respuesta, y una vez recibidas, se ejecutan en segundo plano.
+
+Básicamente, permite a los desarrolladores compilar código Java en archivos JavaScript ya optimizados de forma autónoma, proporcionando así todas las ventajas de las aplicaciones escritas en este último lenguaje. 
 
 GWT permite compartir código escrito en Java en la parte del servidor con código JavaScript en la parte del cliente lo que nos lleva pensar que la aplicación resultante será fiel a la idea inicial del Thoth. 
 
@@ -19,9 +21,9 @@ Aun así, hay bastante información con la que he podido trabajar, y una comunid
 
 \section{WebSwing}
 
-En cuanto a esta herramienta, es algo diferente a las demás. WebSwing la descubrimos debido a una duda que nos surgió a al principio del proyecto. Y es que la aplicación Thoth original cuenta con muchísimos elementos de la biblioteca gráfica <<Swing>>, es digamos toda la estructura visual que utiliza. El problema surgió que con GWT no podemos hacer uso de ella ya que al ser algo visual debe ir en la parte del cliente y como ya hemos mencionado, en el cliente, que es donde se hace la traducción a JavaScript, las librerías de Java para desarrollar son muy limitadas. 
+En cuanto a esta herramienta, es algo diferente a las demás. WebSwing \footnote{\url{http://webswing.org/}} la descubrimos debido a una duda que nos surgió a al principio del proyecto. Y es que la aplicación Thoth original cuenta con muchísimos elementos de la biblioteca gráfica <<Swing>>, es digamos toda la estructura visual que utiliza. El problema surgió que con GWT no podemos hacer uso de ella ya que al ser algo visual debe ir en la parte del cliente y como ya hemos mencionado, en el cliente, que es donde se hace la traducción a JavaScript, las librerías de Java para desarrollar son muy limitadas. 
 
-Pues bien al buscar una alternativa, descubrimos WebSwing. Se trata de un servidor web que permite la ejecución de aplicaciones que utilicen la biblioteca gráfica Swing desde el navegador, utilizando sólo HTML5. De esta forma toda la aplicación de Thoth se ejecutaría en el navegador conservando su aspecto de siempre y manteniendo las ventajas de una aplicación web.
+Se trata de un servidor web que permite la ejecución de aplicaciones que utilicen la biblioteca gráfica Swing desde el navegador, utilizando sólo HTML5. De esta forma toda la aplicación de Thoth se ejecutaría en el navegador conservando su aspecto de siempre y manteniendo las ventajas de una aplicación web.
 
 En vez de utilizar JavaScript utiliza HTML5, cumpliendo además el objetivo principal del proyecto, que es llevar Thoth a la web.
 
@@ -29,38 +31,65 @@ La cuestión es que el utilizar esta herramienta no supone ningún reto como inf
 
 \section{JSweet} 
 
-JSweet\footnote{\url{http://http://www.jsweet.org/}}es básicamente un <<transpiler>> es decir un compilador que traduce un código en un lenguaje a otro lenguaje. Al igual que GWT esta orientado a objetos, que proporciona una programación segura gracias a que usa un sistema de <<tipado>> Java.
+JSweet\footnote{\url{http://http://www.jsweet.org/}} es básicamente un <<transpiler>>, es decir, un compilador que traduce un código en un lenguaje a otro lenguaje. Al igual que GWT esta orientado a objetos, que proporciona una programación segura gracias a que usa un sistema de <<tipado>> Java.
 
 La diferencia fundamental con GWT es que al ser un <<transpiler>> hace una traducción directa entre Java y JavaScript posicionando el código a un lado o al otro del Cliente y el servidor. Esto, claramente, tiene sus ventajas y sus inconvenientes dependiendo del uso que se le quiera dar. 
 
-porque no queriamos esto
+Sin embargo descartamos JSweet por varias razones. En primer lugar porque su traducción de Java a JavaScript es muy literal y no es lo que buscábamos ya que de esa forma perderíamos mucha información.	No reconoce las librerías utilizadas en Thoth. Nos pareció más útil utilizar un cliente servidor en GWT en el cual se pudiera comunicar vía RPC el cálculo del parser. Es decir, con JSweet deberíamos haber reescrito el parser de una forma muchísimo más compleja para que JSweet lo pudiera interpretar y eso hubiera llevado mucho más tiempo. Está mucho mas centrado en el desarrollo en JavaScript en vez de en Java, lo que no nos serviría para poder aprovechar el trabajo de Thoth ya hecho. Recordemos que Thoth esta compuesto por dos versiones, hechas en grupos de dos alumnos y rehacer la aplicación en JavaScript sería una tarea muy costosa.
+
+GWT en comparación, cuenta con una comunidad y un soporte bastante más completo, y pensado para desarrolladores Java, con una gran documentación acerca de su uso e implementación.
 
 \section{DukeScript}
 
-Se define como una tecnología para la creación de aplicaciones Java <<multiplataforma>> que internamente hacen uso de tecnologías HTML5 y JavaScript para el renderizado.\footnote{\url{https://dukescript.com/}}
+Se define como una tecnología para la creación de aplicaciones Java <<multi-plataforma>> que internamente hacen uso de tecnologías HTML5 y JavaScript para el renderizado.\footnote{\url{https://dukescript.com/}}
 Al igual que en los casos anteriores <<sólo>> se necesita desarrollar la aplicación en Java para después transformarla. Y digo <<sólo>> porque eso es en la teoría ya que como hemos podido ver, y en parte es lógico, la traducción suele requerir, por lo menos, realizar ajustes del lenguaje para un buen funcionamiento.
 
-DukeScript se centra sobre todo en el desarrollo de aplicaciones <<multi-plataforma>> llevadas a cabo en Java, más que en el paso de Java a JavaScript. Da la posibilidad de que alguien con conocimientos, digamoslo así, en Java pueda llevar a cabo un proyecto en lenguajes pensados para aplicaciones móviles o web. Esto no quita que se puedan realizar aplicaciones de escritorio con JavaScript.
+DukeScript se centra sobre todo en el desarrollo más que en el paso de Java a JavaScript. Da la posibilidad de que alguien con conocimientos, digamoslo así, en Java pueda llevar a cabo un proyecto en lenguajes pensados para aplicaciones móviles o web. Esto no quita que se puedan realizar aplicaciones de escritorio con JavaScript.
 
 \section{Vaadin}
 
-Vaadin en un <<framework>> de Java de código abierto, para crear aplicaciones web \footnote{\url{https://vaadin.com/home}}. Se programa en Java o cualquier otro lenguaje de JVM. Lo mas destacado de Vaadin es que esta construido sobre una base de GWT, por ello es una de las grandes alternativas a este último. La forma de trabajar con Vaadin es mediante el lenguaje Java e incorpora un lado cliente y otro servidor, el el cual irán las funcionalidades más complejas y su programación es dirigida por eventos. Es decir, hasta aquí es igual a GWT.
+Vaadin en un <<framework>> de Java de código abierto, para crear aplicaciones web \footnote{\url{https://vaadin.com/home}}. Se programa en Java o cualquier otro lenguaje de JVM o Java Virtual Machine. Lo mas destacado de Vaadin es que esta construido sobre una base de GWT, por ello es una de las grandes alternativas a este último. La forma de trabajar con Vaadin es mediante el lenguaje Java e incorpora un lado cliente y otro servidor, el el cual irán las funcionalidades más complejas y su programación es dirigida por eventos. Es decir, hasta aquí es igual a GWT.
 
-Las mejoras con respecto a GWT son varias, pero voy a mencionar solo aquellas que son más relevantes para este proyecto. Cuenta sobre todo con muchos elementos visuales, mejorados y con diseños más actuales. La parte visual es tan importante en Vaadin que incluyen un <<diseñador>> o <<designer>> en inglés, en le puggin de Eclipse que facilita mucho la creación de la parte visual ya que da la posibilidad de hacer el diseño de forma visual.
+Las mejoras con respecto a GWT son varias, pero voy a mencionar solo aquellas que son más relevantes para este proyecto. Cuenta sobre todo con muchos elementos visuales, mejorados y con diseños más actuales. La parte visual es tan importante en Vaadin que incluyen un <<diseñador>> o <<designer>> en inglés, en le pugin de Eclipse que facilita mucho la creación de la parte visual ya que da la posibilidad de hacer el diseño de forma visual.
 
 En realidad la mayor parte de los elementos visuales, menús, <<boards>>, diagramas estadísticos, iconos etc, están pensados sobre todo para un uso comercial orientado sobre todo para empresas. Por ello, el problema principal es que para poder hacer uso de su potencial se necesitan licencias de pago.
 
 Aunque cuenta con un núcleo de elementos gratuitos y periodos de prueba también gratuitos, decidimos seguir nuestro camino, por llamarlo así, con GWT y hacerlo completamente de esta forma.
 
+Las diferencias con GWT radican sobre todo en el lado de ejecución de la mayor parte de la aplicación. Con GWT, la mayor parte de las operaciones se encuentran en el lado del cliente mientras que en Vaadin el lado del cliente se comunica casi con cada interacción con el servidor. Como consecuencia, GWT es más rápido y se percibe sobre todo en condiciones en las que la conexión es mala o esta sobrecargada. Por otro lado Vaadin al ejecutarse sobre todo en el servidor, las operaciones son más seguras, ya que se encuentran mas ocultas de cara al usuario. Además al ser las operaciones en el servidor puede usar cualquier librería estándar de Java, GWT sin embargo al estar casi todo en el cliente debe limitar a unas pocas librerías\footnote{Véase \url{http://www.gwtproject.org/doc/latest/DevGuideCodingBasicsCompatibility.html}}.
+
+Para aclarar un poco las diferencias que hay entre Vaadin y GWT utilizaré una tabla comparativa \ref{tabla:comparativa}.
+
+
+\begin{table}[htbp]
+\begin{center}
+\begin{tabular}{|l|l|l|}
+\hline
+Características & Vaadin & GWT \\
+\hline \hline \hline
+Lenguaje & Cualquier JVM & Java con limitaciones \\ \hline
+Ejecución & Cliente-Servidor & La mayoría en Cliente \\ \hline
+Componentes UI & De alta calidad & De baja calidad \\ \hline
+Diseño de GUI & Incluye Designer & Manual \\ \hline
+Vinculación de datos \footnote{Tecnología que utiliza para trabajar con fuentes de datos (repositorios, archivos, etc.) y crear instancias de ellas.} & Widgets & Manual \\ \hline
+Librerías utilizables & Cualquier librería estándar & Librerías específicas\\ & de Java & en el cliente \\ \hline 
+Licencia & Comercial para la mayoría & Gratuita\\ & de los componentes & \\ \hline 
+\end{tabular}
+\caption{Tabla comparativa entre Vaadin y GWT.}
+\label{tabla:comparativa}
+\end{center}
+\end{table}
+
+
+
+
 \section{Herramientas para el cifrado de contraseñas}
 librerias utilizadas para el cifrado, para el login etc
 
 
-En este programa utilizamos una técnica muy simple, que mejora un poco este aspecto. Sabemos que existen técnicas más avanzadas que lo que hacen, sobre todo, es aumentar mucho los tiempos de procesado en los ataques por fuerza bruta por ejemplo, pero no queríamos centrarnos mucho en ese tema además de que percibimos un ralentizado a la hora de registrar a un usuario ya que cifrar la contraseña requiere un mayor tiempo de ejecución.
+En este programa utilizamos una técnica muy simple, que mejora un poco este aspecto. Sabemos que existen técnicas más avanzadas que lo que hacen, sobre todo, es aumentar mucho los tiempos de procesado en los ataques por fuerza bruta, por ejemplo. Pero no queríamos centrarnos mucho en ese tema además de que percibimos un ralentizado a la hora de registrar a un usuario ya que cifrar la contraseña requiere un mayor tiempo de ejecución.
 
-
-
-La técnica que empleamos es se conoce como el cifrado hash con sal o semilla (según su traducción del inglés, hashing with salt). Consiste en añadir un conjunto de caracteres aleatorio y concatenarlo a la contraseña y una vez hecho esto, cifrarlo con la función hash. De esta manera se consigue que la contraseña sea mucho más aleatoria que la que inicialmente ha introducido el usuario. Además de forma transparente para él. Para generar el salt en Java contamos con el paquete <<security>> y la clase <<SecureRandom>> especificando el tamaño del salt. 
+La técnica que empleamos se conoce como el cifrado hash con sal o semilla (según su traducción del inglés, hashing with salt). Consiste en añadir un conjunto de caracteres aleatorio y concatenarlo a la contraseña y una vez hecho esto, cifrarlo con la función hash. De esta manera se consigue que la contraseña sea mucho más aleatoria que la que inicialmente ha introducido el usuario. Además de forma transparente para él. Para generar el <<salt>> en Java contamos con el paquete <<security>> y la clase <<SecureRandom>> especificando el tamaño del <<salt>>. 
 
 Por otro lado, para hacer la autentificación del usuario se debe almacenar en la base de datos tanto el salt como el hash generado. Cuando el usuario introduce la contraseña para iniciar sesión, internamente se añade el salt a la contraseña introducida, se cifra con el mismo método y se comparan. Si coinciden, accederá a la aplicación, sino, deberá introducir de nuevo los datos necesarios.
 

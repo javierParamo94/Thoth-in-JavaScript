@@ -8,90 +8,63 @@ Para poder entender todo lo que se va a tratar a continuación, debo explicar pr
 
 Entonces ya sabemos que para que haya comunicación entre un ordenador o robot y un humano, tiene que haber un lenguaje y un autómata. Pero también algo más: una gramática.
 
-\section{¿ Qué es una gramática y para qué sirve?}
+\section{¿Qué es una gramática y para qué sirve?}
 
-Una gramática formal es un mecanismo para la generación de cadenas de caracteres que son admitidas por un determinado lenguaje formal, y que utiliza un conjunto de reglas de formación. Por lo tanto, podemos entenderlo dentro del concepto de las ciencias de la computación y la lógica matemática. Las cadenas de caracteres resultantes son a su vez <<bien formadas>> cuando pertenecen al lenguaje formal con el que se trabaja.\cite{aho1986compilers}
+Una gramática formal es un mecanismo para la generación de cadenas de caracteres que son admitidas por un determinado lenguaje formal, y que utiliza un conjunto de reglas de formación. Por lo tanto, podemos entenderlo dentro del concepto de las ciencias de la computación y la lógica matemática. Las cadenas de caracteres resultantes son a su vez <<bien formadas>> cuando pertenecen al lenguaje formal con el que se trabaja \cite{aho1986compilers}.
 
-¿ Y porque es tan importante? Siguiendo con el ejemplo del principio, la gramática es lo que va a determinar si lo que se introduce en el autómata es correcto o no. Un conjunto de reglas que nos indicará el porque al juntar una serie de caracteres de una forma se van a poder entender.
+¿Y porque es tan importante? Siguiendo con el ejemplo del principio, la gramática es la que va a determinar si lo que se introduce en el autómata es correcto o no. Un conjunto de reglas que nos indicará el por qué al juntar una serie de caracteres de una forma se van a poder entender.
 
-Por otro lado, la denominación de la gramática formal desde un punto de vista más concreto, de denomina como una cuádrupla compuesta por:
+Por otro lado, la denominación de la gramática formal desde un punto de vista más formal, de denomina como una cuádrupla compuesta por:
 
 \begin{itemize}
-	\item Un alfabeto de símbolos terminales o tókenes denominado con la letra griega $\Sigma$.
-	\item $\mathcal{N}$ que es un alfabeto formado por símbolos no terminales
-	\item Un alfabeto de producciones denominado $\mathcal{P}$.
-	\item Y por último un símbolo llamado axioma o símbolo inicial el cual $\mathcal{S} \in \mathcal{N}$.
+	\item Un alfabeto de \textbf{símbolos terminales} o tókenes denominado con la letra griega $\Sigma$.
+	\item $\mathcal{N}$ que es un alfabeto formado por \textbf{símbolos no terminales}.
+	\item Un alfabeto de \textbf{producciones} denominado $\mathcal{P}$.
+	\item Y por último un símbolo llamado \textbf{axioma} o símbolo inicial el cual $\mathcal{S} \in \mathcal{N}$.
 \end{itemize}
 
-El alfabeto total que compone la gramática esta formado, según lo anterior, por $\Sigma\cup\mathcal{N}$ , es decir, por el conjunto de los símbolos terminales y no terminales.
+El alfabeto total que compone la gramática esta formado, según lo anterior, por $\Sigma\cup\mathcal{N}$, es decir, por el conjunto de los símbolos terminales y no terminales.
+
+Una \textbf{producción} tiene esta estructura y esta compuesto por un par ordenado de cadenas. \[x \rightarrow y\] A la parte izquierda se la denomina antecedente y la derecha es el consecuente. A las producciones también se las denomina reglas de derivación.
 
 Pongamos un ejemplo de una gramática simple y veamos de que esta formada. Se suele utilizar el sistema de notación  \[x \rightarrow y\] \[z \rightarrow w\] para indicar una o varias producciones, en vez de \[(x, y) \in \mathcal{P} \] \[(z, w) \in \mathcal{P} \] siendo $\mathcal{P}$ el conjunto de producciones.
 
-Por otro lado si hay más de una producción que comience con el mismo elemento la notación sería de esta forma \[ x \rightarrow y | z | w\] en lugar de ser \[ x \rightarrow y, x \rightarrow z, x \rightarrow w\]
+Por otro lado si hay más de una producción que comience con el mismo elemento la notación sería de esta forma \[ x \rightarrow y | z | w\] en lugar de ser \[ x \rightarrow y\] \[x \rightarrow z\] \[x \rightarrow w\].
 
+Se denomina \textbf{derivación directa} cuando sea $x \rightarrow y$ una producción y $v, w \in \Sigma^{*}$ decimos que $w$ deriva directamente de $v$ ( $v \Rightarrow w$) si $\exists z, u \in \Sigma^{*}$ tales que $v=zxu, w=zyu$ y $x\rightarrow y$.
 
-Producción: 
+La \textbf{derivación}: sea $\Sigma$ un alfabeto, un conjunto de producciones de ese alfabeto denominada $\mathcal{P}$ y $v, w \in \Sigma^{*}$ decimos que $w$ deriva de $v$, si existen una cadena de derivación de longitud $n$ así $u_{0}, u_{1}, ..., u_{n} \in \Sigma^{*}$ tales que:
+ \[ v = u_{0} \Rightarrow u_{1}\] \[ u_{1} \Rightarrow u_{2}\] \[...\] \[ u_{n-1} \Rightarrow u_{n} = w\]
 
-En aquellos proyectos que necesiten para su comprensión y desarrollo de unos conceptos teóricos de una determinada materia o de un determinado dominio de conocimiento, debe existir un apartado que sintetice dichos conceptos.
+Se habla de lenguaje generado por una gramática $G$ escrito así $L(G)$ y se define como el conjunto de todas las sentencias de la gramática $G$.  \[L(G) = x\in \Sigma^{*}:\mathcal{S} \Rightarrow^{+}x\]
+De esta manera se dice que dos gramáticas son equivalentes $G_{1} \equiv G_{2}$ si generan el mismo lenguaje $L(G_{1})=L(G_{2})$.
 
-Algunos conceptos teóricos de \LaTeX \footnote{Créditos a los proyectos de Álvaro López Cantero: Configurador de Presupuestos y Roberto Izquierdo Amo: PLQuiz}.
+Por último una gramática es recursiva en un símbolo no terminal $U$ cuando existe una forma sentencial de $U$ que contiene a $U$. \[U \Rightarrow^{+}xUy \textup{ donde } x,y\in (\Sigma \cup \mathcal{N})^{*} \]
+Así pues la gramática será recursiva cuando lo sea para algún no terminal, si $x = \varepsilon$ la gramática es recursiva por la izquierda, y si $y = \varepsilon$ se dice que es recursiva por la derecha.
 
+\section{Tipos de gramáticas }
 
-queda por hacer todavia
-
-\section{Cifrado de contraseñas y seguridad en Thoth Web}
-
-El cifrado de la contraseña es una de las cuestiones más importantes para preservar la seguridad o intimidad del usuario. El porqué es muy simple. Los usuarios normalmente utilizamos las mismas contraseñas o parecidas para cualquier cuenta de una página o red social. Por lo tanto si hay alguien con acceso a la base de datos, podrá ver la contraseña utilizada por un determinado usuario poniendo en peligro esa intimidad no solo en este programa, sino, como ya se ha comentado antes, la de otras cuentas.
-
-Para evitar esto, el método más simple es el cifrar las contraseñas en la base de datos para que en el caso en el que alguien acceda a ella, en el campo <<contraseña>> no vea la contraseña real, sino el resultado del cifrado de esta. El método de cifrado que se emplea en Thoth Web el del algoritmo <<hash>> que como veremos más adelante tiene unas características determinadas. 
-
-\subsection{Funcionamiento del algoritmo hash}
-
-Se trata de un algoritmo matemático con el que se transforma cualquier cantidad de datos en una serie de datos fija que funciona como una huella dactilar. Esto quiere decir que sea cual sea la cantidad de caracteres de entrada, la salida siempre será fija. Cumple además con dos premisas muy importantes para la seguridad: 
-
+Hay varios tipos de gramáticas según sus características.
 \begin{itemize}
-\item No es reversible, no se puede descifrar por medio de funciones matemáticas y obtener el resultado antes de ser encriptado, sea cual sea la función utilizada (SHA-1, SHA-2 o MD 5 entre otras, como veremos a continuación).
-\item Cuenta con la propiedad de que si la entrada cambia, aunque sea sólo en un bit, el hash resultante será completamente, como se puede ver en la siguiente ilustración \ref{fig:3.1}. En la imagen se puede apreciar que aunque la entrada tenga un mayor numero de caracteres, la salida siempre sera de 40 caracteres.
+\item \textbf{Gramáticas de Chomsky}: las producciones tienen la forma \[u \rightarrow v \textup{ donde } u=xAy \in (\Sigma \cup \mathcal{N})^{+} \wedge A \in \mathcal{N} \wedge x, y, v \in (\Sigma \cup \mathcal{N})^{*}\]
 
-\end{itemize} 
+Es posible demostrar que los lenguajes generados por una gramática de Chomsky de un grupo más restringido llamadas gramáticas con estructura de frase, es decir que ambas tienen la misma capacidad generativa. Las gramáticas de frase tienen la siguiente forma de producción:
 
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.99\textwidth]{funcion-hash}
-\caption{Aplicación de la función hash a diferentes datos introducidos.}
-\label{fig:3.1}
-\end{figure}
+\[xAy \rightarrow xvy \textup{ donde } x,y,v \in (\Sigma \cup \mathcal{N})^{*} \wedge A \in \mathcal{N}\]
+\item \textbf{Gramaticas dependientes o sensibles al contexto}: Cuentas con las reglas de producción con forma  \[xAy \rightarrow xvy \textup{ donde } x, y \in (\Sigma \cup \mathcal{N})^{*} \wedge A \in \mathcal{N} \wedge v \in (\Sigma \cup \mathcal{N})^{+}\]
+Este tipo de gramáticas el significado de $A$ depende del contexto o de la posición en la frase. El contexto sería entonces $x$ e $y$. La mayor parte de los lenguajes de ordenador pertenecen a este tipo. Además longitud de la parte derecha de las producciones es siempre mayor o igual que la de la parte izquierda.
+\item \textbf{Gramáticas independientes del contexto}: las producciones de las gramáticas de este tipo son más restrictivas, de la forma: 
+\[A \rightarrow v \textup{ donde } A \in \mathcal{N} \wedge v \in (\Sigma \cup \mathcal{N})^{*}\]
+Como su propio nombre indica, el significado de $A$ es independiente de la posición en la que se encuentra. Una característica importante es que las derivaciones obtenidas al utilizarse esta gramática se pueden representar utilizando árboles.
 
-Ahora bien, las acciones llevadas a cabo para preservar esa seguridad serian las siguientes: un usuario crea una cuenta en la aplicación, la contraseña se encripta y se almacena en la base de datos. Cuando el usuario trata de iniciar sesión y escribe la contraseña, esta se encripta y se compara el resultado con aquel que se ha guardado en la base de datos, si son iguales el usuario tendrá acceso sino, se le requerirá que lo vuelva a intentar.
-
-El problema principal de esto es que con los avances en temas de seguridad siempre hay asociados otros que tratan de <<romper>> esa seguridad y en este caso no iba a ser menos. Creo que es importante reconocer los peligros que hay asociados a aplicar este método, pero no deseo extenderme demasiado en este aspecto así que los mencionare brevemente.
-
-
-\begin{itemize}
-\item Ataques de fuerza bruta. Consisten en utilizar diccionarios de palabras con contraseñas habituales e introducirlas hasta que alguna coincida. Se trata del ataque menos eficiente, pero el más difícil de evitar.
-\item Tablas de búsqueda. Este tipo de ataque si que supondría un grave problema para la seguridad en el cifrado con algoritmo hash. Recordemos que las funciones hash solo se pueden encriptar, no descifrar. Lo que hace este ataque es lo siguiente, cuenta con una tabla de contraseñas típicas y su cifrado hash y las compara con los hash introducidos. Para entender mejor este concepto hay incluso herramientas online que pueden hacer este trabajo \ref{fig:3.2}. También las hay que funcionan al revés. Introduces la contraseña que crees que puede usar alguien, la encripta, la compara con todas las de la base de datos y te dice si alguien la utiliza o no.
+\item \textbf{Gramáticas regulares}: es el grupo más restringido. Tienen la forma: \[A \rightarrow aB \wedge A \rightarrow b \textup{ llamadas gramáticas regulares a derechas } \]
+\[A \rightarrow Ba \wedge A \rightarrow b \textup{ llamadas gramáticas regulares a izquierdas } \]
+\[ \textup{ donde }A, B \in \mathcal{N} \wedge a,b \in \Sigma  \]
+Ambas son equivalentes. Existe tambien una generalización de este tipo de gramáticas denominadas lineales con reglas de la forma: \[A \rightarrow wB \wedge A \rightarrow v \textup{ lineales a derechas } \]
+\[A \rightarrow Bw \wedge A \rightarrow v \textup{ lineales a izquierdas } \]
+\[ \textup{ donde }A, B \in \mathcal{N} \wedge w,v \in \Sigma^{*}  \]
+que son totalmente equivalentes a las regulares normales, pero en muchos casos su notación es más adecuada.
 \end{itemize}
-
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.99\textwidth]{hash-cracker}
-\caption{Ejemplo de ataque con tablas de búsqueda.}
-\label{fig:3.2}
-\end{figure}
-
-Además de estos, hay más métodos, casi todos basados en las tablas de búsqueda. Según estos ataques queda comprobado que la seguridad de este algoritmo depende en gran mediada de la contraseña que utilice el usuario. Cuanto más aleatoria y con más mezcla de caracteres mejor, ya que formará palabras que no se encuentran en los diccionarios o tablas y solo se podrá descubrir por medio de la fuerza bruta. Entonces ¿ cómo hacer que las contraseñas sean más resistentes y solucionar este problema?
-
-Se conoce como el cifrado hash con sal o semilla. Consiste en añadir un conjunto de caracteres aleatorios, agregarlos a la contraseña y una vez hecho esto, cifrarlo con la función hash. De esta manera se consigue que la contraseña sea mucho más aleatoria que la que inicialmente ha introducido el usuario. Así podemos ver como quedaría un intento de <<tablas de búsqueda>> con este tipo de cifrado usa para contraseñas muy simples \ref{fig:3.3}. 
-
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.99\textwidth]{hash_salt-cracker}
-\caption{Resultado de aplicar tablas de búsqueda al cifrado hash con semilla.}
-\label{fig:3.3}
-\end{figure}
-
-La primera de ellas corresponde con la clave <<123>> la segunda con la palabra <<contraseña>> y la tercera con la fecha <<16-6-17>>. Todas son fáciles, pero al añadirle una clave y cifrarlo todo, se vuelve mucho mas complejo. Se podría pensar que, como la clave que se le añade también se guarda en la base de datos sigue sin ser seguro. Partiendo del hecho de que no hay prácticamente nada seguro al cien por cien, lo que se consigue con esto es dificultar mucho el cálculo y con este método se consigue de una forma muy simple.
-
 
 
 \subsection{Subsecciones}
@@ -108,62 +81,3 @@ Y subsecciones.
 Las referencias se incluyen en el texto usando cite \cite{wiki:latex}. Para citar webs, artículos o libros \cite{koza92}.
 
 
-\section{Imágenes}
-
-Se pueden incluir imágenes con los comandos standard de \LaTeX, pero esta plantilla dispone de comandos propios como por ejemplo el siguiente:
-
-\imagen{escudoInfor}{Autómata para una expresión vacía}
-
-
-
-\section{Listas de items}
-
-Existen tres posibilidades:
-
-\begin{itemize}
-	\item primer item.
-	\item segundo item.
-\end{itemize}
-
-\begin{enumerate}
-	\item primer item.
-	\item segundo item.
-\end{enumerate}
-
-\begin{description}
-	\item[Primer item] más información sobre el primer item.
-	\item[Segundo item] más información sobre el segundo item.
-\end{description}
-	
-\begin{itemize}
-\item 
-\end{itemize}
-
-\section{Tablas}
-
-Igualmente se pueden usar los comandos específicos de \LaTeX o bien usar alguno de los comandos de la plantilla.
-
-\tablaSmall{Herramientas y tecnologías utilizadas en cada parte del proyecto}{l c c c c}{herramientasportipodeuso}
-{ \multicolumn{1}{l}{Herramientas} & App AngularJS & API REST & BD & Memoria \\}{ 
-HTML5 & X & & &\\
-CSS3 & X & & &\\
-BOOTSTRAP & X & & &\\
-JavaScript & X & & &\\
-AngularJS & X & & &\\
-Bower & X & & &\\
-PHP & & X & &\\
-Karma + Jasmine & X & & &\\
-Slim framework & & X & &\\
-Idiorm & & X & &\\
-Composer & & X & &\\
-JSON & X & X & &\\
-PhpStorm & X & X & &\\
-MySQL & & & X &\\
-PhpMyAdmin & & & X &\\
-Git + BitBucket & X & X & X & X\\
-Mik\TeX{} & & & & X\\
-\TeX{}Maker & & & & X\\
-Astah & & & & X\\
-Balsamiq Mockups & X & & &\\
-VersionOne & X & X & X & X\\
-} 

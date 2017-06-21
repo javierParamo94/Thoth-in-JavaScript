@@ -11,7 +11,7 @@
 \subsection{Instalación y configuración de GWT:}
 
 
-Para poder trabajar con GWT \url{http://www.oracle.com/technetwork/java/javase/downloads/index.html}, se debe descargar el SDK de GWT proporcionado en la página web oficial. Los requisitos previos para crear un aplicación web con Google Web Toolkit son básicamente dos: tener instalada la SDK de Java en su versión 1.6 o cualquiera superior a esta y tener instalado también Apache Ant o en su defecto Apache Maven.
+Para poder trabajar con GWT \footnote{\url{http://www.oracle.com/technetwork/java/javase/downloads/index.html}}, se debe descargar el SDK de GWT proporcionado en la página web oficial. Los requisitos previos para crear un aplicación web con Google Web Toolkit son básicamente dos: tener instalada la SDK de Java en su versión 1.6 o cualquiera superior a esta y tener instalado también Apache Ant o en su defecto Apache Maven.
 
 Es fácil saber si cumplo ambos requisitos. Una vez descargado el SDK de GWT desde la página oficial, accedo a la carpeta desde la consola de comandos, y ahí intento ejecutar el comando <<webAppCreator>>. En caso de que la consola me devuelva un error en el que indica que Java no ha podido reconocerlo como un comando interno, quiere decir que no cumplo esos requisitos previos.
 
@@ -19,7 +19,7 @@ Posteriormente puedo proceder de varias formas y con diferentes plataformas.
 En mi caso he elegido la plataforma Eclipse sobre la que trabajaré en su
 versión 4.4 que es también denominada  con el nombre de Luna.
 
-GWT se instala en Eclipse como un <<plugin>> y para ello debo ir, dentro de Eclipse a <<añadir un nuevo software>> donde encontraremos una ventana donde escribir la dirección del software a instalar. Para mi versión la URL es <<https://developers.google.com/eclipse/docs/install-eclipse-4.4>> que una vez añadida mostrará los paquetes a instalar. Estos deben ser Google Plugin for Eclipse y GWT Designed for GPE, y una vez seleccionados se procederá a su instalación normal. Después de reiniciar procedo a referenciar el SDK de GWT yendo a <<preferencias>>, <<Google>> y dentro de <<Web Toolkit>> añadir el SDK que descargué anteriormente. 
+GWT se instala en Eclipse como un <<plugin>> y para ello debo ir, dentro de Eclipse a <<añadir un nuevo software>> donde encontraremos una ventana donde escribir la dirección del software a instalar. Para mi versión la URL es \footnote{\url{https://developers.google.com/eclipse/docs/install-eclipse-4.4}} que una vez añadida mostrará los paquetes a instalar. Estos deben ser Google Plugin for Eclipse y GWT Designed for GPE, y una vez seleccionados se procederá a su instalación normal. Después de reiniciar procedo a referenciar el SDK de GWT yendo a <<preferencias>>, <<Google>> y dentro de <<Web Toolkit>> añadir el SDK que descargué anteriormente. 
 
 Para añadir un nuevo proyecto a Eclipse tengo que importarlo desde Maven, puedo hacerlo añadiendo un proyecto de Maven existente. Una vez seleccionado el proyecto, hay que configurar su ejecución. Debemos ir a <<Run Configuration>> y seleccionar el constructor de Maven. Una vez ahí, puedo añadirle un nombre específico y seleccionando el directorio base el proyecto a ejecutar y por último el <<Goal>>, o meta debe ser <<gwt:run>>, ya que en caso contrario no se producirá una ejecución correcta.
 
@@ -51,18 +51,18 @@ Para hacerlo, GWT utiliza la técnica denominada por sus siglas en inglés RPC o
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.65\textwidth]{RPC}
-\caption{Arquitectura RPC simple.}
+\caption{Arquitectura RPC simple. Fuente propia.}
 \label{fig:5.1}
 \end{figure}
 
 Del lado del cliente tenemos, en este caso, una interfaz gráfica de usuario (GUI), una clase dedicada a hacer las llamadas RPC (ClienImpl), dos interfaces que definen los métodos (Service y ServiceAsync), una clase con los métodos en el lado del servidor (serviceImpl) y por último una interfaz, que no es esencialmente necesaria (ClientInterface). 
 
-En términos generales, para utilizar el parser de la gramática, que es quizá la clave de todo, hay que llamar al servidor y establecer una comunicación. Es ahí donde utilizamos la clase <<GrmmarServiceClientImp>> que hace las llamadas a las interfaces necesarias hasta llegar al servidor. Esta clase es un nexo de unión entre la parte del núcleo, que ese encuentra en el servidor y la parte del cliente que contiene lo visual y las acciones de los botones entre otros. La comunicación queda representada en este diagrama.
+En términos generales, para utilizar el parser de la gramática, que es quizá la clave de todo, hay que llamar al servidor y establecer una comunicación. Es ahí donde utilizamos la clase <<GrmmarServiceClientImp>> que hace las llamadas a las interfaces necesarias hasta llegar al servidor. Esta clase es un nexo de unión entre la parte del núcleo, que ese encuentra en el servidor, y la parte del cliente, que contiene lo visual y las acciones de los botones entre otros. La comunicación queda representada en este diagrama.
 
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.65\textwidth]{ParserDiagram}
-\caption{Diagrama sobre la comunicación entre el cliente y el servidor.}
+\caption{Diagrama sobre la comunicación entre el cliente y el servidor en GWT.}
 \label{fig:5.1}
 \end{figure}
 
