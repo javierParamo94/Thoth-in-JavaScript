@@ -2,6 +2,7 @@
 
 \section{Introducción}
 
+En esta sección se hablara de aspectos más técnicos pensando en futuros desarrollos. Sirve como ayuda para entender el funcionamiento de la aplicación y de los pasos que se han llevado a cabo para conseguir estos resultados. Se habla de la estructura del programa, de la instalación y configuración de las herramientas necesarias y del proyecto y, por último, de las pruebas realizadas.
 
 \section{Estructura de directorios}
 
@@ -13,35 +14,21 @@
 
 Para poder trabajar con GWT \footnote{\url{http://www.oracle.com/technetwork/java/javase/downloads/index.html}}, se debe descargar el SDK de GWT proporcionado en la página web oficial. Los requisitos previos para crear un aplicación web con Google Web Toolkit son básicamente dos: tener instalada la SDK de Java en su versión 1.6 o cualquiera superior a esta y tener instalado también Apache Ant o en su defecto Apache Maven.
 
-Es fácil saber si cumplo ambos requisitos. Una vez descargado el SDK de GWT desde la página oficial, accedo a la carpeta desde la consola de comandos, y ahí intento ejecutar el comando <<webAppCreator>>. En caso de que la consola me devuelva un error en el que indica que Java no ha podido reconocerlo como un comando interno, quiere decir que no cumplo esos requisitos previos.
+En mi caso, como trabajo con la plataforma Eclipse (versión 4.4.) al descargar el plugin de Google para Eclipse, este viene con GWT y la App Engine SDK, todo junto. Se puede descargar desde la siguiente dirección \footnote{\url{http://www.gwtproject.org/usingeclipse.html}}.
 
-Posteriormente puedo proceder de varias formas y con diferentes plataformas.
-En mi caso he elegido la plataforma Eclipse sobre la que trabajaré en su
-versión 4.4 que es también denominada  con el nombre de Luna.
+Para instalar el plugin desde eclipse, solo tenemos que ir a <<help>> y en el desplegable elegir la opción <<Instal new software>>. Aparecerá una ventana con un recuadro en el que pone <<work with>> y nos da la opción de escribir una dirección web. Para consultar las direcciones según la versión de Eclipse sólo tiene que visitar \url{https://developers.google.com/eclipse/docs/download}.
+Aparecerá los elementos que se pueden instalar, y ahí elegimos el plugin de Google. Debemos esperar a que se instale y ya solo hará falta reiniciar Eclipse.
 
-GWT se instala en Eclipse como un <<plugin>> y para ello debo ir, dentro de Eclipse a <<añadir un nuevo software>> donde encontraremos una ventana donde escribir la dirección del software a instalar. Para mi versión la URL es \footnote{\url{https://developers.google.com/eclipse/docs/install-eclipse-4.4}} que una vez añadida mostrará los paquetes a instalar. Estos deben ser Google Plugin for Eclipse y GWT Designed for GPE, y una vez seleccionados se procederá a su instalación normal. Después de reiniciar procedo a referenciar el SDK de GWT yendo a <<preferencias>>, <<Google>> y dentro de <<Web Toolkit>> añadir el SDK que descargué anteriormente. 
+Como último paso, se debe referenciar la SDK de GWT y completar la instalación. Para habrá que ir a la opción <<window>> de la pantalla principal, hacer click en preferencias y aparecerá una ventana con varias opciones. Buscamos la opción de Google y en <<web toolkit>> y ahí añadir la referencia a la SDK con la dirección en la que se encuentra el archivo. Lo mismo hay que hacer para el <<App Engine>> pero en este caso añadiendo la referencias al App Engine.
 
-Para añadir un nuevo proyecto a Eclipse tengo que importarlo desde Maven, puedo hacerlo añadiendo un proyecto de Maven existente. Una vez seleccionado el proyecto, hay que configurar su ejecución. Debemos ir a <<Run Configuration>> y seleccionar el constructor de Maven. Una vez ahí, puedo añadirle un nombre específico y seleccionando el directorio base el proyecto a ejecutar y por último el <<Goal>>, o meta debe ser <<gwt:run>>, ya que en caso contrario no se producirá una ejecución correcta.
-
-Antes de la ejecución se debe instalar el constructor de Maven desde el debuguer, sino puede dar algunos errores. Una vez finalizada la instalación, podremos ejecutar un proyecto con GWT apareciendo así el modo desarrollador y ahí se podrá lanzar la aplicación en el buscador por defecto.
-
-El <<plugin>> de GWT es sencillo de utilizar y solo con hacer click en <<New Web Application Project>> aparecerá un <<wizard>> en el cual hay que introducir el nombre del proyecto y el paquete principal. Se recomienda desmarcar <<Use Google App Engine>> ya que además de que no nos interesa, puede que nos dé algún error. Hecho esto se creará un proyecto automáticamente en forma de ejemplo, con un paquete cliente, otro servidor y uno compartido.
-
-
-(05/03/2017)
-Los proyectos en GWT se componen de una parte cliente y otra servidor. He creado un proyecto con sólo la parte del cliente, la cual es la más importante. En el paquete <<src/client>> he incluido la clase principal que llamará a las otras. En realidad no se si esto es correcto al cien por cien.
-Solución del error del  <<prefuse>> es descargando de la página oficial \footnote{\url{http://prefuse.org/}} el proyecto, incluyo el paquete prefuse y añado, desde <<Java Build Path>> la librería  <<lucene>> porque es necesaria para algunas clases del paquete. Inicialmente muestra unos errores del tipo <<did you forget to inherit a required module?>> referente a que dentro del proyecto, la clase con extensión .gwt.xml no incluye algunas de las rutas de los recursos que utilizo. No estiendo muy bien el error. (continuar con la explicación)
-
+El modo de trabajar con GWT es muy simple. Desde el plugin podemos crear un nuevo proyecto dese <<New Web Application Project>>, darle un nombre y marcando las opciones del SDK y el App Engine.
 
  
 \subsection{Parser JavaCC}
 
-GWT esta compuesto por una parte cliente, que es la que será traducida a JavaScript, y otra servidor escrita en Java y que no se traducirá. En un principio se prueba a incluir toda la aplicación dentro del lado del cliente, traduciendo todo a JavaScript. Pero como ya se ha dicho en otros apartados, GWT sólo soporta unas determinadas librerías en dicho lado y tiene algunas restricciones más\footnote{Para más detalles visite\url{http://www.gwtproject.org/doc/latest/DevGuideCodingBasicsCompatibility.html}.} que obligan a incluir el parser de JavaCC en el servidor, en vez del cliente.
+GWT esta compuesto por una parte cliente, que es la que será traducida a JavaScript, y otra servidor escrita en Java y que no se traducirá. En un principio se prueba a incluir toda la aplicación dentro del lado del cliente, traduciendo todo a JavaScript. Pero como ya se ha dicho en otros apartados, GWT sólo soporta unas determinadas librerías en dicho lado y tiene algunas restricciones más\footnote{\url{http://www.gwtproject.org/doc/latest/DevGuideCodingBasicsCompatibility.html}.} que obligan a incluir el parser de JavaCC en el servidor, en vez del cliente.
 
-Originalmente en el núcleo de Thoth dentro del directorio <<grammar>> colgaba un sub-directorio llamado <<parserjavacc>> en el cual se encontraba el parser para la gramática. Es la parte más importante dentro de la gramática ya que permite reconocer si esta está bien construida o no.
-Ahora no procede explicar que es, pero si en que ha cambiado esta versión con respecto a la anterior. 
-Para poder incluir esa parte en el proyecto decidimos hacerlo en el lado del servidor, ya que al no hacerse la traducción no habría ningún problema. Ahora bien lo más complicado de todo esto es la comunicación entre esas dos partes.
-
+Originalmente en el núcleo de Thoth, dentro del directorio <<grammar>>, colgaba un sub-directorio llamado <<parserjavacc>> en el cual se encontraba el parser para la gramática. Es la parte más importante a lo que a la gramática se refiere, ya que permite reconocer si una gramática está bien construida o no.
 
 
 \subsection{Comunicación cliente-servidor}
@@ -76,6 +63,14 @@ Dentro de la clase <<GrammarServiceClientImp>> hay tres constructores según le 
 \label{fig:5.3}
 \end{figure}
 
+Una vez hechos todos estos pasos, es posible que no funciona nada, es más, dará un error del tipo \textit{did you forget to inherit a required module?}. Todos los errores parecidos a este tienen que ver con el archivo <<web.xml>> que se encuentra en todos los proyectos GWT dentro de la carpeta <<war>> en <<WEB-INF>>. En ese archivo tenemos que definir los <<servlets>>, dándolos un nombre y especificando la dirección, dentro del proyecto, donde se encuentran. Después deberemos indicar la dirección del patrón, es decir indicar a que módulo pertenecen y con que nombre. Ese nombre se lo especificamos anteriormente en la interfaz <<GrammarService>> con el componente <<@RemoteServiceRelativePath(``nombre'')>>.
+
 \section{Compilación, instalación y ejecución del proyecto}
+
+Hace unos años Google contaba con un plugin para algunos navegadores (Chrome y Firefox) con los que se podía ejecutar el proyecto. Pero Google paró hace unos años el mantenimiento de este plugin. Pero afortunadamente los desarrolladores de GWT crearon <<GWT Super-Dev Mode>> que permite ejecutar y hacer <<debug>>. Con respecto a esto, es importante que para permitir este tipo de ejecución, debemos incluir una sentencia en la definición del módulo que se vaya a ejecutar.
+
+Es decir, los proyectos en GWT pueden estar compuestos por varios módulos, que se ejecutarán cada vez que se les llame. Estos módulos llamarán a su vez una clase, digamos, principal del módulo. Esta clase debe implementar <<EntryPoint>> que indica que es la clase de <<entrada>> y debe tener un método denominado <<onModuleLoad>>. Es igual que el <<main>> en Java.
+
+Como iba diciendo, en la definición del módulo, para poder realizar la ejecución con <<Super-Dev Mode>> debemos incluir la sentencia \textit{add-linker name=``xsiframe''}. Las definiciones de los módulos se encuentran en la raíz de la carpeta principal y tienen una extensión <<.gwt.xml>>.
 
 \section{Pruebas del sistema}
