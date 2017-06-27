@@ -61,24 +61,30 @@ Las diferencias con GWT radican sobre todo en el lado de ejecución de la mayor 
 Para aclarar un poco las diferencias que hay entre Vaadin y GWT utilizaré una tabla comparativa \ref{tabla:comparativa}.
 
 
-\begin{table}[htbp]
-\begin{center}
-\begin{tabular}{|l|l|l|}
-\hline
-Características & Vaadin & GWT \\
-\hline \hline \hline
-Lenguaje & Cualquier JVM & Java con limitaciones \\ \hline
-Ejecución & Cliente-Servidor & La mayoría en Cliente \\ \hline
-Componentes UI & De alta calidad & De baja calidad \\ \hline
-Diseño de GUI & Incluye Designer & Manual \\ \hline
-Vinculación de datos \footnote{Tecnología que utiliza para trabajar con fuentes de datos (repositorios, archivos, etc.) y crear instancias de ellas.} & Widgets & Manual \\ \hline
-Librerías utilizables & Cualquier librería estándar & Librerías específicas\\ & de Java & en el cliente \\ \hline 
-Licencia & Comercial para la mayoría & Gratuita\\ & de los componentes & \\ \hline 
+
+\begin{table}[]
+\centering
+\begin{tabular}{@{}
+>{\columncolor[HTML]{FFFFFF}}p {.33\textwidth} p {.33\textwidth}  p {.33\textwidth}@{}}
+\toprule
+ 
+\textbf{Características}   & \textbf{Vaadin} & \textbf{GWT} \\ \midrule
+\midrule
+
+\textbf{Lenguaje}         & Cualquier JVM & Java con limitaciones de librerías en la parte del cliente.
+ \\ \midrule
+\textbf{Ejecución}   & Cliente-Servidor & Sobre todo cliente pero también servidor.
+ \\ \midrule
+\textbf{Componentes gráficos}     & Librería UI con componentes modernos y mucha variedad & Librería algo anticuada y con fallos.\\ \midrule
+\textbf{Herramientas de diseño GUI}  &  Incluye Designer \footnote{\url{https://vaadin.com/designer}}  & Manual. Existen herramientas externas de uso comercial con coste.\\
+\midrule
+\textbf{Tipo de licencia}  & Comercial para la mayoría de los componentes & Gratuita\\ 
+ \\ \bottomrule
 \end{tabular}
 \caption{Tabla comparativa entre Vaadin y GWT.}
-\label{tabla:comparativa}
-\end{center}
+\label{tab:comparativa}
 \end{table}
+
 
 
 
