@@ -14,70 +14,71 @@ La internacionalización de la aplicación es un poco diferente a la utilizada e
 
 Para poder realizar el cambio de idioma es necesario hacer uso de las propiedades las clases <<xml>> y <<html>> de GWT, en concreto <<locale>> que es la que especificará la localidad, que determina el idioma. Por ello cada vez que elegimos un idioma, la aplicación se redirige a una nueva <<URL>> (llevando a cabo una nueva compilación) con el atributo \texttt{locale=} seguido de las siglas del idioma al que se quiere traducir.
 
+\section{Google Web Toolkit}
 
-
-\section{Cifrado de contraseñas y seguridad en Thoth Web}
-
-El cifrado de la contraseña es una de las cuestiones más importantes para preservar la seguridad o intimidad del usuario. El porqué es muy simple. Los usuarios normalmente utilizamos las mismas contraseñas o parecidas para cualquier cuenta de una página o red social. Por lo tanto si hay alguien con acceso a la base de datos, podrá ver la contraseña utilizada por un determinado usuario poniendo en peligro esa intimidad no solo en este programa, sino, como ya se ha comentado antes, la de otras cuentas.
-
-Para evitar esto, el método más simple es el cifrar las contraseñas en la base de datos para que en el caso en el que alguien acceda a ella, en el campo <<contraseña>> no vea la contraseña real, sino el resultado del cifrado de esta. El método de cifrado que se emplea en Thoth Web el del algoritmo <<hash>> que como veremos más adelante tiene unas características determinadas. 
-
-\subsection{Funcionamiento del algoritmo hash}
-
-Se trata de un algoritmo matemático con el que se transforma cualquier cantidad de datos en una serie de datos fija que funciona como una huella dactilar. Esto quiere decir que sea cual sea la cantidad de caracteres de entrada, la salida siempre será fija. Cumple además con dos premisas muy importantes para la seguridad: 
-
+\subsection{Introducción}
+Para trabajar con GWT hemos utilizado el entorno de desarrollo de eclipse y con ayuda del plugin de Google, se crea un proyecto. Al crear un proyecto con él, se crean unos paquetes por defecto:
 \begin{itemize}
-\item No es reversible, no se puede descifrar por medio de funciones matemáticas y obtener el resultado antes de ser encriptado, sea cual sea la función utilizada (SHA-1, SHA-2 o MD 5 entre otras, como veremos a continuación).
-\item Cuenta con la propiedad de que si la entrada cambia, aunque sea sólo en un bit, el hash resultante será completamente, como se puede ver en la siguiente ilustración \ref{fig:3.1}. En la imagen se puede apreciar que aunque la entrada tenga un mayor numero de caracteres, la salida siempre será de 40 caracteres.
-
-\end{itemize} 
-
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.99\textwidth]{funcion-hash}
-\caption{Aplicación de la función hash a diferentes datos introducidos. \url{https://blog.kaspersky.com.mx/que-es-un-hash-y-como-funciona/2806/}}
-\label{fig:3.1}
-\end{figure}
-
-Ahora bien, las acciones llevadas a cabo para preservar esa seguridad serían las siguientes: un usuario crea una cuenta en la aplicación, la contraseña se encripta y se almacena en la base de datos. Cuando el usuario trata de iniciar sesión y escribe la contraseña, esta se encripta y se compara el resultado con aquel que se ha guardado en la base de datos, si son iguales el usuario tendrá acceso sino, se le requerirá que lo vuelva a intentar.
-
-El problema principal de esto es que con los avances en temas de seguridad siempre hay asociados otros que tratan de <<romper>> esa seguridad y en este caso no iba a ser menos. Creo que es importante reconocer los peligros que hay asociados a aplicar este método, pero no deseo extenderme demasiado en este aspecto así que los mencionare brevemente.
-
-
-\begin{itemize}
-\item Ataques de fuerza bruta. Consisten en utilizar diccionarios de palabras con contraseñas habituales e introducirlas hasta que alguna coincida. Se trata del ataque menos eficiente, pero el más difícil de evitar.
-\item Tablas de búsqueda. Este tipo de ataque si que supondría un grave problema para la seguridad en el cifrado con algoritmo hash. Recordemos que las funciones hash solo se pueden encriptar, no descifrar. Lo que hace este ataque es lo siguiente, cuenta con una tabla de contraseñas típicas y su cifrado hash y las compara con los hash introducidos. Para entender mejor este concepto hay incluso herramientas online que pueden hacer este trabajo. Ver ilustración\ref{fig:3.2}. También las hay que funcionan al revés. Introduces la contraseña que crees que puede usar alguien, la encripta, la compara con todas las de la base de datos y te dice si alguien la utiliza o no.
+\item Client: las clases dentro de este paquete se traducirán a lenguaje JavaScript. Es la parte fundamental de un proyecto en GWT y en ella se encuentra la clase principal que implementa <<EntryPoint>>  (indicativo de que es la clase en la que se encuentra la función principal) y la función principal <<onModuleLoad>>. Todo proyecto tiene al menos una clase en el cliente con estas características.
+\item Server: dentro, las clases no se traducirán a JavaScript y se puede programar en Java de forma completamente normal. Para realizar la comunicación se utilizan llamadas de procedimiento remoto (Remote Procedure Calls). Incluye servelets, bases de datos etc.
+\item Shared: mezcla de las dos anteriores. Se traduce también a JavaScript y puede ser utilizada en ambos lados de la aplicación. Suelen ser clases de ayuda para las acciones de un lado al otro de la aplicación.
 \end{itemize}
 
+\subsection{Módulos en GWT}
+
+Las unidades individuales de configuración en GWT se denominan módulos. Un módulo agrupa todos los parámetros de configuración que necesita su proyecto GWT:
+
+\begin{itemize}
+
+\item Módulos heredados.
+\item Un nombre de clase como punto de entrada. Estos son opcionales, aunque cualquier módulo referido en HTML debe tener al menos una clase de punto de entrada especificada.
+\item Entradas de ruta de origen
+\item Entradas de ruta pública
+\item Reglas de vinculación diferida, incluyendo proveedores de propiedad y generadores de clase
+
+\end{itemize}
+Los módulos esta definidos en archivos con extensión <<.gwt.xml>>. En una aplicación con varios módulos como la nuestra, hay dos formas de enforcarlo: compilando cada módulo por separado o creando una definición XML de módulo de nivel superior que incluya todos los módulos y compilar el módulo de nivel superior.
+
+\subsection{Comunicación RPC}
+
+Como ya hemos hablado RPC se utiliza para transferir objetos Java entre el cliente y el servidor a través de HTTP. Cada vez que se transfieran objetos a través de RPC, deben ser serializados. Los pasos para establecer la comunicación consisten en crear lo siguiente:
+
+\begin{itemize}
+\item Definir un servicio GWT. Interfaz que extienda de <<RemoteService>>. 
+\item Implementación del servicio.
+\item La invocación del servicio. Interfaz en la que cada método debe tener el mismo nombre que en la interfaz de servicio con la diferencia de que los métodos no tienen ningún tipo de retorno y el último parámetro es un objeto AsyncCallback.
+\item Llamada desde el cliente. Cuando se hace la llamada a Ajax, se especifica un método de devolución pasando un objeto <<AsyncCallback>>. El objeto AsyncCallback contiene dos métodos, OnFailure y OnSuccess.
+\end{itemize}
+
+Hay que tener en cuenta que por defecto se crea un archivo dentro del directorio <<War>> denominado <<web.xml>>. En él se configura el lugar donde se alojan los servlets, que contienen la implementación del servicio.
+
+
+\subsection{Aspectos del diseño con GWT}
+
+El diseño en GWT es uno de los apartados donde más se ha notado lo anticuado que está. Los elementos o widgets tienen diseños algo desactulizados. En realidad esto no es un problema, ya que por medio de estilos <<css>> podemos configurar el diseño que queramos, pero es una clara desventaja en comparación con otros frameworks.
+
+En nuestro caso, hemos hecho uso de un tema que proporciona GWT. Sirve para que al incorporarlo a un módulo con la sentencia <<\textit{inherits}>>, da un mínimo de aspecto a los elementos que se incorporen. Es el caso del modulo <<GramaticaCS>> que incorpora un tema denominado <<Clean>>. Como se pude apreciar en la siguiente imagen \ref{fig:5.1}, el estilo Clean otorga unos valores al elemento del menú, pero yo los cambio por medio de mi estilo <<GrmaticaCS.css>>. Digamos que los <<piso>>. En este caso no utilizo por tanto Clean pero para otros elementos si.
+
 \begin{figure}[h]
 \centering
-\includegraphics[width=0.99\textwidth]{hash-cracker}
-\caption{Ejemplo de ataque con tablas de búsqueda. Imagen sacada de \url{https://crackstation.net/}}
-\label{fig:3.2}
+\includegraphics[width=0.70\textwidth]{estilos-css}
+\caption{Vista de los estilos aplicados sobre un botón del menú desde el navegador.}
+\label{fig:5.1}
 \end{figure}
 
-Además de estos, hay más métodos, casi todos basados en las tablas de búsqueda. Según estos ataques queda comprobado que la seguridad de este algoritmo depende en gran mediada de la contraseña que utilice el usuario. Cuanto más aleatoria y con más mezcla de caracteres mejor, ya que formará palabras que no se encuentran en los diccionarios o tablas y solo se podrá descubrir por medio de la fuerza bruta. Entonces ¿cómo hacer que las contraseñas sean más resistentes y solucionar este problema?
+Es importante a la hora de diseñar, ya que la jerarquía, se aplica de más concreto a más amplio. Así si un botón esta por ejemplo en un panel vertical y el panel vertical tiene un formato de texto stilo1 y el botón tiene otro denominado stilo2, se aplicará el stilo2. En el caso de haber un tema heredado por un módulo hay que tener en cuenta esto para ver porqué no se ha aplicado el stilo1 a mi botón cuando yo le he dado uno al panel que lo engloba. Por defecto al crear una aplicación con GWT nuestro módulo hereda el estilo Standard. 
 
-Se conoce como el cifrado hash con sal o semilla. Consiste en añadir un conjunto de caracteres aleatorios, agregarlos a la contraseña y una vez hecho esto, cifrarlo con la función hash. De esta manera se consigue que la contraseña sea mucho más aleatoria que la que inicialmente ha introducido el usuario. Así podemos ver como quedaría un intento de <<tablas de búsqueda>> con este tipo de cifrado usa para contraseñas muy simples \ref{fig:3.3}. 
-
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.99\textwidth]{hash_salt-cracker}
-\caption{Resultado de aplicar tablas de búsqueda al cifrado hash con semilla. Imagen sacada de \url{https://crackstation.net/}}
-\label{fig:3.3}
-\end{figure}
-
-La primera de ellas corresponde con la clave <<123>> la segunda con la palabra <<contraseña>> y la tercera con la fecha <<16-6-17>>. Todas son fáciles, pero al añadirle una clave y cifrarlo todo, se vuelve mucho mas complejo. Se podría pensar que, como la clave que se le añade también se guarda en la base de datos sigue sin ser seguro. Partiendo del hecho de que no hay prácticamente nada seguro al cien por cien, lo que se consigue con esto es dificultar mucho el cálculo, ya que los dos ataques mencionado anteriormente (y varios más basados en estos dos) se ayudan de repositorios de contraseñas. Así si quisieran descifrarlo debería de coger el conjunto aleatorio, sumarle la posible contraseña y cifrarlo comparando los resultados sólo con ese hash (o contraseña cifrada) ya que el salt es único para cada hash. Con este método se consigue que los cálculos para descifrar una contraseña sean bastante más costosos de una forma muy simple.
-
-\section{Google Web toolkit}
-Para trabajar con GWT hemos utilizado el entorno de desarrollo de eclipse y ahí 
- 
- 
- documentar algo del cliente serivido, que me ha costado etc.
-
-
+Mencionar también que algunos elementos tienen fallos que no están resueltos y como hemos visto en foros, llevan tiempo sin resolver como es el caso del TabPanel o el TabLayoutPanel.
 
 \section{Registro e inicio de sesión de usuarios}
-Todas las comunicaciones RPC, el porque utilizo modulos de carga, porque dan errores si se encuantran los modulos en las variables a ejecutar el programa.
-Sobre la session y la cookies, como utilizo el gwt.xml de app engine y porque da fallo
-mensaje de error sin especificar si falla el usuario o contraseña para no mostrar suficiente información como para ponerla en peligro.
+
+En un primer momento la aplicación se ejecutó en modo local desde Eclipse, de forma que para ello, como se explica en los anexos, necesitábamos hacer uso de la ejecución en modo <<Super Dev>>. La base de datos era local y se podía acceder a ella añadiendo a la url local <<\_ah/admin>>.
+
+Esto viene a que la parte más importante en el registro e inicio de sesión está en el servidor. Posteriormente la aplicación se despliega en  App Engine, así como todo lo que concierne a esta, es decir, base de datos, comunicación RPC, inicio de sesión etc. Todo esto se explica con más detalle en el Anexo del manual de programador.
+
+Así, cuando un usuario introduce los datos para hacer el registro, el cliente envía una petición al servidor. El servidor tratará de almacenar dichos datos en la base de datos y en caso de que se produzca un error de comunicación, se mostrará un fallo en el registro. Al guardar los datos se comprobará algunos requisitos como son, que el nombre o la contraseña no sean nulos o vacíos o que el correo electrónico tenga una estructura del típica. En ese caso el usuario creado será nulo, y el cliente, al comprobar si es nulo o no, emitirá un mensaje. 
+
+
+En el caso de iniciar sesión, se procede de forma parecida. El cliente hace una petición al servidor para comprobar si está registrado y autentifica que el correo esta en la base de datos. Si la contraseña (cifrada con el mismo salt) es la correspondiente al email, establece una sesión y devuelve al cliente un usuario. En caso de que el usuario sea nulo se muestra un error diciendo que el email o contraseña son incorrectos. El mensaje tiene esta forma por temas de seguridad. En caso de que alguien quiera saber si hay un correo registrado, le bastaría con escribir el correo y una contraseña y la aplicación le respondería que esta última es falsa.
+
+La sesión se almacena en el buscador, por medio de <<cookies>> durante un tiempo indefinido. Al salir haciendo <<logout>> se borra la sesión y para acceder hay que volverse a <<logear>>.

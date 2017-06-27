@@ -84,16 +84,38 @@ Licencia & Comercial para la mayoría & Gratuita\\ & de los componentes & \\ \hl
 
 
 \section{Herramientas para el cifrado de contraseñas}
-librerias utilizadas para el cifrado, para el login etc
 
+En este programa utilizamos una técnica muy simple, que mejora un poco este aspecto. Sabemos que existen técnicas más avanzadas que lo que aumentan mucho los tiempos de procesado en los ataques por fuerza bruta, por ejemplo. Pero no queríamos centrarnos mucho en ese tema además de que percibimos un ralentizado a la hora de registrar a un usuario ya que cifrar la contraseña requiere un mayor tiempo de ejecución.
 
-En este programa utilizamos una técnica muy simple, que mejora un poco este aspecto. Sabemos que existen técnicas más avanzadas que lo que hacen, sobre todo, es aumentar mucho los tiempos de procesado en los ataques por fuerza bruta, por ejemplo. Pero no queríamos centrarnos mucho en ese tema además de que percibimos un ralentizado a la hora de registrar a un usuario ya que cifrar la contraseña requiere un mayor tiempo de ejecución.
+La técnica que empleamos se conoce como el cifrado hash con sal o semilla (según su traducción del inglés, hashing with salt). Consiste en añadir un conjunto de caracteres aleatorio y concatenarlo a la contraseña y una vez hecho esto, cifrarlo con la función hash. De esta manera se consigue que la contraseña sea mucho más aleatoria que la que inicialmente ha introducido el usuario. Además de forma transparente para él. 
 
-La técnica que empleamos se conoce como el cifrado hash con sal o semilla (según su traducción del inglés, hashing with salt). Consiste en añadir un conjunto de caracteres aleatorio y concatenarlo a la contraseña y una vez hecho esto, cifrarlo con la función hash. De esta manera se consigue que la contraseña sea mucho más aleatoria que la que inicialmente ha introducido el usuario. Además de forma transparente para él. Para generar el <<salt>> en Java contamos con el paquete <<security>> y la clase <<SecureRandom>> especificando el tamaño del <<salt>>. 
+Para generar el <<salt>> en Java contamos con el paquete <<security>> y la clase <<SecureRandom>>\footnote{\url{https://docs.oracle.com/javase/7/docs/api/java/security/SecureRandom.html}} con la que nos aseguramos de crear una cadena de bytes aleatoria. Suficientemente aleatoria para nuestro propósito. Podemos especificar el tamaño en bytes del salt. Para almacenarlo, lo pasamos a formato <<String>>. 
+
 
 Por otro lado, para hacer la autentificación del usuario se debe almacenar en la base de datos tanto el salt como el hash generado. Cuando el usuario introduce la contraseña para iniciar sesión, internamente se añade el salt a la contraseña introducida, se cifra con el mismo método y se comparan. Si coinciden, accederá a la aplicación, sino, deberá introducir de nuevo los datos necesarios.
 
-tecnicas de cifrado? 
-de mantenimiento de session?
-subrayado con HTML?
-cifrado?
+
+
+\section{Plataforma Google Cloud}
+
+
+La aplicación cuenta con una base de datos en la que se guarda el registro de los usuarios. A la base de datos se puede acceder desde la plataforma Google Cloud con una cuenta creada para ese propósito.\\
+
+Esta plataforma sirve para alojar aplicaciones realizadas con alguna de las  herramientas de desarrollo web de Google. De esta forma se ofrecen varios servicios interesantes como una base de datos SQL, necesaria para hacer el registro e inicio de sesión.
+
+De esta forma, gracias a la SDK de App Engine podemos gestionar una pequeña base de datos con el <<datastore>> de Google. Se trabaja con entidades y para este proyecto se han creado 3 tipos de entidades.
+
+\begin{itemize}
+\item \textbf{User}. En ella se almacenan los usuarios registrados con un nombre, email, fecha de registro y contraseña (password). Además, como ya hemos hablado en la sección Herramientas para el cifrado de contraseñas, también una <<salt>> para hacer el inicio de sesión\ref{fig:5.1}.
+\item \textbf{UserAction}. Se muestra la fecha de la última sesión de cada usuario. Con esta entidad pretendemos ver que usuarios son más activos, cuando se ha utilizado etc. Es cierto que esto se puede analizar desde el adminitrador de Google Cloud, pero decidimos introducir esta entidad antes de alojarla ahí.
+\item \textbf{GrammarUsed}. Entidad que sirve para almacenar las gramáticas comprobadas por un usuario. 
+\end{itemize}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.99\textwidth]{BaseDatos-user}
+\caption{Base de datos en Google Cloud. Se puede apreciar la entidad <<User>> que muestra la base de datos.}
+\label{fig:5.1}
+\end{figure}
+
+La aplicación se puede gestionar fáclimente desde esta plataforma, el problema principal es que es de pago, pero cuenta con una versión gratuita de un año completo, con un gasto máximo de 300 euros. Esto quiere decir que puedo utilizar elementos con coste adicional hasta llegar al cupo de los 300 euros. 
