@@ -1,7 +1,5 @@
 package src.client.login;
 
-import java.util.Date;
-
 import src.client.login.view.LoginView;
 import src.client.register.Registration;
 import src.client.register.request.RegistrationService;
@@ -19,9 +17,7 @@ import com.google.gwt.user.client.Cookies;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HTML;
-import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.RootLayoutPanel;
-import com.google.gwt.user.client.ui.RootPanel;
 
 /**
  * 
@@ -32,40 +28,51 @@ public class Login implements EntryPoint {
 
 	private LoginView mViewLog = GWT.create(LoginView.class);
 	private Registration mViewReg = GWT.create(Registration.class);
-	private final RegistrationServiceAsync regService = GWT.create(RegistrationService.class);
+	private final RegistrationServiceAsync regService = GWT
+			.create(RegistrationService.class);
 
 	/**
-	 * 
+	 * Función principal del módulo Login.
 	 */
 	public void onModuleLoad() {
-		
+
 		String sessionID = Cookies.getCookie("sid");
-	    if (sessionID == null){
-	    	showLogin();
-	    }else{
-	        checkWithServerIfSessionIdIsStillLegal(sessionID);
-	    }
-	}
-	 
-	    private void checkWithServerIfSessionIdIsStillLegal(String sessionID){
-	    	regService.loginFromSessionServer(new AsyncCallback(){
-	    		@Override
-	        public void onFailure(Throwable caught){
-	    			showLogin();
-	        }
-	    		
+		if (sessionID == null) {
+			showLogin();
+		} else {
+			checkSession(sessionID);
+		}
+	}//onModuleLoad
+
+	/**
+	 * Comprobar si la sesión del usuario esta activa o no.
+	 * 
+	 * @param sessionID
+	 *            id de la sesión.
+	 */
+	private void checkSession(String sessionID) {
+		regService.loginFromSessionServer(new AsyncCallback<Object>() {
+			// En caso de fallo, muestra el login
+			@Override
+			public void onFailure(Throwable caught) {
+				showLogin();
+			}
+
+			// En caso de exito, le redirige a editar una gramática.
 			@Override
 			public void onSuccess(Object result) {
-	            if (result == null){
-	            	showLogin();
-	            }else{
-	                //RootPanel.get().add(w);
-	            	Window.Location.assign("/gramaticacs/");
-	            }
+				if (result == null) {
+					showLogin();
+				} else {
+					Window.Location.assign("/gramaticacs/");
+				}
 			}
-	    });
-	}
+		});
+	}//checkSession
 
+	/**
+	 * Muestra los alementos del login y del registro. Incluye los botones.
+	 */
 	public void showLogin() {
 
 		SubmitHandler handlerReg = new SubmitHandler();
@@ -79,6 +86,9 @@ public class Login implements EntryPoint {
 		mViewLog.getEmailBox().addKeyUpHandler(handlerLog);
 		mViewLog.getPasswordBox().addKeyUpHandler(handlerLog);
 
+		/**
+		 * Login
+		 */
 		mViewReg.getLoginLink().addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 
@@ -87,6 +97,9 @@ public class Login implements EntryPoint {
 			}
 		});
 
+		/**
+		 * Registro
+		 */
 		mViewLog.getRegisterLink().addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 
@@ -94,9 +107,10 @@ public class Login implements EntryPoint {
 				RootLayoutPanel.get().add(mViewReg);
 			}
 		});
+		// Por defecto login
 		RootLayoutPanel.get().clear();
 		RootLayoutPanel.get().add(mViewLog);
-	}
+	}//showLogin
 
 	// Al pulsar el boton se hace la autenticacion
 	class SubmitHandler implements ClickHandler, KeyUpHandler {
@@ -109,25 +123,29 @@ public class Login implements EntryPoint {
 				registrate();
 			}
 		}
-	}
+	}//SubmitHandler
 
 	// Al pulsar el boton se hace la autenticacion
 	class LoginHandler implements ClickHandler, KeyUpHandler {
 		public void onClick(ClickEvent event) {
 			authenticate();
 		}
+
 		public void onKeyUp(KeyUpEvent event) {
 			if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
 				authenticate();
 			}
 		}
-	}
+	}//LoginHandler
 
+	/**
+	 * Autentificación. Comunica con el servidor.
+	 */
 	public void authenticate() {
 		disableHandler();
 		regService.authenticate(mViewLog.getEmailValue(),
 				mViewLog.getPasswordValue(), new AsyncCallback<UserDto>() {
-
+					//En caso de fallo, mensaje de error.
 					public void onFailure(Throwable caught) {
 						mViewLog.getMessage()
 								.setWidget(
@@ -135,25 +153,26 @@ public class Login implements EntryPoint {
 												"Authentication failed. Please try again."));
 						enableHandler();
 					}
-
+					//En caso de exito, vista de gramática.
 					public void onSuccess(UserDto user) {
-						if (user != null)
-                        {
-                            Window.Location.assign("/gramaticacs/");
-                            //session();
-                        } else
-                            Window.alert("Access Denied. Check your user-name and password.");
-                    }
+						if (user != null) {
+							Window.Location.assign("/gramaticacs/");
+						} else
+							Window.alert("Access Denied. Check your user-name and password.");
+						enableHandler();
+					}
 				});
-	}
+	}//authenticate
 	
-
+	/**
+	 * Registro del usuario, se comunica con el servidor.
+	 */
 	public void registrate() {
 
 		disableHandler();
-		regService.register(mViewReg.getNameValue(),
-				mViewReg.getLastNameValue(), mViewReg.getEmailValue(),
+		regService.register(mViewReg.getNameValue(), mViewReg.getEmailValue(),
 				mViewReg.getPasswordValue(), new AsyncCallback<UserDto>() {
+					//Fallo, mensaje de error.
 					public void onFailure(Throwable caught) {
 						mViewReg.getMessage()
 								.setWidget(
@@ -161,25 +180,26 @@ public class Login implements EntryPoint {
 												"Authentication failed. Please try again."));
 						enableHandler();
 					}
-
+					//Exito
 					public void onSuccess(UserDto user) {
-
+						//Comprueba que el registro sea correcto.
 						if (user == null) {
 							// pantalla de login
-							Window.alert("Error, el e-mail no es correcto");
-							showLogin();
+							mViewReg.getMessage().setWidget(
+									new HTML("Wrong field"));
 							enableHandler();
 						} else {
+							//Exito en el registro
 							mViewReg.getMessage().setWidget(
 									new HTML("Registration Success."));
 							enableHandler();
 						}
 					}
 				});
-	}
-	
+	}//registrate
+
 	/**
-	 * 
+	 * Desactivar los botones.
 	 */
 	public void disableHandler() {
 		mViewReg.getMessage().clear();
@@ -194,23 +214,23 @@ public class Login implements EntryPoint {
 		mViewLog.getPasswordBox().setEnabled(false);
 		mViewReg.getLoginLink().setEnabled(false);
 		mViewLog.getRegisterLink().setEnabled(false);
-	}
+	}//disableHandler
 
 	/**
-	 * 
+	 * Habilitar botones
 	 */
 	public void enableHandler() {
 		mViewLog.getSubmitButton().setText("Login");
 		mViewReg.getSubmitButton().setText("Register");
-		
+
 		mViewReg.getSubmitButton().setEnabled(true);
 		mViewReg.getEmailBox().setEnabled(true);
 		mViewReg.getPasswordBox().setEnabled(true);
 		mViewReg.getLoginLink().setEnabled(true);
-		
+
 		mViewLog.getSubmitButton().setEnabled(true);
 		mViewLog.getEmailBox().setEnabled(true);
 		mViewLog.getPasswordBox().setEnabled(true);
 		mViewLog.getRegisterLink().setEnabled(true);
-	}
-}
+	}//enableHandler
+}//Login

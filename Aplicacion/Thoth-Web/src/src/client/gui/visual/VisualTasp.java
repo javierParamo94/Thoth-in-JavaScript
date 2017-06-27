@@ -3,14 +3,17 @@ package src.client.gui.visual;
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlexTable;
+import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.PushButton;
 import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
@@ -78,7 +81,7 @@ public class VisualTasp extends Composite {
 	/**
 	 * JTextField donde se va a introducir la palabra a reconocer.
 	 */
-	public TextBox mWord;
+	public TextArea mWord;
 
 	/**
 	 * Botón para comprobar si la palabra introducida es válida.
@@ -121,8 +124,9 @@ public class VisualTasp extends Composite {
 	 */
 	public VisualTasp(Grammar gra) {
 
-		mWord = new TextBox();
-		mWord.setPixelSize(50, 15);
+		mWord = new TextArea();
+		mWord.setPixelSize(120, 30);
+		mWord.setReadOnly(false);
 		mVisible = true;
 		mMediator = new MediatorTasp(this, gra);
 		if (mVisible)
@@ -140,8 +144,9 @@ public class VisualTasp extends Composite {
 	 */
 	public VisualTasp(FirstFollow first, Grammar gra) {
 		mGrammar = gra;
-		mWord = new TextBox();
-		mWord.setPixelSize(50, 15);
+		mWord = new TextArea();
+		mWord.setPixelSize(120, 30);
+		mWord.setReadOnly(false);
 		mVisible = true;
 		mMediator = new MediatorTasp(this, first);
 		if (mVisible)
@@ -185,15 +190,15 @@ public class VisualTasp extends Composite {
 		word.setStyleName("gwt-Big-Text");
 
 		// Botones validar y borrar palabra
-		mCheckWord = new PushButton(new Image("images/tick.png"));
-		mClear = new PushButton(new Image("images/cross.png"));
+		mCheckWord = new PushButton(new Image("/images/tick.png"));
+		mClear = new PushButton(new Image("/images/cross.png"));
 		word.add(mCheckWord);
 		word.add(mClear);
 
 		// Tabla de la traza
 		VerticalPanel panelTraceTable = new VerticalPanel();
 		panelTraceTable.add(mTraceTable);
-		mTraceTable.setPixelSize(700, 300);
+		mTraceTable.setPixelSize(700, 30);
 		HTML trace = new HTML(mMsg.trace());
 		trace.setStyleName("Panel-Text");
 		down.add(trace);
@@ -239,7 +244,6 @@ public class VisualTasp extends Composite {
 			@Override
 			public void onClick(ClickEvent event) {
 				mMediator.next();
-
 			}
 		});
 		// Pulsar sobre Validar cadena
@@ -247,9 +251,7 @@ public class VisualTasp extends Composite {
 			@Override
 			public void onClick(ClickEvent event) {
 				mMediator.check();
-
 			}
 		});
-
 	}// buildListeners
 }// VisualTasp

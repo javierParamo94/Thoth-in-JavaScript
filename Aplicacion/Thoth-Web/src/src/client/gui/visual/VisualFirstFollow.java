@@ -39,9 +39,9 @@ public class VisualFirstFollow extends Composite {
 	// Attributes
 	// --------------------------------------------------------------------
 	/**
-	 * 
+	 * Variable para la internacionalización de los textos
 	 */
-	private MessageMessages sms = GWT.create(MessageMessages.class);
+	private MessageMessages mMsg = GWT.create(MessageMessages.class);
 
 	/**
 	 * Mediador asociado al panel.
@@ -114,7 +114,7 @@ public class VisualFirstFollow extends Composite {
 	/**
 	 * Botones de cancelar, siguiente paso, todos los pasos y aceptar.
 	 */
-	public Button mExit = new Button(sms.exit());
+	public Button mExit = new Button(mMsg.exit());
 	public Button mObtainFirst = new Button("First");
 	public Button mObtainFollow = new Button("Follow");
 	public Button mTasp = new Button("TASP");
@@ -154,7 +154,7 @@ public class VisualFirstFollow extends Composite {
 
 		mGrammar.setCharacterWidth(80);
 		mGrammar.setVisibleLines(20);
-		HTML gramar = new HTML(sms.grammar());
+		HTML gramar = new HTML(mMsg.grammar());
 		gramar.setStyleName("Panel-Text");
 		panelGrammar.add(gramar);
 		panelGrammar.add(mGrammar);
@@ -182,7 +182,7 @@ public class VisualFirstFollow extends Composite {
 		mTasp.setEnabled(false);
 		buildListeners();
 
-		HTML calculateFF = new HTML(sms.calculateff());
+		HTML calculateFF = new HTML(mMsg.calculateff());
 		calculateFF.setStyleName("Panel-Text");
 		dockPanel.add(calculateFF, DockPanel.NORTH);
 		dockPanel.add(buttonPanel, DockPanel.SOUTH);

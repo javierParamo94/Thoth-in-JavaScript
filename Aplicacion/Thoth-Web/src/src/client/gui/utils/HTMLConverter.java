@@ -5,11 +5,11 @@ package src.client.gui.utils;
  * Clase para la conversión de un texto en del tipo String a otro texto en formato HTML del tipo String
  * <p>
  * <b>Detalles</b><br>
- * Con ello se puede tratar como un texto HTML con funcionalidades propias de ese formato.<br>
+ * Puede tratar como un texto HTML con funcionalidades propias de ese formato.<br>
  * </p>
  * <p>
  * <b>Funcionalidad</b><br>
- * Con ello se puede dar color y forma al estilo HTML de un texto que se le pase.
+ * De esta forma se puede dar color y forma al estilo HTML de un texto que se le pase.
  * </p>
  * 
  * 

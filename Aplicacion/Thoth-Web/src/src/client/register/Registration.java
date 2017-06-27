@@ -29,7 +29,6 @@ public class Registration extends Composite {
 	 */
 	@UiField SimplePanel message;
 	@UiField TextBox fName;
-	@UiField TextBox lName;
 	@UiField TextBox email;
 	@UiField PasswordTextBox password;
 	@UiField Button submit_button;
@@ -51,10 +50,6 @@ public class Registration extends Composite {
 	//método get que devuelve el valor del nombre
 	public String getNameValue(){
 		return fName.getValue();
-	}
-	//método get que devuelve el valor del apellido
-	public String getLastNameValue(){
-		return lName.getValue();
 	}
 	//método get que devuelve el valor del la contraseña
 	public String getPasswordValue(){

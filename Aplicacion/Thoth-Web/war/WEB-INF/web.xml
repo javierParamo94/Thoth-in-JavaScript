@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+              http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+         version="2.5"
+         xmlns="http://java.sun.com/xml/ns/javaee">
+
+  <!-- Servlets -->
+  <servlet>
+    <servlet-name>greetServlet</servlet-name>
+    <servlet-class>src.server.GrammarServiceImp</servlet-class>
+  </servlet>
+  
+    <servlet>
+    <servlet-name>moduleB</servlet-name>
+    <servlet-class>src.server.SessionServlet</servlet-class>
+  </servlet>
+
+    <servlet>
+    <servlet-name>authentication</servlet-name>
+    <servlet-class>src.server.RegServlet</servlet-class>
+  </servlet>
+  
+    <servlet-mapping>
+    <servlet-name>moduleB</servlet-name>
+    <url-pattern>/gramaticacs/</url-pattern>
+  </servlet-mapping>
+  
+  
+    <servlet-mapping>
+    <servlet-name>authentication</servlet-name>
+   <url-pattern>/login/registerservice</url-pattern>
+  </servlet-mapping>
+   
+  <servlet-mapping>
+    <servlet-name>authentication</servlet-name>
+    <url-pattern>/gramaticacs/registerservice</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>greetServlet</servlet-name>
+    <url-pattern>/gramaticacs/grammarservice</url-pattern>
+  </servlet-mapping>
+  
+  <!-- Default page to serve -->
+  <welcome-file-list>
+    <welcome-file>GramaticaCS.html</welcome-file>
+  </welcome-file-list>
+
+</web-app>

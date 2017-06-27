@@ -3,7 +3,10 @@ package src.client.gui.mediator;
 import java.util.Vector;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.user.cellview.client.CellTable;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.FlexTable;
+import com.google.gwt.user.client.ui.Grid;
 
 import src.client.GrammarServiceClientImp;
 import src.client.core.Terminal;
@@ -68,6 +71,8 @@ public class MediatorTasp {
 	 */
 	private boolean mFirstTime;
 
+	private int numRow = 1;
+	
 
 	// Methods
 	// -----------------------------------------------------------------------
@@ -210,13 +215,7 @@ public class MediatorTasp {
 		for (int i = 0; i < header.length; i++) {
 			mVisual.mTraceTable.setText(0, i, (String) header[i]);
 			mVisual.mTraceTable.getCellFormatter().addStyleName(0, i, "header");
-			mVisual.mTraceTable.getCellFormatter().setHeight(0, i, "20");
-			for (int j = 1; j < header.length; j++) {
-				mVisual.mTraceTable.setText(j, i, " ");
-
-			}
 		}
-
 	}// initiateTrace
 
 	/**
@@ -224,6 +223,7 @@ public class MediatorTasp {
 	 * Comprueba que la palabra introducida sea válida y además inicializa el
 	 * algoritmo.
 	 */
+	public int aux = 0;
 	public void acceptWord() {
 		Vector<Terminal> word = new Vector<Terminal>(5, 5);
 		String s = mVisual.mWord.getText();
@@ -252,10 +252,12 @@ public class MediatorTasp {
 		mWordTasp = new WordTasp(mTasp.getGrammar(), mTasp, mWord);
 		setButtons(true);
 		mFirstTime = true;
-
-		while ((mVisual.mTraceTable).getRowCount() > 0)
+		numRow = 1;
+		aux = 0;
+		//check2();
+		while ((mVisual.mTraceTable).getRowCount() > 0) {
 			(mVisual.mTraceTable).removeRow(1);
-
+		}
 	}// acceptWord
 
 	/**
@@ -303,7 +305,9 @@ public class MediatorTasp {
 	public void cancelWord() {
 		mVisual.mWord.setText("");
 		setButtons(false);
+		numRow = 1;
 		while ((mVisual.mTraceTable).getRowCount() > 0)
+			
 			(mVisual.mTraceTable).removeRow(1);
 
 	}// cancelWord
@@ -317,18 +321,20 @@ public class MediatorTasp {
 		// Primera fila
 		if (mFirstTime) {
 			mWordTasp.firstStep();
-			fillTrace(false);
+			fillTrace(false, true);
 			mFirstTime = false;
 			return true;
 		}
 		// Siguientes
 		if (!mWordTasp.nextStep()) {
-			fillTrace(true);
+			fillTrace(true, true);
 			checkWord();
 			setButtons(false);
+			
 			return false;
+			
 		}
-		fillTrace(true);
+		fillTrace(true, true);
 
 		return true;
 	}// next
@@ -339,8 +345,8 @@ public class MediatorTasp {
 	 * @param first
 	 *            Si es true rellena la columna de Salida.
 	 */
-	private void fillTrace(boolean out) {
-		int numRow = 1;
+	private void fillTrace(boolean out, boolean b) {
+
 		Object[] o = new String[5];
 		String temp;
 		Production tempProd;
@@ -375,7 +381,10 @@ public class MediatorTasp {
 			o[4] = "";
 
 		for (int i = 0; i < o.length; i++) {
-			(mVisual.mTraceTable).setText(numRow, i, (String) o[i]);
+			if (b)
+				mVisual.mTraceTable.setText(numRow, i, (String) o[i]);
+			else 
+				mVisual.mTraceTable.setText(numRow, i, "|");
 		}
 		numRow++;
 

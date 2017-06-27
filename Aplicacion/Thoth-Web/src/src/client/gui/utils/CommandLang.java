@@ -41,14 +41,14 @@ public class CommandLang implements Command {
 	 * Variable en la cual se va a guardar el indice del idioma a traducir.
 	 */
 	private String locale;
-	
-	private DialogBox choiceDialog = new DialogBox();
-
+	/**
+	 * Dialogo de texto.
+	 */
+	private DialogBox mChoiceDialog = new DialogBox();
 
 	// Methods
 	// -----------------------------------------------------------------------
 
-	
 	/**
 	 * Constructor del dialogo al elegir un idioma a traducir.
 	 * 
@@ -63,11 +63,9 @@ public class CommandLang implements Command {
 	 * Ejecución asociada a la clase
 	 */
 	public void execute() {
-		
-		
-		
-		choiceDialog.setAnimationEnabled(true);
-		choiceDialog.setGlassEnabled(true);
+
+		mChoiceDialog.setAnimationEnabled(true);
+		mChoiceDialog.setGlassEnabled(true);
 
 		HorizontalPanel buttonPane = new HorizontalPanel();
 		buttonPane.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
@@ -77,7 +75,7 @@ public class CommandLang implements Command {
 			public void onClick(ClickEvent event) {
 				// El recuadro desaparece y ejecuta el refresco de la
 				// aplicación.
-				choiceDialog.hide();
+				mChoiceDialog.hide();
 				UrlBuilder newUrl = Window.Location.createUrlBuilder();
 				newUrl.setParameter("locale", locale);
 				Window.Location.assign(newUrl.buildString());
@@ -87,16 +85,16 @@ public class CommandLang implements Command {
 		Button noBtn = new Button(mMsg.no());
 		noBtn.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
-				choiceDialog.hide();
+				mChoiceDialog.hide();
 			}
 		});
 
 		buttonPane.add(yesBtn);
 		buttonPane.add(noBtn);
-		choiceDialog.center();
+		mChoiceDialog.center();
 		buttonPane.setWidth("75%");
-		choiceDialog.add(buttonPane);
-		choiceDialog.setText(mMsg.restartchanges() + " " + mMsg.ucontinue());
-		choiceDialog.show();
+		mChoiceDialog.add(buttonPane);
+		mChoiceDialog.setText(mMsg.restartchanges() + " " + mMsg.ucontinue());
+		mChoiceDialog.show();
 	}
 }// CommandLang

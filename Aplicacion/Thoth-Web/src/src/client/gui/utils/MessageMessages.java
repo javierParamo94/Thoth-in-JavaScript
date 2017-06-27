@@ -273,6 +273,8 @@ public interface MessageMessages extends Constants {
 	@DefaultStringValue("Eliminación de Símbolos Anulables (SA)")
 	String saalgorithm();
 
+	@DefaultStringValue("Lo sentimos, no ha podido salir de la sesión.")
+	String sessionerr();
 	// T
 	@DefaultStringValue("Terminales")
 	String tokens();

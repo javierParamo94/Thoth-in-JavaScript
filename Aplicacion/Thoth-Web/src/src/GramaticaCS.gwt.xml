@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE module PUBLIC "-//Google Inc.//DTD Google Web Toolkit 2.7.0//EN"
   "http://gwtproject.org/doctype/2.7.0/gwt-module.dtd">
+  
+  <!-- author: Francisco Javier Páramo Arnaiz.
+ version: 1.0 -->
+ 
 <module rename-to='gramaticacs'>
-  <inherits name='com.google.gwt.user.User'/>
-  <inherits name='com.google.gwt.user.theme.clean.Clean'/>
-  <inherits name='com.google.gwt.user.theme.clean.Clean'/>
-  <stylesheet src='/GramaticaCS.css' />
-  <entry-point class='src.client.main'/>
-      <extend-property name="locale" values="es,de,fr,en"/>
-  <source path='client'/>
-  <source path='shared'/>
+	<inherits name='com.google.gwt.user.User' />
+	<inherits name='com.google.gwt.user.theme.clean.Clean' /> 
+	<stylesheet src='/GramaticaCS.css' />
+	<entry-point class='src.client.main' />
+	<extend-property name="locale" values="es,de,fr,en" />
+	<source path='client' />
+	<source path='shared' />
 
-  <!-- allow Super Dev Mode -->
-  <add-linker name="xsiframe"/>
+	<!-- Permite el Super Dev Mode -->
+	<add-linker name="xsiframe" />
 </module>

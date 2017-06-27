@@ -1,5 +1,5 @@
-/** Add css rules here for your application. */
-/** Example rules used by the template application (remove for your app) */
+/** Estilos del módulo GramaticaCS */
+/** Author Francisco Javier Páramo Arnaiz */
 h1 {
 	font-size: 2em;
 	font-weight: bold;
@@ -10,7 +10,7 @@ h1 {
 
 input[type=text] {
 	background-color: #d8ecf3;
-	width: 100%;
+	width: 320;
 	padding: 10px 50px;
 	margin: 0.2px 0;
 	display: inline-block;
@@ -20,15 +20,6 @@ input[type=text] {
 	font-weight: bold;
 }
 
-/*body {
-background: url('/images/Fondo.jpeg');
-	-webkit-background-size: xx-large;
-	-moz-background-size: xx-large;
-	-o-background-size: xx-large;
-	background-attachment: fixed;
-	background-position: center;
-}
-*/
 .InputWrite {
 	background-color: #ff80c0;
 	width: 100%;
@@ -60,13 +51,7 @@ background: url('/images/Fondo.jpeg');
 	color: #000;
 	font-weight: bold;
 }
-/*
-.gwt-MenuBar-horizontal .gwt-MenuItem {
-	padding: 5px 10px;
-	vertical-align: bottom;
-	color: #000;
-	font-weight: bold;
-}*/
+
 
 .gwt-MenuBar-horizontal .gwt-MenuItemSeparator {
 	width: 1px;
@@ -77,9 +62,6 @@ background: url('/images/Fondo.jpeg');
 	background: white;
 }
 
-.gwt-MenuBar-vertical .subMenuIcon-selected {
-	background: #E3E8F3;
-}
 
 .sendButton {
 	display: block;
@@ -107,10 +89,9 @@ background: url('/images/Fondo.jpeg');
 	border: 1px solid #BBBBBB;
 	padding: 3px;
 	text-align: center;
-	/*vertical-align: middle;*/
 }
 
-/** Most GWT widgets already have a style name defined */
+/** Tamaño de la ventana de diálogo.*/
 .gwt-DialogBox {
 	width: 400px;
 }
@@ -119,18 +100,11 @@ background: url('/images/Fondo.jpeg');
 	margin: 5px;
 }
 
-.serverResponseLabelError {
-	color: red;
-}
 
 .gwt-TextArea {
 	font-weight: bold;
 }
 
-.gwt-RichTextArea {
-	background-color: wite;
-	font: "Verdana", sans-serif;
-}
 /* Estilo del dockpanel con una separacion de 3px */
 .dockpanel td {
 	padding: 3px;

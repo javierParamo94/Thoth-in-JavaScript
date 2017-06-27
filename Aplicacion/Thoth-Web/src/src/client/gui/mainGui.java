@@ -44,28 +44,74 @@ import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.Window;
 
 /**
+ * <b>Descripción</b><br>
+ * Clase principal de la GUI de la gramática.
+ * <p>
+ * <b>Detalles</b><br>
+ * Muestra un menú con funcionalidades, una area de texto donde ingtroducir la
+ * gramática y botones para ejecutar las acciones asociadas a la gramatica asi
+ * como un panel con las características .<br>
+ * </p>
+ * <p>
+ * <b>Funcionalidad</b><br>
+ * Checkeo de la gramática y renombrado de nodos y funciones del menú.
+ * </p>
  * 
- * @author User
- *
+ * @author Francisco Javier Páramo Arnaiz.
+ * @version 1.0
  */
 public class mainGui extends Composite {
 
 	// Attributes
 	// -----------------------------------------------------------------------
-	private VerticalPanel vPanel1 = new VerticalPanel();
-	private VerticalPanel vPanel2 = new VerticalPanel();
-	private VerticalPanel vPanel3 = new VerticalPanel();
+
+	private MenuBar menu = new MenuBar();
+	/**
+	 * Panel vertical donde se escribe la gramatica
+	 */
+	private VerticalPanel imputGrammarPanel = new VerticalPanel();
+	/**
+	 * Panel de los botones.
+	 */
+	private VerticalPanel buttonPanel = new VerticalPanel();
+	/**
+	 * Panel con la tabla de características.
+	 */
+	private VerticalPanel tablePanel = new VerticalPanel();
+	/**
+	 * Panel general donde se edita la gramática.
+	 */
 	public VerticalPanel editorGrammarPanel = new VerticalPanel();
+	/**
+	 * Panel de la barra de menú
+	 */
 	public HorizontalPanel barMenuPanel = new HorizontalPanel();
-	private HorizontalPanel hPanel3 = new HorizontalPanel();
-	private TextBox txt1, txt2, txt3, txt4, txt5;
-	private FlexTable stocksFlexTable = new FlexTable();
+	/**
+	 * Panel del usuario.
+	 */
+	public HorizontalPanel userPanel = new HorizontalPanel();
+	/**
+	 * Panel general de las características de la gramática.
+	 */
+	private HorizontalPanel GrammarPropetiesPanel = new HorizontalPanel();
+	/**
+	 * TextBox con cada una de las características de la gramática.
+	 */
+	private TextBox boxType, boxNumProd, boxAxiom, boxTokens, boxNonTerm;
+	/**
+	 * Tabla con las características.
+	 */
+	private FlexTable propertiesGramTable = new FlexTable();
+	/**
+	 * Variable que referencia a esta misma clase
+	 */
 	private mainGui mVisual = this;
 
-	private RegistrationServiceAsync loginService = GWT
+	/**
+	 * Variable para la comunicación RPC con el servidor
+	 */
+	private RegistrationServiceAsync regService = GWT
 			.create(RegistrationService.class);
-	DockPanel dockPanel = new DockPanel();
-
 	/**
 	 * Area de texto donde podremos escribir la gramática que queramos.
 	 */
@@ -75,14 +121,14 @@ public class mainGui extends Composite {
 	 */
 	public Grammar mGrammar;
 	/**
-	 * 
+	 * GrammarServiceClientImp Implementacion del servicio.
 	 */
 	private static GrammarServiceClientImp serviceImp;
 
 	/**
 	 * Variable para la internacionalización de los textos
 	 */
-	private MessageMessages sms = GWT.create(MessageMessages.class);
+	private MessageMessages mMsg = GWT.create(MessageMessages.class);
 
 	/**
 	 * Texto inicial del TextArea
@@ -100,8 +146,10 @@ public class mainGui extends Composite {
 	public mainGui(GrammarServiceClientImp serviceImp) {
 		buildMenuBar();
 		buildGrammarPanel(serviceImp);
+		userPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
 		// Añadimos los elementos al panel raiz.
 		RootPanel.get().add(barMenuPanel);
+		RootPanel.get().add(userPanel);
 		RootPanel.get().add(editorGrammarPanel);
 	}// manGui
 
@@ -120,9 +168,13 @@ public class mainGui extends Composite {
 	}// mainGui
 
 	/**
+	 * Constructor del panel de gramáticas al que se le pasa la gramática en
+	 * formato texto.
 	 * 
 	 * @param serviceImp
+	 *            Implementacion del servicio.
 	 * @param grammarText
+	 *            Nueva gramática del panel.
 	 */
 	public mainGui(GrammarServiceClientImp serviceImp, String grammarText) {
 		this(serviceImp);
@@ -130,159 +182,176 @@ public class mainGui extends Composite {
 	}// mainGui
 
 	/**
+	 * contruye los paneles para la edición del agramática.
 	 * 
 	 * @param serviceImp
+	 *            Implementacion del servicio.
 	 */
 	private void buildGrammarPanel(GrammarServiceClientImp serviceImp) {
 
 		mainGui.serviceImp = serviceImp;
 
+		// Panel principal que esta compuesto de 4 parte, norte, sur, este y
+		// oeste.
 		DockPanel dockPanel = new DockPanel();
 		dockPanel.setStyleName("dockpanel");
 		dockPanel.setSpacing(4);
 		dockPanel.setHorizontalAlignment(DockPanel.ALIGN_CENTER);
 		dockPanel.setVerticalAlignment(DockPanel.ALIGN_TOP);
 
+		// TextArea donde se podrá escribir la gramática
 		grammarArea = new TextArea();
 		grammarArea.setCharacterWidth(150);
 		grammarArea.setVisibleLines(18);
 		grammarArea.setText(INITIAL_TEXT);
 		grammarArea.setReadOnly(false);
 
-		stocksFlexTable.setText(0, 0, sms.grammartype());
-		stocksFlexTable.setText(1, 0, sms.productionnumber());
-		stocksFlexTable.setText(2, 0, sms.axiom());
-		stocksFlexTable.setText(3, 0, sms.tokens());
-		stocksFlexTable.setText(4, 0, sms.nonterminals());
-		stocksFlexTable.setHeight("230px");
-		stocksFlexTable.setWidth("210px");
+		// Tabla con los tipos de características de una gramática.
+		propertiesGramTable.setText(0, 0, mMsg.grammartype());
+		propertiesGramTable.setText(1, 0, mMsg.productionnumber());
+		propertiesGramTable.setText(2, 0, mMsg.axiom());
+		propertiesGramTable.setText(3, 0, mMsg.tokens());
+		propertiesGramTable.setText(4, 0, mMsg.nonterminals());
+		propertiesGramTable.setHeight("230px");
+		propertiesGramTable.setWidth("210px");
 
-		stocksFlexTable.getRowFormatter().addStyleName(0, "header");
-		stocksFlexTable.getRowFormatter().addStyleName(1, "header");
-		stocksFlexTable.getRowFormatter().addStyleName(2, "header");
-		stocksFlexTable.getRowFormatter().addStyleName(3, "header");
-		stocksFlexTable.getRowFormatter().addStyleName(4, "header");
+		propertiesGramTable.getRowFormatter().addStyleName(0, "header");
+		propertiesGramTable.getRowFormatter().addStyleName(1, "header");
+		propertiesGramTable.getRowFormatter().addStyleName(2, "header");
+		propertiesGramTable.getRowFormatter().addStyleName(3, "header");
+		propertiesGramTable.getRowFormatter().addStyleName(4, "header");
 
-		txt1 = new TextBox();
-		txt2 = new TextBox();
-		txt3 = new TextBox();
-		txt4 = new TextBox();
-		txt5 = new TextBox();
+		// TextBox donde se escribe las características de la gramática.
+		boxType = new TextBox();
+		boxNumProd = new TextBox();
+		boxAxiom = new TextBox();
+		boxTokens = new TextBox();
+		boxNonTerm = new TextBox();
 
-		txt1.setReadOnly(true);
-		txt2.setReadOnly(true);
-		txt3.setReadOnly(true);
-		txt4.setReadOnly(true);
-		txt5.setReadOnly(true);
+		boxType.setReadOnly(true);
+		boxNumProd.setReadOnly(true);
+		boxAxiom.setReadOnly(true);
+		boxTokens.setReadOnly(true);
+		boxNonTerm.setReadOnly(true);
 
-		this.vPanel1.add(grammarArea);
-		this.vPanel3.add(txt1);
-		this.vPanel3.add(txt2);
-		this.vPanel3.add(txt3);
-		this.vPanel3.add(txt4);
-		this.vPanel3.add(txt5);
+		this.imputGrammarPanel.add(grammarArea);
+		this.tablePanel.add(boxType);
+		this.tablePanel.add(boxNumProd);
+		this.tablePanel.add(boxAxiom);
+		this.tablePanel.add(boxTokens);
+		this.tablePanel.add(boxNonTerm);
 
-		PushButton btn1 = new PushButton(new Image("/images/checkGrammar.png"));
-		PushButton btn2 = new PushButton(new Image("/images/renameSymbol.png"));
+		// botones
+		PushButton btnCheck = new PushButton(new Image(
+				"/images/checkGrammar.png"));
+		PushButton btnRename = new PushButton(new Image(
+				"/images/renameSymbol.png"));
 
-		btn1.addClickHandler(new Btn1ClickHandler());
-		btn2.addClickHandler(new Btn2ClickHandler());
-		this.vPanel2.add(btn1);
-		this.vPanel2.add(btn2);
+		btnCheck.addClickHandler(new BtnCheckHandler());
+		btnRename.addClickHandler(new BtnRenameHandler());
+		this.buttonPanel.add(btnCheck);
+		this.buttonPanel.add(btnRename);
 
-		txt1.setText(sms.grammartype());
-		txt2.setText(sms.productionnumber());
-		txt3.setText(sms.axiom());
-		txt4.setText(sms.tokens());
-		txt5.setText(sms.nonterminals());
+		boxType.setText(mMsg.grammartype());
+		boxNumProd.setText(mMsg.productionnumber());
+		boxAxiom.setText(mMsg.axiom());
+		boxTokens.setText(mMsg.tokens());
+		boxNonTerm.setText(mMsg.nonterminals());
 
-		this.hPanel3.add(stocksFlexTable);
+		this.GrammarPropetiesPanel.add(propertiesGramTable);
 
-		hPanel3.setHorizontalAlignment(HorizontalPanel.ALIGN_RIGHT);
-		hPanel3.add(vPanel3);
+		GrammarPropetiesPanel
+				.setHorizontalAlignment(HorizontalPanel.ALIGN_RIGHT);
+		GrammarPropetiesPanel.add(tablePanel);
 
-		dockPanel.add(hPanel3, DockPanel.SOUTH);
-		dockPanel.add(vPanel1, DockPanel.EAST);
-		dockPanel.add(vPanel2, DockPanel.WEST);
+		dockPanel.add(GrammarPropetiesPanel, DockPanel.SOUTH);
+		dockPanel.add(imputGrammarPanel, DockPanel.EAST);
+		dockPanel.add(buttonPanel, DockPanel.WEST);
 
 		editorGrammarPanel.add(dockPanel);
 	}// buildGrammarPanel
 
 	/**
+	 * Clase asociada al botón de checkear gramática. Ejecuta la acción de
+	 * checkeo de la gramática
 	 * 
-	 * @author User
+	 * @author Francisco Javier Páramo Arnaiz.
 	 *
 	 */
-	private class Btn1ClickHandler implements ClickHandler {
+	private class BtnCheckHandler implements ClickHandler {
 
 		@Override
 		public void onClick(ClickEvent event) {
 			String textcheck = grammarArea.getText();
 			serviceImp.checkContent(textcheck);
+			
+			regService.grammarReg(grammarArea.getText(), new AsyncCallback<Object>() {
+				//Fallo, mensaje de error.
+				public void onFailure(Throwable caught) {
+
+				}
+				//Exito
+				public void onSuccess(Object user) {
+
+				}
+			});
 		}
-	}// Btn1ClickHandler
+	}// BtnCheckHandler
 
 	/**
-	 * Renombrar
+	 * Renombrado de nodos. Tanto terminales como no terminales
 	 * 
-	 * @author User
+	 * @author Francisco Javier Páramo Arnaiz.
 	 *
 	 */
-	private class Btn2ClickHandler implements ClickHandler {
+	private class BtnRenameHandler implements ClickHandler {
 
 		public void onClick(ClickEvent event) {
 			String textcheck = grammarArea.getText();
 			serviceImp.checkContent(textcheck);
 			new RenameSymbolDialog(mVisual, mGrammar).show();
 		}
-	}
+	}// BtnRenameHandler
 
 	/**
+	 * Actualiza la gramática asociada al panel.<br>
+	 * Actualiza las propiedades de la gramática que se muestran en la parte
+	 * inferior.
 	 * 
 	 * @param grammar
+	 *            Nueva gramática.
 	 */
-	// @Override
 	public void updateLabel(Grammar grammar) {
 		String term = grammar.getTerminals().toString(), noTerm = grammar
 				.getNonTerminals().toString();
 
 		term = term.substring(1, term.length() - 1);
 		noTerm = noTerm.substring(1, noTerm.length() - 1);
-	/*	loginService.userAction(new AsyncCallback() {
-			@Override
-			public void onFailure(Throwable caught) {
-				Window.alert("Error ");
-			}
 
-			@Override
-			public void onSuccess(Object result) {
-				Window.alert("Acierto ");
-
-			}
-		});*/
 		mGrammar = grammar;
-		txt2.setText(((Integer) grammar.getProductions().size()).toString());
-		txt3.setText(grammar.getAxiom().toString());
-		txt4.setText(term);
-		txt5.setText(noTerm);
+		boxNumProd.setText(((Integer) grammar.getProductions().size())
+				.toString());
+		boxAxiom.setText(grammar.getAxiom().toString());
+		boxTokens.setText(term);
+		boxNonTerm.setText(noTerm);
 		switch (grammar.getType()) {
 		case TypeHandler.CHOMSKY:
-			txt1.setText("Chomsky");
+			boxType.setText("Chomsky");
 			break;
 		case TypeHandler.DEPENDENT:
-			txt1.setText(sms.dependent());
+			boxType.setText(mMsg.dependent());
 			break;
 		case TypeHandler.INDEPENDENT:
-			txt1.setText(sms.independent());
+			boxType.setText(mMsg.independent());
 			break;
 		case TypeHandler.REGULAR:
-			txt1.setText(sms.regular());
+			boxType.setText(mMsg.regular());
 			break;
 		}
 	}// updateLabel
 
 	/**
-	 * 
+	 * Construye todo el menú.
 	 */
 	private void buildMenuBar() {
 
@@ -295,15 +364,8 @@ public class mainGui extends Composite {
 
 		Command download = new Command() {
 			public void execute() {
-				// String url = GWT.getModuleBaseURL() +
-				// "downloadService?fileInfo1=" + fileInfo1;
-				// Window.open( url, "_blank",
-				// "status=0,toolbar=0,menubar=0,location=0");
-				// Window.open(GWT.getHostPageBaseURL() + "/file.rar", "name",
-				// "enabled");
 				Window.open("http://127.0.0.1:8888/file.rar", "_self",
 						"enabled");
-
 			}
 		};
 
@@ -319,6 +381,7 @@ public class mainGui extends Composite {
 		CommandLang french = new CommandLang("fr");
 		CommandLang english = new CommandLang("en");
 
+		// comprueba la gramática para SNT
 		Command eliminate_SNT = new Command() {
 			public void execute() {
 				serviceImp.checkContent(grammarArea.getText());
@@ -332,6 +395,7 @@ public class mainGui extends Composite {
 			}
 		};
 
+		// comprueba la gramática para SNA
 		Command eliminate_SNA = new Command() {
 			public void execute() {
 				serviceImp.checkContent(grammarArea.getText());
@@ -343,6 +407,7 @@ public class mainGui extends Composite {
 			}
 		};
 
+		// comprueba la gramática para SA
 		Command eliminate_SA = new Command() {
 			public void execute() {
 				serviceImp.checkContent(grammarArea.getText());
@@ -354,6 +419,7 @@ public class mainGui extends Composite {
 			}
 		};
 
+		// comprueba la gramática para PNG
 		Command eliminate_PNG = new Command() {
 			public void execute() {
 				serviceImp.checkContent(grammarArea.getText());
@@ -364,6 +430,8 @@ public class mainGui extends Composite {
 					openPNG();
 			}
 		};
+
+		// limpia la gramática o emite error.
 		Command cleanGr = new Command() {
 			public void execute() {
 				serviceImp.checkContent(grammarArea.getText());
@@ -387,7 +455,7 @@ public class mainGui extends Composite {
 				}
 			}
 		};
-
+		// comprueba la gramática para la recursividad directa
 		Command direct_recursion = new Command() {
 			public void execute() {
 				serviceImp.checkContent(grammarArea.getText());
@@ -399,6 +467,7 @@ public class mainGui extends Composite {
 			}
 		};
 
+		// comprueba la gramática para la recursividad indirecta
 		Command indirect_recursion = new Command() {
 			public void execute() {
 				serviceImp.checkContent(grammarArea.getText());
@@ -410,6 +479,7 @@ public class mainGui extends Composite {
 			}
 		};
 
+		// comprueba la gramática para la limpieza de recursividad
 		Command recursion = new Command() {
 			public void execute() {
 				serviceImp.checkContent(grammarArea.getText());
@@ -421,6 +491,7 @@ public class mainGui extends Composite {
 			}
 		};
 
+		// comprueba la gramática para factorizar por la izq.
 		Command left_factoring = new Command() {
 			public void execute() {
 				serviceImp.checkContent(grammarArea.getText());
@@ -432,6 +503,7 @@ public class mainGui extends Composite {
 			}
 		};
 
+		// comprueba la gramática para chomsky.
 		Command chomsky = new Command() {
 			public void execute() {
 				serviceImp.checkContent(grammarArea.getText());
@@ -443,6 +515,7 @@ public class mainGui extends Composite {
 			}
 		};
 
+		// comprueba la gramática fifo y emite mensaje de continuacion
 		Command fiFo = new Command() {
 			public void execute() {
 				serviceImp.checkContent(grammarArea.getText());
@@ -459,7 +532,7 @@ public class mainGui extends Composite {
 					buttonPane
 							.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
 
-					Button yesBtn = new Button(sms.yes());
+					Button yesBtn = new Button(mMsg.yes());
 					yesBtn.addClickHandler(new ClickHandler() {
 						public void onClick(ClickEvent event) {
 							deleteDialog.hide();
@@ -467,7 +540,7 @@ public class mainGui extends Composite {
 						}
 					});
 
-					Button noBtn = new Button(sms.no());
+					Button noBtn = new Button(mMsg.no());
 					noBtn.addClickHandler(new ClickHandler() {
 						public void onClick(ClickEvent event) {
 							deleteDialog.hide();
@@ -482,13 +555,14 @@ public class mainGui extends Composite {
 					buttonPane.setWidth("75%");
 
 					deleteDialog.add(buttonPane);
-					deleteDialog.setText(sms.questionfirstfollow() + " "
-							+ sms.ucontinue());
+					deleteDialog.setText(mMsg.questionfirstfollow() + " "
+							+ mMsg.ucontinue());
 					deleteDialog.show();
 				}
 			}
 		};
 
+		// comprueba la gramática tasp y emite mensaje de continuacion
 		Command tasp = new Command() {
 			public void execute() {
 				serviceImp.checkContent(grammarArea.getText());
@@ -505,7 +579,7 @@ public class mainGui extends Composite {
 					buttonPane
 							.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
 
-					Button yesBtn = new Button(sms.yes());
+					Button yesBtn = new Button(mMsg.yes());
 					yesBtn.addClickHandler(new ClickHandler() {
 						public void onClick(ClickEvent event) {
 							choiceDialog.hide();
@@ -513,7 +587,7 @@ public class mainGui extends Composite {
 						}
 					});
 
-					Button noBtn = new Button(sms.no());
+					Button noBtn = new Button(mMsg.no());
 					noBtn.addClickHandler(new ClickHandler() {
 						public void onClick(ClickEvent event) {
 							choiceDialog.hide();
@@ -528,63 +602,117 @@ public class mainGui extends Composite {
 					buttonPane.setWidth("75%");
 
 					choiceDialog.add(buttonPane);
-					choiceDialog.setText(sms.questionfirstfollow() + " "
-							+ sms.ucontinue());
+					choiceDialog.setText(mMsg.questionfirstfollow() + " "
+							+ mMsg.ucontinue());
 					choiceDialog.show();
 				}
 			}
 		};
 
-		MenuBar fooMenu = new MenuBar(true);
-		fooMenu.addItem("Abrir", cmd);
-		fooMenu.addItem("Guardar", download);
-		fooMenu.addItem("ejemplo3", cmd);
-
-		MenuBar grammarMenu = new MenuBar(true);
-
-		grammarMenu.addItem("Comprobar", cmd);
-		grammarMenu.addItem("Renombrar símbolo", cmd);
-
+		// menu con los algoritmos
 		MenuBar algorithmMenu = new MenuBar(true);
-		algorithmMenu.addItem(sms.eliminatesnt(), eliminate_SNT);
-		algorithmMenu.addItem(sms.eliminatesna(), eliminate_SNA);
-		algorithmMenu.addItem(sms.eliminatesa(), eliminate_SA);
-		algorithmMenu.addItem(sms.eliminatepng(), eliminate_PNG);
-		algorithmMenu.addItem(sms.clear(), cleanGr);
+		algorithmMenu.addItem(mMsg.eliminatesnt(), eliminate_SNT);
+		algorithmMenu.addItem(mMsg.eliminatesna(), eliminate_SNA);
+		algorithmMenu.addItem(mMsg.eliminatesa(), eliminate_SA);
+		algorithmMenu.addItem(mMsg.eliminatepng(), eliminate_PNG);
+		algorithmMenu.addItem(mMsg.clear(), cleanGr);
 		algorithmMenu.addSeparator();
-		algorithmMenu.addItem(sms.eliminatedirectrecursion(), direct_recursion);
-		algorithmMenu.addItem(sms.eliminateindirectrecursion(),
+		algorithmMenu
+				.addItem(mMsg.eliminatedirectrecursion(), direct_recursion);
+		algorithmMenu.addItem(mMsg.eliminateindirectrecursion(),
 				indirect_recursion);
-		algorithmMenu.addItem(sms.eliminaterecursion(), recursion);
+		algorithmMenu.addItem(mMsg.eliminaterecursion(), recursion);
 		algorithmMenu.addSeparator();
-		algorithmMenu.addItem(sms.factoring(), left_factoring);
-		algorithmMenu.addItem(sms.fnchomsky(), chomsky);
+		algorithmMenu.addItem(mMsg.factoring(), left_factoring);
+		algorithmMenu.addItem(mMsg.fnchomsky(), chomsky);
 		algorithmMenu.addSeparator();
-		algorithmMenu.addItem(sms.calculateff(), fiFo);
-		algorithmMenu.addItem(sms.tasp(), tasp);
+		algorithmMenu.addItem(mMsg.calculateff(), fiFo);
+		algorithmMenu.addItem(mMsg.tasp(), tasp);
 
+		// menu de idiomas
 		MenuBar selectIdiom = new MenuBar(true);
-		selectIdiom.addItem("Castellano", spanish);// Command(spanish));
+		selectIdiom.addItem("Castellano", spanish);
 		selectIdiom.addItem("Deutsch", deutschland);
 		selectIdiom.addItem("Français", french);
 		selectIdiom.addItem("English", english);
 
+		// menu de ayuda
 		MenuBar helpMenu = new MenuBar(true);
-		helpMenu.addItem(sms.about(), about);
+		helpMenu.addItem(mMsg.about(), about);
 
-		MenuBar menu = new MenuBar();
-		menu.addItem(sms.file(), fooMenu);
+		menu.addItem(mMsg.help(), helpMenu);
 		menu.addSeparator();
-		menu.addItem(sms.grammar(), grammarMenu);
+		menu.addItem(mMsg.algorithms(), algorithmMenu);
 		menu.addSeparator();
-		menu.addItem(sms.algorithms(), algorithmMenu);
+		menu.addItem(mMsg.language(), selectIdiom);
+
+
+		// salida de sessión con nombre del usuario
+		getUserName();
+		// doble separador
 		menu.addSeparator();
-		menu.addItem(sms.language(), selectIdiom);
-		menu.addSeparator();
-		menu.addItem(sms.help(), helpMenu);
 
 		barMenuPanel.add(menu);
 	}// buildMenuBar
+
+	/**
+	 * Obtiene el nombre del usuario con sesión via RPC con el server
+	 */
+	public void getUserName() {
+
+		regService.loginFromSessionServer(new AsyncCallback<Object>() {
+			String user;
+
+			@Override
+			public void onFailure(Throwable caught) {
+				user = "error";
+			}
+
+			@Override
+			public void onSuccess(Object result) {
+				if (result == null)
+					user = "error";
+				else
+					user = (String) result;
+				writeUserName(user);
+			}
+		});
+	}// getUserName
+
+	/**
+	 * Escribe en el menu el nombre del usuario.
+	 * 
+	 * @param name
+	 */
+	public void writeUserName(String name) {
+
+		MenuBar logoutMenu = new MenuBar(true);
+		logoutMenu.addItem("Logout", logoutFunction);
+
+		menu.addSeparator();
+		menu.addItem(name, logoutMenu);
+	}// writeUserName
+
+	/**
+	 * Comando asociado al menú del logout
+	 */
+	Command logoutFunction = new Command() {
+		@Override
+		public void execute() {
+			regService.logout(new AsyncCallback<Object>() {
+				// en caso de fallo emite mensaje de error.
+				public void onFailure(Throwable caught) {
+					// Window.alert(mMsg.saalgorithm());
+				}
+
+				// en caso de exito redirige.
+				@Override
+				public void onSuccess(Object result) {
+					Window.Location.assign("/gramaticacs/");
+				}
+			});
+		}
+	};
 
 	// Elimina Símbolos no Terminales
 	public void openSNT() {
