@@ -53,11 +53,73 @@ Esta forma de construcción de gramáticas se ha realizado con el fin de no tene
 \centering
 \includegraphics[width=1\textwidth]{diseno-parser}
 \caption{Diagrama de clases del Parser de la gramática\cite{thothv2}.}
-\label{fig:4.}
+\label{fig:4.4}
 \end{figure}
+
+
+
+\subsection{Base de datos}
+
+Este es el diseño de la base de datos para gestionar las sesiones y los registros de usuarios. La clase Login hace de nexo de unión entre las dos vistas, la de registro y la de inicio de sesión. Esa misma clase realiza las peticiones al servidor por medio de las interfaces <<Registration>>. Las interfaces hacen peticiones al servlet de registro, <<RegServlet>>, que realizará las operaciones debidas con las base de datos <<dataStoreService>> y con la clase de inicio de sesión <<sessionServlet>> que cargará el módulo que sea según la sesión.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=1.1\textwidth]{diseno-inicio-bd}
+\caption{Diagrama de clases del Inicio de sesión junto con el registro. Ambos se comunican con la base de datos.}
+\label{fig:4.5}
+\end{figure}
+
 
 \section{Diseño procedimental}
 
+Vamos a ver ahora el funcionamiento de varios de los procesos que se llevan a cabo en esta aplicación.
+ 
+Los procesos más importantes en esta aplicación son los dos que se muestran en los siguientes diagramas de flujo. No se representan todos pero si aquellos más importantes que se relacionan con el servidor \ref{fig:4.6}\ref{fig:4.7}.
+ \begin{figure}[h]
+\centering
+\includegraphics[width=0.80\textwidth]{login-precedimiento}
+\caption{Proceso de inicio de sesión en la aplicación.}
+\label{fig:4.6}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.80\textwidth]{Comprobar-precedimiento}
+\caption{Proceso de comprobación de una gramática.}
+\label{fig:4.7}
+\end{figure}
+
+
 \section{Diseño arquitectónico}
 
+En cuanto al diseño arquitectónico, se va a explicar y mostrar de forma general como esta diseñado el proyecto, en cuanto a la distribución de paquetes y los patrones de diseño que se han aplicado.
 
+La aplicación se estructura en tres pilares fundamentales.
+
+
+\begin{itemize}
+\item src:
+Este paquete se encuentra todo el código escrito en Java. Esta estructurado en diversas partes siguiendo el diseño modelo-vista-controlador.
+	\begin{itemize}
+	\item client: Aquí se encuentran todos los archivos programados en Java que será traducidos a JavaScript. No pueden contener librerías que no estén especificadas para GWT. Contiene parte del núcle de Thoth y toda la parte visual de la aplicación.
+	\item server: En este paquete se guardan las clases que realizan funciones que van a usar librerías no aptas por GWT. Se deben especificar los servlets que se utilizan aquí dentro del war. Incluye el parserJavaCC y la base de datos. Su comunicación con el cliente es vía RPC.
+	\item shared: En este paquete se alojan clases de ayuda entre el cliente y el servidor. Su comunicación es directa, sin RPC, pero tiene las mismas restricciones que el cliente.
+	\end{itemize}
+\item Test: Contiene las pruebas realizadas sobre diferentes funcionalidades de la aplicación.
+
+\item War:
+	Son los archivos que se utilizarán para ejecutar la aplicación en el navegador. Muchos de ellos se generan al compilar la aplicación con GWT. Los html, css y algún xml, están programados por el desarrollador, para configurar la aplicación. GWT genera los archivos con extensión JavaScript, que es la traducción de Java.
+\end{itemize}
+
+
+El proyecto continua con el diseño modelo-vista-controlador de las anteriores versiones de Thoth. 
+"Es un patrón de arquitectura de las aplicaciones software. Separa la lógica de negocio de la interfaz de usuario, facilitando la evolución, por separado de ambos aspectos, y aumentando reutilización y flexibilidad" \cite{mvc}.
+
+La estructura de paquetes está definida de la siguiente forma \ref{fig:4.8}. Se puede ver como esta definido el modelo-vista-controlador y como esta agrupados los paquetes según la funcionalidad. Represento solo el cliente porque creo que es el interesante.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.80\textwidth]{diagrama-paquetes}
+\caption{Diagrama de paquetes dentro de Client.}
+\label{fig:4.8}
+\end{figure}

@@ -6,8 +6,67 @@ En esta sección se hablara de aspectos más técnicos pensando en futuros desar
 
 \section{Estructura de directorios}
 
-\section{Manual del programador}
 
+\subsection{Aplicación}
+Dentro se encuentra la carpeta \textbf{Thoth-Web}. En este directorio se almacenan los fichero del código fuente del proyecto en src, el directorio war, y también los test.
+
+\begin{itemize}
+	\item src
+		\begin{itemize}
+			\item client
+			\item shared
+			\item server
+			\item módulo Login
+			\item módulo GramaticaCS
+		\end{itemize}
+	\item test
+		\begin{itemize}
+			\item login
+			
+		\end{itemize}
+	\item war
+		\begin{itemize}
+			\item imagenes
+			\item login
+			\item gramaticacs
+			\item WEB-INF
+		\end{itemize}
+\end{itemize}	
+
+Client esta organizado de la siguiente manera:
+
+\begin{itemize}
+	\item algorithms
+	\item core
+	\item gui
+	\item login
+	\item register
+	\item main
+	\item archivos de comunicación con el servidor
+\end{itemize}	
+
+Server contiene los siguientes elementos:
+\begin{itemize}
+	\item RegServlet.java
+	\item GrammarServiceImp.java
+	\item SessionServlet.java
+\end{itemize}
+\subsection{Prototipos}
+
+En este directorio, se encuentran los prototipos hechos al inicio del proyecto. Sirven para entender el funcionamiento de diferentes aspectos de GWT como, creación de un proyecto, comunicación cliente-servidor y dos pruebas con el núcleo de Thoth cliente-servidor.
+
+\begin{itemize}
+	\item CorePrueba
+	\item GWTProjectThree
+	\item PrototipoCoreC-S
+	\item StockWatcher
+\end{itemize}	
+
+\subsection{Documentación}
+
+En este directorio se incluyen los la memoria y los anexos hechos con Latex, asi como las imágenes para documentarlos.
+
+\section{Manual del programador}
 
 \subsection{Instalación y configuración de GWT:}
 
@@ -57,7 +116,7 @@ En términos generales, para utilizar el parser de la gramática, que es quizá 
 Dentro de la clase <<GrammarServiceClientImp>> hay tres constructores según le pasemos una gramática, un texto, simplemente nada. El atributo url es simplemente la localización del <<servlet>> que se utiliza para la comunicación RPC. Estos detalles se aprecian mejor en el diagrama de clases que muestra la siguiente imagen \ref{fig:5.3}.
 
 \begin{figure}
-\raggedleft
+\centering
 \includegraphics[scale=0.9]{Parser-ClassDiagram}
 \caption{Diagrama de clases que muestra como utiliza el parser de la gramática. Diagrama realizado con ObjectAid.}
 \label{fig:5.3}
@@ -67,10 +126,47 @@ Una vez hechos todos estos pasos, es posible que no funciona nada, es más, dar�
 
 \section{Compilación, instalación y ejecución del proyecto}
 
-Hace unos años Google contaba con un plugin para algunos navegadores (Chrome y Firefox) con los que se podía ejecutar el proyecto. Pero Google paró hace unos años el mantenimiento de este plugin. Pero afortunadamente los desarrolladores de GWT crearon <<GWT Super-Dev Mode>> que permite ejecutar y hacer <<debug>>. Con respecto a esto, es importante que para permitir este tipo de ejecución, debemos incluir una sentencia en la definición del módulo que se vaya a ejecutar.
+Antes de empezar a hablar sobre compilación debemos contar con un proyecto en GWt, preferiblemente en Eclipse, habiendo instalado el pluguin de Google, el SDK de App Engine para Java y el SDK de GWT.
 
-Es decir, los proyectos en GWT pueden estar compuestos por varios módulos, que se ejecutarán cada vez que se les llame. Estos módulos llamarán a su vez una clase, digamos, principal del módulo. Esta clase debe implementar <<EntryPoint>> que indica que es la clase de <<entrada>> y debe tener un método denominado <<onModuleLoad>>. Es igual que el <<main>> en Java.
+Hace unos años Google contaba con un plugin para algunos navegadores (Chrome y Firefox, no confundir con el plugin de Eclipse) con los que se podía ejecutar el proyecto. Pero Google paró el mantenimiento. Afortunadamente los desarrolladores de GWT crearon <<GWT Super-Dev Mode>> que permite ejecutar cualquier proyecto realizado con esta herramienta.
 
-Como iba diciendo, en la definición del módulo, para poder realizar la ejecución con <<Super-Dev Mode>> debemos incluir la sentencia \textit{add-linker name=``xsiframe''}. Las definiciones de los módulos se encuentran en la raíz de la carpeta principal y tienen una extensión <<.gwt.xml>>.
+En la definición del módulo, para poder realizar la ejecución con <<Super-Dev Mode>> debemos incluir la sentencia \textit{add-linker name=``xsiframe''}. Si no lo incluimos podemos incurrir en algún tipo de error al ejecutarlo.
+Las definiciones de los módulos se encuentran en la raíz de la carpeta principal y tienen una extensión <<.gwt.xml>>. Es habitual que no se llegue a hacer la compilación porque no se han definido los servlets dentro del archivo <<web.xml>>.
+  
+\begin{figure}
+\centering
+\includegraphics[scale=0.7]{SuperDevMode}
+\caption{Dirección local que aparece al ejecutar en modo SuperDevMode.}
+\label{fig:5.4}
+\end{figure}
+
+De esta forma una vez que se haya ejecutado en eclipse, se mostrará una dirección local que podemos abrir en nuestro navegador\ref{fig:5.4}. Este compilara los archivos HTML, y los JavaScript. Este proceso tardará unos segundo y cuando termine se mostrará la aplicación.
+
+Si tenemos una base de datos, para poder acceder a ella, hay que coger la raíz de la dirección local, en nuestro caso <<http://127.0.0.1:8888/>>, y añadirle <<\_ ah/admin>>. Desde ahí podemos ver las entidades que hay, y en cada una de ellas los datos almacenados.
+
+
+Por otro lado podemos desplegar la aplicación en App Engine. Seleccionamos el proyecto que queramos, y nos vamos al plugin de Google donde hacemos click en <<Deploy App Engine>> como muestra la imagen\ref{fig:5.5}. A continuación debemos dar un nombre al proyecto y en <<App Engine project settings...>> especificamos el identificador. Para hacerlo, debemos crear una cuenta aquí\footnote{\url{https://console.cloud.google.com/appengine}} y crear un proyecto. Automáticamente se le asignara un ID y ese es el que debemos introducir\ref{fig:5.6}. 
+\begin{figure}
+\centering
+\includegraphics[scale=0.6]{Desplegar}
+\caption{Acción de desplegar la aplicación con App Engine.}
+\label{fig:5.5}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.7]{Desplegar-dos}
+\caption{Opciones de despliegue.}
+\label{fig:5.6}
+\end{figure}
+
+Es importante que el SDK de Java sea el 1.7 ya que de lo contrario se producirá un error y no se desplegará la aplicación. La operación tardará un tiempo y ya solo quedará ir a la plataforma y ver si todo ha salido correctamente.
+
+Si todo ha sido correcto, desde la nube podemos acceder a la base de datos como hacíamos en modo local, incluso con más detalle.
 
 \section{Pruebas del sistema}
+
+
+Las pruebas de sistema las hemos realizado con ayuda de Selenium \footnote{\url{http://www.seleniumhq.org/}}. Selenium es un entorno para realizar pruebas software en varios lenguajes, entre ellos, Java. Esta pensado para utilizarse en aplicaciones web. Para ello se puede descargar una extensión para el navegador, que digamos, grabará los pasos para cada test. Con esto se logra comprobar que el funcionamiento es correcto.
+
+En este proyecto, hemos hecho pruebas de inicio de sesión

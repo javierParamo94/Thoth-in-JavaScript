@@ -432,7 +432,7 @@ Que esto equivale a un gasto por un trabajador de:
 \[ 4140\textrm{\euro} * 0,299 = 1237,86\textrm{\euro}\]
 \subsubsection{Costes de material}
 
-Como costes materiales se tienen en cuenta el software y el hardware. El software es todo ello gratuito y no necesita ninguna licencia bajo pago. En cuanto al hardware tendremos en cuenta el equipo en el cual se ha desarrollado. Se trata de un computador con un valor de 980\euro, que teniendo en cuenta su amortización media de unos 5 años de uso, el cálculo sería el siguiente. 
+Como costes materiales se tienen en cuenta el software y el hardware. El software es todo ello gratuito y no necesita ninguna licencia bajo pago. La plataforma Google Cloud, es gratis durante el primer año y la licencia caduca el 26 de junio de 2018. Además de regalo tengo 300 dólares a gastar en dos mese de servicios. En cuanto al hardware tendremos en cuenta el equipo en el cual se ha desarrollado. Se trata de un computador con un valor de 980\euro, que teniendo en cuenta su amortización media de unos 5 años de uso, el cálculo sería el siguiente. 
 \[ \frac{980\textrm{\euro}}{12\textrm{meses} * 5 \textrm{periodos}} *5\textrm{meses de uso} = 81,66\textrm{\euro}\]
  
 Por lo tanto los costes totales quedaría reflejados en la siguiente tabla \ref{tab:costes}.
@@ -461,4 +461,33 @@ En el marco de la viabilidad legal, se debe considerar las licencias de los prog
 
 Para el desarrollo del proyecto se ha hecho uso del framework GWT, que cuenta con la Licencia Apache 2.0, que es una licencia software libre permisiva compatible con GPL y aprobada por la Open Source Initiative. Esto se traduce en que el software producido bajo los términos de esta licencia otorga a usuario la utilización del software para cualquier propósito de modificación o distribución.
 
-Las librerías que se emplean también son gratuitas y de código abierto.
+Las librerías que se emplean también son gratuitas y de código abierto, como se puede observar en la siguiente tabla. 
+
+\begin{table}[]
+	\centering
+
+	\rowcolors {2}{gray!35}{}
+
+	\begin{tabular}{@{} p {.25\textwidth} p {.1\textwidth}@{} p {.40\textwidth} p {.25\textwidth}@{} }
+	\toprule
+	Librería     & Versión & Descripción & Licencia\\
+	\midrule
+	App Engine SDK for Java      & 1.9.34     &  Conjunto de librerías para trabajar con la plataforma App Engine. & Apache License 2.0
+	\\ 	
+	GWT SDK     & 2.7.0  &  Contiene las librerías principales y el compilador que se necesitan para escribir aplicaciones web. & Apache License 2.0  
+ 	\\ 	
+	JRE System Library        & 1.8.0-60  & Contiene las librerías mínimas de Java para ejecutar la aplicación. & 
+	\\ 	
+	JUnit & 0.12.3  & Framework que sirve para hacer pruebas de sistema.	               & Eclipse Public License 1.0
+	\\ 	
+	Google Plugin     & 3.9.6    & Sirve para desarrollar utilizando GWT y despliega aplicaciones en el entorno de App Engine. & Eclipse Public License v 1.0
+	\\ 	
+	Google App Engine Maven Integration       & 3.9.6   & Una herramienta de gestión de proyectos de software. & Eclipse Public License 1.0
+	\\ 
+	ObjectAid Class Diagram        & 1.1.14   & Herraminta de visualización de código y creación de diagramas para Eclipse. & Eclipse Public License v 1.0
+               \\ \bottomrule
+\end{tabular}
+	\caption{Tabla de software y sus licencias}
+	\label{tabla:Licencias}
+\end{table}
+
