@@ -169,4 +169,14 @@ Si todo ha sido correcto, desde la nube podemos acceder a la base de datos como 
 
 Las pruebas de sistema las hemos realizado con ayuda de Selenium \footnote{\url{http://www.seleniumhq.org/}}. Selenium es un entorno para realizar pruebas software en varios lenguajes, entre ellos, Java. Esta pensado para utilizarse en aplicaciones web. Para ello se puede descargar una extensión para el navegador, que digamos, grabará los pasos para cada test. Con esto se logra comprobar que el funcionamiento es correcto.
 
-En este proyecto, hemos hecho pruebas de inicio de sesión
+En este proyecto, hemos hecho pruebas sobre las sesiones, analizando, los siguientes casos:
+
+\begin{itemize}
+\item Inicio de sesión con \emph{email} y contraseña correctos. Se comprueba que el nombre del usuario aparece en el menú. Se cierra la sesión y se vuelve a la vista inicial.
+\item Inicio de sesión con contraseña incorrecta. Se comprueba que no ha podido acceder. Se prueba si se muestra un mensaje de error.
+\item Registro con correo no válido. Se comprueba que se muestra un mensaje de error. 
+\item Registro válido. Se comprueba que se registra un usuario y el mensaje de que se devuelve.
+
+\end{itemize}
+
+También se han incluido test de prueba de gramáticas, pero en este caso son iguales a los que se realizaron en las anteriores versiones de Thoth \cite{thothv2}. 

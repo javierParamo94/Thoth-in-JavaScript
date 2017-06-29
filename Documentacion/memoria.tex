@@ -20,6 +20,9 @@
 % Ecuaciones
 \usepackage{amsmath}
 
+% Tildes
+\usepackage[T1]{fontenc}
+
 % Rutas de fichero / paquete
 \newcommand{\ruta}[1]{{\sffamily #1}}
 
@@ -342,7 +345,12 @@
     \noindent\LARGE
     Presentado por \@author{}\\ 
     en Universidad de Burgos --- \@date{}\\
-    Tutor: \@tutor{}\\
+    \begin{tabbing}
+    Tutores: \= D. Álvar Arnaiz González \kill
+    Tutores: \= D. Álvar Arnaiz González \\
+    \> Dr. César Ignacio García Osorio
+    \end{tabbing}
+
   }%
   \end{center}%
   \null
@@ -355,7 +363,7 @@
 % Datos de portada
 \title{Conversión de la aplicación docente Thoth a JavaScript}
 \author{\nombre}
-\tutor{Dr. Cesar Ignacio García Osorio y D. Álvar Arnaiz González}
+\tutor{Dr. César Ignacio García Osorio y D. Álvar Arnaiz González}
 \date{\today}
 
 \begin{document}
@@ -372,13 +380,13 @@
 
 \noindent\includegraphics[width=\textwidth]{cabecera}\vspace{1cm}
 
-\noindent  Dr. Cesar Ignacio García Osorio y D. Álvar Arnaiz González, profesores del departamento de Departamento de Ingeniería Civil, área de Lenguajes y Sistemas Informáticos.
+\noindent  Dr. César Ignacio García Osorio y D. Álvar Arnaiz González, profesores del departamento de Departamento de Ingeniería Civil, área de Lenguajes y Sistemas Informáticos.
 
-\noindent Expone:
+\noindent Exponen:
 
 \noindent Que el alumno D. \nombre, con DNI 71293768-R, ha realizado el Trabajo final de Grado en Ingeniería Informática titulado Conversión de la aplicación docente Thoth a JavaScript. 
 
-\noindent Y que dicho trabajo ha sido realizado por el alumno bajo la dirección del que suscribe, en virtud de lo cual se autoriza su presentación y defensa.
+\noindent Y que dicho trabajo ha sido realizado por el alumno bajo la dirección de los que suscriben, en virtud de lo cual se autoriza su presentación y defensa.
 
 \begin{center} %\large
 En Burgos, {\large \today}
@@ -397,7 +405,7 @@ D. Álvar Arnaiz González
 \begin{minipage}{0.45\textwidth}
 \begin{flushleft} %\large
 Vº. Bº. del co-tutor:\\[2cm]
-Dr. Cesar Ignacio García Osorio
+Dr. César Ignacio García Osorio
 \end{flushleft}
 \end{minipage}
 \hfill
@@ -422,18 +430,18 @@ Dr. Cesar Ignacio García Osorio
 \begin{abstract}
 La teoría de autómatas y lenguajes formales es uno de los campos más antiguos en el ámbito de la informática, que a pesar de los constantes avances, sus principales conceptos continúan siendo de referencia para el estudio teórico y práctico de la informática. Esto es la base sobre la que nació el mundo de las tecnologías que conocemos hoy en día.
 
-Thoth es un antiguo proyecto de fin de grado que cuenta con varias versiones realizado por alumnos de la Universidad de Burgos y que sirve, precisamente, como herramienta de ayuda en la docencia de la teoría de autómatas y lenguajes formales. Este proyecto pretende llevar a Thoth a la web, sumando nuevas funcionalidades propias de este tipo de aplicaciones, como el registro de usuarios o inicio de sesión, que la harán más útil y completa.
+Thoth es un antiguotrabajo fin de carrera de la extinta Ingeniería Técnica en Informática que cuenta con varias versiones realizado por alumnos de la Universidad de Burgos y que sirve, precisamente, como herramienta de ayuda en la docencia de la teoría de autómatas y lenguajes formales. Este proyecto pretende llevar a Thoth a la web, sumando nuevas funcionalidades propias de este tipo de aplicaciones, como el registro de usuarios o el inicio de sesión, que la harán más útil y completa.
 
 
-Para ello se hace un estudio sobre las posibles tecnologías que ayudarán a conseguir el objetivo. De esta forma se determina como herramienta para lograr este cambio el <<framework>> denominado Google Web Toolkit, que consigue traducir parte del código escrito en Java a código JavaScript. GWT, según sus siglas, es una tecnología algo antigua pero muy útil para este proyecto, que combina código del lado del cliente y código del lado del servidor, cada uno con una funcionalidad, y que se comunican entre ellos vía RPC.
+Para ello se hace un estudio sobre las posibles tecnologías que ayudarán a conseguir el objetivo. De esta forma se determina como herramienta para lograr este cambio el \emph{framework} denominado \emph{Google Web Toolkit}, que consigue traducir parte del código escrito en Java a código JavaScript. GWT, según sus siglas, es una tecnología algo antigua pero muy útil para este proyecto, que combina código del lado del cliente y código del lado del servidor, cada uno con una funcionalidad, y que se comunican entre ellos vía RPC.
 
-El trabajo fundamental es adaptar el código Java para que el framework logre interpretarlo y traduzca lo necesario para que la aplicación se ejecute en cualquier navegador. Se trata de aprender los entresijos de GWT, sacando partido de la dualidad cliente-servidor y conservando todo lo bueno, que es mucho, realizado en la aplicación de escritorio de Thoth.
+El trabajo fundamental es adaptar el código Java para que el \emph{framework} logre interpretarlo y traduzca lo necesario para que la aplicación se ejecute en cualquier navegador. Se trata de aprender los entresijos de GWT, sacando partido de la dualidad cliente-servidor y conservando todo lo bueno, que es mucho, realizado en la aplicación de escritorio de Thoth.
 
 \end{abstract}
 
 \renewcommand*\abstractname{Descriptores}
 \begin{abstract}
-Palabras separadas por comas que identifiquen el contenido del proyecto Ej: servidor web, buscador de vuelos, android \ldots
+autómatas y lenguajes formales, procesadores de lenguajes, transformación de gramáticas, análisis descendente, aplicación cliente-servidor
 \end{abstract}
 
 \clearpage

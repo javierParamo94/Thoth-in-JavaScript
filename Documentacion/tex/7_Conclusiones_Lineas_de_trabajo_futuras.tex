@@ -1,4 +1,27 @@
 \capitulo{7}{Conclusiones y Líneas de trabajo futuras}
 
-Todo proyecto debe incluir las conclusiones que se derivan de su desarrollo. Éstas pueden ser de diferente índole, dependiendo de la tipología del proyecto, pero normalmente van a estar presentes un conjunto de conclusiones relacionadas con los resultados del proyecto y un conjunto de conclusiones técnicas. 
-Además, resulta muy útil realizar un informe crítico indicando cómo se puede mejorar el proyecto, o cómo se puede continuar trabajando en la línea del proyecto realizado. 
+En este apartado, mencionaremos algunas conclusiones a las que hemos llegado después de realizar el proyecto además de posibles ideas relacionadas con futuros proyectos.
+
+\section{Conclusiones}
+
+Si bien es verdad que la dirección tomada en un principio sobre qué herramienta utilizar para desarrollar el proyecto, podría haber sido más acertada, hemos aprendido mucho sobre el entorno de GWT. \emph{WebSwing} nos hubiera facilitado mucho el trabajo de transformar a HTML5 el código en Java. Pero por otro lado, hemos visto la forma en la que se desarrollan cientos de aplicaciones con GWT, algunas tan grandes como Cloudorado\footnote{\url{https://www.cloudorado.com/}}, BookedIN\footnote{\url{https://bookedin.com/}}, Gae-Studio\footnote{\url{https://dev.arcbees.com/gaestudio/}} o Sigmah\footnote{\url{http://www.sigmah.org/EN.html}}.
+
+En el caso de que hubiéramos hecho el proyecto con herramientas más fáciles nos hubieramos centrado sobre todo en añadir mejoras de Thoth, sin perder tanto tiempo en adaptar el código Java para GWT. 
+
+En cuanto a mi, en líneas generales, he podido aprender mucho sobre el desarrollo web, la arquitectura que utiliza y como se distribuye el programa entre el cliente y el servidor o la forma en la que se despliega una aplicación de estas características.
+
+\section{Líneas de trabajo futuras}
+
+Como posibles mejoras sobre este proyecto, hemos encontrado varios detalles que se nos han escapado, ya sea por falta de tiempo, o por no habernos dado cuenta antes.
+\begin{itemize}
+\item Creemos que es interesante almacenar en la base de datos la configuración del usuario, para que una vez que cambie el idioma de la aplicación, por defecto, al iniciar sesión lo haga con el idioma elegido anteriormente.
+
+\item Añadir algún método para guardar y cargar gramáticas, ya sea de forma local, en ordenador del usuario, o en la base de datos.
+
+\item Añadir comentarios al código, de forma que no se tengan en cuenta a la hora de comprobar la gramática. Nos dimos cuenta tarde, al hacer varias pruebas finales.
+\item Este proyecto se podría haber hecho de forma parecida pero con \emph{WebSwing} y centrándose sobre todo en la base de datos, en la accesibilidad desde distintos dispositivos etc.
+
+\item Crear perfiles de usuario, en que pueda configurar un avatar, añadir gramáticas favoritas entre otros.
+
+\item Añadir un panel de construcción de autómatas como en otras versiones de Thoth.
+\end{itemize}

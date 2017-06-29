@@ -17,7 +17,7 @@ Para poder realizar el cambio de idioma es necesario hacer uso de las propiedade
 \section{Google Web Toolkit}
 
 \subsection{Introducción}
-Para trabajar con GWT hemos utilizado el entorno de desarrollo de eclipse y con ayuda del plugin de Google, se crea un proyecto. Al crear un proyecto con él, se crean unos paquetes por defecto:
+Para trabajar con GWT hemos utilizado el entorno de desarrollo de eclipse y con ayuda del \emph{plugin} de Google, se crea un proyecto. Al crear un proyecto con él, se crean unos paquetes por defecto:
 \begin{itemize}
 \item Client: las clases dentro de este paquete se traducirán a lenguaje JavaScript. Es la parte fundamental de un proyecto en GWT y en ella se encuentra la clase principal que implementa <<EntryPoint>>  (indicativo de que es la clase en la que se encuentra la función principal) y la función principal <<onModuleLoad>>. Todo proyecto tiene al menos una clase en el cliente con estas características.
 \item Server: dentro, las clases no se traducirán a JavaScript y se puede programar en Java de forma completamente normal. Para realizar la comunicación se utilizan llamadas de procedimiento remoto (Remote Procedure Calls). Incluye servelets, bases de datos etc.
@@ -37,16 +37,16 @@ Las unidades individuales de configuración en GWT se denominan módulos. Un mó
 \item Reglas de vinculación diferida, incluyendo proveedores de propiedad y generadores de clase
 
 \end{itemize}
-Los módulos esta definidos en archivos con extensión <<.gwt.xml>>. En una aplicación con varios módulos como la nuestra, hay dos formas de enforcarlo: compilando cada módulo por separado o creando una definición XML de módulo de nivel superior que incluya todos los módulos y compilar el módulo de nivel superior.
+Los módulos están definidos en archivos con extensión <<.gwt.xml>>. En una aplicación con varios módulos como la nuestra, hay dos formas de enforcarlo: compilando cada módulo por separado o creando una definición XML de módulo de nivel superior que incluya todos los módulos y compilar el módulo de nivel superior.
 
 \subsection{Comunicación RPC}
 
-Como ya hemos hablado RPC se utiliza para transferir objetos Java entre el cliente y el servidor a través de HTTP. Cada vez que se transfieran objetos a través de RPC, deben ser serializados. Los pasos para establecer la comunicación consisten en crear lo siguiente:
+Como ya hemos hablado, RPC se utiliza para transferir objetos Java entre el cliente y el servidor a través de HTTP. Cada vez que se transfieran objetos a través de RPC, deben ser serializados. Los pasos para establecer la comunicación consisten en crear lo siguiente:
 
 \begin{itemize}
 \item Definir un servicio GWT. Interfaz que extienda de <<RemoteService>>. 
 \item Implementación del servicio.
-\item La invocación del servicio. Interfaz en la que cada método debe tener el mismo nombre que en la interfaz de servicio con la diferencia de que los métodos no tienen ningún tipo de retorno y el último parámetro es un objeto AsyncCallback.
+\item La invocación del servicio. Interfaz en la que cada método debe tener el mismo nombre que en la interfaz de servicio, con la diferencia de que los métodos no tienen ningún tipo de retorno y el último parámetro es un objeto AsyncCallback.
 \item Llamada desde el cliente. Cuando se hace la llamada a Ajax, se especifica un método de devolución pasando un objeto <<AsyncCallback>>. El objeto AsyncCallback contiene dos métodos, OnFailure y OnSuccess.
 \end{itemize}
 
@@ -55,9 +55,9 @@ Hay que tener en cuenta que por defecto se crea un archivo dentro del directorio
 
 \subsection{Aspectos del diseño con GWT}
 
-El diseño en GWT es uno de los apartados donde más se ha notado lo anticuado que está. Los elementos o widgets tienen diseños algo desactulizados. En realidad esto no es un problema, ya que por medio de estilos <<css>> podemos configurar el diseño que queramos, pero es una clara desventaja en comparación con otros frameworks.
+El diseño en GWT es uno de los apartados donde más se ha notado lo anticuado que está. Los elementos o widgets tienen diseños algo desactulizados. En realidad, esto no es un problema, ya que por medio de estilos <<css>> podemos configurar el diseño que queramos, pero es una clara desventaja en comparación con otros frameworks.
 
-En nuestro caso, hemos hecho uso de un tema que proporciona GWT. Sirve para que al incorporarlo a un módulo con la sentencia <<\textit{inherits}>>, da un mínimo de aspecto a los elementos que se incorporen. Es el caso del modulo <<GramaticaCS>> que incorpora un tema denominado <<Clean>>. Como se pude apreciar en la siguiente imagen \ref{fig:5.1}, el estilo Clean otorga unos valores al elemento del menú, pero yo los cambio por medio de mi estilo <<GrmaticaCS.css>>. Digamos que los <<piso>>. En este caso no utilizo por tanto Clean pero para otros elementos si.
+En nuestro caso, hemos hecho uso de un tema que proporciona GWT. Sirve para que al incorporarlo a un módulo con la sentencia <<\textit{inherits}>>, da un mínimo de aspecto a los elementos que se incorporen. Es el caso del módulo <<GramaticaCS>> que incorpora un tema denominado <<Clean>>. Como se pude apreciar en la siguiente imagen \ref{fig:5.1}, el estilo Clean otorga unos valores al elemento del menú, pero yo los cambio por medio de mi estilo <<GrmaticaCS.css>>. Digamos que los <<piso>>. En este caso no utilizo por tanto Clean pero para otros elementos sí.
 
 \begin{figure}[h]
 \centering
@@ -66,19 +66,19 @@ En nuestro caso, hemos hecho uso de un tema que proporciona GWT. Sirve para que 
 \label{fig:5.1}
 \end{figure}
 
-Es importante a la hora de diseñar, ya que la jerarquía, se aplica de más concreto a más amplio. Así si un botón esta por ejemplo en un panel vertical y el panel vertical tiene un formato de texto stilo1 y el botón tiene otro denominado stilo2, se aplicará el stilo2. En el caso de haber un tema heredado por un módulo hay que tener en cuenta esto para ver porqué no se ha aplicado el stilo1 a mi botón cuando yo le he dado uno al panel que lo engloba. Por defecto al crear una aplicación con GWT nuestro módulo hereda el estilo Standard. 
+Es importante a la hora de diseñar, ya que la jerarquía, se aplica de más concreto a más amplio. Así si un botón está, por ejemplo, en un panel vertical y el panel vertical tiene un formato de texto stilo1 y el botón tiene otro denominado stilo2, se aplicará el stilo2. En el caso de haber un tema heredado por un módulo, hay que tener en cuenta esto para ver porqué no se ha aplicado el stilo1 a mi botón cuando yo le he dado uno al panel que lo engloba. Por defecto, al crear una aplicación con GWT, nuestro módulo hereda el estilo Standard. 
 
-Mencionar también que algunos elementos tienen fallos que no están resueltos y como hemos visto en foros, llevan tiempo sin resolver como es el caso del TabPanel o el TabLayoutPanel.
+Mencionar también que algunos elementos tienen fallos que no están resueltos y como hemos visto en foros, llevan tiempo sin resolver como es el caso del TabPanel o el TabLayoutPanel. Al tratar de crear <<pestañas>> e insertar en ellas un panel con ayuda de la función insert, la vista fallaba y al añadir una pestaña nueva, borraba la anterior. Estuvimos intentándolo durante dos \emph{sprints} pero hasta que vimos que no se podía hacer de esa forma.
 
 \section{Registro e inicio de sesión de usuarios}
 
-En un primer momento la aplicación se ejecutó en modo local desde Eclipse, de forma que para ello, como se explica en los anexos, necesitábamos hacer uso de la ejecución en modo <<Super Dev>>. La base de datos era local y se podía acceder a ella añadiendo a la url local <<\_ah/admin>>.
+En un primer momento, la aplicación se ejecutó en modo local desde Eclipse, de forma que para ello, como se explica en los anexos, necesitábamos hacer uso de la ejecución en modo \emph{Super Dev}. La base de datos era local y se podía acceder a ella añadiendo a la url local <<\_ah/admin>>.
 
-Esto viene a que la parte más importante en el registro e inicio de sesión está en el servidor. Posteriormente la aplicación se despliega en  App Engine, así como todo lo que concierne a esta, es decir, base de datos, comunicación RPC, inicio de sesión etc. Todo esto se explica con más detalle en el Anexo del manual de programador.
+Esto viene a que la parte más importante en el registro e inicio de sesión está en el servidor. Posteriormente, la aplicación se despliega en  App Engine, así como todo lo que concierne a esta, es decir, base de datos, comunicación RPC, inicio de sesión etc. Todo esto se explica con más detalle en el Anexo del manual de programador.
 
 Así, cuando un usuario introduce los datos para hacer el registro, el cliente envía una petición al servidor. El servidor tratará de almacenar dichos datos en la base de datos y en caso de que se produzca un error de comunicación, se mostrará un fallo en el registro. Al guardar los datos se comprobará algunos requisitos como son, que el nombre o la contraseña no sean nulos o vacíos o que el correo electrónico tenga una estructura del típica. En ese caso el usuario creado será nulo, y el cliente, al comprobar si es nulo o no, emitirá un mensaje. 
 
 
-En el caso de iniciar sesión, se procede de forma parecida. El cliente hace una petición al servidor para comprobar si está registrado y autentifica que el correo esta en la base de datos. Si la contraseña (cifrada con el mismo salt) es la correspondiente al email, establece una sesión y devuelve al cliente un usuario. En caso de que el usuario sea nulo se muestra un error diciendo que el email o contraseña son incorrectos. El mensaje tiene esta forma por temas de seguridad. En caso de que alguien quiera saber si hay un correo registrado, le bastaría con escribir el correo y una contraseña y la aplicación le respondería que esta última es falsa.
+En el caso de iniciar sesión, se procede de forma parecida. El cliente hace una petición al servidor para comprobar si está registrado y autentifica que el correo está en la base de datos. Si la contraseña (cifrada con el mismo salt) es la correspondiente al email, establece una sesión y devuelve al cliente un usuario. En caso de que el usuario sea nulo se muestra un error diciendo que el email o contraseña son incorrectos. El mensaje tiene esta forma por temas de seguridad. En caso de que alguien quiera saber si hay un correo registrado, le bastaría con escribir el correo y una contraseña y la aplicación le respondería que esta última es falsa.
 
-La sesión se almacena en el buscador, por medio de <<cookies>> durante un tiempo indefinido. Al salir haciendo <<logout>> se borra la sesión y para acceder hay que volverse a <<logear>>.
+La sesión se almacena en el buscador, por medio de \emph{cookies} durante un tiempo indefinido. Al salir haciendo \emph{logout} se borra la sesión y para acceder hay que volverse a <<logear>>.

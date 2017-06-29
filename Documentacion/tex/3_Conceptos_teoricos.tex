@@ -2,46 +2,46 @@
 
 En mi experiencia como profesor de programación, diseño 3D y robótica para alumnos de primaria, lo primero que les enseñábamos era a definir la programación como el lenguaje de comunicación entre nosotros, los humanos, y los ordenadores o los robots. Todo esto pertenece a los conceptos más puramente teóricos sobre la computación y que es, en sí, la base de la informática. 
 
-Pues bien, a <<grosso modo>> el concepto es el mismo ahora. Como cada uno, hombre y máquina, <<habla>> un idioma diferente se debe establecer un lenguaje que sea la vía de comunicación entre ambos. 
+Pues bien, a \emph{grosso modo} el concepto es el mismo ahora. Como cada uno, hombre y máquina, <<habla>> un idioma diferente se debe establecer un lenguaje que sea la vía de comunicación entre ambos. 
 
-Para poder entender todo lo que se va a tratar a continuación, debo explicar primero el concepto de \textit{autómata} o \textit{máquina abstracta}. Un autómata es un modelo matemático o un dispositivo teórico que recibe una cadena de símbolos como entrada y que al procesarla, genera un cambio de estado produciendo una salida determinada. Esta salida pude reconocer palabras y determinar si la entrada pertenece a un determinado lenguaje o no. En el símil anterior digamos que es el corrector, que cuando escribe el humano algo determina si esta bien escrito o no porque no lo va a poder entender el ordenador. 
+Para poder entender todo lo que se va a tratar a continuación, debo explicar primero el concepto de \textit{autómata} o \textit{máquina abstracta}. Un autómata es un modelo matemático o un dispositivo teórico que recibe una cadena de símbolos como entrada y que al procesarla, genera un cambio de estado produciendo una salida determinada. Esta salida puede reconocer palabras y determinar si la entrada pertenece a un determinado lenguaje o no. En el símil anterior digamos que es el corrector, que cuando escribe el humano algo determina si está bien escrito o no, porque no lo va a poder entender el ordenador. 
 
-Entonces ya sabemos que para que haya comunicación entre un ordenador o robot y un humano, tiene que haber un lenguaje y un autómata. Pero también algo más: una gramática.
+Entonces ya sabemos que, para que haya comunicación entre un ordenador o robot y un humano, tiene que haber un lenguaje y un autómata. Pero también algo más: una gramática.
 
 \section{¿Qué es una gramática y para qué sirve?}
 
 Una gramática formal es un mecanismo para la generación de cadenas de caracteres que son admitidas por un determinado lenguaje formal, y que utiliza un conjunto de reglas de formación. Por lo tanto, podemos entenderlo dentro del concepto de las ciencias de la computación y la lógica matemática. Las cadenas de caracteres resultantes son a su vez <<bien formadas>> cuando pertenecen al lenguaje formal con el que se trabaja \cite{aho1986compilers}.
 
-¿Y porque es tan importante? Siguiendo con el ejemplo del principio, la gramática es la que va a determinar si lo que se introduce en el autómata es correcto o no. Un conjunto de reglas que nos indicará el por qué al juntar una serie de caracteres de una forma se van a poder entender.
+¿Y por qué es tan importante? Siguiendo con el ejemplo del principio, la gramática es la que va a determinar si lo que se introduce en el autómata es correcto o no. Un conjunto de reglas que nos indicará el porqué al juntar una serie de caracteres de una forma se van a poder entender.
 
-Por otro lado, la denominación de la gramática formal desde un punto de vista más formal, de denomina como una cuádrupla compuesta por:
+Por otro lado, la denominación de la gramática formal, desde un punto de vista más formal, es una cuádrupla compuesta por:
 
 \begin{itemize}
-	\item Un alfabeto de \textbf{símbolos terminales} o tókenes denominado con la letra griega $\Sigma$.
+	\item Un alfabeto de \textbf{símbolos terminales} o tókenes denotado con la letra griega $\Sigma$.
 	\item $\mathcal{N}$ que es un alfabeto formado por \textbf{símbolos no terminales}.
 	\item Un alfabeto de \textbf{producciones} denominado $\mathcal{P}$.
-	\item Y por último un símbolo llamado \textbf{axioma} o símbolo inicial el cual $\mathcal{S} \in \mathcal{N}$.
+	\item Y por último, un símbolo llamado \textbf{axioma} o símbolo inicial, denotado por $\mathcal{S}$ y tal que $\mathcal{N}$.
 \end{itemize}
 
-El alfabeto total que compone la gramática esta formado, según lo anterior, por $\Sigma\cup\mathcal{N}$, es decir, por el conjunto de los símbolos terminales y no terminales.
+El alfabeto total que compone la gramática está formado, según lo anterior, por $\Sigma\cup\mathcal{N}$, es decir, por el conjunto de los símbolos terminales y no terminales.
 
-Una \textbf{producción} tiene esta estructura y esta compuesto por un par ordenado de cadenas. \[x \rightarrow y\] A la parte izquierda se la denomina antecedente y la derecha es el consecuente. A las producciones también se las denomina reglas de derivación.
+Una \textbf{producción} tiene esta estructura y está compuesto por un par ordenado de cadenas. \[x \rightarrow y\] A la parte izquierda se la denomina antecedente y la derecha consecuente. A las producciones también se las denomina reglas de derivación.
 
-Pongamos un ejemplo de una gramática simple y veamos de que esta formada. Se suele utilizar el sistema de notación  \[x \rightarrow y\] \[z \rightarrow w\] para indicar una o varias producciones, en vez de \[(x, y) \in \mathcal{P} \] \[(z, w) \in \mathcal{P} \] siendo $\mathcal{P}$ el conjunto de producciones.
+Pongamos un ejemplo de una gramática simple y veamos de que está formada. Se suele utilizar la notación  \[x \rightarrow y\] \[z \rightarrow w\] para indicar una o varias producciones, en vez de \[(x, y) \in \mathcal{P} \] \[(z, w) \in \mathcal{P} \] siendo $\mathcal{P}$ el conjunto de producciones.
 
-Por otro lado si hay más de una producción que comience con el mismo elemento la notación sería de esta forma \[ x \rightarrow y | z | w\] en lugar de ser \[ x \rightarrow y\] \[x \rightarrow z\] \[x \rightarrow w\].
+Por otro lado, si hay más de una producción que comience con el mismo elemento la notación sería de esta forma \[ x \rightarrow y | z | w\] en lugar de ser \[ x \rightarrow y\] \[x \rightarrow z\] \[x \rightarrow w\].
 
-Se denomina \textbf{derivación directa} cuando sea $x \rightarrow y$ una producción y $v, w \in \Sigma^{*}$ decimos que $w$ deriva directamente de $v$ ( $v \Rightarrow w$) si $\exists z, u \in \Sigma^{*}$ tales que $v=zxu, w=zyu$ y $x\rightarrow y$.
+Cuando la gramática tiene una producción $x \rightarrow y$, se dice que $w$ \textbf{deriva directamente} de $v$ ( $v \Rightarrow w$) si $\exists z, u \in \Sigma^{*}$ tales que $v=zxu, w=zyu$ y $x\rightarrow y$.
 
-La \textbf{derivación}: sea $\Sigma$ un alfabeto, un conjunto de producciones de ese alfabeto denominada $\mathcal{P}$ y $v, w \in \Sigma^{*}$ decimos que $w$ deriva de $v$, si existen una cadena de derivación de longitud $n$ así $u_{0}, u_{1}, ..., u_{n} \in \Sigma^{*}$ tales que:
+Sea $\Sigma$ un alfabeto, un conjunto de producciones $\mathcal{P}$ y $v, w \in \Sigma^{*}$ decimos que $w$ \textbf{deriva} de $v$, si existen $u_{0}, u_{1}, ..., u_{n} \in \Sigma^{*}$ y una secuencia de transformaciones tales que:
  \[ v = u_{0} \Rightarrow u_{1}\] \[ u_{1} \Rightarrow u_{2}\] \[...\] \[ u_{n-1} \Rightarrow u_{n} = w\]
 
-Se habla de lenguaje generado por una gramática $G$ escrito así $L(G)$ y se define como el conjunto de todas las sentencias de la gramática $G$.  \[L(G) = x\in \Sigma^{*}:\mathcal{S} \Rightarrow^{+}x\]
-De esta manera se dice que dos gramáticas son equivalentes $G_{1} \equiv G_{2}$ si generan el mismo lenguaje $L(G_{1})=L(G_{2})$.
+Esta secuencia de transformaciones se dice que es una \textbf{derivación} de longitud $n$. Se habla de lenguaje generado por una gramática $G$, denotado por $L(G)$, y se define como el conjunto de todas las sentencias de la gramática $G$.  \[L(G) = x\in \Sigma^{*}:\mathcal{S} \Rightarrow^{+}x\]
+De esta manera se dice que dos gramáticas son equivalentes $G_{1} \equiv G_{2}$, si generan el mismo lenguaje, es decir, si $L(G_{1})=L(G_{2})$.
 
 \section{Recursividad}
 
-Por último una gramática es recursiva en un símbolo no terminal $U$ cuando existe una forma sentencial de $U$ que contiene a $U$. \[U \Rightarrow^{+}xUy \textup{ donde } x,y\in (\Sigma \cup \mathcal{N})^{*} \]
+Por último, una gramática es recursiva en un símbolo no terminal $U$ cuando existe una forma sentencial de $U$ que contiene a $U$. \[U \Rightarrow^{+}xUy \textup{ donde } x,y\in (\Sigma \cup \mathcal{N})^{*} \]
 Así pues la gramática será recursiva cuando lo sea para algún no terminal, si $x = \varepsilon$ la gramática es recursiva por la izquierda, y si $y = \varepsilon$ se dice que es recursiva por la derecha.
 
 \section{Tipos de gramáticas }
@@ -50,19 +50,19 @@ Hay varios tipos de gramáticas según sus características.
 \begin{itemize}
 \item \textbf{Gramáticas de Chomsky}: las producciones tienen la forma \[u \rightarrow v \textup{ donde } u=xAy \in (\Sigma \cup \mathcal{N})^{+} \wedge A \in \mathcal{N} \wedge x, y, v \in (\Sigma \cup \mathcal{N})^{*}\]
 
-Es posible demostrar que los lenguajes generados por una gramática de Chomsky de un grupo más restringido llamadas gramáticas con estructura de frase, es decir que ambas tienen la misma capacidad generativa. Las gramáticas de frase tienen la siguiente forma de producción:
+Es posible demostrar que los lenguajes generados por una gramática de Chomsky se puede generar por un grupo más restringido llamadas gramáticas con estructura de frase, es decir, que ambas tienen la misma capacidad generativa. Las gramáticas de frase tienen la siguiente forma de producción:
 
 \[xAy \rightarrow xvy \textup{ donde } x,y,v \in (\Sigma \cup \mathcal{N})^{*} \wedge A \in \mathcal{N}\]
-\item \textbf{Gramaticas dependientes o sensibles al contexto}: Cuentas con las reglas de producción con forma  \[xAy \rightarrow xvy \textup{ donde } x, y \in (\Sigma \cup \mathcal{N})^{*} \wedge A \in \mathcal{N} \wedge v \in (\Sigma \cup \mathcal{N})^{+}\]
-Este tipo de gramáticas el significado de $A$ depende del contexto o de la posición en la frase. El contexto sería entonces $x$ e $y$. La mayor parte de los lenguajes de ordenador pertenecen a este tipo. Además longitud de la parte derecha de las producciones es siempre mayor o igual que la de la parte izquierda.
+\item \textbf{Gramaticas dependientes o sensibles al contexto}: Cuentas con las reglas de producción de la forma  \[xAy \rightarrow xvy \textup{ donde } x, y \in (\Sigma \cup \mathcal{N})^{*} \wedge A \in \mathcal{N} \wedge v \in (\Sigma \cup \mathcal{N})^{+}\]
+En este tipo de gramáticas el significado de $A$ depende del contexto o de la posición en la frase. El contexto sería entonces $x$ e $y$. Además, longitud de la parte derecha de las producciones es siempre mayor o igual que la de la parte izquierda.
 \item \textbf{Gramáticas independientes del contexto}: las producciones de las gramáticas de este tipo son más restrictivas, de la forma: 
 \[A \rightarrow v \textup{ donde } A \in \mathcal{N} \wedge v \in (\Sigma \cup \mathcal{N})^{*}\]
-Como su propio nombre indica, el significado de $A$ es independiente de la posición en la que se encuentra. Una característica importante es que las derivaciones obtenidas al utilizarse esta gramática se pueden representar utilizando árboles.
+Como su propio nombre indica, el significado de $A$ es independiente de la posición en la que se encuentra. La mayor parte de los lenguajes de ordenador pertenecen a este tipo. Una característica importante es que las derivaciones obtenidas al utilizarse esta gramática se pueden representar utilizando árboles.
 
 \item \textbf{Gramáticas regulares}: es el grupo más restringido. Tienen la forma: \[A \rightarrow aB \wedge A \rightarrow b \textup{ llamadas gramáticas regulares a derechas } \]
 \[A \rightarrow Ba \wedge A \rightarrow b \textup{ llamadas gramáticas regulares a izquierdas } \]
 \[ \textup{ donde }A, B \in \mathcal{N} \wedge a,b \in \Sigma  \]
-Ambas son equivalentes. Existe tambien una generalización de este tipo de gramáticas denominadas lineales con reglas de la forma: \[A \rightarrow wB \wedge A \rightarrow v \textup{ lineales a derechas } \]
+Ambas son equivalentes. Existe también una generalización de este tipo de gramáticas denominadas lineales con reglas de la forma: \[A \rightarrow wB \wedge A \rightarrow v \textup{ lineales a derechas } \]
 \[A \rightarrow Bw \wedge A \rightarrow v \textup{ lineales a izquierdas } \]
 \[ \textup{ donde }A, B \in \mathcal{N} \wedge w,v \in \Sigma^{*}  \]
 que son totalmente equivalentes a las regulares normales, pero en muchos casos su notación es más adecuada.
@@ -70,9 +70,9 @@ que son totalmente equivalentes a las regulares normales, pero en muchos casos s
 
 \section{Cifrado de contraseñas y seguridad en Thoth Web}
 
-El cifrado de la contraseña es una de las cuestiones más importantes para preservar la seguridad o intimidad del usuario. El porqué es muy simple. Los usuarios normalmente utilizamos las mismas contraseñas o parecidas para cualquier cuenta de una página o red social. Por lo tanto si hay alguien con acceso a la base de datos, podrá ver la contraseña utilizada por un determinado usuario poniendo en peligro esa intimidad no solo en este programa, sino, como ya se ha comentado antes, la de otras cuentas.
+El cifrado de la contraseña es una de las cuestiones más importantes para preservar la seguridad o intimidad del usuario. El porqué es muy simple. Los usuarios normalmente utilizamos las mismas contraseñas o parecidas para cualquier cuenta de una página o red social. Por lo tanto si hay alguien con acceso a la base de datos, podrá ver la contraseña utilizada por un determinado usuario, poniendo en peligro esa intimidad, no solo en este programa, sino, como ya se ha comentado antes, en las de otras cuentas.
 
-Para evitar esto, el método más simple es el cifrar las contraseñas en la base de datos para que en el caso en el que alguien acceda a ella, en el campo <<contraseña>> no vea la contraseña real, sino el resultado del cifrado de esta. El método de cifrado que se emplea en Thoth Web el del algoritmo <<hash>> que como veremos más adelante tiene unas características determinadas. 
+Para evitar esto, el método más simple es el cifrar las contraseñas en la base de datos para que en el caso en el que alguien acceda a ella, en el campo <<contraseña>> no vea la contraseña real, sino el resultado del cifrado de esta. El método de cifrado que se emplea en Thoth Web el del algoritmo \emph{hash} que como veremos más adelante tiene unas características determinadas. 
 
 \subsection{Funcionamiento del algoritmo hash}
 
@@ -80,7 +80,7 @@ Se trata de un algoritmo matemático con el que se transforma cualquier cantidad
 
 \begin{itemize}
 \item No es reversible, no se puede descifrar por medio de funciones matemáticas y obtener el resultado antes de ser encriptado, sea cual sea la función utilizada (SHA-1, SHA-2 o MD 5 entre otras, como veremos a continuación).
-\item Cuenta con la propiedad de que si la entrada cambia, aunque sea sólo en un bit, el hash resultante será completamente, como se puede ver en la siguiente ilustración \ref{fig:3.1}. En la imagen se puede apreciar que aunque la entrada tenga un mayor numero de caracteres, la salida siempre será de 40 caracteres.
+\item Cuenta con la propiedad de que si la entrada cambia, aunque sea sólo en un bit, el \emph{hash} resultante será completamente distinto, como se puede ver en la siguiente ilustración \ref{fig:3.1}. En la imagen se puede apreciar que aunque la entrada tenga un mayor número de caracteres, la salida siempre será de 40 caracteres.
 
 \end{itemize} 
 
@@ -98,7 +98,7 @@ El problema principal de esto es que con los avances en temas de seguridad siemp
 
 \begin{itemize}
 \item Ataques de fuerza bruta. Consisten en utilizar diccionarios de palabras con contraseñas habituales e introducirlas hasta que alguna coincida. Se trata del ataque menos eficiente, pero el más difícil de evitar.
-\item Tablas de búsqueda. Este tipo de ataque si que supondría un grave problema para la seguridad en el cifrado con algoritmo hash. Recordemos que las funciones hash solo se pueden encriptar, no descifrar. Lo que hace este ataque es lo siguiente, cuenta con una tabla de contraseñas típicas y su cifrado hash y las compara con los hash introducidos. Para entender mejor este concepto hay incluso herramientas online que pueden hacer este trabajo. Ver ilustración\ref{fig:3.2}. También las hay que funcionan al revés. Introduces la contraseña que crees que puede usar alguien, la encripta, la compara con todas las de la base de datos y te dice si alguien la utiliza o no.
+\item Tablas de búsqueda. Este tipo de ataque sí que supondría un grave problema para la seguridad en el cifrado con algoritmo hash. Recordemos que las funciones hash solo se pueden encriptar, no descifrar. Lo que hace este ataque es lo siguiente, cuenta con una tabla de contraseñas típicas y su cifrado hash y las compara con los hash introducidos. Para entender mejor este concepto hay incluso herramientas online que pueden hacer este trabajo. Ver ilustración~\ref{fig:3.2}. También las hay que funcionan al revés. Introduces la contraseña que crees que puede usar alguien, la encripta, la compara con todas las de la base de datos y te dice si alguien la utiliza o no.
 \end{itemize}
 
 \begin{figure}[h]
@@ -119,4 +119,4 @@ Se conoce como el cifrado hash con sal o semilla. Consiste en añadir un conjunt
 \label{fig:3.3}
 \end{figure}
 
-La primera de ellas corresponde con la clave <<123>> la segunda con la palabra <<contraseña>> y la tercera con la fecha <<16-6-17>>. Todas son fáciles, pero al añadirle una clave y cifrarlo todo, se vuelve mucho mas complejo. Se podría pensar que, como la clave que se le añade también se guarda en la base de datos sigue sin ser seguro. Partiendo del hecho de que no hay prácticamente nada seguro al cien por cien, lo que se consigue con esto es dificultar mucho el cálculo, ya que los dos ataques mencionado anteriormente (y varios más basados en estos dos) se ayudan de repositorios de contraseñas. Así si quisieran descifrarlo debería de coger el conjunto aleatorio, sumarle la posible contraseña y cifrarlo comparando los resultados sólo con ese hash (o contraseña cifrada) ya que el salt es único para cada hash. Con este método se consigue que los cálculos para descifrar una contraseña sean bastante más costosos de una forma muy simple.
+La primera de ellas corresponde con la clave <<123>> la segunda con la palabra <<contraseña>> y la tercera con la fecha <<16-6-17>>. Todas son fáciles, pero al añadirle una clave y cifrarlo todo, se vuelve mucho mas complejo. Se podría pensar que, como la clave que se le añade también se guarda en la base de datos sigue sin ser seguro. Partiendo del hecho de que no hay prácticamente nada seguro al cien por cien, lo que se consigue con esto es dificultar mucho el cálculo, ya que los dos ataques mencionado anteriormente (y varios más basados en estos dos) se ayudan de repositorios de contraseñas. Así, si quisieran descifrarlo, debería de coger el conjunto aleatorio, sumarle la posible contraseña y cifrarlo comparando los resultados sólo con ese hash (o contraseña cifrada) ya que el salt es único para cada hash. Con este método se consigue que los cálculos para descifrar una contraseña sean bastante más costosos de una forma muy simple.
