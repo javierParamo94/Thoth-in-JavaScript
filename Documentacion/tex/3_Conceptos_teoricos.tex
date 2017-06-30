@@ -4,15 +4,15 @@ En mi experiencia como profesor de programación, diseño 3D y robótica para al
 
 Pues bien, a \emph{grosso modo} el concepto es el mismo ahora. Como cada uno, hombre y máquina, <<habla>> un idioma diferente se debe establecer un lenguaje que sea la vía de comunicación entre ambos. 
 
-Para poder entender todo lo que se va a tratar a continuación, debo explicar primero el concepto de \textit{autómata} o \textit{máquina abstracta}. Un autómata es un modelo matemático o un dispositivo teórico que recibe una cadena de símbolos como entrada y que al procesarla, genera un cambio de estado produciendo una salida determinada. Esta salida puede reconocer palabras y determinar si la entrada pertenece a un determinado lenguaje o no. En el símil anterior digamos que es el corrector, que cuando escribe el humano algo determina si está bien escrito o no, porque no lo va a poder entender el ordenador. 
+Para poder entender todo lo que se va a tratar a continuación, debo explicar primero el concepto de \textit{autómata} o \textit{máquina abstracta}. Un autómata es un modelo matemático o un dispositivo teórico que recibe una cadena de símbolos como entrada y que al procesarla, genera un cambio de estado produciendo una salida determinada. Esta salida puede reconocer palabras y determinar si la entrada pertenece a un determinado lenguaje o no. En el símil anterior, un autómata es como el corrector, que determina si algo está bien escrito o no. 
 
 Entonces ya sabemos que, para que haya comunicación entre un ordenador o robot y un humano, tiene que haber un lenguaje y un autómata. Pero también algo más: una gramática.
 
 \section{¿Qué es una gramática y para qué sirve?}
 
-Una gramática formal es un mecanismo para la generación de cadenas de caracteres que son admitidas por un determinado lenguaje formal, y que utiliza un conjunto de reglas de formación. Por lo tanto, podemos entenderlo dentro del concepto de las ciencias de la computación y la lógica matemática. Las cadenas de caracteres resultantes son a su vez <<bien formadas>> cuando pertenecen al lenguaje formal con el que se trabaja \cite{aho1986compilers}.
+Una gramática formal es un mecanismo para la generación de cadenas de caracteres que definen un determinado lenguaje formal, y que utiliza un conjunto de reglas de formación. Por lo tanto, podemos entenderlo dentro del concepto de las ciencias de la computación y la lógica matemática. Las cadenas de caracteres resultantes son a su vez <<bien formadas>> cuando pertenecen al lenguaje formal con el que se trabaja \cite{aho1986compilers}.
 
-¿Y por qué es tan importante? Siguiendo con el ejemplo del principio, la gramática es la que va a determinar si lo que se introduce en el autómata es correcto o no. Un conjunto de reglas que nos indicará el porqué al juntar una serie de caracteres de una forma se van a poder entender.
+¿Y por qué es tan importante? Siguiendo con el ejemplo del principio, la gramática es la que va a determinar si lo que se introduce en el autómata es correcto o no. Un conjunto de reglas que nos indicará el por qué al juntar una serie de caracteres de una forma se van a poder entender.
 
 Por otro lado, la denominación de la gramática formal, desde un punto de vista más formal, es una cuádrupla compuesta por:
 
@@ -20,7 +20,7 @@ Por otro lado, la denominación de la gramática formal, desde un punto de vista
 	\item Un alfabeto de \textbf{símbolos terminales} o tókenes denotado con la letra griega $\Sigma$.
 	\item $\mathcal{N}$ que es un alfabeto formado por \textbf{símbolos no terminales}.
 	\item Un alfabeto de \textbf{producciones} denominado $\mathcal{P}$.
-	\item Y por último, un símbolo llamado \textbf{axioma} o símbolo inicial, denotado por $\mathcal{S}$ y tal que $\mathcal{N}$.
+	\item Y por último, un símbolo llamado \textbf{axioma} o símbolo inicial, denotado por $\mathcal{S}$ y tal que $\mathcal{S} \in \mathcal{N}$.
 \end{itemize}
 
 El alfabeto total que compone la gramática está formado, según lo anterior, por $\Sigma\cup\mathcal{N}$, es decir, por el conjunto de los símbolos terminales y no terminales.
@@ -46,7 +46,7 @@ Así pues la gramática será recursiva cuando lo sea para algún no terminal, s
 
 \section{Tipos de gramáticas }
 
-Hay varios tipos de gramáticas según sus características.
+Hay varios tipos de gramáticas según sus características \cite{aho1986compilers}.
 \begin{itemize}
 \item \textbf{Gramáticas de Chomsky}: las producciones tienen la forma \[u \rightarrow v \textup{ donde } u=xAy \in (\Sigma \cup \mathcal{N})^{+} \wedge A \in \mathcal{N} \wedge x, y, v \in (\Sigma \cup \mathcal{N})^{*}\]
 
@@ -54,7 +54,7 @@ Es posible demostrar que los lenguajes generados por una gramática de Chomsky s
 
 \[xAy \rightarrow xvy \textup{ donde } x,y,v \in (\Sigma \cup \mathcal{N})^{*} \wedge A \in \mathcal{N}\]
 \item \textbf{Gramaticas dependientes o sensibles al contexto}: Cuentas con las reglas de producción de la forma  \[xAy \rightarrow xvy \textup{ donde } x, y \in (\Sigma \cup \mathcal{N})^{*} \wedge A \in \mathcal{N} \wedge v \in (\Sigma \cup \mathcal{N})^{+}\]
-En este tipo de gramáticas el significado de $A$ depende del contexto o de la posición en la frase. El contexto sería entonces $x$ e $y$. Además, longitud de la parte derecha de las producciones es siempre mayor o igual que la de la parte izquierda.
+En este tipo de gramáticas el significado de $A$ depende del contexto o de la posición en la frase. El contexto sería entonces $x$ e $y$. Además, la longitud de la parte derecha de las producciones es siempre mayor o igual que la de la parte izquierda.
 \item \textbf{Gramáticas independientes del contexto}: las producciones de las gramáticas de este tipo son más restrictivas, de la forma: 
 \[A \rightarrow v \textup{ donde } A \in \mathcal{N} \wedge v \in (\Sigma \cup \mathcal{N})^{*}\]
 Como su propio nombre indica, el significado de $A$ es independiente de la posición en la que se encuentra. La mayor parte de los lenguajes de ordenador pertenecen a este tipo. Una característica importante es que las derivaciones obtenidas al utilizarse esta gramática se pueden representar utilizando árboles.
@@ -68,11 +68,11 @@ Ambas son equivalentes. Existe también una generalización de este tipo de gram
 que son totalmente equivalentes a las regulares normales, pero en muchos casos su notación es más adecuada.
 \end{itemize}
 
-\section{Cifrado de contraseñas y seguridad en Thoth Web}
+\section{Cifrado de contraseñas y seguridad}
 
-El cifrado de la contraseña es una de las cuestiones más importantes para preservar la seguridad o intimidad del usuario. El porqué es muy simple. Los usuarios normalmente utilizamos las mismas contraseñas o parecidas para cualquier cuenta de una página o red social. Por lo tanto si hay alguien con acceso a la base de datos, podrá ver la contraseña utilizada por un determinado usuario, poniendo en peligro esa intimidad, no solo en este programa, sino, como ya se ha comentado antes, en las de otras cuentas.
+El cifrado de la contraseña es una de las cuestiones más importantes para preservar la seguridad o intimidad del usuario. El por qué es muy simple. Los usuarios normalmente utilizamos las mismas contraseñas o parecidas para cualquier cuenta. Por lo tanto si hay alguien con acceso a la base de datos, podrá ver la contraseña utilizada por un determinado usuario, poniendo en peligro esa intimidad, no solo en este programa, sino, como ya se ha comentado antes, en las de otras cuentas.
 
-Para evitar esto, el método más simple es el cifrar las contraseñas en la base de datos para que en el caso en el que alguien acceda a ella, en el campo <<contraseña>> no vea la contraseña real, sino el resultado del cifrado de esta. El método de cifrado que se emplea en Thoth Web el del algoritmo \emph{hash} que como veremos más adelante tiene unas características determinadas. 
+Para evitar esto, el método más simple es el cifrar las contraseñas en la base de datos para que en el caso en el que alguien acceda a ella, en el campo <<contraseña>> no vea la contraseña real, sino el resultado del cifrado de esta. El método de cifrado que se emplea eneste proyecto el del algoritmo \emph{hash} que como veremos más adelante tiene unas características determinadas. 
 
 \subsection{Funcionamiento del algoritmo hash}
 
@@ -80,43 +80,43 @@ Se trata de un algoritmo matemático con el que se transforma cualquier cantidad
 
 \begin{itemize}
 \item No es reversible, no se puede descifrar por medio de funciones matemáticas y obtener el resultado antes de ser encriptado, sea cual sea la función utilizada (SHA-1, SHA-2 o MD 5 entre otras, como veremos a continuación).
-\item Cuenta con la propiedad de que si la entrada cambia, aunque sea sólo en un bit, el \emph{hash} resultante será completamente distinto, como se puede ver en la siguiente ilustración \ref{fig:3.1}. En la imagen se puede apreciar que aunque la entrada tenga un mayor número de caracteres, la salida siempre será de 40 caracteres.
+\item Cuenta con la propiedad de que si la entrada cambia, aunque sea sólo en un bit, el \emph{hash} resultante será completamente distinto, como se puede ver en la ilustración \ref{fig:3.1}. En la imagen se puede apreciar que aunque la entrada tenga un mayor número de caracteres, la salida siempre será de 40 caracteres.
 
 \end{itemize} 
 
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.99\textwidth]{funcion-hash}
-\caption{Aplicación de la función hash a diferentes datos introducidos. \url{https://blog.kaspersky.com.mx/que-es-un-hash-y-como-funciona/2806/}}
+\caption{Aplicación de la función hash a diferentes datos introducidos.}{\url{https://blog.kaspersky.com.mx/que-es-un-hash-y-como-funciona/2806/}}
 \label{fig:3.1}
 \end{figure}
 
-Ahora bien, las acciones llevadas a cabo para preservar esa seguridad serían las siguientes: un usuario crea una cuenta en la aplicación, la contraseña se encripta y se almacena en la base de datos. Cuando el usuario trata de iniciar sesión y escribe la contraseña, esta se encripta y se compara el resultado con aquel que se ha guardado en la base de datos, si son iguales el usuario tendrá acceso sino, se le requerirá que lo vuelva a intentar.
+Ahora bien, las acciones llevadas a cabo para preservar esa seguridad serían las siguientes: un usuario crea una cuenta en la aplicación, la contraseña se encripta y se almacena en la base de datos. Cuando el usuario trata de iniciar sesión y escribe la contraseña, esta se encripta y se compara el resultado con aquel que se ha guardado en la base de datos, si son iguales el usuario tendrá acceso; sino, se le requerirá que lo vuelva a intentar.
 
-El problema principal de esto es que con los avances en temas de seguridad siempre hay asociados otros que tratan de <<romper>> esa seguridad y en este caso no iba a ser menos. Creo que es importante reconocer los peligros que hay asociados a aplicar este método, pero no deseo extenderme demasiado en este aspecto así que los mencionare brevemente.
+El problema principal de esto es que con los avances en temas de seguridad siempre hay asociados otros que tratan de <<romper>> esa seguridad y en este caso no iba a ser menos. Creo que es importante reconocer los peligros que hay asociados a aplicar este método, pero no deseo extenderme demasiado en este aspecto así que los mencionaré brevemente.
 
 
 \begin{itemize}
 \item Ataques de fuerza bruta. Consisten en utilizar diccionarios de palabras con contraseñas habituales e introducirlas hasta que alguna coincida. Se trata del ataque menos eficiente, pero el más difícil de evitar.
-\item Tablas de búsqueda. Este tipo de ataque sí que supondría un grave problema para la seguridad en el cifrado con algoritmo hash. Recordemos que las funciones hash solo se pueden encriptar, no descifrar. Lo que hace este ataque es lo siguiente, cuenta con una tabla de contraseñas típicas y su cifrado hash y las compara con los hash introducidos. Para entender mejor este concepto hay incluso herramientas online que pueden hacer este trabajo. Ver ilustración~\ref{fig:3.2}. También las hay que funcionan al revés. Introduces la contraseña que crees que puede usar alguien, la encripta, la compara con todas las de la base de datos y te dice si alguien la utiliza o no.
+\item Tablas de búsqueda. Este tipo de ataque sí que supondría un grave problema para la seguridad en el cifrado con algoritmo \emph{hash}. Recordemos que las funciones \emph{hash} solo se pueden encriptar, no descifrar. Lo que hace este ataque es lo siguiente: cuenta con una tabla de contraseñas típicas y su cifrado \emph{hash} y las compara con los \emph{hash} introducidos. Para entender mejor este concepto hay incluso herramientas \emph{online} que pueden hacer este trabajo. Ver ilustración~\ref{fig:3.2}. También las hay que funcionan al revés. Introduces la contraseña que crees que puede usar alguien, la encripta, la compara con todas las de la base de datos y te dice si alguien la utiliza o no.
 \end{itemize}
 
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.99\textwidth]{hash-cracker}
-\caption{Ejemplo de ataque con tablas de búsqueda. Imagen sacada de \url{https://crackstation.net/}}
+\caption{Ejemplo de ataque con tablas de búsqueda.}{Imagen sacada de \url{https://crackstation.net/}}
 \label{fig:3.2}
 \end{figure}
 
 Además de estos, hay más métodos, casi todos basados en las tablas de búsqueda. Según estos ataques queda comprobado que la seguridad de este algoritmo depende en gran mediada de la contraseña que utilice el usuario. Cuanto más aleatoria y con más mezcla de caracteres mejor, ya que formará palabras que no se encuentran en los diccionarios o tablas y solo se podrá descubrir por medio de la fuerza bruta. Entonces ¿cómo hacer que las contraseñas sean más resistentes y solucionar este problema?
 
-Se conoce como el cifrado hash con sal o semilla. Consiste en añadir un conjunto de caracteres aleatorios, agregarlos a la contraseña y una vez hecho esto, cifrarlo con la función hash. De esta manera se consigue que la contraseña sea mucho más aleatoria que la que inicialmente ha introducido el usuario. Así podemos ver como quedaría un intento de <<tablas de búsqueda>> con este tipo de cifrado usa para contraseñas muy simples \ref{fig:3.3}. 
+Se conoce como el cifrado hash con sal o semilla. Consiste en añadir un conjunto de caracteres aleatorios, agregarlos a la contraseña y una vez hecho esto, cifrarlo con la función hash. De esta manera se consigue que la contraseña sea mucho más aleatoria que la que inicialmente ha introducido el usuario. Así podemos ver como quedaría un intento de <<tablas de búsqueda>> con este tipo de cifrado se usa para contraseñas muy simples \ref{fig:3.3}. 
 
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.99\textwidth]{hash_salt-cracker}
-\caption{Resultado de aplicar tablas de búsqueda al cifrado hash con semilla. Imagen sacada de \url{https://crackstation.net/}}
+\caption{Resultado de aplicar tablas de búsqueda al cifrado hash con semilla.} {Imagen sacada de \url{https://crackstation.net/}}
 \label{fig:3.3}
 \end{figure}
 
-La primera de ellas corresponde con la clave <<123>> la segunda con la palabra <<contraseña>> y la tercera con la fecha <<16-6-17>>. Todas son fáciles, pero al añadirle una clave y cifrarlo todo, se vuelve mucho mas complejo. Se podría pensar que, como la clave que se le añade también se guarda en la base de datos sigue sin ser seguro. Partiendo del hecho de que no hay prácticamente nada seguro al cien por cien, lo que se consigue con esto es dificultar mucho el cálculo, ya que los dos ataques mencionado anteriormente (y varios más basados en estos dos) se ayudan de repositorios de contraseñas. Así, si quisieran descifrarlo, debería de coger el conjunto aleatorio, sumarle la posible contraseña y cifrarlo comparando los resultados sólo con ese hash (o contraseña cifrada) ya que el salt es único para cada hash. Con este método se consigue que los cálculos para descifrar una contraseña sean bastante más costosos de una forma muy simple.
+La primera de ellas corresponde con la clave <<123>> la segunda con la palabra <<contraseña>> y la tercera con la fecha <<16-6-17>>. Todas son fáciles, pero al añadirle una clave y cifrarlo todo, se vuelve mucho mas complejo. Se podría pensar que, como la clave que se le añade también se guarda en la base de datos sigue sin ser seguro. Partiendo del hecho de que no hay prácticamente nada seguro al cien por cien, lo que se consigue con esto es dificultar mucho el cálculo, ya que los dos ataques mencionados anteriormente (y varios más basados en estos dos) se ayudan de repositorios de contraseñas. Así, si quisieran descifrarlo, debería de coger el conjunto aleatorio, sumarle la posible contraseña y cifrarlo comparando los resultados sólo con ese \emph{hash} (o contraseña cifrada) ya que el \emph{salt} es único para cada \emph{hash}. Con este método se consigue que los cálculos para descifrar una contraseña sean bastante más costosos de una forma muy simple.

@@ -21,19 +21,20 @@ Aun así, hay bastante información con la que he podido trabajar, y una comunid
 
 \section{WebSwing}
 
-En cuanto a esta herramienta, es algo diferente a las demás. WebSwing \footnote{\url{http://webswing.org/}} la descubrimos debido a una duda que nos surgió a al principio del proyecto. Y es que la aplicación Thoth original cuenta con muchísimos elementos de la biblioteca gráfica <<Swing>>, es digamos toda la estructura visual que utiliza. El problema surgió que con GWT no podemos hacer uso de ella ya que al ser algo visual debe ir en la parte del cliente y como ya hemos mencionado, en el cliente, que es donde se hace la traducción a JavaScript, las librerías de Java para desarrollar son muy limitadas. 
+En cuanto a esta herramienta, es algo diferente a las demás. WebSwing \footnote{\url{http://webswing.org/}} la descubrimos debido a una duda que nos surgió al principio del proyecto. Y es que la aplicación Thoth original cuenta con muchísimos elementos de la biblioteca gráfica <<Swing>>, es digamos toda la estructura visual que utiliza. El problema surgió cuando al programar en GWT no podíamos hacer uso de ella, ya que, al ser algo visual debe ir en la parte del cliente y como ya hemos mencionado, es donde se hace la traducción a JavaScript. 
 
 Se trata de un servidor web que permite la ejecución de aplicaciones que utilicen la biblioteca gráfica Swing desde el navegador, utilizando sólo HTML5. De esta forma toda la aplicación de Thoth se ejecutaría en el navegador conservando su aspecto de siempre y manteniendo las ventajas de una aplicación web.
 
-En vez de utilizar JavaScript utiliza HTML5, cumpliendo además el objetivo principal del proyecto, que es llevar Thoth a la web.
-
 Lamentablemente esta herramienta se descubrió cuando el proyecto ya estaba muy avanzado. Decidimos entonces continuar por la senda marcada en un principio. Se hizo alguna prueba para ver su funcionamiento y los resultados fueron muy buenos.
+
+La cuestión es que el utilizar esta herramienta no supone ningún reto como informático y facilitaría tanto el proyecto que este quedaría en nada más que
+unas simples mejoras de Thoth hechas con poco desarrollo. Por lo tanto la descartamos después de haberla probado.
 
 \section{JSweet} 
 
 JSweet\footnote{\url{http://http://www.jsweet.org/}} es básicamente un <<transpiler>>, es decir, un compilador que traduce un código en un lenguaje a otro lenguaje. Al igual que GWT está orientado a objetos, que proporciona una programación segura gracias a que usa un sistema de <<tipado>> Java.
 
-La diferencia fundamental con GWT es que al ser un <<transpiler>> hace una traducción directa entre Java y JavaScript posicionando el código a un lado o al otro del Cliente y el servidor. Esto, claramente, tiene sus ventajas y sus inconvenientes dependiendo del uso que se le quiera dar. 
+La diferencia fundamental con GWT es que al ser un <<transpiler>> hace una traducción directa entre Java y JavaScript posicionando el código a un lado o al otro del cliente y el servidor. Esto, claramente, tiene sus ventajas y sus inconvenientes dependiendo del uso que se le quiera dar. 
 
 Sin embargo descartamos JSweet por varias razones. En primer lugar porque su traducción de Java a JavaScript es muy literal y no es lo que buscábamos ya que de esa forma perderíamos mucha información.	No reconoce las librerías utilizadas en Thoth. Nos pareció más útil utilizar un cliente servidor en GWT en el cual se pudiera comunicar vía RPC el cálculo del parser. Es decir, con JSweet deberíamos haber reescrito el parser de una forma muchísimo más compleja para que JSweet lo pudiera interpretar y eso hubiera llevado mucho más tiempo. Está mucho mas centrado en el desarrollo en JavaScript en vez de en Java, lo que no nos serviría para poder aprovechar el trabajo de Thoth ya hecho. Recordemos que Thoth esta compuesto por dos versiones, hechas en grupos de dos alumnos y rehacer la aplicación completa en JavaScript sería una tarea muy costosa.
 
@@ -73,7 +74,7 @@ Para aclarar un poco las diferencias que hay entre Vaadin y GWT utilizaré una t
 
 \textbf{Lenguaje}         & Cualquier JVM & Java con limitaciones de librerías en la parte del cliente.
  \\ \midrule
-\textbf{Ejecución}   & Cliente-Servidor & Sobre todo cliente pero también servidor.
+\textbf{Ejecución}   & Cliente o Servidor indistintamente  & Se debe diferencias que partes del código van en el cliente y cuales en el  servidor. Esto depende de lo que admita el cliente.
  \\ \midrule
 \textbf{Componentes gráficos}     & Librería UI con componentes modernos y mucha variedad & Librería algo anticuada y con fallos.\\ \midrule
 \textbf{Herramientas de diseño GUI}  &  Incluye \emph{Designer}  & Manual. Existen herramientas externas de uso comercial con coste.\\
@@ -107,12 +108,12 @@ Por otro lado, para hacer la autentificación del usuario se debe almacenar en l
 
 La aplicación cuenta con una base de datos en la que se guarda el registro de los usuarios. A la base de datos se puede acceder desde la plataforma \emph{Google Cloud} con una cuenta creada para ese propósito.\\
 
-Esta plataforma sirve para alojar aplicaciones realizadas con alguna de las  herramientas de desarrollo web de Google. De esta forma se ofrecen varios servicios interesantes, como una base de datos SQL, necesaria para hacer el registro e inicio de sesión.
+Esta plataforma sirve para alojar aplicaciones realizadas con alguna de las  herramientas de desarrollo web de Google. Se ofrecen varios servicios interesantes, como una base de datos SQL, necesaria para hacer el registro e inicio de sesión.
 
 De esta forma, gracias a la SDK de App Engine podemos gestionar una pequeña base de datos con el \emph{datastore} de Google. Se trabaja con entidades y para este proyecto se han creado 3 tipos de entidades.
 
 \begin{itemize}
-\item \textbf{User}. En ella se almacenan los usuarios registrados con un nombre, email, fecha de registro y contraseña (\emph{password}). Además, como ya hemos hablado en la sección Herramientas para el cifrado de contraseñas, también una \emph{salt} para hacer el inicio de sesión\ref{fig:5.1}.
+\item \textbf{User}. En ella se almacenan los usuarios registrados con un nombre, email, fecha de registro y contraseña (\emph{password}). Además, como ya hemos hablado en la sección Herramientas para el cifrado de contraseñas, también una \emph{salt} para hacer el inicio de sesión \ref{fig:4.1}.
 \item \textbf{UserAction}. Se muestra la fecha de la última sesión de cada usuario. Con esta entidad pretendemos ver que usuarios son más activos, cuando se ha utilizado etc. Es cierto que esto se puede analizar desde el adminitrador de \emph{Google Cloud}, pero decidimos introducir esta entidad antes de alojarla ahí.
 \item \textbf{GrammarUsed}. Entidad que sirve para almacenar las gramáticas comprobadas por un usuario. 
 \end{itemize}
@@ -121,7 +122,7 @@ De esta forma, gracias a la SDK de App Engine podemos gestionar una pequeña bas
 \centering
 \includegraphics[width=0.99\textwidth]{BaseDatos-user}
 \caption{Base de datos en \emph{Google Cloud}. Se puede apreciar la entidad <<User>> que muestra la base de datos.}
-\label{fig:5.1}
+\label{fig:4.1}
 \end{figure}
 
 La aplicación se puede gestionar fácilmente desde esta plataforma, el problema principal es que es de pago, pero cuenta con una versión gratuita de un año completo, con un gasto máximo de 300 euros. Esto quiere decir que puedo utilizar elementos con coste adicional hasta llegar al cupo de los 300 euros. 

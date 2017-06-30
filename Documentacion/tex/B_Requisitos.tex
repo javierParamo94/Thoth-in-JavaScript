@@ -12,7 +12,7 @@ Estos han sido los principales objetivos del proyecto según la línea de tiempo
 
 El objetivo de crearlo es el de poder ver el funcionamiento, comunicación y procesado del lenguaje Java en GWT para definir que limitaciones y posibilidades de un proyecto realizado con esta herramienta. Con ello se define que:  
 \begin{itemize}
-\item El lado del cliente y el compartido (shared) son los que se traducen al lenguaje JavaScript y los ficheros se crean dentro de un directorio <<war>>.
+\item El lado del cliente y el compartido (\emph{shared}) son los que se traducen al lenguaje JavaScript y los ficheros se crean dentro de un directorio <<war>>.
 \item El lado del cliente tiene ciertas limitaciones y no acepta todo tipo de librerías de Java. 
 \item La comunicación entre cliente y servidor es por medio de llamadas de procedimiento remoto o RPC.
 \item Parte de la aplicación debe ir indudablemente en el servidor y comunicarse con el cliente para mostrar los resultados.
@@ -22,7 +22,7 @@ Este primer objetivo es fundamental y marca las posibilidades reales que ofrece 
 
 \subsection{Construir la aplicación con la definición de gramática}
 
-Consiste en hacer ya el comienzo de la aplicación empezando por la <<definición de gramática>> que es la parte de Thoth en la que se introduce una gramática en un campo de texto y el programa es capaz de identificarla y mostrar sus propiedades. Para ello es necesario haber logrado en objetivo anteriormente descrito, ya que se necesita alojar en el servidor el <<parser>> de la gramática y hacerle peticiones desde el cliente para interpretarla y mostrar sus propiedades.
+Consiste en hacer ya el comienzo de la aplicación empezando por la <<definición de gramática>> que es la parte de Thoth en la que se introduce una gramática en un campo de texto y el programa es capaz de identificarla y mostrar sus propiedades. Para ello es necesario haber logrado en objetivo anteriormente descrito, ya que se necesita alojar en el servidor el \emph{parser} de la gramática y hacerle peticiones desde el cliente para interpretarla y mostrar sus propiedades.
 
 Es el comienzo de la aplicación y la base sobre la que trabajar posteriormente, ya que para implementar los algoritmos es necesario tener definida una gramática.
 
@@ -39,7 +39,7 @@ El objetivo es implementar cada uno de los algoritmos que se aplican sobre una g
 \item Eliminación de recursividad indirecta.
 \item Factorización por la izquierda.
 \item Forma normal de Chomsky.
-\item Análisis descendente LL(K) formado por el cálculo de <<First y Follow>> y reconocimiento por medio de TASP o Tabla de Análisis Sintáctico Predictivo.
+\item Análisis descendente LL(K) formado por el cálculo de \emph{First} y \emph{Follow} y reconocimiento por medio de TASP o Tabla de Análisis Sintáctico Predictivo.
 \end{itemize}
 
 Hay además dos funcionalidades que engloban varios de estos algoritmos como son la de limpiar gramática y eliminar recursividad.
@@ -50,7 +50,7 @@ Varios de ellos tienen la particularidad de que su ejecución esta hecha paso a 
 
 Como la prioridad principal es llevar Thoth a la web y que funcionase correctamente, hacer el registro de usuarios es el objetivo que se encuentra en la última posición. Forma parte de las mejoras con respecto a las anteriores versiones de Thoth, ya que ninguna con esta funcionalidad. Aprovechando la ventaja de que GWT trabaja con comunicación cliente-servidor, decidimos hacer una base de datos en la que registramos los usuarios de la aplicación así como parte de su actividad en Thoth.
 
-Con ello se podrá saber el uso que se le da al proyecto o si los usuarios son activos mostrando, por ejemplo, la hora del último acceso de un usuario o si es utilizado por muchas personas, entre otras ideas. Se debe comprobar que los datos introducidos en el momento de registro, cumplen una serie de requisitos. Además se pretende hacer inicio de sesión para que en caso de que salga de la aplicación, no necesite volver a iniciar el proceso de <<login>>. De esta forma queremos que el usuario se sienta cómodo al utilizar Thoth.
+Con ello se podrá saber el uso que se le da al proyecto o si los usuarios son activos mostrando, por ejemplo, la hora del último acceso de un usuario o si es utilizado por muchas personas, entre otras ideas. Se debe comprobar que los datos introducidos en el momento de registro, cumplen una serie de requisitos. Además se pretende hacer inicio de sesión para que en caso de que salga de la aplicación, no necesite volver a iniciar el proceso de \emph{login}. De esta forma queremos que el usuario se sienta cómodo al utilizar Thoth.
 \section{Catálogo de requisitos}
 
 El proceso de realización del proyecto ha requerido de los siguientes pasos:
@@ -68,7 +68,7 @@ El proceso de realización del proyecto ha requerido de los siguientes pasos:
 	\begin{itemize}
 	\item Construir una vista principal para editar un texto.
 	\item Realizar peticiones al servidor. 
-	\item Parsear el texto y convertirlo en una gramática.
+	\item \emph{Parsear} el texto y convertirlo en una gramática.
 	\item Devolver la gramática al cliente.
 	\item Trabajar con la gramática en el lado del cliente.
 	\end{itemize}

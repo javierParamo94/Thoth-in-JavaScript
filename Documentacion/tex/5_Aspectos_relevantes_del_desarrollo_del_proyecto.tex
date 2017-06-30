@@ -8,7 +8,7 @@ Además de condicionar Thoth a GWT, también hemos añadido nuevas funcionalidad
 
 
 \section{Internacionalización}
-La aplicación cuenta con la funcionalidad de la internacionalización. Dentro del menú se pueden elegir entre varios idiomas a los que se traducirán los diferentes elementos. Los idiomas en los que está disponible la versión web de Thoth son: Alemán, castellano o español, francés y por supuesto inglés. Consideramos que esta funcionalidad es muy importante para poder llegar a diferentes países en el caso de que fuera necesario.
+La aplicación cuenta con la funcionalidad de la internacionalización. Dentro del menú se pueden elegir entre varios idiomas a los que se traducirán los diferentes elementos. Los idiomas en los que está disponible la versión web de Thoth son: alemán, castellano o español, francés y por supuesto inglés. Consideramos que esta funcionalidad es muy importante para poder llegar a diferentes países en el caso de que fuera necesario.
 
 La internacionalización de la aplicación es un poco diferente a la utilizada en la versión de escritorio de Thoth. En primer lugar es necesario incluir una interfaz con los métodos para la internacionalización y los mensajes <<por defecto>> asociados a cada uno. Cada vez que queramos hacer uso de esos mensajes hay que hacer una llamada al método de la interfaz. Esa interfaz se encuentra en el directorio <<client.gui.utils>> donde se encuentran también los ficheros <<properties>> asociados, donde se encuentran las diferentes traducciones según el mensaje. Estos mensajes son los mismos que los utilizados para la internacionalización de Thoth V2.
 
@@ -16,7 +16,6 @@ Para poder realizar el cambio de idioma es necesario hacer uso de las propiedade
 
 \section{Google Web Toolkit}
 
-\subsection{Introducción}
 Para trabajar con GWT hemos utilizado el entorno de desarrollo de eclipse y con ayuda del \emph{plugin} de Google, se crea un proyecto. Al crear un proyecto con él, se crean unos paquetes por defecto:
 \begin{itemize}
 \item Client: las clases dentro de este paquete se traducirán a lenguaje JavaScript. Es la parte fundamental de un proyecto en GWT y en ella se encuentra la clase principal que implementa <<EntryPoint>>  (indicativo de que es la clase en la que se encuentra la función principal) y la función principal <<onModuleLoad>>. Todo proyecto tiene al menos una clase en el cliente con estas características.
@@ -37,18 +36,12 @@ Las unidades individuales de configuración en GWT se denominan módulos. Un mó
 \item Reglas de vinculación diferida, incluyendo proveedores de propiedad y generadores de clase
 
 \end{itemize}
-Los módulos están definidos en archivos con extensión <<.gwt.xml>>. En una aplicación con varios módulos como la nuestra, hay dos formas de enforcarlo: compilando cada módulo por separado o creando una definición XML de módulo de nivel superior que incluya todos los módulos y compilar el módulo de nivel superior.
+Los módulos están definidos en archivos con extensión <<.gwt.xml>>. En una aplicación con varios módulos como la nuestra, hay dos formas de enfocarlo: compilando cada módulo por separado o creando una definición XML de módulo de nivel superior que incluya todos los módulos y compilar el módulo de nivel superior.
 
 \subsection{Comunicación RPC}
 
 Como ya hemos hablado, RPC se utiliza para transferir objetos Java entre el cliente y el servidor a través de HTTP. Cada vez que se transfieran objetos a través de RPC, deben ser serializados. Los pasos para establecer la comunicación consisten en crear lo siguiente:
 
-\begin{itemize}
-\item Definir un servicio GWT. Interfaz que extienda de <<RemoteService>>. 
-\item Implementación del servicio.
-\item La invocación del servicio. Interfaz en la que cada método debe tener el mismo nombre que en la interfaz de servicio, con la diferencia de que los métodos no tienen ningún tipo de retorno y el último parámetro es un objeto AsyncCallback.
-\item Llamada desde el cliente. Cuando se hace la llamada a Ajax, se especifica un método de devolución pasando un objeto <<AsyncCallback>>. El objeto AsyncCallback contiene dos métodos, OnFailure y OnSuccess.
-\end{itemize}
 
 Hay que tener en cuenta que por defecto se crea un archivo dentro del directorio <<War>> denominado <<web.xml>>. En él se configura el lugar donde se alojan los servlets, que contienen la implementación del servicio.
 
@@ -57,7 +50,7 @@ Hay que tener en cuenta que por defecto se crea un archivo dentro del directorio
 
 El diseño en GWT es uno de los apartados donde más se ha notado lo anticuado que está. Los elementos o widgets tienen diseños algo desactulizados. En realidad, esto no es un problema, ya que por medio de estilos <<css>> podemos configurar el diseño que queramos, pero es una clara desventaja en comparación con otros frameworks.
 
-En nuestro caso, hemos hecho uso de un tema que proporciona GWT. Sirve para que al incorporarlo a un módulo con la sentencia <<\textit{inherits}>>, da un mínimo de aspecto a los elementos que se incorporen. Es el caso del módulo <<GramaticaCS>> que incorpora un tema denominado <<Clean>>. Como se pude apreciar en la siguiente imagen \ref{fig:5.1}, el estilo Clean otorga unos valores al elemento del menú, pero yo los cambio por medio de mi estilo <<GrmaticaCS.css>>. Digamos que los <<piso>>. En este caso no utilizo por tanto Clean pero para otros elementos sí.
+En nuestro caso, hemos hecho uso de un tema que proporciona GWT. Sirve para que al incorporarlo a un módulo con la sentencia <<\textit{inherits}>>, da un mínimo de aspecto a los elementos que se incorporen. Es el caso del módulo <<GramaticaCS>> que incorpora un tema denominado <<Clean>>. Como se pude apreciar en la siguiente imagen \ref{fig:5.1}, el estilo Clean otorga unos valores al elemento del menú, pero yo los cambio por medio de mi estilo <<GrmaticaCS.css>>. Digamos que los sobrescribo. En este caso no utilizo por tanto Clean pero para otros elementos sí.
 
 \begin{figure}[h]
 \centering
@@ -74,11 +67,12 @@ Mencionar también que algunos elementos tienen fallos que no están resueltos y
 
 En un primer momento, la aplicación se ejecutó en modo local desde Eclipse, de forma que para ello, como se explica en los anexos, necesitábamos hacer uso de la ejecución en modo \emph{Super Dev}. La base de datos era local y se podía acceder a ella añadiendo a la url local <<\_ah/admin>>.
 
-Esto viene a que la parte más importante en el registro e inicio de sesión está en el servidor. Posteriormente, la aplicación se despliega en  App Engine, así como todo lo que concierne a esta, es decir, base de datos, comunicación RPC, inicio de sesión etc. Todo esto se explica con más detalle en el Anexo del manual de programador.
+Más tarde, una vez se conseguido hacer todo en modo local, la aplicación se despliega en  App Engine, así como todo lo que concierne a esta, es decir, base de datos, comunicación RPC, inicio de sesión etc. Todo esto se explica con más detalle en el Anexo del manual de programador.
 
-Así, cuando un usuario introduce los datos para hacer el registro, el cliente envía una petición al servidor. El servidor tratará de almacenar dichos datos en la base de datos y en caso de que se produzca un error de comunicación, se mostrará un fallo en el registro. Al guardar los datos se comprobará algunos requisitos como son, que el nombre o la contraseña no sean nulos o vacíos o que el correo electrónico tenga una estructura del típica. En ese caso el usuario creado será nulo, y el cliente, al comprobar si es nulo o no, emitirá un mensaje. 
+Sin duda la parte más importante en el registro e inicio de sesión está en el servidor. Al hacer el registro tuvimos que aprender de forma detallada la relación que hay entre los módulos y el servidor. Para ello hay que meditar sobre cómo debe ser la arquitectura de acuerdo a nuestro objetivo. En esta aplicación, tenemos un módulo sólo para el registro e inicio de sesión, que se conecta a un servicio en el \emph{server}. Este servicio debe apoyarse en otro, que controlará la sesión para acceder al otro módulo que es el que contiene la gramática.
 
+Realizar esto es una tarea ardua ya que para probar los cambio debíamos recompilar el proyecto cada vez, ejecutarlo en el navegador y comprobar los cambios añadiendo salidas por pantalla o mensajes de error. 
 
-En el caso de iniciar sesión, se procede de forma parecida. El cliente hace una petición al servidor para comprobar si está registrado y autentifica que el correo está en la base de datos. Si la contraseña (cifrada con el mismo salt) es la correspondiente al email, establece una sesión y devuelve al cliente un usuario. En caso de que el usuario sea nulo se muestra un error diciendo que el email o contraseña son incorrectos. El mensaje tiene esta forma por temas de seguridad. En caso de que alguien quiera saber si hay un correo registrado, le bastaría con escribir el correo y una contraseña y la aplicación le respondería que esta última es falsa.
+Con todo esto he podido aprender la forma de trabajar desde un lado, digamos, más común como sería el cliente, y comunicarlo con el servidor, que necesita ayudarse de interfaces y clases dedicadas únicamente a la comunicación entre ambos. 
 
-La sesión se almacena en el buscador, por medio de \emph{cookies} durante un tiempo indefinido. Al salir haciendo \emph{logout} se borra la sesión y para acceder hay que volverse a <<logear>>.
+El despliegue también ha sido una parte importante, que personalmente me llevó tiempo, pero que al final logramos encontrar y estamos bastante contentos con ello. 

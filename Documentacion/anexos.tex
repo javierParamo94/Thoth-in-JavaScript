@@ -28,6 +28,8 @@
 % Párrafos
 \nonzeroparskip
 
+% Tildes
+\usepackage[T1]{fontenc}
 
 % Imagenes
 \usepackage{graphicx}
@@ -330,7 +332,12 @@
     \noindent\LARGE
     Presentado por \@author{}\\ 
     en Universidad de Burgos --- \@date{}\\
-    Tutor: \@tutor{}\\
+       \begin{tabbing}
+    Tutores: \= D. Álvar Arnaiz González \kill
+    Tutores: \= D. Álvar Arnaiz González \\
+    \> Dr. César Ignacio García Osorio
+    \end{tabbing}
+
   }%
   \end{center}%
   \null

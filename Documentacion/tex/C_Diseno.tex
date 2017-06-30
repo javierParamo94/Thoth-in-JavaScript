@@ -6,7 +6,7 @@ En esta sección se habla sobre la fase de desarrollo software en la que definen
 \section{Diseño de datos}
 
 \subsection{Gramática}
-Lo referente a la gramática me baso en el trabajo realizado en las anteriores versiones de Thoth\cite{thothv2} y obtengo la parte del núcleo. Según el diagrama obtenido de la documentación del proyecto, la clase Grammar esta compuesta de Production y esta a su vez de Symbol. Por medio de la interfaz TypeHandler se definen los tipos de gramáticas que existen\ref{fig:4.1}.
+Lo referente a la gramática me baso en el trabajo realizado en las anteriores versiones de Thoth\cite{thothv2} y obtengo la parte del núcleo. Según el diagrama obtenido de la documentación del proyecto, la clase Grammar esta compuesta de \emph{Production} y esta a su vez de Symbol. Por medio de la interfaz \emph{TypeHandler} se definen los tipos de gramáticas que existen\ref{fig:4.1}.
 
 \begin{figure}[h]
 \centering
@@ -44,7 +44,7 @@ En la figura\ref{fig:4.3} se aprecia como ~los algoritmos de limpieza tienen dos
 
 \subsection{Parser de la gramática}
 
-Aquí se define el diagrama mediante el cual el parser analiza la construcción de una gramática, en caso de estar correctamente construida nos crea la estructura interna propia, en caso de contener algún fallo nos muestra un error con el primer símbolo incorrecto encontrado.
+Aquí se define el diagrama mediante el cual el \emph{parser} analiza la construcción de una gramática, en caso de estar correctamente construida nos crea la estructura interna propia, en caso de contener algún fallo nos muestra un error con el primer símbolo incorrecto encontrado.
 A diferencia del parser de expresión regular aquí no se crea ningún árbol de
 derivación, en su lugar se va analizando texto plano para ir creando la estructura interna propia.
 Esta forma de construcción de gramáticas se ha realizado con el fin de no tener que construir una gramática cada nueva producción, solo se creará la gramática cuando queramos utilizarla (instanciación bajo demanda).
@@ -60,7 +60,7 @@ Esta forma de construcción de gramáticas se ha realizado con el fin de no tene
 
 \subsection{Base de datos}
 
-Este es el diseño de la base de datos para gestionar las sesiones y los registros de usuarios. La clase Login hace de nexo de unión entre las dos vistas, la de registro y la de inicio de sesión. Esa misma clase realiza las peticiones al servidor por medio de las interfaces <<Registration>>. Las interfaces hacen peticiones al servlet de registro, <<RegServlet>>, que realizará las operaciones debidas con las base de datos <<dataStoreService>> y con la clase de inicio de sesión <<sessionServlet>> que cargará el módulo que sea según la sesión.
+Este es el diseño de la base de datos para gestionar las sesiones y los registros de usuarios. La clase Login hace de nexo de unión entre las dos vistas, la de registro y la de inicio de sesión. Esa misma clase realiza las peticiones al servidor por medio de las interfaces <<Registration>>. Las interfaces hacen peticiones al \emph{servlet} de registro, <<RegServlet>>, que realizará las operaciones debidas con las base de datos <<dataStoreService>> y con la clase de inicio de sesión <<sessionServlet>> que cargará el módulo que sea según la sesión.
 
 \begin{figure}[h]
 \centering
@@ -101,9 +101,9 @@ La aplicación se estructura en tres pilares fundamentales.
 \item src:
 Este paquete se encuentra todo el código escrito en Java. Esta estructurado en diversas partes siguiendo el diseño modelo-vista-controlador.
 	\begin{itemize}
-	\item client: Aquí se encuentran todos los archivos programados en Java que será traducidos a JavaScript. No pueden contener librerías que no estén especificadas para GWT. Contiene parte del núcle de Thoth y toda la parte visual de la aplicación.
-	\item server: En este paquete se guardan las clases que realizan funciones que van a usar librerías no aptas por GWT. Se deben especificar los servlets que se utilizan aquí dentro del war. Incluye el parserJavaCC y la base de datos. Su comunicación con el cliente es vía RPC.
-	\item shared: En este paquete se alojan clases de ayuda entre el cliente y el servidor. Su comunicación es directa, sin RPC, pero tiene las mismas restricciones que el cliente.
+	\item \emph{client}: Aquí se encuentran todos los archivos programados en Java que será traducidos a JavaScript. No pueden contener librerías que no estén especificadas para GWT. Contiene parte del núcleo de Thoth y toda la parte visual de la aplicación.
+	\item \emph{server}: En este paquete se guardan las clases que realizan funciones que van a usar librerías no aptas por GWT. Se deben especificar los \emph{servlets} que se utilizan aquí dentro del war. Incluye el parserJavaCC y la base de datos. Su comunicación con el cliente es vía RPC.
+	\item \emph{shared}: En este paquete se alojan clases de ayuda entre el cliente y el servidor. Su comunicación es directa, sin RPC, pero tiene las mismas restricciones que el cliente.
 	\end{itemize}
 \item Test: Contiene las pruebas realizadas sobre diferentes funcionalidades de la aplicación.
 
