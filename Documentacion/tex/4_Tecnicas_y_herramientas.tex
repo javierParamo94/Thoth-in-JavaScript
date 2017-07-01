@@ -15,20 +15,20 @@ Básicamente, permite a los desarrolladores compilar código Java en archivos Ja
 
 GWT permite compartir código escrito en Java en la parte del servidor con código JavaScript en la parte del cliente lo que nos lleva pensar que la aplicación resultante será fiel a la idea inicial del Thoth. 
 
-Nos decantamos por GWT porque, a parte de que supone un aprendizaje para mí como alumno, también es la base de otros frameworks de los que más tarde hablaré. Ha sido muy utilizado anteriormente y ahora está digamos que en decadencia. El soporte actual es mínimo y sobre todo en el tema visual anda algo anticuado. En el desarrollo del proyecto hemos llegado a ver  y probar <<\emph{bugs}>> que según otros usuarios ya descubrieron hace un par de años.
+Nos decantamos por GWT porque, a parte de que supone un aprendizaje para mí como alumno, también es la base de otros \emph{frameworks} de los que más tarde hablaré. Ha sido muy utilizado anteriormente y ahora está digamos que en decadencia. El soporte actual es mínimo y sobre todo en el tema visual anda algo anticuado. En el desarrollo del proyecto hemos llegado a ver  y probar <<\emph{bugs}>> que según otros usuarios ya descubrieron hace un par de años.
 
-Aun así, hay bastante información con la que he podido trabajar, y una comunidad grande, que aunque ahora se ha <<pasado>> a otros frameworks más actuales, han dejado huella y soluciones a muchos de los problemas con los que he trabajado.
+Aun así, hay bastante información con la que he podido trabajar, y una comunidad grande, que aunque ahora se ha <<pasado>> a otros \emph{frameworks} más actuales, han dejado huella y soluciones a muchos de los problemas con los que he trabajado.
 
 \section{WebSwing}
 
-En cuanto a esta herramienta, es algo diferente a las demás. WebSwing \footnote{\url{http://webswing.org/}} la descubrimos debido a una duda que nos surgió al principio del proyecto. Y es que la aplicación Thoth original cuenta con muchísimos elementos de la biblioteca gráfica <<Swing>>, es digamos toda la estructura visual que utiliza. El problema surgió cuando al programar en GWT no podíamos hacer uso de ella, ya que, al ser algo visual debe ir en la parte del cliente y como ya hemos mencionado, es donde se hace la traducción a JavaScript. 
+En cuanto a esta herramienta, es algo diferente a las demás. WebSwing\footnote{\url{http://webswing.org/}} la descubrimos debido a una duda que nos surgió al principio del proyecto. Y es que la aplicación Thoth original cuenta con muchísimos elementos de la biblioteca gráfica <<\emph{Swing}>>, es digamos toda la estructura visual que utiliza. El problema surgió cuando al programar en GWT no podíamos hacer uso de ella, ya que, al ser algo visual debe ir en la parte del cliente y como ya hemos mencionado, es donde se hace la traducción a JavaScript. 
 
 Se trata de un servidor web que permite la ejecución de aplicaciones que utilicen la biblioteca gráfica Swing desde el navegador, utilizando sólo HTML5. De esta forma toda la aplicación de Thoth se ejecutaría en el navegador conservando su aspecto de siempre y manteniendo las ventajas de una aplicación web.
 
-Lamentablemente esta herramienta se descubrió cuando el proyecto ya estaba muy avanzado. Decidimos entonces continuar por la senda marcada en un principio. Se hizo alguna prueba para ver su funcionamiento y los resultados fueron muy buenos.
+Lamentablemente, esta herramienta se descubrió cuando el proyecto ya estaba muy avanzado. Decidimos entonces continuar por la senda marcada en un principio. Se hizo alguna prueba para ver su funcionamiento y los resultados fueron muy buenos.
 
-La cuestión es que el utilizar esta herramienta no supone ningún reto como informático y facilitaría tanto el proyecto que este quedaría en nada más que
-unas simples mejoras de Thoth hechas con poco desarrollo. Por lo tanto la descartamos después de haberla probado.
+Además, utilizar esta herramienta no hubieran supuesto ningún reto como informático y facilitaría tanto el proyecto que este quedaría en nada más que
+unas simples mejoras de Thoth hechas con poco desarrollo. Por lo tanto, la descartamos después de haberla probado.
 
 \section{JSweet} 
 
@@ -51,7 +51,7 @@ DukeScript se centra sobre todo en el desarrollo más que en el paso de Java a J
 
 Vaadin en un \emph{framework} de Java de código abierto, para crear aplicaciones web\footnote{\url{https://vaadin.com/home}}. Se programa en Java o cualquier otro lenguaje de JVM o Java Virtual Machine. Lo más destacado de Vaadin es que está construido sobre una base de GWT, por ello es una de las grandes alternativas a este último. La forma de trabajar con Vaadin es mediante el lenguaje Java e incorpora un lado cliente y otro servidor, en el cual irán las funcionalidades más complejas y su programación es dirigida por eventos. Es decir, hasta aquí es igual a GWT.
 
-Las mejoras con respecto a GWT son varias, pero voy a mencionar solo aquellas que son más relevantes para este proyecto. Cuenta sobre todo con muchos elementos visuales, mejorados y con diseños más actuales. La parte visual es tan importante en Vaadin que incluyen un <<diseñador>>\footnote{\url{https://vaadin.com/designer}} o <<designer>> en inglés, como complemento de Eclipse que facilita mucho la creación de la parte visual, ya que da la posibilidad de hacer el diseño de forma visual.
+Las mejoras con respecto a GWT son varias, pero voy a mencionar solo aquellas que son más relevantes para este proyecto. Cuenta sobre todo con muchos elementos visuales, mejorados y con diseños más actuales. La parte visual es tan importante en Vaadin que incluyen un <<diseñador>>\footnote{\url{https://vaadin.com/designer}} o \emph{designer} en inglés, como complemento de Eclipse que facilita mucho la creación de la parte visual, ya que da la posibilidad de hacer el diseño de forma visual.
 
 En realidad, la mayor parte de los elementos visuales, menús, \emph{boards}, diagramas estadísticos, iconos etc, están pensados sobre todo para un uso comercial orientado sobre todo para empresas. Por ello, el problema principal es que para poder hacer uso de su potencial se necesitan licencias de pago.
 
@@ -99,22 +99,22 @@ La técnica que empleamos se conoce como el cifrado hash con sal o semilla (seg�
 Para generar el \emph{salt} en Java contamos con el paquete <<security>> y la clase <<SecureRandom>>\footnote{\url{https://docs.oracle.com/javase/7/docs/api/java/security/SecureRandom.html}} con la que nos aseguramos de crear una cadena de bytes aleatoria. Suficientemente aleatoria para nuestro propósito. Podemos especificar el tamaño en bytes del salt. Para almacenarlo, lo pasamos a formato <<String>>. 
 
 
-Por otro lado, para hacer la autentificación del usuario se debe almacenar en la base de datos tanto el salt como el \emph{hash} generado. Cuando el usuario introduce la contraseña para iniciar sesión, internamente se añade el salt a la contraseña introducida, se cifra con el mismo método y se comparan. Si coinciden, accederá a la aplicación, sino, deberá introducir de nuevo los datos necesarios.
+Por otro lado, para hacer la autentificación del usuario se debe almacenar en la base de datos tanto el \emph{salt} como el \emph{hash} generado. Cuando el usuario introduce la contraseña para iniciar sesión, internamente se añade el salt a la contraseña introducida, se cifra con el mismo método y se comparan. Si coinciden, accederá a la aplicación, sino, deberá introducir de nuevo los datos necesarios.
 
 
 
 \section{Plataforma \emph{Google Cloud}}
 
 
-La aplicación cuenta con una base de datos en la que se guarda el registro de los usuarios. A la base de datos se puede acceder desde la plataforma \emph{Google Cloud} con una cuenta creada para ese propósito.\\
+La aplicación cuenta con una base de datos en la que se guarda el registro de los usuarios. A la base de datos se puede acceder desde la plataforma \emph{Google Cloud} con una cuenta creada para ese propósito.
 
 Esta plataforma sirve para alojar aplicaciones realizadas con alguna de las  herramientas de desarrollo web de Google. Se ofrecen varios servicios interesantes, como una base de datos SQL, necesaria para hacer el registro e inicio de sesión.
 
 De esta forma, gracias a la SDK de App Engine podemos gestionar una pequeña base de datos con el \emph{datastore} de Google. Se trabaja con entidades y para este proyecto se han creado 3 tipos de entidades.
 
 \begin{itemize}
-\item \textbf{User}. En ella se almacenan los usuarios registrados con un nombre, email, fecha de registro y contraseña (\emph{password}). Además, como ya hemos hablado en la sección Herramientas para el cifrado de contraseñas, también una \emph{salt} para hacer el inicio de sesión \ref{fig:4.1}.
-\item \textbf{UserAction}. Se muestra la fecha de la última sesión de cada usuario. Con esta entidad pretendemos ver que usuarios son más activos, cuando se ha utilizado etc. Es cierto que esto se puede analizar desde el adminitrador de \emph{Google Cloud}, pero decidimos introducir esta entidad antes de alojarla ahí.
+\item \textbf{User}. En ella se almacenan los usuarios registrados con un nombre, \emph{email}, fecha de registro y contraseña (\emph{password}). Además, como ya hemos hablado en la sección Herramientas para el cifrado de contraseñas, también una \emph{salt} para hacer el inicio de sesión (ver figura \ref{fig:4.1}).
+\item \textbf{UserAction}. Se muestra la fecha de la última sesión de cada usuario. Con esta entidad pretendemos ver que usuarios son más activos, cuando se ha utilizado etc. Es cierto que esto se puede analizar desde el administrador de \emph{Google Cloud}, pero decidimos introducir esta entidad antes de alojarla ahí.
 \item \textbf{GrammarUsed}. Entidad que sirve para almacenar las gramáticas comprobadas por un usuario. 
 \end{itemize}
 

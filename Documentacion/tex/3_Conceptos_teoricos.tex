@@ -10,9 +10,9 @@ Entonces ya sabemos que, para que haya comunicación entre un ordenador o robot 
 
 \section{¿Qué es una gramática y para qué sirve?}
 
-Una gramática formal es un mecanismo para la generación de cadenas de caracteres que definen un determinado lenguaje formal, y que utiliza un conjunto de reglas de formación. Por lo tanto, podemos entenderlo dentro del concepto de las ciencias de la computación y la lógica matemática. Las cadenas de caracteres resultantes son a su vez <<bien formadas>> cuando pertenecen al lenguaje formal con el que se trabaja \cite{aho1986compilers}.
+Una gramática formal es un mecanismo para la generación de cadenas de caracteres que definen un determinado lenguaje formal, y que utiliza un conjunto de reglas de formación. Por lo tanto, podemos entenderlo dentro del contexto de las ciencias de la computación y la lógica matemática. Las cadenas de caracteres resultantes son a su vez <<bien formadas>> cuando pertenecen al lenguaje formal con el que se trabaja \cite{aho1986compilers}.
 
-¿Y por qué es tan importante? Siguiendo con el ejemplo del principio, la gramática es la que va a determinar si lo que se introduce en el autómata es correcto o no. Un conjunto de reglas que nos indicará el por qué al juntar una serie de caracteres de una forma se van a poder entender.
+¿Y por qué es tan importante? Siguiendo con el ejemplo del principio, la gramática es la que va a determinar si lo que se introduce en el autómata es correcto o no. Un conjunto de reglas que nos indicará por qué al juntar una serie de caracteres de una forma se van a poder entender.
 
 Por otro lado, la denominación de la gramática formal, desde un punto de vista más formal, es una cuádrupla compuesta por:
 
@@ -25,24 +25,24 @@ Por otro lado, la denominación de la gramática formal, desde un punto de vista
 
 El alfabeto total que compone la gramática está formado, según lo anterior, por $\Sigma\cup\mathcal{N}$, es decir, por el conjunto de los símbolos terminales y no terminales.
 
-Una \textbf{producción} tiene esta estructura y está compuesto por un par ordenado de cadenas. \[x \rightarrow y\] A la parte izquierda se la denomina antecedente y la derecha consecuente. A las producciones también se las denomina reglas de derivación.
+Una \textbf{producción} tiene esta estructura y está compuesta por un par ordenado de cadenas. \[x \rightarrow y\] A la parte izquierda se la denomina \textbf{antecedente} y la derecha \textbf{consecuente}. A las producciones también se las denomina \textbf{reglas de derivación}.
 
 Pongamos un ejemplo de una gramática simple y veamos de que está formada. Se suele utilizar la notación  \[x \rightarrow y\] \[z \rightarrow w\] para indicar una o varias producciones, en vez de \[(x, y) \in \mathcal{P} \] \[(z, w) \in \mathcal{P} \] siendo $\mathcal{P}$ el conjunto de producciones.
 
 Por otro lado, si hay más de una producción que comience con el mismo elemento la notación sería de esta forma \[ x \rightarrow y | z | w\] en lugar de ser \[ x \rightarrow y\] \[x \rightarrow z\] \[x \rightarrow w\].
 
-Cuando la gramática tiene una producción $x \rightarrow y$, se dice que $w$ \textbf{deriva directamente} de $v$ ( $v \Rightarrow w$) si $\exists z, u \in \Sigma^{*}$ tales que $v=zxu, w=zyu$ y $x\rightarrow y$.
+Cuando la gramática tiene una producción $x \rightarrow y$, se dice que $w$ \textbf{deriva directamente} de $v$ ($v \Rightarrow w$) si $\exists z, u \in \Sigma^{*}$ tales que $v=zxu, w=zyu$.
 
-Sea $\Sigma$ un alfabeto, un conjunto de producciones $\mathcal{P}$ y $v, w \in \Sigma^{*}$ decimos que $w$ \textbf{deriva} de $v$, si existen $u_{0}, u_{1}, ..., u_{n} \in \Sigma^{*}$ y una secuencia de transformaciones tales que:
+Sea $\Sigma$ un alfabeto, un conjunto de producciones $\mathcal{P}$ y $v, w \in \Sigma^{*}$, decimos que $w$ \textbf{deriva} de $v$, si existen $u_{0}, u_{1}, ..., u_{n} \in \Sigma^{*}$ y una secuencia de transformaciones tales que:
  \[ v = u_{0} \Rightarrow u_{1}\] \[ u_{1} \Rightarrow u_{2}\] \[...\] \[ u_{n-1} \Rightarrow u_{n} = w\]
 
-Esta secuencia de transformaciones se dice que es una \textbf{derivación} de longitud $n$. Se habla de lenguaje generado por una gramática $G$, denotado por $L(G)$, y se define como el conjunto de todas las sentencias de la gramática $G$.  \[L(G) = x\in \Sigma^{*}:\mathcal{S} \Rightarrow^{+}x\]
-De esta manera se dice que dos gramáticas son equivalentes $G_{1} \equiv G_{2}$, si generan el mismo lenguaje, es decir, si $L(G_{1})=L(G_{2})$.
+Esta secuencia de transformaciones se dice que es una \textbf{derivación} de longitud $n$. Se habla de \textbf{lenguaje} generado por una gramática $G$, denotado por $L(G)$, y se define como el conjunto de todas las sentencias de la gramática $G$.  \[L(G) = x\in \Sigma^{*}:\mathcal{S} \Rightarrow^{+}x\]
+De esta manera, se dice que dos gramáticas son equivalentes $G_{1} \equiv G_{2}$, si generan el mismo lenguaje, es decir, si $L(G_{1})=L(G_{2})$.
 
 \section{Recursividad}
 
 Por último, una gramática es recursiva en un símbolo no terminal $U$ cuando existe una forma sentencial de $U$ que contiene a $U$. \[U \Rightarrow^{+}xUy \textup{ donde } x,y\in (\Sigma \cup \mathcal{N})^{*} \]
-Así pues la gramática será recursiva cuando lo sea para algún no terminal, si $x = \varepsilon$ la gramática es recursiva por la izquierda, y si $y = \varepsilon$ se dice que es recursiva por la derecha.
+Así pues, la gramática será recursiva cuando lo sea para algún no terminal, si $x = \varepsilon$ la gramática es recursiva por la izquierda, y si $y = \varepsilon$ se dice que es recursiva por la derecha.
 
 \section{Tipos de gramáticas }
 
@@ -50,10 +50,10 @@ Hay varios tipos de gramáticas según sus características \cite{aho1986compile
 \begin{itemize}
 \item \textbf{Gramáticas de Chomsky}: las producciones tienen la forma \[u \rightarrow v \textup{ donde } u=xAy \in (\Sigma \cup \mathcal{N})^{+} \wedge A \in \mathcal{N} \wedge x, y, v \in (\Sigma \cup \mathcal{N})^{*}\]
 
-Es posible demostrar que los lenguajes generados por una gramática de Chomsky se puede generar por un grupo más restringido llamadas gramáticas con estructura de frase, es decir, que ambas tienen la misma capacidad generativa. Las gramáticas de frase tienen la siguiente forma de producción:
+Es posible demostrar que los lenguajes generados por una gramática de Chomsky se pueden generar por un grupo más restringido, llamadas gramáticas con estructura de frase, es decir, que ambas tienen la misma capacidad generativa. Las gramáticas de frase tienen la siguiente forma de producción:
 
 \[xAy \rightarrow xvy \textup{ donde } x,y,v \in (\Sigma \cup \mathcal{N})^{*} \wedge A \in \mathcal{N}\]
-\item \textbf{Gramaticas dependientes o sensibles al contexto}: Cuentas con las reglas de producción de la forma  \[xAy \rightarrow xvy \textup{ donde } x, y \in (\Sigma \cup \mathcal{N})^{*} \wedge A \in \mathcal{N} \wedge v \in (\Sigma \cup \mathcal{N})^{+}\]
+\item \textbf{Gramáticas dependientes o sensibles al contexto}: Cuenta con las reglas de producción de la forma  \[xAy \rightarrow xvy \textup{ donde } x, y \in (\Sigma \cup \mathcal{N})^{*} \wedge A \in \mathcal{N} \wedge v \in (\Sigma \cup \mathcal{N})^{+}\]
 En este tipo de gramáticas el significado de $A$ depende del contexto o de la posición en la frase. El contexto sería entonces $x$ e $y$. Además, la longitud de la parte derecha de las producciones es siempre mayor o igual que la de la parte izquierda.
 \item \textbf{Gramáticas independientes del contexto}: las producciones de las gramáticas de este tipo son más restrictivas, de la forma: 
 \[A \rightarrow v \textup{ donde } A \in \mathcal{N} \wedge v \in (\Sigma \cup \mathcal{N})^{*}\]
@@ -70,9 +70,9 @@ que son totalmente equivalentes a las regulares normales, pero en muchos casos s
 
 \section{Cifrado de contraseñas y seguridad}
 
-El cifrado de la contraseña es una de las cuestiones más importantes para preservar la seguridad o intimidad del usuario. El por qué es muy simple. Los usuarios normalmente utilizamos las mismas contraseñas o parecidas para cualquier cuenta. Por lo tanto si hay alguien con acceso a la base de datos, podrá ver la contraseña utilizada por un determinado usuario, poniendo en peligro esa intimidad, no solo en este programa, sino, como ya se ha comentado antes, en las de otras cuentas.
+El cifrado de la contraseña es una de las cuestiones más importantes para preservar la seguridad o intimidad del usuario. El porqué es muy simple. Los usuarios normalmente utilizamos las mismas contraseñas o parecidas para cualquier cuenta. Por lo tanto, si hay alguien con acceso a la base de datos, podrá ver la contraseña utilizada por un determinado usuario, poniendo en peligro esa intimidad, no solo en este programa, sino, como ya se ha comentado antes, en las de otras cuentas.
 
-Para evitar esto, el método más simple es el cifrar las contraseñas en la base de datos para que en el caso en el que alguien acceda a ella, en el campo <<contraseña>> no vea la contraseña real, sino el resultado del cifrado de esta. El método de cifrado que se emplea eneste proyecto el del algoritmo \emph{hash} que como veremos más adelante tiene unas características determinadas. 
+Para evitar esto, el método más simple es el cifrar las contraseñas en la base de datos para que en el caso de que alguien acceda a ella, en el campo <<contraseña>> no vea la contraseña real, sino el resultado del cifrado de esta. El método de cifrado que se emplea eneste proyecto el del algoritmo \emph{hash} que como veremos más adelante tiene unas características determinadas. 
 
 \subsection{Funcionamiento del algoritmo hash}
 
@@ -87,13 +87,13 @@ Se trata de un algoritmo matemático con el que se transforma cualquier cantidad
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.99\textwidth]{funcion-hash}
-\caption{Aplicación de la función hash a diferentes datos introducidos.}{\url{https://blog.kaspersky.com.mx/que-es-un-hash-y-como-funciona/2806/}}
+\caption[Aplicación de la función hash a diferentes datos introducidos.]{Aplicación de la función hash a diferentes datos introducidos \url{https://blog.kaspersky.com.mx/que-es-un-hash-y-como-funciona/2806/}.}
 \label{fig:3.1}
 \end{figure}
 
 Ahora bien, las acciones llevadas a cabo para preservar esa seguridad serían las siguientes: un usuario crea una cuenta en la aplicación, la contraseña se encripta y se almacena en la base de datos. Cuando el usuario trata de iniciar sesión y escribe la contraseña, esta se encripta y se compara el resultado con aquel que se ha guardado en la base de datos, si son iguales el usuario tendrá acceso; sino, se le requerirá que lo vuelva a intentar.
 
-El problema principal de esto es que con los avances en temas de seguridad siempre hay asociados otros que tratan de <<romper>> esa seguridad y en este caso no iba a ser menos. Creo que es importante reconocer los peligros que hay asociados a aplicar este método, pero no deseo extenderme demasiado en este aspecto así que los mencionaré brevemente.
+El problema principal de esto es que con los avances en temas de seguridad siempre hay asociados otros que tratan de <<romper>> esa seguridad, y en este caso no iba a ser menos. Creo que es importante reconocer los peligros que hay asociados a aplicar este método, pero no deseo extenderme demasiado en este aspecto así que los mencionaré brevemente.
 
 
 \begin{itemize}
@@ -104,18 +104,19 @@ El problema principal de esto es que con los avances en temas de seguridad siemp
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.99\textwidth]{hash-cracker}
-\caption{Ejemplo de ataque con tablas de búsqueda.}{Imagen sacada de \url{https://crackstation.net/}}
+\caption[Ejemplo de ataque con tablas de búsqueda.]{Ejemplo de ataque con tablas de búsqueda \url{https://crackstation.net/}.}
+
 \label{fig:3.2}
 \end{figure}
 
 Además de estos, hay más métodos, casi todos basados en las tablas de búsqueda. Según estos ataques queda comprobado que la seguridad de este algoritmo depende en gran mediada de la contraseña que utilice el usuario. Cuanto más aleatoria y con más mezcla de caracteres mejor, ya que formará palabras que no se encuentran en los diccionarios o tablas y solo se podrá descubrir por medio de la fuerza bruta. Entonces ¿cómo hacer que las contraseñas sean más resistentes y solucionar este problema?
 
-Se conoce como el cifrado hash con sal o semilla. Consiste en añadir un conjunto de caracteres aleatorios, agregarlos a la contraseña y una vez hecho esto, cifrarlo con la función hash. De esta manera se consigue que la contraseña sea mucho más aleatoria que la que inicialmente ha introducido el usuario. Así podemos ver como quedaría un intento de <<tablas de búsqueda>> con este tipo de cifrado se usa para contraseñas muy simples \ref{fig:3.3}. 
+Se conoce como el cifrado \emph{hash} con sal o semilla. Consiste en añadir un conjunto de caracteres aleatorios, agregarlos a la contraseña y una vez hecho esto, cifrarlo con la función \emph{hash}. De esta manera se consigue que la contraseña sea mucho más aleatoria que la que inicialmente ha introducido el usuario. Así podemos ver como quedaría un intento de <<tablas de búsqueda>> con este tipo de cifrado se usa para contraseñas muy simples \ref{fig:3.3}. 
 
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.99\textwidth]{hash_salt-cracker}
-\caption{Resultado de aplicar tablas de búsqueda al cifrado hash con semilla.} {Imagen sacada de \url{https://crackstation.net/}}
+\caption[Resultado de aplicar tablas de búsqueda al cifrado hash con semilla.]{Resultado de aplicar tablas de búsqueda al cifrado hash con semilla. Imagen sacada de \url{https://crackstation.net/}}
 \label{fig:3.3}
 \end{figure}
 
