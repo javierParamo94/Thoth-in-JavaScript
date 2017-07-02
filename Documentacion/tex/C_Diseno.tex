@@ -1,16 +1,16 @@
 \apendice{Especificación de diseño}
 
 \section{Introducción}
-En esta sección se habla sobre la fase de desarrollo software en la que definen la arquitectura, los procedimientos o los datos que se utilizan. Por lo tanto, se da solución
+En esta sección se habla sobre la fase de desarrollo software en la que definen la arquitectura, los procedimientos o los datos que se utilizan. Para hacerlo utilizaremos de diagramas que nos ayuden.
 
 \section{Diseño de datos}
 
 \subsection{Gramática}
-Lo referente a la gramática me baso en el trabajo realizado en las anteriores versiones de Thoth\cite{thothv2} y obtengo la parte del núcleo. Según el diagrama obtenido de la documentación del proyecto, la clase Grammar esta compuesta de \emph{Production} y esta a su vez de Symbol. Por medio de la interfaz \emph{TypeHandler} se definen los tipos de gramáticas que existen\ref{fig:4.1}.
+Lo referente a la gramática me baso en el trabajo realizado en las anteriores versiones de Thoth \cite{thothv2} y obtengo la parte del núcleo. Según el diagrama obtenido de la documentación del proyecto, la clase Grammar esta compuesta de \emph{Production} y esta a su vez de Symbol. Por medio de la interfaz \emph{TypeHandler} se definen los tipos de gramáticas que existen \ref{fig:4.1}.
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=0.50\textwidth]{diseno-gramatica}
+\includegraphics[width=0.80\textwidth]{diseno-gramatica}
 \caption{Diagrama de clases del núcleo de la gramática\cite{thothv2}.}
 \label{fig:4.1}
 \end{figure}
@@ -18,27 +18,27 @@ Lo referente a la gramática me baso en el trabajo realizado en las anteriores v
 
 \subsection{Símbolos}
 
-Los símbolos son la unidad mínima con la que se trabajará en una gramática. Los símbolos en una gramática pueden ser terminales, no terminales. La clase NonTerminal estará formada por una cadena de terminales y la clase Terminal trabajará con un único carácter. También se definen los caracteres especiales como son epsilon, o el fin de cadena (TerminalEnd)\ref{fig:4.2}.
+Los símbolos son la unidad mínima con la que se trabajará en una gramática. Los símbolos en una gramática pueden ser terminales, no terminales. La clase NonTerminal estará formada por una cadena de terminales y la clase Terminal trabajará con un único carácter. También se definen los caracteres especiales como son épsilon, o el fin de cadena (TerminalEnd) \ref{fig:4.2}.
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=0.60\textwidth]{diseno-simbolo}
+\includegraphics[width=1\textwidth]{diseno-simbolo}
 \caption{Diagrama de clases de la estructura de Símbolo.}
 \label{fig:4.2}
 \end{figure}
 
-La especificación de los caracteres que pertenecen a cada tipo viene impuesta por la sintaxis utilizada. Se decidió utilizar minúsculas, dígitos y los operadores básicos ($\ast,+,-,\cdot$) para los terminales. Para los no terminales se determinó que la primera letra debía ir en mayúscula y a ésta le podía seguir cualquier otro terminal o no terminal.
+La especificación de los caracteres que pertenecen a cada tipo viene impuesta por la sintaxis utilizada. Se decidió utilizar minúsculas, dígitos y los operadores básicos ($\ast,+,-,\cdot$) para los terminales. Para los no terminales se determinó que la primera letra debía ir en mayúscula y a esta le podía seguir cualquier otro terminal o no terminal.
 
 \subsection{Algoritmos de la gramática}
 
 Por simplificación se decide juntar todos los algoritmos de limpieza de gramáticas en un mismo caso dentro del diagrama. Además su estructura es similar entre ellos.
 
-En la figura\ref{fig:4.3} se aprecia como ~los algoritmos de limpieza tienen dos atributos principales, uno correspondiente a la gramática que se desea limpiar, definida como <<mOldGrammar>> y otro que representara la gramática resultante, <<mNewGrammar>>.
+En la figura \ref{fig:4.3} se aprecia como ~los algoritmos de limpieza tienen dos atributos principales, uno correspondiente a la gramática que se desea limpiar, definida como <<mOldGrammar>> y otro que representara la gramática resultante, <<mNewGrammar>>.
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=0.40\textwidth]{diseno-algoritmos}
-\caption{Diagrama de clases de los Algoritmos de la gramática\cite{thothv2}.}
+\includegraphics[width=0.70\textwidth]{diseno-algoritmos}
+\caption{Diagrama de clases de los Algoritmos de la gramática \cite{thothv2}.}
 \label{fig:4.3}
 \end{figure}
 
@@ -52,7 +52,7 @@ Esta forma de construcción de gramáticas se ha realizado con el fin de no tene
 \begin{figure}[h]
 \centering
 \includegraphics[width=1\textwidth]{diseno-parser}
-\caption{Diagrama de clases del Parser de la gramática\cite{thothv2}.}
+\caption{Diagrama de clases del Parser de la gramática \cite{thothv2}.}
 \label{fig:4.4}
 \end{figure}
 
@@ -74,7 +74,7 @@ Este es el diseño de la base de datos para gestionar las sesiones y los registr
 
 Vamos a ver ahora el funcionamiento de varios de los procesos que se llevan a cabo en esta aplicación.
  
-Los procesos más importantes en esta aplicación son los dos que se muestran en los siguientes diagramas de flujo. No se representan todos pero si aquellos más importantes que se relacionan con el servidor \ref{fig:4.6}\ref{fig:4.7}.
+Los procesos más importantes en esta aplicación son los dos que se muestran en los siguientes diagramas de flujo. No se representan todos pero si aquellos más importantes que se relacionan con el servidor: ver figuras \ref{fig:4.6} y \ref{fig:4.7}.
  \begin{figure}[h]
 \centering
 \includegraphics[width=0.80\textwidth]{login-precedimiento}
@@ -112,10 +112,12 @@ Este paquete se encuentra todo el código escrito en Java. Esta estructurado en 
 \end{itemize}
 
 
-El proyecto continua con el diseño modelo-vista-controlador de las anteriores versiones de Thoth. 
-"Es un patrón de arquitectura de las aplicaciones software. Separa la lógica de negocio de la interfaz de usuario, facilitando la evolución, por separado de ambos aspectos, y aumentando reutilización y flexibilidad" \cite{mvc}.
+El proyecto continúa con el diseño modelo-vista-controlador de las anteriores versiones de Thoth. 
+\begin{quote}
+Es un patrón de arquitectura de las aplicaciones software. Separa la lógica de negocio de la interfaz de usuario, facilitando la evolución, por separado de ambos aspectos, y aumentando reutilización y flexibilidad \cite{mvc}.
+\end{quote}
 
-La estructura de paquetes está definida de la siguiente forma \ref{fig:4.8}. Se puede ver como esta definido el modelo-vista-controlador y como esta agrupados los paquetes según la funcionalidad. Represento solo el cliente porque creo que es el interesante.
+La estructura de paquetes está definida de la siguiente forma en la ilustración \ref{fig:4.8}. Se puede ver como esta definido el modelo-vista-controlador y como esta agrupados los paquetes según la funcionalidad. Represento solo el cliente porque creo que es el interesante.
 
 \begin{figure}[h]
 \centering

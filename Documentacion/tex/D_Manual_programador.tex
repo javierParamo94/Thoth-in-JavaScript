@@ -2,7 +2,7 @@
 
 \section{Introducción}
 
-En esta sección se hablara de aspectos más técnicos pensando en futuros desarrollos. Sirve como ayuda para entender el funcionamiento de la aplicación y de los pasos que se han llevado a cabo para conseguir estos resultados. Se habla de la estructura del programa, de la instalación y configuración de las herramientas necesarias y del proyecto y, por último, de las pruebas realizadas.
+En esta sección se hablará de aspectos más técnicos pensando en futuros desarrollos. Sirve como ayuda para entender el funcionamiento de la aplicación y de los pasos que se han llevado a cabo para conseguir estos resultados. Se detalla la estructura del programa, de la instalación y configuración de las herramientas necesarias y del proyecto y, por último, de las pruebas realizadas.
 
 \section{Estructura de directorios}
 
@@ -64,18 +64,18 @@ En este directorio, se encuentran los prototipos hechos al inicio del proyecto. 
 
 \subsection{Documentación}
 
-En este directorio se incluyen los la memoria y los anexos hechos con Latex, asi como las imágenes para documentarlos.
+En este directorio se incluyen los la memoria y los anexos hechos con \LaTeX{}, así como las imágenes para documentarlos.
 
 \section{Manual del programador}
 
 \subsection{Instalación y configuración de GWT:}
 
 
-Para poder trabajar con GWT \footnote{\url{http://www.oracle.com/technetwork/java/javase/downloads/index.html}}, se debe descargar el SDK de GWT proporcionado en la página web oficial. Los requisitos previos para crear un aplicación web con \emph{Google Web Toolkit} son básicamente dos: tener instalada la SDK de Java en su versión 1.6 o cualquiera superior a esta y tener instalado también Apache Ant o en su defecto Apache Maven.
+Para poder trabajar con GWT \footnote{\url{http://www.oracle.com/technetwork/java/javase/downloads/index.html}}, se debe descargar el SDK de GWT proporcionado en la página web oficial. Los requisitos previos para crear un aplicación web con \emph{Google Web Toolkit} son básicamente dos: tener instalada la SDK de Java en su versión 1.6, o cualquiera superior a esta, y tener instalado también Apache Ant o en su defecto Apache Maven.
 
 En mi caso, como trabajo con la plataforma Eclipse (versión 4.4.) al descargar el plugin de Google para Eclipse, este viene con GWT y la \emph{App Engine SDK}, todo junto. Se puede descargar desde la siguiente dirección \footnote{\url{http://www.gwtproject.org/usingeclipse.html}}.
 
-Para instalar el plugin desde eclipse, solo tenemos que ir a <<\emph{help}>> y en el desplegable elegir la opción <<Instal new software>>. Aparecerá una ventana con un recuadro en el que pone <<work with>> y nos da la opción de escribir una dirección web. Para consultar las direcciones según la versión de Eclipse sólo tiene que visitar \url{https://developers.google.com/eclipse/docs/download}.
+Para instalar el plugin desde eclipse, solo tenemos que ir a <<\emph{help}>> y en el desplegable elegir la opción <<Install new software>>. Aparecerá una ventana con un recuadro en el que pone <<work with>> y nos da la opción de escribir una dirección web. Para consultar las direcciones según la versión de Eclipse sólo tiene que visitar \url{https://developers.google.com/eclipse/docs/download}.
 Aparecerá los elementos que se pueden instalar, y ahí elegimos el \emph{plugin} de Google. Debemos esperar a que se instale y ya solo hará falta reiniciar Eclipse.
 
 Como último paso, se debe referenciar la SDK de GWT y completar la instalación. Para habrá que ir a la opción <<window>> de la pantalla principal, hacer \emph{click} en preferencias y aparecerá una ventana con varias opciones. Buscamos la opción de Google y en \emph{web toolkit} y ahí añadir la referencia a la SDK con la dirección en la que se encuentra el archivo. Lo mismo hay que hacer para el \emph{App Engine} pero en este caso añadiendo la referencias al \emph{App Engine}.
@@ -98,13 +98,13 @@ Para hacerlo, GWT utiliza la técnica denominada por sus siglas en inglés RPC o
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.65\textwidth]{RPC}
-\caption{Arquitectura RPC simple. Fuente propia.}
+\caption{Arquitectura RPC simple.}
 \label{fig:5.1}
 \end{figure}
 
 Del lado del cliente tenemos, en este caso, una interfaz gráfica de usuario (GUI), una clase dedicada a hacer las llamadas RPC (ClienImpl), dos interfaces que definen los métodos (\emph{Service} y \emph{ServiceAsync}), una clase con los métodos en el lado del servidor (serviceImpl) y por último una interfaz, que no es esencialmente necesaria (ClientInterface). 
 
-En términos generales, para utilizar el \emph{parser} de la gramática, que es quizá la clave de todo, hay que llamar al servidor y establecer una comunicación. Es ahí donde utilizamos la clase <<GrmmarServiceClientImp>> que hace las llamadas a las interfaces necesarias hasta llegar al servidor. Esta clase es un nexo de unión entre la parte del núcleo, que ese encuentra en el servidor, y la parte del cliente, que contiene lo visual y las acciones de los botones entre otros. La comunicación queda representada en este diagrama\ref{fig:5.2}.
+En términos generales, para utilizar el \emph{parser} de la gramática, que es quizá la clave de todo, hay que llamar al servidor y establecer una comunicación. Es ahí donde utilizamos la clase <<GrmmarServiceClientImp>> que hace las llamadas a las interfaces necesarias hasta llegar al servidor. Esta clase es un nexo de unión entre la parte del núcleo, que ese encuentra en el servidor, y la parte del cliente, que contiene lo visual y las acciones de los botones entre otros. La comunicación queda representada en el diagrama \ref{fig:5.2}.
 
 \begin{figure}[h]
 \centering
@@ -113,7 +113,7 @@ En términos generales, para utilizar el \emph{parser} de la gramática, que es 
 \label{fig:5.2}
 \end{figure}
 
-Dentro de la clase <<GrammarServiceClientImp>> hay tres constructores según le pasemos una gramática, un texto, simplemente nada. El atributo url es simplemente la localización del \emph{servlet} que se utiliza para la comunicación RPC. Estos detalles se aprecian mejor en el diagrama de clases que muestra la siguiente imagen \ref{fig:5.3}.
+Dentro de la clase <<GrammarServiceClientImp>> hay tres constructores según le pasemos una gramática, un texto, simplemente ningún parámetro. El atributo url es simplemente la localización del \emph{servlet} que se utiliza para la comunicación RPC. Estos detalles se aprecian mejor en el diagrama de clases que muestra la imagen \ref{fig:5.3}.
 
 \begin{figure}
 \centering
@@ -126,7 +126,7 @@ Una vez hechos todos estos pasos, es posible que no funciona nada, es más, dar�
 
 \section{Compilación, instalación y ejecución del proyecto}
 
-Antes de empezar a hablar sobre compilación debemos contar con un proyecto en GWt, preferiblemente en Eclipse, habiendo instalado el \emph{pluguin} de Google, el SDK de \emph{App Engine} para Java y el SDK de GWT.
+Antes de empezar a hablar sobre compilación debemos contar con un proyecto en GWT, preferiblemente en Eclipse, habiendo instalado el \emph{plugin} de Google, el SDK de \emph{App Engine} para Java y el SDK de GWT.
 
 Hace unos años Google contaba con un \emph{plugin} para algunos navegadores (Chrome y Firefox, no confundir con el \emph{plugin} de Eclipse) con los que se podía ejecutar el proyecto. Pero Google paró el mantenimiento. Afortunadamente los desarrolladores de GWT crearon \emph{GWT Super-Dev Mode} que permite ejecutar cualquier proyecto realizado con esta herramienta.
 
@@ -144,8 +144,9 @@ De esta forma una vez que se haya ejecutado en eclipse, se mostrará una direcci
 
 Si tenemos una base de datos, para poder acceder a ella, hay que coger la raíz de la dirección local, en nuestro caso <<http://127.0.0.1:8888/>>, y añadirle <<\_ ah/admin>>. Desde ahí podemos ver las entidades que hay, y en cada una de ellas los datos almacenados.
 
+\subsection{Despliegue}
 
-Por otro lado podemos desplegar la aplicación en \emph{App Engine}. Seleccionamos el proyecto que queramos, y nos vamos al \emph{plugin} de Google donde hacemos click en <<Deploy App Engine>> como muestra la imagen\ref{fig:5.5}. A continuación debemos dar un nombre al proyecto y en <<App Engine project settings...>> especificamos el identificador. Para hacerlo, debemos crear una cuenta aquí\footnote{\url{https://console.cloud.google.com/appengine}} y crear un proyecto. Automáticamente se le asignara un ID y ese es el que debemos introducir\ref{fig:5.6}. 
+Por otro lado podemos desplegar la aplicación en \emph{App Engine}. Seleccionamos el proyecto que queramos, y nos vamos al \emph{plugin} de Google donde hacemos click en <<Deploy App Engine>> como muestra la imagen \ref{fig:5.5}. A continuación debemos dar un nombre al proyecto y en <<App Engine project settings...>> especificamos el identificador. Para hacerlo, debemos crear una cuenta aquí\footnote{\url{https://console.cloud.google.com/appengine}} y crear un proyecto. Automáticamente se le asignara un ID y ese es el que debemos introducir \ref{fig:5.6}. 
 \begin{figure}
 \centering
 \includegraphics[scale=0.6]{Desplegar}
