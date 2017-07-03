@@ -26,4 +26,4 @@ public interface GrammarServiceAsync {
 	 * @param callback 
 	 */
 	void checkContent(String grammar, AsyncCallback callback);
-}
+}//GrammarServiceAsync

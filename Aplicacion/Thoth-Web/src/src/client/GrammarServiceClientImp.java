@@ -4,6 +4,7 @@ import src.client.core.grammar.Grammar;
 import src.client.gui.mainGui;
 
 import com.google.gwt.core.shared.GWT;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.rpc.ServiceDefTarget;
 
@@ -21,7 +22,7 @@ import com.google.gwt.user.client.rpc.ServiceDefTarget;
 public class GrammarServiceClientImp {
 
 	/**
-	 * 
+	 * Servicio
 	 */
 	private GrammarServiceAsync service;
 
@@ -42,7 +43,7 @@ public class GrammarServiceClientImp {
 		endpoint.setServiceEntryPoint(url);
 
 		this.mainGUI = new mainGui(this);
-	}//GrammarServiceClientImp
+	}// GrammarServiceClientImp
 
 	/**
 	 * Contructor de GrammarService en el lado del cliente al que se le pasa
@@ -59,7 +60,7 @@ public class GrammarServiceClientImp {
 		endpoint.setServiceEntryPoint(url);
 
 		this.mainGUI = new mainGui(this, grammar);
-	}//GrammarServiceClientImp
+	}// GrammarServiceClientImp
 
 	/**
 	 * Contructor de GrammarService en el lado del cliente al que se le pasa
@@ -76,29 +77,32 @@ public class GrammarServiceClientImp {
 		endpoint.setServiceEntryPoint(url);
 
 		this.mainGUI = new mainGui(this, grammarText);
-	}//GrammarServiceClientImp
+	}// GrammarServiceClientImp
 
 	/**
 	 * Función de ayuda que llama a la clase mainGui.
 	 * 
 	 * @return intancia de la clase.
 	 */
-	public mainGui getManGUI(){
+	public mainGui getManGUI() {
 		return this.mainGUI;
 	}
-	
+
 	/**
 	 * Checkeo del contenido en el textArea de mainGui realiza la peticion al
 	 * servidor.
 	 * 
-	 * @param grammar gramatica a checkear.
+	 * @param grammar
+	 *            gramatica a checkear.
 	 */
 	public void checkContent(String grammar) {
 		this.service.checkContent(grammar, new AsyncCallback<Object>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
-				System.out.println("Ha ocurrido un error");
+
+				if (caught instanceof Exception)
+					Window.alert("Eroooorororororor!");
 
 			}
 
@@ -109,11 +113,9 @@ public class GrammarServiceClientImp {
 					mainGUI.updateLabel(grammar);
 				}
 
-				if (result instanceof Exception) {
-					System.out.println("Ha ocurrido un error");
-				}
 			}
 
 		});
-	}//checkContent
-}//GrammarServiceClientImp
+	}// checkContent
+
+}// GrammarServiceClientImp

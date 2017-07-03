@@ -20,9 +20,20 @@ import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.RootLayoutPanel;
 
 /**
+ * <b>Descripción</b><br>
+ * Clase principal del login y registro.
+ * <p>
+ * <b>Detalles</b><br>
+ * Muestra una vista en la que se puede hacer inicio de sesión o registrarse. Se
+ * controla si el usuario tiene o no una sesión activa.<br>
+ * </p>
+ * <p>
+ * <b>Funcionalidad</b><br>
+ * Checkeo de la gramática y renombrado de nodos y funciones del menú.
+ * </p>
  * 
- * @author User
- *
+ * @author Francisco Javier Páramo Arnaiz.
+ * @version 1.0
  */
 public class Login implements EntryPoint {
 
@@ -42,7 +53,7 @@ public class Login implements EntryPoint {
 		} else {
 			checkSession(sessionID);
 		}
-	}//onModuleLoad
+	}// onModuleLoad
 
 	/**
 	 * Comprobar si la sesión del usuario esta activa o no.
@@ -68,7 +79,7 @@ public class Login implements EntryPoint {
 				}
 			}
 		});
-	}//checkSession
+	}// checkSession
 
 	/**
 	 * Muestra los alementos del login y del registro. Incluye los botones.
@@ -110,7 +121,7 @@ public class Login implements EntryPoint {
 		// Por defecto login
 		RootLayoutPanel.get().clear();
 		RootLayoutPanel.get().add(mViewLog);
-	}//showLogin
+	}// showLogin
 
 	// Al pulsar el boton se hace la autenticacion
 	class SubmitHandler implements ClickHandler, KeyUpHandler {
@@ -123,7 +134,7 @@ public class Login implements EntryPoint {
 				registrate();
 			}
 		}
-	}//SubmitHandler
+	}// SubmitHandler
 
 	// Al pulsar el boton se hace la autenticacion
 	class LoginHandler implements ClickHandler, KeyUpHandler {
@@ -136,7 +147,7 @@ public class Login implements EntryPoint {
 				authenticate();
 			}
 		}
-	}//LoginHandler
+	}// LoginHandler
 
 	/**
 	 * Autentificación. Comunica con el servidor.
@@ -145,7 +156,7 @@ public class Login implements EntryPoint {
 		disableHandler();
 		regService.authenticate(mViewLog.getEmailValue(),
 				mViewLog.getPasswordValue(), new AsyncCallback<UserDto>() {
-					//En caso de fallo, mensaje de error.
+					// En caso de fallo, mensaje de error.
 					public void onFailure(Throwable caught) {
 						mViewLog.getMessage()
 								.setWidget(
@@ -153,7 +164,8 @@ public class Login implements EntryPoint {
 												"Authentication failed. Please try again."));
 						enableHandler();
 					}
-					//En caso de exito, vista de gramática.
+
+					// En caso de exito, vista de gramática.
 					public void onSuccess(UserDto user) {
 						if (user != null) {
 							Window.Location.assign("/gramaticacs/");
@@ -162,8 +174,8 @@ public class Login implements EntryPoint {
 						enableHandler();
 					}
 				});
-	}//authenticate
-	
+	}// authenticate
+
 	/**
 	 * Registro del usuario, se comunica con el servidor.
 	 */
@@ -172,7 +184,7 @@ public class Login implements EntryPoint {
 		disableHandler();
 		regService.register(mViewReg.getNameValue(), mViewReg.getEmailValue(),
 				mViewReg.getPasswordValue(), new AsyncCallback<UserDto>() {
-					//Fallo, mensaje de error.
+					// Fallo, mensaje de error.
 					public void onFailure(Throwable caught) {
 						mViewReg.getMessage()
 								.setWidget(
@@ -180,23 +192,24 @@ public class Login implements EntryPoint {
 												"Authentication failed. Please try again."));
 						enableHandler();
 					}
-					//Exito
+
+					// Exito
 					public void onSuccess(UserDto user) {
-						//Comprueba que el registro sea correcto.
+						// Comprueba que el registro sea correcto.
 						if (user == null) {
 							// pantalla de login
 							mViewReg.getMessage().setWidget(
 									new HTML("Wrong field"));
 							enableHandler();
 						} else {
-							//Exito en el registro
+							// Exito en el registro
 							mViewReg.getMessage().setWidget(
 									new HTML("Registration Success."));
 							enableHandler();
 						}
 					}
 				});
-	}//registrate
+	}// registrate
 
 	/**
 	 * Desactivar los botones.
@@ -214,7 +227,7 @@ public class Login implements EntryPoint {
 		mViewLog.getPasswordBox().setEnabled(false);
 		mViewReg.getLoginLink().setEnabled(false);
 		mViewLog.getRegisterLink().setEnabled(false);
-	}//disableHandler
+	}// disableHandler
 
 	/**
 	 * Habilitar botones
@@ -232,5 +245,5 @@ public class Login implements EntryPoint {
 		mViewLog.getEmailBox().setEnabled(true);
 		mViewLog.getPasswordBox().setEnabled(true);
 		mViewLog.getRegisterLink().setEnabled(true);
-	}//enableHandler
-}//Login
+	}// enableHandler
+}// Login

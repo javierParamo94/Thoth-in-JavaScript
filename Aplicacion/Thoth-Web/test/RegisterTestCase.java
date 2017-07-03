@@ -9,7 +9,7 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
 
-public class Login {
+public class RegisterTestCase {
   private WebDriver driver;
   private String baseUrl;
   private boolean acceptNextAlert = true;
@@ -18,32 +18,28 @@ public class Login {
   @Before
   public void setUp() throws Exception {
     driver = new FirefoxDriver();
-    baseUrl = "http://127.0.0.1:8888/";
+    baseUrl = "https://1-dot-thoth-web-171921.appspot.com/";
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
   }
 
   @Test
-  public void testLogin() throws Exception {
-    driver.get(baseUrl + "/GramaticaCS.html");
-    for (int second = 0;; second++) {
-    	if (second >= 60) fail("timeout");
-    	try { if ("Email Password Login Register".equals(driver.findElement(By.xpath("//div[2]/div")).getText())) break; } catch (Exception e) {}
-    	Thread.sleep(1000);
-    }
-
+  public void testRegisterTestCase() throws Exception {
+    driver.get(baseUrl + "/");
+    driver.findElement(By.linkText("Register")).click();
     driver.findElement(By.cssSelector("input.gwt-TextBox")).clear();
-    driver.findElement(By.cssSelector("input.gwt-TextBox")).sendKeys("admin@ubu.es");
+    driver.findElement(By.cssSelector("input.gwt-TextBox")).sendKeys("javier paramo");
+    driver.findElement(By.xpath("(//input[@type='text'])[2]")).clear();
+    driver.findElement(By.xpath("(//input[@type='text'])[2]")).sendKeys("javier@ubu.es");
     driver.findElement(By.cssSelector("input.gwt-PasswordTextBox")).clear();
-    driver.findElement(By.cssSelector("input.gwt-PasswordTextBox")).sendKeys("admin");
+    driver.findElement(By.cssSelector("input.gwt-PasswordTextBox")).sendKeys("javier");
     driver.findElement(By.cssSelector("button.gwt-Button")).click();
     for (int second = 0;; second++) {
     	if (second >= 60) fail("timeout");
-    	try { if ("".equals(driver.findElement(By.cssSelector("textarea.gwt-TextArea")).getText())) break; } catch (Exception e) {}
+    	try { if ("Registration Success.".equals(driver.findElement(By.cssSelector("div.gwt-HTML")).getText())) break; } catch (Exception e) {}
     	Thread.sleep(1000);
     }
 
-    assertEquals("Admin", driver.findElement(By.cssSelector("div.gwt-HTML")).getText());
-    driver.findElement(By.id("gwt-uid-24")).click();
+    assertEquals("Registration Success.", driver.findElement(By.cssSelector("div.gwt-HTML")).getText());
   }
 
   @After

@@ -35,6 +35,5 @@ public class main implements EntryPoint {
 				GWT.getModuleBaseURL() + "grammarservice");
 		RootPanel.get().add(clientImp.getManGUI());
 
-	}
-
-}
+	}//onModuleLoad
+}//main

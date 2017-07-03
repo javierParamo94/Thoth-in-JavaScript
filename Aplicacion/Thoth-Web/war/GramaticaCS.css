@@ -1,5 +1,10 @@
 /** Estilos del módulo GramaticaCS */
 /** Author Francisco Javier Páramo Arnaiz */
+.body2 {
+	text-align: center !important;
+	font-family: verdana, sans-serif;
+}
+
 h1 {
 	font-size: 2em;
 	font-weight: bold;
@@ -8,9 +13,11 @@ h1 {
 	text-align: center;
 }
 
+
 input[type=text] {
 	background-color: #d8ecf3;
 	width: 320;
+	height: 40;
 	padding: 10px 50px;
 	margin: 0.2px 0;
 	display: inline-block;
@@ -39,19 +46,15 @@ input[type=text] {
 	margin: 0.5em;
 }
 
-
 .gwt-MenuBar .gwt-MenuItem {
 	cursor: default;
-	font-family: fantasy;
-	font-size: 14px;
+	font-size: 16px;
 	color: gray;
-	
-		padding: 5px 10px;
+	padding: 5px 10px;
 	vertical-align: bottom;
 	color: #000;
 	font-weight: bold;
 }
-
 
 .gwt-MenuBar-horizontal .gwt-MenuItemSeparator {
 	width: 1px;
@@ -62,7 +65,6 @@ input[type=text] {
 	background: white;
 }
 
-
 .sendButton {
 	display: block;
 	font-size: 16pt;
@@ -70,14 +72,14 @@ input[type=text] {
 
 /* stock list flex table */
 .header {
-	font: 300;
 	background-color: #2062B8;
+	font-weight: bold;
 	color: white;
-	margin: 10px;
+	margin: 5px;
 	text-align: center;
 	min-width: 60px;
 	min-height: 10px;
-	max-height: 10px;
+	max-height: 20px;
 }
 
 /* Estilo de las celdas de la flextable*/
@@ -100,15 +102,14 @@ input[type=text] {
 	margin: 5px;
 }
 
-
 .gwt-TextArea {
 	font-weight: bold;
 }
 
 /* Estilo del dockpanel con una separacion de 3px */
 .dockpanel td {
+	font-size: smaller;
 	padding: 3px;
-	/*background-color: #dfefff;*/
 }
 
 .gwt-Big-Text {

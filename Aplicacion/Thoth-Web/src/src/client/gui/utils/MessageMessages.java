@@ -26,6 +26,9 @@ public interface MessageMessages extends Constants {
 
 	@DefaultStringValue("Aceptar")
 	String accept();
+	
+	@DefaultStringValue("Autor: ")
+	String author();
 
 	@DefaultStringValue("La gramática no tiene producciones unitarias o no generativas.")
 	String allpng();
@@ -254,7 +257,7 @@ public interface MessageMessages extends Constants {
 	@DefaultStringValue("Palabra RECONOCIDA.")
 	String recognizedword();
 
-	@DefaultStringValue("Los cambios no se aplicarán hasta que no reinicie el programa.")
+	@DefaultStringValue("Los cambios no se aplicarán hasta que refresque la página.")
 	String restartchanges();
 
 	@DefaultStringValue("Regular")
@@ -287,6 +290,10 @@ public interface MessageMessages extends Constants {
 
 	@DefaultStringValue("Tope")
 	String top();
+	
+	@DefaultStringValue("Tutores: ")
+	String tutors();
+	
 
 	@DefaultStringValue("Producción a transformar:")
 	String transprod();
@@ -298,6 +305,9 @@ public interface MessageMessages extends Constants {
 	@DefaultStringValue("¿Desea continuar?")
 	String ucontinue();
 
+	@DefaultStringValue("Usuario:")
+	String user();
+	
 	@DefaultStringValue("Símbolos unitarios:")
 	String unisymbols();
 

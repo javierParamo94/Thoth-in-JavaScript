@@ -5,6 +5,7 @@ import src.client.core.grammar.Grammar;
 import src.client.core.grammar.TypeHandler;
 import src.client.gui.mediator.MediatorClear;
 import src.client.gui.mediator.MediatorRecursive;
+import src.client.gui.utils.AboutDialog;
 import src.client.gui.utils.CommandLang;
 import src.client.gui.utils.MessageMessages;
 import src.client.gui.utils.RenameSymbolDialog;
@@ -133,7 +134,7 @@ public class mainGui extends Composite {
 	/**
 	 * Texto inicial del TextArea
 	 */
-	public static String INITIAL_TEXT = "% start \n%%\n\n\n\n%%\n";
+	public static String INITIAL_TEXT = "% start --Axioma \n%%\n\n--Producciones\n\n%%\n";
 
 	// Methods
 	// -----------------------------------------------------------------------
@@ -284,17 +285,19 @@ public class mainGui extends Composite {
 		public void onClick(ClickEvent event) {
 			String textcheck = grammarArea.getText();
 			serviceImp.checkContent(textcheck);
-			
-			regService.grammarReg(grammarArea.getText(), new AsyncCallback<Object>() {
-				//Fallo, mensaje de error.
-				public void onFailure(Throwable caught) {
 
-				}
-				//Exito
-				public void onSuccess(Object user) {
+			regService.grammarReg(grammarArea.getText(),
+					new AsyncCallback<Object>() {
+						// Fallo, mensaje de error.
+						public void onFailure(Throwable caught) {
 
-				}
-			});
+						}
+
+						// Éxito
+						public void onSuccess(Object user) {
+							;
+						}
+					});
 		}
 	}// BtnCheckHandler
 
@@ -312,6 +315,8 @@ public class mainGui extends Composite {
 			new RenameSymbolDialog(mVisual, mGrammar).show();
 		}
 	}// BtnRenameHandler
+
+	public int var = 0;
 
 	/**
 	 * Actualiza la gramática asociada al panel.<br>
@@ -355,23 +360,10 @@ public class mainGui extends Composite {
 	 */
 	private void buildMenuBar() {
 
-		Command cmd = new Command() {
-			public void execute() {
-				Window.alert("You selected a menu item!");
-
-			}
-		};
-
-		Command download = new Command() {
-			public void execute() {
-				Window.open("http://127.0.0.1:8888/file.rar", "_self",
-						"enabled");
-			}
-		};
-
+		// Info del proyecto
 		Command about = new Command() {
 			public void execute() {
-				Window.Location.replace("http://thoth-project.herokuapp.com/");
+				new AboutDialog();
 			}
 		};
 
@@ -386,9 +378,9 @@ public class mainGui extends Composite {
 			public void execute() {
 				serviceImp.checkContent(grammarArea.getText());
 				if (mGrammar.getType() == TypeHandler.CHOMSKY
-						|| mGrammar.getType() == TypeHandler.DEPENDENT)
+						|| mGrammar.getType() == TypeHandler.DEPENDENT) {
 					ShowDialog.incorrectTypeGrammar();
-				else {
+				} else {
 
 					openSNT();
 				}
@@ -640,12 +632,11 @@ public class mainGui extends Composite {
 		MenuBar helpMenu = new MenuBar(true);
 		helpMenu.addItem(mMsg.about(), about);
 
-		menu.addItem(mMsg.help(), helpMenu);
-		menu.addSeparator();
 		menu.addItem(mMsg.algorithms(), algorithmMenu);
 		menu.addSeparator();
 		menu.addItem(mMsg.language(), selectIdiom);
-
+		menu.addSeparator();
+		menu.addItem(mMsg.help(), helpMenu);
 
 		// salida de sessión con nombre del usuario
 		getUserName();
@@ -690,7 +681,7 @@ public class mainGui extends Composite {
 		logoutMenu.addItem("Logout", logoutFunction);
 
 		menu.addSeparator();
-		menu.addItem(name, logoutMenu);
+		menu.addItem(mMsg.user() + " " + name, logoutMenu);
 	}// writeUserName
 
 	/**
@@ -716,6 +707,7 @@ public class mainGui extends Composite {
 
 	// Elimina Símbolos no Terminales
 	public void openSNT() {
+		// checkOnAlgortihm();
 		editorGrammarPanel.clear();
 		barMenuPanel.clear();
 		new VisualSNT(mGrammar);
